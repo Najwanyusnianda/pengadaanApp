@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="csrf-token" content="{{ csrf_token() }}"> 
         <meta name="description" content="">
         <meta name="author" content="">
     
@@ -14,91 +15,74 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     
         <!-- Custom styles for this template-->
-        <link href="{{asset('assets\sbadmin\css\sb-admin-2.min.css')}}" rel="stylesheet">
+        <link rel="stylesheet" href="{{asset('assets/adminlte/adminlte.css')}}">
+        <!--<link href="{{asset('assets\sbadmin\css\sb-admin-2.min.css')}}" rel="stylesheet">-->
         
         @yield('addStyle')
     </head>
   
-  <body id="page-top">
-  
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-  
-      <!-- Sidebar -->
-      @include('Admin.inc_sidebar')
-      <!-- End of Sidebar -->
-  
-      <!-- Content Wrapper -->
-      <div id="content-wrapper" class="d-flex flex-column">
-  
-        <!-- Main Content -->
-        <div id="content">
-  
-          <!-- Topbar -->
-            @include('Admin.inc_topbar')
-          <!-- End of Topbar -->
-  
-          <!-- Begin Page Content -->
-          <div class="container-fluid">
-  
-            <!-- Page Heading -->
-            <div class="headerContent">
-                <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
-                @yield('konten_head') 
-            </div>
-            
-
-            <div class="mainContent">
-                @yield('konten')
-            </div>
-  
-          </div>
-          <!-- /.container-fluid -->
-
+    <body class="sidebar-mini" style="height: auto;">
+      <div class="wrapper">
       
-  
-        </div>
-        <!-- End of Main Content -->
-  
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Your Website 2019</span>
-            </div>
+        <!-- Navbar -->
+        @include('Admin.inc_topbar')
+        <!-- /.navbar -->
+      
+        <!-- Main Sidebar Container -->
+       @include('Admin.inc_sidebar')
+      
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper" style="min-height: 600px;">
+          <!-- Content Header (Page header) -->
+          <div class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1 class="m-0 text-dark">Starter Page</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                  <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Starter Page</li>
+                  </ol>
+                </div><!-- /.col -->
+              </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
           </div>
+          <!-- /.content-header -->
+      
+          <!-- Main content -->
+          <div class="content">
+            @yield('konten')
+          </div>
+          <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+      
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark" style="top: 57px;">
+          <!-- Control sidebar content goes here -->
+          <div class="p-3">
+            <h5>Title</h5>
+            <p>Sidebar content</p>
+          </div>
+        </aside>
+        <!-- /.control-sidebar -->
+      
+        <!-- Main Footer -->
+        <footer class="main-footer">
+          <!-- To the right -->
+          <div class="float-right d-none d-sm-inline">
+            Anything you want
+          </div>
+          <!-- Default to the left -->
+          <strong>Copyright © 2014-2018 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
         </footer>
-        <!-- End of Footer -->
-  
       </div>
-      <!-- End of Content Wrapper -->
-  
-    </div>
-    <!-- End of Page Wrapper -->
-  
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
-  
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
-          </div>
-        </div>
-      </div>
-    </div>
+      <!-- ./wrapper -->
+      
+      <!-- REQUIRED SCRIPTS -->
+ 
   
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('assets/bootstrap/jquery-3.3.1.min.js')}}"></script>
@@ -109,7 +93,8 @@
     
   
     <!-- Custom scripts for all pages-->
-    <script src="{{asset('assets/sbadmin/js/sb-admin-2.min.js')}}"></script>
+    <script src="{{asset('assets/adminlte/adminlte.js')}}"></script>
+    <!--<script src="{{asset('assets/sbadmin/js/sb-admin-2.min.js')}}"></script>-->
 
     @yield('addScript')
   

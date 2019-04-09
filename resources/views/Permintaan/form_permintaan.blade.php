@@ -2,47 +2,51 @@
 
 @section('konten')
     <div class="container col-md-8">
+            @if(Session::has('success'))
+            <div class="alert alert-success">{{session('success')}}</div>
+            @endif
         <div class="card ">
             <div class="card-header py-3" style="">
                     <h6 class="m-0 font-weight-bold text-primary">Form Permintaan</h6>
             </div>
             <div class="card-body">
-                        <form action="" class="m-3">
+            <form action="{{route('permintaan.add')}}" method="POST" class="m-3">
+                {{csrf_field()}}
                             <div class="form-group">
                                 <label for="email">Judul:</label>
-                                <input type="text" class="form-control" id="email">
+                                <input type="text" class="form-control" id="judul_permintaan" name="judul_permintaan">
                             </div>
                             <div class="form-group">
                                 <label for="email">Nomor Form:</label>
-                                <input type="text" class="form-control" id="email">
+                                <input type="text" class="form-control" id="nomor_form_permintaan" name="nomor_form_permintaan">
                             </div>
                             <div class="form-group" >
                                 <label for="pwd">Kode Kegiatan:</label>
-                                <input type="text" class="form-control col-6" id="pwd">
+                                <input type="text" class="form-control col-6" id="kode_kegiatan" name="kode_kegiatan">
                             </div>
                             <div class="form-group" >
                                 <label for="pwd">Output:</label>
-                                <input type="text" class="form-control" id="pwd">
+                                <input type="text" class="form-control" id="output" name="output">
                             </div>
                             <div class="form-group" >
                                 <label for="pwd">Komponen:</label>
-                                <input type="text" class="form-control" id="pwd">
+                                <input type="text" class="form-control" id="komponen" name="komponen">
                             </div>
                             <div class="form-group" >
                                 <label for="pwd">Sub Komponen:</label>
-                                <input type="text" class="form-control" id="pwd">
+                                <input type="text" class="form-control" id="sub_komponen" name="sub_komponen">
                             </div>
                             <div class="form-group" >
                                 <label for="pwd">Grup Akun:</label>
-                                <input type="text" class="form-control" id="pwd">
+                                <input type="text" class="form-control" id="grup_akun" name="grup_akun">
                             </div>
                             <div class="form-group" >
                                 <label for="pwd">Nilai (Rp):</label>
-                                <input type="number" class="form-control" id="pwd">
+                                <input type="number" class="form-control" id="nilai_anggaran" name="nilai_anggaran">
                             </div>
                             <div class="form-group" >
                                     <label for="pwd">Tanggal Buat Form:</label>
-                                    <input type="date" class="form-control col-6" id="pwd">
+                                    <input type="date" class="form-control col-6" id="date_buat_form" name="date_buat_form">
                             </div>
                             <div class="form-group ">
                                     <label for="exampleInputEmail1">Tanggal Pelaksanaan: </label>
@@ -63,12 +67,6 @@
                                     <small id="emailHelp" class="form-text text-muted"> </small>
                             </div>
     
-    
-    
-    
-    
-                           
-
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </form>
             </div>

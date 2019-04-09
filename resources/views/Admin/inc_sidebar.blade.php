@@ -1,136 +1,95 @@
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-  
-        <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-          <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-          </div>
-          <div class="sidebar-brand-text mx-3">Pengadaan App <sup></sup></div>
-        </a>
-  
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-  
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-        </li>
-  
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-  
-        <!-- Heading -->
-        <div class="sidebar-heading">
-          Interface
-        </div>
-  
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePermintaan" aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Permintaan</span>
-          </a>
-          <div id="collapsePermintaan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="{{route('permintaan.list')}}">List Permintaan</a>
-            <a class="collapse-item" href="{{route('permintaan.form')}}">Tambah Permintaan</a>
-            </div>
-          </div>
-        </li>
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 600px;">
+  <!-- Brand Logo -->
+  <a href="index3.html" class="brand-link">
+    <img src="{{asset('img/brand.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <span class="brand-text font-weight-light">AdminLTE 3</span>
+  </a>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePaket" aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-cog"></i>
-                <span>Paket</span>
-            </a>
-            <div id="collapsePaket" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="#">Daftar Paket</a>
-                <a class="collapse-item" href="#"></a>
-                </div>
-            </div>
-        </li>
-      
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="{{asset('img/user.png')}}" class="img-circle elevation-2" alt="User Image">
+      </div>
+      <div class="info">
+        <a href="#" class="d-block">Alexander Pierce</a>
+      </div>
+    </div>
 
-       
-  
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
-          </a>
-          <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Custom Utilities:</h6>
-              <a class="collapse-item" href="utilities-color.html">Colors</a>
-              <a class="collapse-item" href="utilities-border.html">Borders</a>
-              <a class="collapse-item" href="utilities-animation.html">Animations</a>
-              <a class="collapse-item" href="utilities-other.html">Other</a>
-            </div>
-          </div>
-        </li>
-  
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-  
-        <!-- Heading -->
-        <div class="sidebar-heading">
-          Addons
-        </div>
-  
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item active">
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
-          </a>
-          <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar" style="">
-            <div class="bg-white py-2 collapse-inner rounded">
-              <h6 class="collapse-header">Login Screens:</h6>
-              <a class="collapse-item" href="login.html">Login</a>
-              <a class="collapse-item" href="register.html">Register</a>
-              <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-              <div class="collapse-divider"></div>
-              <h6 class="collapse-header">Other Pages:</h6>
-              <a class="collapse-item" href="404.html">404 Page</a>
-              <a class="collapse-item active" href="blank.html">Blank Page</a>
-            </div>
-          </div>
-        </li>
-  
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-          <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-        </li>
-  
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-          <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
-        </li>
-  
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
-  
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-  
-    </ul>
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
+             <li class="nav-item has-treeview ">
+              <a href="#" class="nav-link ">
+                
+                  <i class="nav-icon fas fa-file-alt"></i>
+                <p>
+                  Permintaan
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+           
+                  <li class="nav-item">
+                  <a href="{{route('permintaan.form')}}" class="nav-link ">
+                        <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                        <p>Entri Baru</p>
+                      </a>
+                  </li>  
+             
+              
+                <li class="nav-item">
+                <a href="{{route('permintaan.list')}}" class="nav-link ">
+                    <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                    <p>Daftar Permintaan</p>
+                  </a>
+                </li>
 
-<style type="text/css">
-
-ul{
-    color: #4e73df;
-}
-
-</style>
+              </ul>        
+            </li>
+            <li class="nav-item has-treeview ">
+                <a href="#" class="nav-link ">
+                  
+                    <i class="nav-icon fas fa-file-alt"></i>
+                  <p>
+                    Disposisi
+                    <i class="right fa fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+             
+                    <li class="nav-item">
+                    <a href="{{route('disposisi.list')}}" class="nav-link ">
+                          <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                          <p>Daftar Disposisis</p>
+                        </a>
+                    </li>  
+               
+                
+                  <li class="nav-item">
+                  <a href="{{route('permintaan.list')}}" class="nav-link ">
+                      <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                      <p>Daftar Permintaan</p>
+                    </a>
+                  </li>
+  
+                </ul>        
+              </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-th"></i>
+                <p>
+                  Log Out
+                  <span class="right badge badge-danger">New</span>
+                </p>
+              </a>
+            </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

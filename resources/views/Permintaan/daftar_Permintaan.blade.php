@@ -11,13 +11,13 @@
                     
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#activity" data-toggle="tab">Disposisi
+                    <a class="nav-link" href="#activity" data-toggle="tab">Dikerjakan
                             <span class="right badge badge-danger"> 10</span>
                     </a>
                    
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#activity" data-toggle="tab">dikerjakan
+                    <a class="nav-link" href="#activity" data-toggle="tab">Selesai
                             <span class="right badge badge-danger"> 10</span>
                     </a>
                 </li>
@@ -32,10 +32,11 @@
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
         </div>
-        <div class="card-body">
+        @if (count($permintaan)>0)
+        <div class="card-body" style="font-size:12px">
                 <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                     <thead>
-                        <tr role="row">
+                        <tr role="row" >
                             <th>No</th>
                             <th>Judul</th>
                             <th>Subject Matter</th>
@@ -45,25 +46,51 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody> 
-                        <tr role="row" class="odd">
-                          <td>1</td>
-                          <td>Fullboard Pembinaan Change Agent Network</td>
-                          <td>Bagian Transformasi Statistik</td>
-                          <td></td>
-                          <td>A</td>
-                        </tr>
+                    <tbody style="color:black"> 
+                        @foreach ($permintaan as $data)
+                            <tr role="row" class="odd">
+                                <td>1</td>
+                                <td>{{$data->judul}}</td>
+                                <td>{{$data->nama_bagian}}</td>
+                                <td>{{$data->kode_kegiatan}}</td>
+                                <td>{{$data->nilai}}</td>
+                                <td>
+                                    <span class="badge badge-danger">{{$data->disposisi_status}}</span>
+                               <!-- <span class="badge badge-success">Success</span>
+                                <span class="badge badge-danger">Danger</span>
+                                <span class="badge badge-warning">Warning</span>-->
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-info btn-xs ">
+                                        Detail
+                                    </a>
+                                </td> 
+                            </tr>                             
+                        @endforeach
+                                                 
+                                          
                     </tbody>
-                        <tfoot>
-                        <tr>
-                            <th rowspan="1" colspan="1">Rendering engine</th>
-                            <th rowspan="1" colspan="1">Browser</th>
-                            <th rowspan="1" colspan="1">Platform(s)</th>
-                            <th rowspan="1" colspan="1">Engine version</th>
-                            <th rowspan="1" colspan="1">CSS grade</th>
-                        </tr>
-                        </tfoot>
+                    <tfoot>
+                     
+                    </tfoot>
                 </table>
         </div>
+        @else
+            <p>tidak ada permintaan</p>
+        @endif
+        
     </div>
+@endsection
+
+@section('addStyle')
+    <style>
+        .btn-xs{
+        
+        font-size: 14px;    
+        padding-top: 1px;
+        padding-bottom: 1px;
+        border-radius: 0%;
+    }
+    </style>
+    
 @endsection

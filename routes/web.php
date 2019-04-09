@@ -26,5 +26,16 @@ Route::get('/editor', function () {
 
 Route::get('/permintaan','PermintaanController@index')->name('permintaan.list');
 Route::get('/permintaan/form','PermintaanController@create')->name('permintaan.form');
+Route::get('/permintaan/detail','PermintaanController@detail')->name('permintaan.detail');
+
+Route::post('/permintaan/add','PermintaanController@save')->name('permintaan.add');
 
 #-------------------------------
+//Disposisi
+Route::get('/disposisi','DisposisiController@daftar')->name('disposisi.list');
+
+#-------------------------------
+//Handling doc
+Route::get('generate-docx', 'DokumenController@generateDocx');
+
+
