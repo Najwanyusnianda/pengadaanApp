@@ -1,0 +1,79 @@
+[
+  {
+    "nama": "Nanang Triono Basuki S.H.",
+    "nip": "19631117 199403 1 001",
+    "jabatan": "Pejabat Pembuat Komitmen Program/Kegiatan Peningkatan Sarana dan Prasarana Aparatur BPS",
+    "kode_ppk": "PSPA",
+    "kode_program": "054.01.02"
+  },
+  {
+    "nama": "Drs. Rachmat Sutedjo",
+    "nip": "19680417 199303 1 002",
+    "jabatan": "Pejabat Pembuat Komitmen Program/Kegiatan Dukungan Manajemen dan Pelaksanaan Tugas Teknis Lainnya BPS",
+    "kode_ppk": "DMPT2L",
+    "kode_program": "054.01.01"
+  },
+  {
+    "nama": "Ferry Wibawanto, SE, M.A",
+    "nip": "19641212 198901 1 001",
+    "jabatan": "Pejabat Pembuat Komitmen Program/Kegiatan Pengawasan dan Peningkatan Akuntabilitas Aparatur BPS",
+    "kode_ppk": "PPAA",
+    "kode_program": "054.01.03"
+  },
+  {
+    "nama": "Ir. Rita Setiawati, M.M",
+    "nip": "19631005 198601 2 001",
+    "jabatan": "Pejabat Pembuat Komitmen Program/Kegiatan Penyediaan dan Pelayanan Informasi Statistik untuk Kode Kegiatan 2904, 2909 dan 2910",
+    "kode_ppk": "PPIS PROD",
+    "kode_program": "054.01.06"
+  },
+  {
+    "nama": "Ulah Triwibowo, S.Si, M.Si",
+    "nip": "19700422 199211 1 001",
+    "jabatan": "Pejabat Pembuat Komitmen Program/Kegiatan Penyediaan dan Pelayanan Informasi Statistik untuk Kode Kegiatan 2897, 2900, dan 2901",
+    "kode_ppk": "PPIS I MIS",
+    "kode_program": "054.01.06"
+  },
+  {
+    "nama": "Rifa Rufiadi SKM, M.Si.",
+    "nip": "19641001 198702 1 001",
+    "jabatan": "Pejabat Pembuat Komitmen Program/Kegiatan Penyediaan dan Pelayanan Informasi Statistik untuk Kode Kegiatan 2902, 2903, dan 2908",
+    "kode_ppk": "PPIS I DIST",
+    "kode_program": "054.01.06"
+  },
+  {
+    "nama": "N. Iriana , S.Si, M.Si",
+    "nip": "19660630 198901 2 001",
+    "jabatan": "Pejabat Pembuat Komitmen Program/Kegiatan Penyediaan dan Pelayanan Informasi Statistik untuk Kode Kegiatan 2905, 2906, dan 2907",
+    "kode_ppk": "PPIS II",
+    "kode_program": "054.01.06"
+  },
+  {
+    "nama": "Mufti Swaghara MBA",
+    "nip": "19650317 198702 1 003",
+    "jabatan": "Pejabat Pembuat Komitmen Program/Kegiatan Penyediaan dan Pelayanan Informasi Statistik untuk Kode Kegiatan 2896, 2898, dan 2899",
+    "kode_ppk": "PPIS III",
+    "kode_program": "054.01.06"
+  },
+  {
+    "nama": "Achmad Fadly, SE",
+    "nip": "19851128 200604 1 002",
+    "jabatan": "Bendahara Pengeluaran",
+    "kode_ppk": "",
+    "kode_program": ""
+  },
+  {
+    "nama": "Puji Lestari",
+    "nip": "19861207 200801 2 001",
+    "jabatan": "Bendahara Penerimaan",
+    "kode_ppk": "",
+    "kode_program": ""
+  },
+  {
+    "nama": "Drs. Rijo Handoko",
+    "nip": "19650710 199403 1 004",
+    "jabatan": "Penandatangan: 1. SPM, 2. SP2HL, 3. SP4HL",
+    "kode_ppk": "",
+    "kode_program": ""
+  }
+]

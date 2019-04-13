@@ -1,0 +1,68 @@
+[
+  {
+    "nama": "Rerta Mastiani, S.Si, M.Si",
+    "nip": "19651019 198901 2 001",
+    "jabatan": "Pejabat Pemeriksa/Penerima Hasil Pekerjaan Pengadaan Selain Pengiriman, Sarana Prasarana, ATK dan Komputer Supplies untuk Kegiatan Deputi Bidang Neraca dan Analisis Statistik",
+    "kode_pphp": "NAS"
+  },
+  {
+    "nama": "Wahyunindarsih S.Si, MM",
+    "nip": "19720601 199512 2 001",
+    "jabatan": "Pejabat Pemeriksa/Penerima Hasil Pekerjaan Pengadaan Selain Pengiriman, Sarana Prasarana, ATK dan Komputer Supplies untuk Kegiatan Deputi Bidang Statistik Produksi",
+    "kode_pphp": "PRO"
+  },
+  {
+    "nama": "Krido Saptono, S.Si., M.Si",
+    "nip": "19730905 199512 1 001",
+    "jabatan": "Pejabat Pemeriksa/Penerima Hasil Pekerjaan Pengadaan Selain Pengiriman, Sarana Prasarana, ATK dan Komputer Supplies untuk Kegiatan Deputi Bidang Statistik Sosial",
+    "kode_pphp": "SOS"
+  },
+  {
+    "nama": "Suindrijah, S.Si, MM",
+    "nip": "19700112 199112 2 002",
+    "jabatan": "Pejabat Pemeriksa/Penerima Hasil Pekerjaan Pengadaan Selain Pengiriman, Sarana Prasarana, ATK dan Komputer Supplies untuk Kegiatan Deputi Bidang Statistik Distribusi dan Jasa",
+    "kode_pphp": "DJ"
+  },
+  {
+    "nama": "Dwi Haryanto, S.Si, S.E, M.E",
+    "nip": "19741226 199612 1 001",
+    "jabatan": "Pejabat Pemeriksa/Penerima Hasil Pekerjaan Pengadaan Selain Pengiriman, Sarana Prasarana, ATK dan Komputer Supplies untuk Kegiatan Deputi Bidang Metodologi dan Informasi Statistik",
+    "kode_pphp": "MIS"
+  },
+  {
+    "nama": "Mohamad Apip SE",
+    "nip": "19651220 199403 1 003",
+    "jabatan": "Pejabat Pemeriksa/Penerima Hasil Pekerjaan Pengadaan Selain Pengiriman, Sarana Prasarana, ATK dan Komputer Supplies untuk Kegiatan Inspektorat Utama",
+    "kode_pphp": "IU"
+  },
+  {
+    "nama": "Fatimah, SE, M.E",
+    "nip": "19750331 199403 2 001",
+    "jabatan": "Pejabat Pemeriksa/Penerima Hasil Pekerjaan Pengadaan Selain Pengiriman, Sarana Prasarana, ATK dan Komputer Supplies untuk Kegiatan Sekretariat Utama",
+    "kode_pphp": "SU"
+  },
+  {
+    "nama": "Ariyanto",
+    "nip": "19640506 198803 1 003",
+    "jabatan": "Pejabat Pemeriksa/Penerima Hasil Pekerjaan Pengadaan Bahan Komputer",
+    "kode_pphp": "KOM"
+  },
+  {
+    "nama": "Ponpon Sunandi",
+    "nip": "19730804 199403 1 004",
+    "jabatan": "Pejabat Pemeriksa/Penerima Hasil Pekerjaan Pengadaan Barang dan Jasa Untuk Sarana dan Prasarana",
+    "kode_pphp": "PAIK"
+  },
+  {
+    "nama": "Mulyo Widodo",
+    "nip": "19711026 199903 1 003",
+    "jabatan": "Pejabat Pemeriksa/Penerima Hasil Pekerjaan Pengadaan Alat Tulis Kantor",
+    "kode_pphp": "ATK"
+  },
+  {
+    "nama": "Mulyana",
+    "nip": "19740721 199003 1 001",
+    "jabatan": "Pejabat Pemeriksa/Penerima Hasil Pekerjaan Pengadaan Jasa Pengiriman",
+    "kode_pphp": "P"
+  }
+]

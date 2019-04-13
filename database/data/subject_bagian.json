@@ -1,0 +1,592 @@
+[
+  {
+    "kode_bagian": 1000,
+    "nama_bagian": "KEPALA BPS",
+    "kode_bagian_up": ""
+  },
+  {
+    "kode_bagian": 2000,
+    "nama_bagian": "SESTAMA",
+    "kode_bagian_up": 1000
+  },
+  {
+    "kode_bagian": 2013,
+    "nama_bagian": "Sekretariat Sensus Pertanian 2013",
+    "kode_bagian_up": 1000
+  },
+  {
+    "kode_bagian": 2016,
+    "nama_bagian": "Sekretariat Sensus Ekonomi 2016",
+    "kode_bagian_up": 1000
+  },
+  {
+    "kode_bagian": 2100,
+    "nama_bagian": "Biro Bina Program",
+    "kode_bagian_up": 2000
+  },
+  {
+    "kode_bagian": 2110,
+    "nama_bagian": "Bagian Penyusunan Rencana",
+    "kode_bagian_up": 2100
+  },
+  {
+    "kode_bagian": 2120,
+    "nama_bagian": "Bagian Penyusunan Anggaran",
+    "kode_bagian_up": 2100
+  },
+  {
+    "kode_bagian": 2130,
+    "nama_bagian": "Bagian Standar Harga, Monitoring dan Evaluasi Program",
+    "kode_bagian_up": 2100
+  },
+  {
+    "kode_bagian": 2140,
+    "nama_bagian": "Bagian Trasnformasi Statistik",
+    "kode_bagian_up": 2100
+  },
+  {
+    "kode_bagian": 2200,
+    "nama_bagian": "Biro Keuangan",
+    "kode_bagian_up": 2000
+  },
+  {
+    "kode_bagian": 2210,
+    "nama_bagian": "Bagian Adminsitrasi Keuangan",
+    "kode_bagian_up": 2200
+  },
+  {
+    "kode_bagian": 2220,
+    "nama_bagian": "Bagian Perbendaharaan",
+    "kode_bagian_up": 2200
+  },
+  {
+    "kode_bagian": 2230,
+    "nama_bagian": "Bagian Verifikasi",
+    "kode_bagian_up": 2200
+  },
+  {
+    "kode_bagian": 2240,
+    "nama_bagian": "Bagian Akuntansi",
+    "kode_bagian_up": 2200
+  },
+  {
+    "kode_bagian": 2300,
+    "nama_bagian": "Biro Kepegawaian",
+    "kode_bagian_up": 2000
+  },
+  {
+    "kode_bagian": 2310,
+    "nama_bagian": "Bagian Adminsitrasi Kepegawaian",
+    "kode_bagian_up": 2300
+  },
+  {
+    "kode_bagian": 2320,
+    "nama_bagian": "Bagian Mutasi Pegawai",
+    "kode_bagian_up": 2300
+  },
+  {
+    "kode_bagian": 2330,
+    "nama_bagian": "Bagian Kesejahteraan dan Pengembangan Pegawai",
+    "kode_bagian_up": 2300
+  },
+  {
+    "kode_bagian": 2340,
+    "nama_bagian": "Bagian Jabatan Fungsional",
+    "kode_bagian_up": 2300
+  },
+  {
+    "kode_bagian": 2400,
+    "nama_bagian": "Biro Humas dan Hukum",
+    "kode_bagian_up": 2000
+  },
+  {
+    "kode_bagian": 2410,
+    "nama_bagian": "Bagian Kerjasama, Protokol dan Penyiapan Materi Pimpinan",
+    "kode_bagian_up": 2400
+  },
+  {
+    "kode_bagian": 2420,
+    "nama_bagian": "Bagian Hubungan Masyarakat",
+    "kode_bagian_up": 2400
+  },
+  {
+    "kode_bagian": 2430,
+    "nama_bagian": "Bagian Hukum dan Organisasi",
+    "kode_bagian_up": 2400
+  },
+  {
+    "kode_bagian": 2500,
+    "nama_bagian": "Biro Umum",
+    "kode_bagian_up": 2000
+  },
+  {
+    "kode_bagian": 2510,
+    "nama_bagian": "Bagian Rumah Tangga",
+    "kode_bagian_up": 2500
+  },
+  {
+    "kode_bagian": 2520,
+    "nama_bagian": "Bagian Inventaris, Penyimpanan dan Penghapusan",
+    "kode_bagian_up": 2500
+  },
+  {
+    "kode_bagian": 2530,
+    "nama_bagian": "Bagian Pengadaan Barang/Jasa",
+    "kode_bagian_up": 2500
+  },
+  {
+    "kode_bagian": 2540,
+    "nama_bagian": "Bagian Percetakan, Arsip dan Ekspedisi",
+    "kode_bagian_up": 2500
+  },
+  {
+    "kode_bagian": 2600,
+    "nama_bagian": "Pusat Pendidikan dan Pelatihan",
+    "kode_bagian_up": 2000
+  },
+  {
+    "kode_bagian": 2610,
+    "nama_bagian": "Bagian Tata Usaha",
+    "kode_bagian_up": 2600
+  },
+  {
+    "kode_bagian": 2620,
+    "nama_bagian": "Bagian Diklat Prajabatan dan kepemimpinan",
+    "kode_bagian_up": 2600
+  },
+  {
+    "kode_bagian": 2630,
+    "nama_bagian": "Bagian Diklat Teknis dan Fungsional",
+    "kode_bagian_up": 2600
+  },
+  {
+    "kode_bagian": 2700,
+    "nama_bagian": "Sekolah Tinggi Ilmu Statistik",
+    "kode_bagian_up": 2000
+  },
+  {
+    "kode_bagian": 2710,
+    "nama_bagian": "Bagian Adm Akademik dan Kemahasiswaan",
+    "kode_bagian_up": 2700
+  },
+  {
+    "kode_bagian": 2720,
+    "nama_bagian": "Bagian Administrasi Umum",
+    "kode_bagian_up": 2700
+  },
+  {
+    "kode_bagian": 2730,
+    "nama_bagian": "Pembantu Ketua STIS",
+    "kode_bagian_up": 2700
+  },
+  {
+    "kode_bagian": 2740,
+    "nama_bagian": "Ketua Jurusan",
+    "kode_bagian_up": 2700
+  },
+  {
+    "kode_bagian": 3000,
+    "nama_bagian": "DEPUTI MIS",
+    "kode_bagian_up": 1000
+  },
+  {
+    "kode_bagian": 3100,
+    "nama_bagian": "Direktorat Pengembangan Metodologi Sensus dan Survei",
+    "kode_bagian_up": 3000
+  },
+  {
+    "kode_bagian": 3110,
+    "nama_bagian": "Subdit Pengembangan Desain Sensus & Survei",
+    "kode_bagian_up": 3100
+  },
+  {
+    "kode_bagian": 3120,
+    "nama_bagian": "Subdit Pengembangan Standarisasi dan Klasifikasi Stat.",
+    "kode_bagian_up": 3100
+  },
+  {
+    "kode_bagian": 3130,
+    "nama_bagian": "Subdit Pengembangan Kerangka Contoh Induk",
+    "kode_bagian_up": 3100
+  },
+  {
+    "kode_bagian": 3140,
+    "nama_bagian": "Subdit Pengembangan Pemetaan Statistik",
+    "kode_bagian_up": 3100
+  },
+  {
+    "kode_bagian": 3200,
+    "nama_bagian": "Direktorat Diseminasi Statistik",
+    "kode_bagian_up": 3000
+  },
+  {
+    "kode_bagian": 3210,
+    "nama_bagian": "Subdit Rujukan Statistik",
+    "kode_bagian_up": 3200
+  },
+  {
+    "kode_bagian": 3220,
+    "nama_bagian": "Subdit Publikasi & Kompilasi Statistik",
+    "kode_bagian_up": 3200
+  },
+  {
+    "kode_bagian": 3230,
+    "nama_bagian": "Subdit Layanan & Promosi Statistik",
+    "kode_bagian_up": 3200
+  },
+  {
+    "kode_bagian": 3240,
+    "nama_bagian": "Subdit Perpustakaan & Dokumentasi Stat.",
+    "kode_bagian_up": 3200
+  },
+  {
+    "kode_bagian": 3300,
+    "nama_bagian": "Direktorat Sisitem Informasi Statistik",
+    "kode_bagian_up": 3000
+  },
+  {
+    "kode_bagian": 3310,
+    "nama_bagian": "Subdit Integrasi Pengolahan Data",
+    "kode_bagian_up": 3300
+  },
+  {
+    "kode_bagian": 3320,
+    "nama_bagian": "Subdit Jaringan Komunikasi Data",
+    "kode_bagian_up": 3300
+  },
+  {
+    "kode_bagian": 3330,
+    "nama_bagian": "Subdit Pengembangan Basis Data",
+    "kode_bagian_up": 3300
+  },
+  {
+    "kode_bagian": 3340,
+    "nama_bagian": "Subdit Pengelolaan T I",
+    "kode_bagian_up": 3300
+  },
+  {
+    "kode_bagian": 4000,
+    "nama_bagian": "DEPUTI SOSIAL",
+    "kode_bagian_up": 1000
+  },
+  {
+    "kode_bagian": 4100,
+    "nama_bagian": "Direktorat Statistik Kependudukan dan Ketenagakerjaan",
+    "kode_bagian_up": 4000
+  },
+  {
+    "kode_bagian": 4110,
+    "nama_bagian": "Subdit Statistik Demografi",
+    "kode_bagian_up": 4100
+  },
+  {
+    "kode_bagian": 4120,
+    "nama_bagian": "Subdit Statistik Ketenagakerjaan",
+    "kode_bagian_up": 4100
+  },
+  {
+    "kode_bagian": 4130,
+    "nama_bagian": "Subdit Statistik Upah & Pendapatan",
+    "kode_bagian_up": 4100
+  },
+  {
+    "kode_bagian": 4140,
+    "nama_bagian": "Subdit Statistik Mobilitas Penduduk & Tenaga Kerja",
+    "kode_bagian_up": 4100
+  },
+  {
+    "kode_bagian": 4200,
+    "nama_bagian": "Direktorat Statistik Kesejahteraan Rakyat",
+    "kode_bagian_up": 4000
+  },
+  {
+    "kode_bagian": 4210,
+    "nama_bagian": "Subdit Statistik Rumah Tangga",
+    "kode_bagian_up": 4200
+  },
+  {
+    "kode_bagian": 4220,
+    "nama_bagian": "Subdit Statistik Pendidikan dan Kes. Sosial",
+    "kode_bagian_up": 4200
+  },
+  {
+    "kode_bagian": 4230,
+    "nama_bagian": "Subdit Statistik Kesehatan dan Perumahan",
+    "kode_bagian_up": 4200
+  },
+  {
+    "kode_bagian": 4300,
+    "nama_bagian": "Direktorat Statistik Ketahanan Sosial",
+    "kode_bagian_up": 4000
+  },
+  {
+    "kode_bagian": 4310,
+    "nama_bagian": "Subdit Statistik Ketahanan Wilayah",
+    "kode_bagian_up": 4300
+  },
+  {
+    "kode_bagian": 4320,
+    "nama_bagian": "Subdit Statistik Lingkungan Hidup",
+    "kode_bagian_up": 4300
+  },
+  {
+    "kode_bagian": 4330,
+    "nama_bagian": "Subdit Statistik Politik dan Keamanan",
+    "kode_bagian_up": 4300
+  },
+  {
+    "kode_bagian": 4340,
+    "nama_bagian": "Subdit Statistik Kerawanan Sosial",
+    "kode_bagian_up": 4300
+  },
+  {
+    "kode_bagian": 5000,
+    "nama_bagian": "DEPUTI PRODUKSI",
+    "kode_bagian_up": 1000
+  },
+  {
+    "kode_bagian": 5100,
+    "nama_bagian": "Direktorat Statistik Tanaman Pangan Hortikultura dan Perkebunan",
+    "kode_bagian_up": 5000
+  },
+  {
+    "kode_bagian": 5110,
+    "nama_bagian": "Subdit Tanaman Pangan",
+    "kode_bagian_up": 5100
+  },
+  {
+    "kode_bagian": 5120,
+    "nama_bagian": "Subdit Statistik Hortikultura",
+    "kode_bagian_up": 5100
+  },
+  {
+    "kode_bagian": 5130,
+    "nama_bagian": "Subdit Statistik Tanaman Perkebunan",
+    "kode_bagian_up": 5100
+  },
+  {
+    "kode_bagian": 5200,
+    "nama_bagian": "Direktorat Statistik Peternakan Perikanan dan Kehutanan",
+    "kode_bagian_up": 5000
+  },
+  {
+    "kode_bagian": 5210,
+    "nama_bagian": "Subdit Statistik Peternakan",
+    "kode_bagian_up": 5200
+  },
+  {
+    "kode_bagian": 5220,
+    "nama_bagian": "Subdit Statistik Perikanan",
+    "kode_bagian_up": 5200
+  },
+  {
+    "kode_bagian": 5230,
+    "nama_bagian": "Subdit Statistik Kehutanan",
+    "kode_bagian_up": 5200
+  },
+  {
+    "kode_bagian": 5300,
+    "nama_bagian": "Direktorat Statistik Industri",
+    "kode_bagian_up": 5000
+  },
+  {
+    "kode_bagian": 5310,
+    "nama_bagian": "Subdit Statistik Industri Besar & Sedang",
+    "kode_bagian_up": 5300
+  },
+  {
+    "kode_bagian": 5320,
+    "nama_bagian": "Subdit Statistik IKR",
+    "kode_bagian_up": 5300
+  },
+  {
+    "kode_bagian": 5330,
+    "nama_bagian": "Subdit Statistik Pertambangan & Energi",
+    "kode_bagian_up": 5300
+  },
+  {
+    "kode_bagian": 5340,
+    "nama_bagian": "Subdit Statistik Konstruksi",
+    "kode_bagian_up": 5300
+  },
+  {
+    "kode_bagian": 6000,
+    "nama_bagian": "DEPUTI DIST JASA",
+    "kode_bagian_up": 1000
+  },
+  {
+    "kode_bagian": 6100,
+    "nama_bagian": "Direktorat Statistik Distribusi",
+    "kode_bagian_up": 6000
+  },
+  {
+    "kode_bagian": 6110,
+    "nama_bagian": "Subdit Statistik Ekspor",
+    "kode_bagian_up": 6100
+  },
+  {
+    "kode_bagian": 6120,
+    "nama_bagian": "Subdit Statistik Impor",
+    "kode_bagian_up": 6100
+  },
+  {
+    "kode_bagian": 6130,
+    "nama_bagian": "Subditr Statistik PDN",
+    "kode_bagian_up": 6100
+  },
+  {
+    "kode_bagian": 6140,
+    "nama_bagian": "Subdit Statistik Transportasi",
+    "kode_bagian_up": 6100
+  },
+  {
+    "kode_bagian": 6200,
+    "nama_bagian": "Direktorat Statistik Harga",
+    "kode_bagian_up": 6000
+  },
+  {
+    "kode_bagian": 6210,
+    "nama_bagian": "Subdit Statistik Harga Produsen",
+    "kode_bagian_up": 6200
+  },
+  {
+    "kode_bagian": 6220,
+    "nama_bagian": "Subdit Statistik HPB",
+    "kode_bagian_up": 6200
+  },
+  {
+    "kode_bagian": 6230,
+    "nama_bagian": "Subdit Statistik Harga Konsumen",
+    "kode_bagian_up": 6200
+  },
+  {
+    "kode_bagian": 6240,
+    "nama_bagian": "Subdit Statistik Harga Perdesaan",
+    "kode_bagian_up": 6200
+  },
+  {
+    "kode_bagian": 6300,
+    "nama_bagian": "Direktorat Statistik Keuangan TI dan Pariwisata",
+    "kode_bagian_up": 6000
+  },
+  {
+    "kode_bagian": 6310,
+    "nama_bagian": "Subdit Statisik Keuangan",
+    "kode_bagian_up": 6300
+  },
+  {
+    "kode_bagian": 6320,
+    "nama_bagian": "Subdit Statistik Komunikasi & T I",
+    "kode_bagian_up": 6300
+  },
+  {
+    "kode_bagian": 6330,
+    "nama_bagian": "Subdit Statistik Pariwisata",
+    "kode_bagian_up": 6300
+  },
+  {
+    "kode_bagian": 7000,
+    "nama_bagian": "DEPUTI NAS",
+    "kode_bagian_up": 1000
+  },
+  {
+    "kode_bagian": 7100,
+    "nama_bagian": "Direktorat Neraca Produksi",
+    "kode_bagian_up": 7000
+  },
+  {
+    "kode_bagian": 7110,
+    "nama_bagian": "Subdit Neraca Barang",
+    "kode_bagian_up": 7100
+  },
+  {
+    "kode_bagian": 7120,
+    "nama_bagian": "Subdit Neraca Jasa",
+    "kode_bagian_up": 7100
+  },
+  {
+    "kode_bagian": 7130,
+    "nama_bagian": "Subdit Konsolidasi Neraca Prod. Nasional",
+    "kode_bagian_up": 7100
+  },
+  {
+    "kode_bagian": 7140,
+    "nama_bagian": "Subdit Konsolidasi Neraca Prod. Regional",
+    "kode_bagian_up": 7100
+  },
+  {
+    "kode_bagian": 7200,
+    "nama_bagian": "Direktorat Neraca Pengeluaran",
+    "kode_bagian_up": 7000
+  },
+  {
+    "kode_bagian": 7210,
+    "nama_bagian": "Subdit Neraca Rumah Tangga & Institusi Nirlaba",
+    "kode_bagian_up": 7200
+  },
+  {
+    "kode_bagian": 7220,
+    "nama_bagian": "Subdit Neraca Pemerintahan & Badan Usaha",
+    "kode_bagian_up": 7200
+  },
+  {
+    "kode_bagian": 7230,
+    "nama_bagian": "Subdit Neraca Modal & Luar Negeri",
+    "kode_bagian_up": 7200
+  },
+  {
+    "kode_bagian": 7240,
+    "nama_bagian": "Subdit Konsolidasi Neraca Pengeluaran",
+    "kode_bagian_up": 7200
+  },
+  {
+    "kode_bagian": 7300,
+    "nama_bagian": "Direktorat Analisis dan Pengembangan Statistik",
+    "kode_bagian_up": 7000
+  },
+  {
+    "kode_bagian": 7310,
+    "nama_bagian": "Subdit Analisis Statistik",
+    "kode_bagian_up": 7300
+  },
+  {
+    "kode_bagian": 7320,
+    "nama_bagian": "Subdit Konsistensi Statistik",
+    "kode_bagian_up": 7300
+  },
+  {
+    "kode_bagian": 7330,
+    "nama_bagian": "Subdit Indikator Statistik",
+    "kode_bagian_up": 7300
+  },
+  {
+    "kode_bagian": 7340,
+    "nama_bagian": "Subdit Pengembangan Model Stat.",
+    "kode_bagian_up": 7300
+  },
+  {
+    "kode_bagian": 8000,
+    "nama_bagian": "INSPEKTORAT UTAMA",
+    "kode_bagian_up": 1000
+  },
+  {
+    "kode_bagian": 8010,
+    "nama_bagian": "Bagian Administrasi Inspektorat",
+    "kode_bagian_up": 1000
+  },
+  {
+    "kode_bagian": 8100,
+    "nama_bagian": "Inspektorat Wilayah I",
+    "kode_bagian_up": 8000
+  },
+  {
+    "kode_bagian": 8200,
+    "nama_bagian": "Inspektorat Wilayah II",
+    "kode_bagian_up": 8000
+  },
+  {
+    "kode_bagian": 8300,
+    "nama_bagian": "Inspektorat Wilayah III",
+    "kode_bagian_up": 8000
+  }
+]

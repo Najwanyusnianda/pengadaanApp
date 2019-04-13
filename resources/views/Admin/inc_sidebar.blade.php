@@ -79,11 +79,11 @@
                 </ul>        
               </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+            <a href="{{route('logout')}}" class="nav-link">
                 <i class="nav-icon fa fa-th"></i>
                 <p>
                   Log Out
-                  <span class="right badge badge-danger">New</span>
+                  <span class="right badge badge-danger"></span>
                 </p>
               </a>
             </li>

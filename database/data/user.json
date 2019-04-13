@@ -1,0 +1,50 @@
+[
+  {
+    "username": "bagian1",
+    "type": "bagian"
+  },
+  {
+    "username": "bagian2",
+    "type": "bagian"
+  },
+  {
+    "username": "bagian3",
+    "type": "bagian"
+  },
+  {
+    "username": "kasi1",
+    "type": "kasi"
+  },
+  {
+    "username": "kasi2",
+    "type": "kasi"
+  },
+  {
+    "username": "kulp",
+    "type": "kulp"
+  },
+  {
+    "username": "pokja1",
+    "type": "pokja"
+  },
+  {
+    "username": "pokja2",
+    "type": "pokja"
+  },
+  {
+    "username": "pokja3",
+    "type": "pokja"
+  },
+  {
+    "username": "pp1",
+    "type": "pp"
+  },
+  {
+    "username": "ppk1",
+    "type": "ppk"
+  },
+  {
+    "username": "pphp1",
+    "type": "pphp1"
+  }
+]

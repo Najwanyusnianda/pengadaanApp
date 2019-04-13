@@ -17,8 +17,9 @@ class PermintaanController extends Controller
         return view('Permintaan.form_permintaan');
     }
 
-    public function detail(){
-        return view('Permintaan.detail_permintaan');
+    public function detail($id){
+        $permintaan=Permintaan::find($id);
+        return view('Permintaan.detail_permintaan',compact('permintaan'));
     }
 
 

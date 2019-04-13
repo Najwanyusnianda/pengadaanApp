@@ -1,0 +1,74 @@
+[
+  {
+    "kode_pokja": "p1",
+    "jabatan_pokja": "KETUA",
+    "nama_pegawai": "Nurmulistyadin, SE",
+    "nip": "19860113 201003 1 001"
+  },
+  {
+    "kode_pokja": "p1",
+    "jabatan_pokja": "SEKRETARIS",
+    "nama_pegawai": "Agung Arifianto, S.Kom",
+    "nip": "19800202 200604 1 007"
+  },
+  {
+    "kode_pokja": "p1",
+    "jabatan_pokja": "ANGGOTA",
+    "nama_pegawai": "Apsari Cubhanimitta, SE",
+    "nip": "19831124 201003 2 002"
+  },
+  {
+    "kode_pokja": "p2",
+    "jabatan_pokja": "KETUA",
+    "nama_pegawai": "Ihat Solehati, SE",
+    "nip": "19690204 198802 2 001"
+  },
+  {
+    "kode_pokja": "p2",
+    "jabatan_pokja": "SEKRETARIS",
+    "nama_pegawai": "Wahyu Kurnianto, SST",
+    "nip": "19890926 201012 1 002"
+  },
+  {
+    "kode_pokja": "p2",
+    "jabatan_pokja": "ANGGOTA",
+    "nama_pegawai": "Yunita Marianna, S.ST",
+    "nip": "19880301 200912 2 002"
+  },
+  {
+    "kode_pokja": "p3",
+    "jabatan_pokja": "KETUA",
+    "nama_pegawai": "Geminda Prihatma Prasetya, SST",
+    "nip": "19860603 200902 2 004"
+  },
+  {
+    "kode_pokja": "p3",
+    "jabatan_pokja": "SEKRETARIS",
+    "nama_pegawai": "Erli Wijayanti Prastiwi, SST",
+    "nip": "19900105 201410 2 001"
+  },
+  {
+    "kode_pokja": "p3",
+    "jabatan_pokja": "ANGGOTA",
+    "nama_pegawai": "Ir. Niti Rosika Febriyanti",
+    "nip": "19690211 199401 2 001"
+  },
+  {
+    "kode_pokja": "p4",
+    "jabatan_pokja": "KETUA",
+    "nama_pegawai": "Trias Nur Yunita, SST",
+    "nip": "19890616 201211 2 001"
+  },
+  {
+    "kode_pokja": "p4",
+    "jabatan_pokja": "SEKRETARIS",
+    "nama_pegawai": "Endang Widiastuti Yunianti, SE",
+    "nip": "19740604 199403 2 002"
+  },
+  {
+    "kode_pokja": "p4",
+    "jabatan_pokja": "ANGGOTA",
+    "nama_pegawai": "Jhon Rein, S.ST",
+    "nip": "19871017 201211 1 001"
+  }
+]
