@@ -61,6 +61,7 @@
                                 <span class="badge badge-warning">Warning</span>-->
                                 </td>
                                 <td>
+                                        
                                     <button class="btn btn-info btn-xs disposisi-show" >
                                         Disposisi
                                     </button>

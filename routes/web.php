@@ -47,17 +47,28 @@ Route::group(['middleware' => ['auth']], function () {
 
     #-------------------------------
     //Disposisi
-    Route::get('/disposisi/form', function () {
-        return view('Disposisi.disposisi_form');
-    })->name('disposisi.form');
+    Route::get('/disposisi/form','DisposisiController@form_handling')->name('disposisi.form');
     Route::get('/disposisi','DisposisiController@daftar')->name('disposisi.list');
-
     Route::post('/disposisi/store','DisposisiController@store')->name('disposisi.store');
 
     #-------------------------------
 
     #-------------------------------
     //Handling doc
-    Route::get('generate-docx', 'DokumenController@generateDocx');
+    Route::get('/generate-docx', 'DokumenController@generateDocx');
+    Route::get('/generate-temp', 'DokumenController@generateTemp');
+    Route::post('/store_temp', 'DokumenController@storeTemplate')->name('temp.docx');
+
+    #-------------------------------
+    //Handling template
+
+    Route::get('/temp_template', function () {
+        return view('Template.temp_template');
+        
+    });
+
+
+    Route::get('/generate-pdf', 'PdfController@export_pdf');
+    
 
 });

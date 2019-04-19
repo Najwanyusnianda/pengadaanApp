@@ -2,9 +2,15 @@
         <div class="form-group">
           <label for="exampleFormControlSelect1">Example select</label>
           <select class="form-control" id="penerima_disposisi">
-            <option value="1">temp</option>
-            <option value="2">temp2</option>
-            <option value="3">temp3</option>
+            @if (count($kasi)>0)
+                @foreach ($kasi as $data)
+                  <option value="{{$data->id}}">{{$data->nama}}</option>
+                @endforeach
+            @else
+                <option value="0" disabled>tidak ada data</option>
+            @endif
+
+
          
           </select>
         </div>
