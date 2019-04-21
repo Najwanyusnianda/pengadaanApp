@@ -49,10 +49,13 @@ Route::group(['middleware' => ['auth']], function () {
     //Disposisi
     Route::get('/disposisi/form','DisposisiController@form_handling')->name('disposisi.form');
     Route::get('/disposisi','DisposisiController@daftar')->name('disposisi.list');
+    Route::get('/disposisi/detail/{id}','DisposisiController@detail')->name('disposisi.detail');
     Route::post('/disposisi/store','DisposisiController@store')->name('disposisi.store');
 
     #-------------------------------
-
+    //Paket
+    Route::get('/paket','PaketController@index')->name('paket.index');
+    Route::get('/paket/1/detail','PaketController@detail')->name('paket.detail');
     #-------------------------------
     //Handling doc
     Route::get('/generate-docx', 'DokumenController@generateDocx');

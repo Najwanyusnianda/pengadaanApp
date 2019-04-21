@@ -1,9 +1,9 @@
-    <div class="col">
+    <div class="col" style="font-family:Roboto;">
         <div class="form-group">
           <label for="exampleFormControlSelect1">Example select</label>
           <select class="form-control" id="penerima_disposisi">
-            @if (count($kasi)>0)
-                @foreach ($kasi as $data)
+            @if (count($pegawai)>0)
+                @foreach ($pegawai as $data)
                   <option value="{{$data->id}}">{{$data->nama}}</option>
                 @endforeach
             @else

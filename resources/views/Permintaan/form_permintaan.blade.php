@@ -1,7 +1,7 @@
 @extends('Admin.layout')
 
 @section('konten')
-    <div class="container col-md-8">
+    <div class="container col-md-8" style="font-family:'Quicksand';font-size:14px;" >
             @if(Session::has('success'))
             <div class="alert alert-success">{{session('success')}}</div>
             @endif

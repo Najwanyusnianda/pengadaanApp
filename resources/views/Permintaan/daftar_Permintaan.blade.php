@@ -1,7 +1,7 @@
 @extends('Admin.layout')
 
 @section('konten_head')
-    <div class="card shadow mb-4 ">
+    <div class="card shadow mb-4 " >
         <div class="card-header bg-white p-2">
             <ul class="nav nav-pills" style="font-size:14px">
                 <li class="nav-item">
@@ -28,12 +28,12 @@
 @endsection
 
 @section('konten')
-    <div class="card shadow mb-4 permintaan-card">
+    <div class="card shadow mb-4 permintaan-card" style="font-family:QuickSand;">
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
         </div>
         @if (count($permintaan)>0)
-        <div class="card-body" style="font-size:12px">
+        <div class="card-body" style="font-size:13px">
                 <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                     <thead>
                         <tr role="row" >
@@ -55,19 +55,19 @@
                                 <td>{{$data->kode_kegiatan}}</td>
                                 <td>{{$data->nilai}}</td>
                                 <td>
-                                    <span class="badge badge-danger">{{$data->disposisi_status}}</span>
+                                <span class="badge {{$data->disposisi_status ==  'baru' ? 'badge-danger' : ($data->disposisi_status == 'dikerjakan' ? 'badge-success' : 'badge-warning')}}">{{$data->disposisi_status}}</span>
                                <!-- <span class="badge badge-success">Success</span>
                                 <span class="badge badge-danger">Danger</span>
                                 <span class="badge badge-warning">Warning</span>-->
                                 </td>
-                                <td>
+                                <td class="aksi">
                                         
-                                    <button class="btn btn-info btn-xs disposisi-show" >
-                                        Disposisi
-                                    </button>
-                                    <button class="btn btn-info btn-xs permintaan-show" >
-                                        Detail Permintaan
-                                    </button>
+                                    <a class="btn btn-link disposisi-show {{($data->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($data->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "" : "disabled"}}"  >
+                                        <i class="fas fa-envelope fa-lg" style="color:#f39c12;"></i>  
+                                    </a>
+                                    <a class="btn btn-link permintaan-show" >
+                                        <i class="fas fa-eye fa-lg" style="color:#3498db"></i>
+                                    </a>
                                 </td> 
                             </tr>                             
                         @endforeach
@@ -135,6 +135,12 @@
         .modal-title{
             font-size: 12px;
         }
+        
+        td.aksi:nth-child(){
+            opacity:0.5;
+        }
+
+      
     </style>
     
 @endsection
@@ -145,6 +151,10 @@
     <script>
     
     $(document).ready(function(){
+        //css
+        $('a.disposisi-show.disabled').children().css('color','black');
+
+
         //modal show
 
         var id_permintaan;
