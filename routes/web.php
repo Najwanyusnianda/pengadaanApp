@@ -13,14 +13,14 @@
 
 Route::get('/', function () {
     return view('Admin.layout');
-});
+})->middleware('guest');
 
 
 //Editor
 Route::get('/editor', function () {
     return view('Editor.ckEditor');
     
-});
+})->middleware('guest');
 #-------------------------------
 //autentikasi
 Route::get('/login','AuthController@getLogin')->name('login')->middleware('guest');
@@ -72,6 +72,12 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     Route::get('/generate-pdf', 'PdfController@export_pdf');
+
+    #-------------------------------
+    //Handling notifikasi
+    Route::get('/markAsRead', 'NotificationController@readNotif');
+
+
     
 
 });

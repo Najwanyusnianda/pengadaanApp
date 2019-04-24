@@ -50,7 +50,7 @@
             </div><!-- /.container-fluid -->
           </div>
           <!-- /.content-header -->
-      
+  
           <!-- Main content -->
           <div class="content">
             @yield('konten')

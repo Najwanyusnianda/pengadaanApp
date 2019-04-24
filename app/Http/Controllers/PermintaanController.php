@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Permintaan;
+use App\User;
+use App\Notifications\PermintaanMasuk;
+use Illuminate\Support\Facades\Notification;
 
 class PermintaanController extends Controller
 {
@@ -38,7 +41,10 @@ class PermintaanController extends Controller
             'date_selesai'=>date('Y-m-d', strtotime($request->date_selesai)),
             'date_created_form'=>date('Y-m-d', strtotime($request->date_buat_form))
         ]);
-
+        
+        $users=User::all();
+        //Notification::send($users, new PermintaanMasuk($permintaan));
+        auth()->user()->notify(new PermintaanMasuk($permintaan));
         $request->session()->flash('success','Permintaan berhasil di tambahkan');
 
         return redirect()->back();
