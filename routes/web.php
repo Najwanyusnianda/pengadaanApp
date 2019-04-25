@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('Admin.layout');
-})->middleware('guest');
+})->middleware('auth');
 
 
 //Editor
@@ -34,6 +34,11 @@ Route::get('/logout','AuthController@logout')->name('logout')->middleware('auth'
 
 #-------------------------------
 Route::group(['middleware' => ['auth']], function () {
+    #-------------------------------
+    //Bagian (subject matter)
+    Route::get('/bagian/index', 'BagianController@index')->name('bagian.index')->middleware('bagian');
+
+
     #-------------------------------   
     Route::get('/dashboard','DashboardController@getDashboard')->name('dashboard');
     #-------------------------------  
@@ -42,8 +47,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/permintaan','PermintaanController@index')->name('permintaan.list');
     Route::get('/permintaan/form','PermintaanController@create')->name('permintaan.form');
     Route::get('/permintaan/{id}','PermintaanController@detail')->name('permintaan.detail');
-
     Route::post('/permintaan/add','PermintaanController@save')->name('permintaan.add');
+    Route::get('/table/permintaan','PermintaanController@dataTable')->name('permintaan.table');
 
     #-------------------------------
     //Disposisi

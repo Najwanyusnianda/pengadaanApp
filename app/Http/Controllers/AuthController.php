@@ -19,17 +19,19 @@ class AuthController extends Controller
     }
 
     public function postLogin(Request $request){
-        if(!Auth::attempt(['username' => $request->username, 'password' => $request->password])){
+        if(!Auth::attempt(['username' => $request->username, 'password' => $request->password ])){
             return redirect()->back();
         }
-        return redirect()->route('dashboard');
+        return redirect()->route('bagian.index');
+
     }
 
     public function postRegister(Request $request){
         $user=User::create([
             'username'=>$request->username,
             'password'=>bcrypt($request->password),
-            'type'=>'user'
+            'is_user'=>true,
+            'role_id'=>1
         ]);
 
         $person=Person::create([

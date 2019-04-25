@@ -7,6 +7,7 @@ use App\Permintaan;
 use App\User;
 use App\Notifications\PermintaanMasuk;
 use Illuminate\Support\Facades\Notification;
+use DataTables;
 
 class PermintaanController extends Controller
 {
@@ -42,11 +43,28 @@ class PermintaanController extends Controller
             'date_created_form'=>date('Y-m-d', strtotime($request->date_buat_form))
         ]);
         
-        $users=User::all();
+        //$users=User::all();
         //Notification::send($users, new PermintaanMasuk($permintaan));
         auth()->user()->notify(new PermintaanMasuk($permintaan));
         $request->session()->flash('success','Permintaan berhasil di tambahkan');
 
         return redirect()->back();
+    }
+
+    public function dataTable(){
+        $permintaan=Permintaan::query();
+        return DataTables::of($permintaan)
+            ->addColumn('action',function($permintaan){
+            return view('Permintaan.permintaan_table._action',[
+                'disabled_status'=>($permintaan->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($permintaan->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "" : "disabled"
+            ]);
+        })->addColumn('status_disposisi',function($permintaan){
+            return view('Permintaan.permintaan_table._disposisiStatus',[
+                'disposisi_badge'=>$permintaan->disposisi_status ==  'baru' ? 'badge-danger' : ($permintaan->disposisi_status == 'dikerjakan' ? 'badge-success' : 'badge-warning'),
+                'disposisi_status'=>$permintaan->disposisi_status
+            ]);
+        })->addIndexColumn()->rawColumns(['action','status_disposisi'])->make(true);
+        
+
     }
 }

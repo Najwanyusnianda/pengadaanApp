@@ -8,12 +8,12 @@
         <meta name="description" content="">
         <meta name="author" content="">
     
-        <title>SB Admin 2 - Blank</title>
+        <title>Pengadaan App - test</title>
     
         <!-- Custom fonts for this template-->
         <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.css')}}">
         <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto|Varela+Round" rel="stylesheet">
-        
+        <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
         <!-- Custom styles for this template-->
         <link rel="stylesheet" href="{{asset('assets/adminlte/adminlte.css')}}">
         <!--<link href="{{asset('assets\sbadmin\css\sb-admin-2.min.css')}}" rel="stylesheet">-->

@@ -8,11 +8,9 @@ class NotificationController extends Controller
 {
     //
     public function readNotif(){
-        //auth()->user()->unreadNotifications->markAsRead();
+        auth()->user()->unreadNotifications->markAsRead();
 
-        $notification = auth()->user()->notifications()->find($notificationid);
-        if($notification) {
-            $notification->markAsRead();
-        }
+        //$mark = Auth()->user()->unreadNotifications->where('id', $notification)->first ();
+
     }
 }
