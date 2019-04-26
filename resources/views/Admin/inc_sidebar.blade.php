@@ -35,17 +35,17 @@
               <ul class="nav nav-treeview">
            
                   <li class="nav-item">
-                  <a href="{{route('permintaan.form')}}" class="nav-link ">
+                  <a href="{{route('user_list.index')}}" class="nav-link ">
                         <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                        <p>Entri Baru</p>
+                        <p>Daftar User</p>
                       </a>
                   </li>  
              
               
                 <li class="nav-item">
-                <a href="{{route('permintaan.list')}}" class="nav-link ">
+                <a href="{{route('user_list.indexBagian')}}" class="nav-link ">
                     <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                    <p>Daftar Permintaan</p>
+                    <p>Daftar Subdirektorat</p>
                   </a>
                 </li>
 

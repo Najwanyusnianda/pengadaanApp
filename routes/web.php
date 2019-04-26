@@ -82,6 +82,11 @@ Route::group(['middleware' => ['auth']], function () {
     //Handling notifikasi
     Route::get('/markAsRead', 'NotificationController@readNotif');
 
+    #-------------------------------
+    //Handling user
+    Route::get('/user/list','UserController@index')->name('user_list.index');
+    Route::get('/user/list_bagian','UserController@indexBagian')->name('user_list.indexBagian');
+
 
     
 
