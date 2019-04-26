@@ -31,14 +31,15 @@ class AuthController extends Controller
             'username'=>$request->username,
             'password'=>bcrypt($request->password),
             'is_user'=>true,
-            'role_id'=>1
+           
         ]);
 
         $person=Person::create([
             'nama' =>$request->nama,
             'nip' => $request->nip,
             //'role_id' => $request->role_id,
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'role_id'=>1
         ]);
 
         return redirect()->route('login');
