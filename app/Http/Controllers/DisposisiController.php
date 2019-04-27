@@ -14,7 +14,13 @@ class DisposisiController extends Controller
     //
     public function daftar(){
        
-        $disposisi=DB::table('disposisis')->where('penerima_id',auth()->user()->person->id)->join('people AS a','disposisis.pengirim_id','=','a.id')->join('people AS b','disposisis.penerima_id','=','b.id')->join('permintaans','permintaan_id','=','permintaans.id')->select('disposisis.*','a.nama AS nama_pengirim','b.nama AS nama_penerima','permintaans.judul AS judul_permintaan')->get();
+        $disposisi=DB::table('disposisis')
+        ->where('penerima_id',auth()->user()->person->id)
+        ->join('people AS a','disposisis.pengirim_id','=','a.id')
+        ->join('people AS b','disposisis.penerima_id','=','b.id')
+        ->join('permintaans','permintaan_id','=','permintaans.id')
+        ->select('disposisis.*','a.nama AS nama_pengirim','b.nama AS nama_penerima','permintaans.judul AS judul_permintaan')
+        ->get();
         return view('Disposisi.disposisi_daftar',compact('disposisi'));
     }
 

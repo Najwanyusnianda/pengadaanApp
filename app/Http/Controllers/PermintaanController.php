@@ -8,13 +8,20 @@ use App\User;
 use App\Notifications\PermintaanMasuk;
 use Illuminate\Support\Facades\Notification;
 use DataTables;
+use DB;
 
 class PermintaanController extends Controller
 {
     //
     public function index(){
-        $permintaan=Permintaan::get();
+       // $permintaan=Permintaan::get();
+       $permintaan=DB::table('permintaans')->join('sub_bagians','permintaans.kode_bagian','=','sub_bagians.kode_bagian')->select('permintaans.*','sub_bagians.nama_bagian')->get();
+
         return view('Permintaan.daftar_Permintaan',compact('permintaan'));
+    }
+
+    public function indexBagian(){
+        
     }
 
     public function create(){
@@ -22,15 +29,29 @@ class PermintaanController extends Controller
     }
 
     public function detail($id){
-        $permintaan=Permintaan::find($id);
-        return view('Permintaan.detail_permintaan',compact('permintaan'));
+        /*$bagian_detail=DB::table('sub_bagians AS a')
+        ->join('sub_bagians AS b','a.kode_bagian_up','=','b.kode_bagian')
+        ->join('sub_bagians AS c','b.kode_bagian_up','=','c.kode_bagian')
+        ->select('a.*','b.nama_bagian As eselonII','c.nama_bagian As eselonI')
+        ->get();*/
+        $permintaan_detail=DB::table('permintaans')->where('id',$id)
+        ->join('sub_bagians AS a','permintaans.kode_bagian','=','a.kode_bagian')
+        ->join('sub_bagians AS b','a.kode_bagian_up','=','b.kode_bagian')
+        ->join('sub_bagians AS c','b.kode_bagian_up','=','c.kode_bagian')
+        ->join('kegiatan_programs AS kegiatan','permintaans.kode_kegiatan','kegiatan.kode_kegiatan')
+        ->join('program_ppks AS program','kegiatan.kode_program','program.kode_program')
+        ->select('permintaans.*','a.*','b.nama_bagian As eselonII','c.nama_bagian As eselonI','kegiatan.nama_kegiatan','program.nama_program','program.kode_program')
+        ->first(); 
+
+        return view('Permintaan.detail_permintaan',compact('permintaan_detail'));
     }
 
 
     public function save(Request $request){
         $permintaan=Permintaan::create([
-            'nama_bagian'=>'Bagian Transformasi Statistik',
+            'kode_bagian'=>auth()->user()->sub_bagian->kode_bagian,
             'judul'=>$request->judul_permintaan,
+            'jenis_pengadaan'=>$request->jenis_pengadaan,
             'nomor_form'=>$request->nomor_form_permintaan,
             'kode_kegiatan'=>$request->kode_kegiatan,
             'output'=>$request->output,

@@ -15,7 +15,7 @@ class CreatePermintaansTable extends Migration
     {
         Schema::create('permintaans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama_bagian')->nullable();
+            $table->string('kode_bagian');
             $table->string('judul');
             $table->string('nomor_form');
             $table->string('kode_kegiatan');

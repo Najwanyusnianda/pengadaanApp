@@ -1,6 +1,6 @@
-@extends('Admin.layout')
+@extends('SubBagian.sub_bagian_index')
 
-@section('konten')
+@section('konten_bagian')
     <div class="container col-md-8" style="font-family:'Quicksand';font-size:14px;" >
             @if(Session::has('success'))
             <div class="alert alert-success">{{session('success')}}</div>
@@ -16,6 +16,18 @@
                                 <label for="email">Judul:</label>
                                 <input type="text" class="form-control" id="judul_permintaan" name="judul_permintaan">
                             </div>
+
+                            <div class="form-group">
+                                    <label>Jenis Pengadaan</label>
+                                    <select class="form-control" id="jenis_pengadaan" name="jenis_pengadaan">
+                                      <option value="barang">Barang/Jasa</option>
+                                      <option value="konsultan">Jasa Konsultan</option>
+                                      <option value="lainnya">Jasa Lainnya</option>
+                                      <option value="fullboard">Fullboard</option>
+                                    
+                                    </select>
+                                  </div>
+
                             <div class="form-group">
                                 <label for="email">Nomor Form:</label>
                                 <input type="text" class="form-control" id="nomor_form_permintaan" name="nomor_form_permintaan">

@@ -5,7 +5,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
     
-        <title>Fixed top navbar example for Bootstrap</title>
+        <title>Pengadaan App - test</title>
     <!-- Custom fonts for this template-->
         <link rel="stylesheet" href="{{asset('assets/fontawesome/css/all.css')}}">
         <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto|Varela+Round" rel="stylesheet">
@@ -13,34 +13,56 @@
         <!-- Custom styles for this template-->
         <link rel="stylesheet" href="{{asset('assets/adminlte/adminlte.css')}}">
         <!-- Custom styles for this template -->
-        <link href="navbar-top-fixed.css" rel="stylesheet">
+        <style>
+              body {
+                min-height: 75rem;
+                padding-top: 4.5rem;
+                background-color: #F4F6F9;
+                font-family: 'Roboto';
+              }
+        </style>
       </head>
+      @yield('addStyle')
+      <body >
     
-      <body>
-    
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-          <a class="navbar-brand" href="#">Fixed navbar</a>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="background-color:#2c3e50 !important;font-size:14px;">
+
+          <a class="navbar-brand" href="#">Pengadaan App</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">Daftar Permintaan<span class="sr-only">(current)</span></a>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="far fa-file-alt"></i>
+                    Daftar Permintaan
+                    <span class="sr-only">(current)</span>
+                </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Add Permintaan</a>
+              <a class="nav-link" href="{{route('permintaan.form')}}">
+                    <i class="fas fa-plus-circle"></i>
+                    Tambah permintaan
+                    <span class="sr-only"></span>
+                </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-              </li>
+
             </ul>
+
+            <div style="font-size: 12px;">
+                {{auth()->user()->sub_bagian->nama_bagian}}
+            </div>
+            
           </div>
         </nav>
-    
+ <!-----------konten---------->
         <div class="content">
             @yield('konten_bagian')
         </div>
+
+   <!-----------end konten---------->      
+
     
         <!-- Bootstrap core JavaScript
         ================================================== -->
@@ -55,6 +77,6 @@
   
         <!-- Custom scripts for all pages-->
         <script src="{{asset('assets/adminlte/adminlte.js')}}"></script>
-    
+          @yield('addScript')
     </body>
 </html>

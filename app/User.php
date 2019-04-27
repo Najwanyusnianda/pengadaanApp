@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Person');
     }
+
+    public function sub_bagian()
+    {
+        return $this->hasOne('App\SubBagian');
+    }
 }

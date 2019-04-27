@@ -12,9 +12,12 @@
 */
 
 Route::get('/', function () {
-    return view('Admin.layout');
+    return redirect('/dashboard');
 })->middleware('auth');
 
+Route::get('/home', function () {
+    return redirect('/dashboard');
+})->middleware('auth');
 
 //Editor
 Route::get('/editor', function () {
@@ -45,9 +48,10 @@ Route::group(['middleware' => ['auth']], function () {
     //permintaan
 
     Route::get('/permintaan','PermintaanController@index')->name('permintaan.list');
-    Route::get('/permintaan/form','PermintaanController@create')->name('permintaan.form');
+    Route:: get('/permintaan/{bagian}/list','PermintaanController@indexBagian')->name('bagian.permintaan.index');
+    Route::get('/permintaan/form','PermintaanController@create')->name('permintaan.form')->middleware('bagian');
     Route::get('/permintaan/{id}','PermintaanController@detail')->name('permintaan.detail');
-    Route::post('/permintaan/add','PermintaanController@save')->name('permintaan.add');
+    Route::post('/permintaan/add','PermintaanController@save')->name('permintaan.add')->middleware('bagian');
     Route::get('/table/permintaan','PermintaanController@dataTable')->name('permintaan.table');
 
     #-------------------------------

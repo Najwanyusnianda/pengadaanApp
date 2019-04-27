@@ -50,7 +50,7 @@
                         @foreach ($permintaan as $data)
                             <tr role="row" class="odd">
                                 <td>1</td>
-                            <td data-url='{{route('permintaan.detail',['id'=>$data->id])}}' data-id="{{$data->id}}" class="judul">{{$data->judul}}</td>
+                                <td class="judul">{{$data->judul}}</td>
                                 <td>{{$data->nama_bagian}}</td>
                                 <td>{{$data->kode_kegiatan}}</td>
                                 <td>{{$data->nilai}}</td>
@@ -62,10 +62,10 @@
                                 </td>
                                 <td class="aksi">
                                         
-                                    <a class="btn btn-link disposisi-show {{($data->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($data->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "" : "disabled"}}"  >
+                                    <a class="btn btn-link disposisi-show {{($data->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($data->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "" : "disabled"}}"    >
                                         <i class="fas fa-envelope fa-lg" style="color:#f39c12;"></i>  
                                     </a>
-                                    <a class="btn btn-link permintaan-show" >
+                                    <a class="btn btn-link permintaan-show" data-id="{{$data->id}}">
                                         <i class="fas fa-eye fa-lg" style="color:#3498db"></i>
                                     </a>
                                 </td> 
@@ -112,7 +112,8 @@
      
      <div class="modal fade permintaan_modal" id="exampleModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content detail-permintaan">
+          <div class="modal-content detail-permintaan"  id="detail_body" style="width:800px;">
+           
             
 
 
@@ -185,18 +186,17 @@
 
             
             var me = $(this);
+            var id= me.attr('data-id');
             var me = me.parent().parent();
             var judul=me.find('.judul').text();
-            
-            var url =me.find('.judul').attr('data-url');
-            console.log(url);
+            console.log(id);
           
             //get disposisi form
             $.ajax({
-                url: url,
+                url: 'permintaan/'+id,
                 dataType: 'html',
                 success: function(response) {
-                $('.modal-content.detail-permintaan').html(response);
+                $('#detail_body').html(response);
                
                 }
             });
