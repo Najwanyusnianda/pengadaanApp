@@ -15,13 +15,14 @@ class PermintaanController extends Controller
     //
     public function index(){
        // $permintaan=Permintaan::get();
-       $permintaan=DB::table('permintaans')->join('sub_bagians','permintaans.kode_bagian','=','sub_bagians.kode_bagian')->select('permintaans.*','sub_bagians.nama_bagian')->get();
+       $permintaan=DB::table('permintaans')->join('sub_bagians','permintaans.kode_bagian','=','sub_bagians.kode_bagian')->select('permintaans.*','sub_bagians.nama_bagian')->latest()->get();
 
         return view('Permintaan.daftar_Permintaan',compact('permintaan'));
     }
 
-    public function indexBagian(){
-        
+    public function indexBagian($kode_bagian){
+        $permintaan_bagian=Permintaan::where('kode_bagian',$kode_bagian)->latest()->get();
+        return view('Permintaan.daftar_permintaan_bagian',compact('permintaan_bagian'));
     }
 
     public function create(){
@@ -69,7 +70,7 @@ class PermintaanController extends Controller
         auth()->user()->notify(new PermintaanMasuk($permintaan));
         $request->session()->flash('success','Permintaan berhasil di tambahkan');
 
-        return redirect()->back();
+        return redirect()->route('bagian.permintaan.index',['bagian'=>auth()->user()->sub_bagian->kode_bagian]);
     }
 
     public function dataTable(){

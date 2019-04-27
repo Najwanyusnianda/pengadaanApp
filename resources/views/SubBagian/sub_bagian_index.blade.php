@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto|Varela+Round" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
         <!-- Custom styles for this template-->
-        <link rel="stylesheet" href="{{asset('assets/adminlte/adminlte.css')}}">
+        <!--<link rel="stylesheet" href="{{asset('assets/adminlte/adminlte.css')}}">-->
         <!-- Custom styles for this template -->
         <style>
               body {
@@ -20,27 +20,33 @@
                 background-color: #F4F6F9;
                 font-family: 'Roboto';
               }
+
+              .active{
+                color: black;
+              }
+
+              
         </style>
       </head>
       @yield('addStyle')
       <body >
     
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="background-color:#2c3e50 !important;font-size:14px;">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="background-color:#2c3e50 !important;font-size:14px;" >
 
           <a class="navbar-brand" href="#">Pengadaan App</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="#">
+            <ul class="navbar-nav mr-auto" >
+            <li class="nav-item {{Request::is('permintaan/'.auth()->user()->sub_bagian->kode_bagian.'/list') ? 'active' : '' }}">
+                <a class="nav-link"  href="{{route('bagian.permintaan.index',['bagian'=>auth()->user()->sub_bagian->kode_bagian])}}">
                     <i class="far fa-file-alt"></i>
                     Daftar Permintaan
                     <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
+            <li class="nav-item {{Request::is('permintaan/form') ? 'active' : ''}}">
               <a class="nav-link" href="{{route('permintaan.form')}}">
                     <i class="fas fa-plus-circle"></i>
                     Tambah permintaan
@@ -49,8 +55,12 @@
               </li>
 
             </ul>
-
-            <div style="font-size: 12px;">
+            <hr>
+            <div style="font-size: 12px;color:white;">
+            <a class="btn btn-link" href="{{route('logout')}}" >
+                  <i class="fas fa-power-off"></i>
+            </a>
+                
                 {{auth()->user()->sub_bagian->nama_bagian}}
             </div>
             

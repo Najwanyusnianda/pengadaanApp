@@ -39,6 +39,7 @@
                         <tr role="row" >
                             <th>No</th>
                             <th>Judul</th>
+                            <th>Jenis Pengadaan</th>
                             <th>Subject Matter</th>
                             <th>Kode Kegiatan</th>
                             <th>Nilai</th>
@@ -47,10 +48,16 @@
                         </tr>
                     </thead>
                     <tbody style="color:black"> 
-                        @foreach ($permintaan as $data)
+                        @foreach ($permintaan as $key=>$data)
                             <tr role="row" class="odd">
-                                <td>1</td>
-                                <td class="judul">{{$data->judul}}</td>
+                                <td>{{$key+1}}</td>
+                                <td class="judul">{{$data->judul}} <br>
+                                        <small>
+                                            <span class="badge badge-secondary ">{{\Carbon\Carbon::parse($data->created_at)->diffForHumans()}}</span>
+                                        </small> 
+                                
+                                </td>
+                                <td >{{$data->jenis_pengadaan}}</td>
                                 <td>{{$data->nama_bagian}}</td>
                                 <td>{{$data->kode_kegiatan}}</td>
                                 <td>{{$data->nilai}}</td>
@@ -61,13 +68,15 @@
                                 <span class="badge badge-warning">Warning</span>-->
                                 </td>
                                 <td class="aksi">
-                                        
-                                    <a class="btn btn-link disposisi-show {{($data->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($data->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "" : "disabled"}}"    >
-                                        <i class="fas fa-envelope fa-lg" style="color:#f39c12;"></i>  
-                                    </a>
-                                    <a class="btn btn-link permintaan-show" data-id="{{$data->id}}">
-                                        <i class="fas fa-eye fa-lg" style="color:#3498db"></i>
-                                    </a>
+                                    <div class="btn-group">
+                                          
+                                        <a class="btn btn-link disposisi-show {{($data->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($data->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "" : "disabled"}}"    >
+                                            <i class="fas fa-envelope fa-lg" style="color:#f39c12;"></i>  
+                                        </a>
+                                        <a class="btn btn-link permintaan-show" data-id="{{$data->id}}">
+                                            <i class="fas fa-eye fa-lg" style="color:#3498db"></i>
+                                        </a>
+                                    </div> 
                                 </td> 
                             </tr>                             
                         @endforeach
@@ -119,7 +128,7 @@
 
           </div>
         </div>
-      </div>
+    </div>
         
 @endsection
 
@@ -193,7 +202,7 @@
           
             //get disposisi form
             $.ajax({
-                url: 'permintaan/'+id,
+                url: '/permintaan/'+id,
                 dataType: 'html',
                 success: function(response) {
                 $('#detail_body').html(response);
