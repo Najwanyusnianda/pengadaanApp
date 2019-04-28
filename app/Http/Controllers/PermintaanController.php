@@ -25,6 +25,39 @@ class PermintaanController extends Controller
         return view('Permintaan.daftar_permintaan_bagian',compact('permintaan_bagian'));
     }
 
+    public function editPermintaan($kode_bagian,$id){
+        if(auth()->user()->sub_bagian->kode_bagian == $kode_bagian){
+        $permintaan_edit=Permintaan::where('id',$id)->first();
+        return view('Permintaan.form_permintaan_edit',compact('permintaan_edit'));
+        }else{
+            return redirect()->back()->withErrors(['msg', 'Tidak dapat diakses']);
+        }
+
+    }
+
+    public function updatePermintaan(Request $request,$id){
+        $permintaan=Permintaan::find($id);
+        $permintaan->update([
+            'kode_bagian'=>auth()->user()->sub_bagian->kode_bagian,
+            'judul'=>$request->judul_permintaan,
+            'jenis_pengadaan'=>$request->jenis_pengadaan,
+            'nomor_form'=>$request->nomor_form_permintaan,
+            'kode_kegiatan'=>$request->kode_kegiatan,
+            'output'=>$request->output,
+            'komponen'=>$request->komponen,
+            'sub_komponen'=>$request->sub_komponen,
+            'grup_akun'=>$request->grup_akun,
+            'nilai'=>$request->nilai_anggaran,
+            'date_mulai'=> date('Y-m-d', strtotime($request->date_mulai)),
+            'date_selesai'=>date('Y-m-d', strtotime($request->date_selesai)),
+            'date_created_form'=>date('Y-m-d', strtotime($request->date_buat_form))
+        ]);
+
+        return redirect()->route('bagian.permintaan.index',['bagian'=>auth()->user()->sub_bagian->kode_bagian]);
+        
+    }
+
+
     public function create(){
         return view('Permintaan.form_permintaan');
     }

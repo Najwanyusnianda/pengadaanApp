@@ -12,7 +12,7 @@
                 </div>
                 @if (count($permintaan_bagian)>0)
                 <div class="card-body" style="font-size:13px">
-                        <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                        <table id="example2" class="table table-bordered table-hover dataTable table-responsive" role="grid" aria-describedby="example2_info">
                             <thead>
                                 <tr role="row" >
                                     <th>No</th>
@@ -41,10 +41,14 @@
                                         </td>
                                         <td>
                                                 <div class="btn-group">
-                                                    <a  class="btn btn-link"><i class="fa fa-align-left"></i></a>
-                                                    <a  class="btn btn-link"><i class="fa fa-align-center"></i></a>
+                                                    <a  class="btn btn-link" href="{{route('permintaan.edit',['bagian'=>auth()->user()->sub_bagian->kode_bagian,'id'=>$data->id])}}">
+                                                        <i class="fas fa-pencil-alt " style="color:#f39c12;"></i>
+                                                    </a>
+                                                    <a  class="btn btn-link" data-id="{{$data->id}}" id="delete_permintaan">
+                                                        <i class="fas fa-trash-alt" style="color:#c0392b;"></i>
+                                                    </a>
                                                     <a class="btn btn-link permintaan-show" data-id="{{$data->id}}">
-                                                            <i class="fas fa-eye fa-lg" style="color:#3498db"></i>
+                                                            <i class="fas fa-eye " style="color:#2980b9;"></i>
                                                     </a>
                                                 </div>
                                         </td>
@@ -78,6 +82,17 @@
 
 @endsection
 
+@section('addStyle')
+    <style>
+        .btn-group > a{
+            opacity: 0.5;
+        }
+          .btn-group > a:hover{
+            opacity: 1;
+        }
+    </style>
+@endsection
+
 @section('addScript')
     <script>
           $('body').on('click','.permintaan-show',function(e){
@@ -102,5 +117,29 @@
             $('.permintaan_modal').modal('show');
 
         });
+
+        $('body').on('click','#delete_permintaan',function(e){
+            e.preventDefault();
+            var me = $(this);
+            var id= me.attr('data-id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Permintaan akan dihapus secara permanent",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                })
+                .then((result) => {
+                if (result.value) {
+                    Swal.fire(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    )
+                }
+                })
+        })
     </script>
 @endsection

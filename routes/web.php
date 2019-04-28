@@ -48,10 +48,17 @@ Route::group(['middleware' => ['auth']], function () {
     //permintaan
 
     Route::get('/permintaan','PermintaanController@index')->name('permintaan.list');
-    Route:: get('/permintaan/{bagian}/list','PermintaanController@indexBagian')->name('bagian.permintaan.index');
+    ///permintaan-bagian-priv
     Route::get('/permintaan/form','PermintaanController@create')->name('permintaan.form')->middleware('bagian');
-    Route::get('/permintaan/{id}','PermintaanController@detail')->name('permintaan.detail');
+    Route:: get('/permintaan/{bagian}/list','PermintaanController@indexBagian')->name('bagian.permintaan.index');
+    Route::get('/permintaan/{bagian}/{id}/edit','PermintaanController@editPermintaan')->name('permintaan.edit');
+    Route::put('/permintaan/{id}/delete','PermintaanController@deletePermintaan')->name('permintaan.delete');
+    Route::post('/permintaan/{id}/update','PermintaanController@updatePermintaan')->name('permintaan.update');
     Route::post('/permintaan/add','PermintaanController@save')->name('permintaan.add')->middleware('bagian');
+    ///
+    
+    Route::get('/permintaan/{id}','PermintaanController@detail')->name('permintaan.detail');
+    
     Route::get('/table/permintaan','PermintaanController@dataTable')->name('permintaan.table');
 
     #-------------------------------

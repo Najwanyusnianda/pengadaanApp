@@ -38,7 +38,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto" >
+            <ul class="navbar-nav" >
             <li class="nav-item {{Request::is('permintaan/'.auth()->user()->sub_bagian->kode_bagian.'/list') ? 'active' : '' }}">
                 <a class="nav-link"  href="{{route('bagian.permintaan.index',['bagian'=>auth()->user()->sub_bagian->kode_bagian])}}">
                     <i class="far fa-file-alt"></i>
@@ -52,10 +52,10 @@
                     Tambah permintaan
                     <span class="sr-only"></span>
                 </a>
-              </li>
+            </li>
 
             </ul>
-            <hr>
+            <hr style="color:white;">
             <div style="font-size: 12px;color:white;">
             <a class="btn btn-link" href="{{route('logout')}}" >
                   <i class="fas fa-power-off"></i>
@@ -83,6 +83,8 @@
   
         <!-- Core plugin JavaScript-->
         <script src="{{asset('assets/jquery-easing/jquery.easing.min.js')}}"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     
   
         <!-- Custom scripts for all pages-->
