@@ -122,6 +122,7 @@
             e.preventDefault();
             var me = $(this);
             var id= me.attr('data-id');
+            var url='/permintaan/'+id+'/delete'
             Swal.fire({
                 title: 'Are you sure?',
                 text: "Permintaan akan dihapus secara permanent",
@@ -133,11 +134,28 @@
                 })
                 .then((result) => {
                 if (result.value) {
-                    Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                    )
+                    $.ajaxSetup({
+                        headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+                        });
+
+                        $.ajax({
+                        type: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: url,
+                        data: {
+                            _method:'DELETE',
+                            _token: $('meta[name="csrf-token"]').attr('content'),      
+                        },
+                        success: function(response) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                                );
+                        }
+                    });
                 }
                 })
         })

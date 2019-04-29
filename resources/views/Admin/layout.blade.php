@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
         <!-- Custom styles for this template-->
         <link rel="stylesheet" href="{{asset('assets/adminlte/adminlte.css')}}">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
         <!--<link href="{{asset('assets\sbadmin\css\sb-admin-2.min.css')}}" rel="stylesheet">-->
         
         @yield('addStyle')
@@ -90,7 +91,8 @@
   
     <!-- Core plugin JavaScript-->
     <script src="{{asset('assets/jquery-easing/jquery.easing.min.js')}}"></script>
-    
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+      <script type="text/javascript"src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
   
     <!-- Custom scripts for all pages-->
     <script src="{{asset('assets/adminlte/adminlte.js')}}"></script>

@@ -44,9 +44,6 @@
 
 @section('addScript')
     <script>
-    
-    $('body').on('click',function(e){
-        e.preventDefault();
-    })
+
     </script>    
 @endsection

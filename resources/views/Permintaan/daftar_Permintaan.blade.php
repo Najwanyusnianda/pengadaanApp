@@ -29,14 +29,14 @@
 
 @section('konten')
     <div class="card shadow mb-4 permintaan-card" style="font-family:QuickSand;">
-        <div class="card-header py-3">
-          <h6 class="m-0 font-weight-bold text-primary">Basic Card Example</h6>
+        <div class="card-header py-3" style="background-color:#2c3e50;">
+          <h6 class="m-0 font-weight-bold " style="color:white;">Daftar Permintaan</h6>
         </div>
-        @if (count($permintaan)>0)
+
         <div class="card-body" style="font-size:13px">
-                <table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+                <table  class="table  table-hover dataTable" id="datatable" role="grid" aria-describedby="example2_info">
                     <thead>
-                        <tr role="row" >
+                        <tr  >
                             <th>No</th>
                             <th>Judul</th>
                             <th>Jenis Pengadaan</th>
@@ -47,51 +47,12 @@
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tbody style="color:black"> 
-                        @foreach ($permintaan as $key=>$data)
-                            <tr role="row" class="odd">
-                                <td>{{$key+1}}</td>
-                                <td class="judul">{{$data->judul}} <br>
-                                        <small>
-                                            <span class="badge badge-secondary ">{{\Carbon\Carbon::parse($data->created_at)->diffForHumans()}}</span>
-                                        </small> 
-                                
-                                </td>
-                                <td >{{$data->jenis_pengadaan}}</td>
-                                <td>{{$data->nama_bagian}}</td>
-                                <td>{{$data->kode_kegiatan}}</td>
-                                <td>{{$data->nilai}}</td>
-                                <td>
-                                <span class="badge {{$data->disposisi_status ==  'baru' ? 'badge-danger' : ($data->disposisi_status == 'dikerjakan' ? 'badge-success' : 'badge-warning')}}">{{$data->disposisi_status}}</span>
-                               <!-- <span class="badge badge-success">Success</span>
-                                <span class="badge badge-danger">Danger</span>
-                                <span class="badge badge-warning">Warning</span>-->
-                                </td>
-                                <td class="aksi">
-                                    <div class="btn-group">
-                                          
-                                        <a class="btn btn-link disposisi-show {{($data->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($data->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "" : "disabled"}}"    >
-                                            <i class="fas fa-envelope fa-lg" style="color:#f39c12;"></i>  
-                                        </a>
-                                        <a class="btn btn-link permintaan-show" data-id="{{$data->id}}">
-                                            <i class="fas fa-eye fa-lg" style="color:#3498db"></i>
-                                        </a>
-                                    </div> 
-                                </td> 
-                            </tr>                             
-                        @endforeach
-                                                 
-                                          
-                    </tbody>
+          
                     <tfoot>
                      
                     </tfoot>
                 </table>
         </div>
-        @else
-            <p>tidak ada permintaan</p>
-        @endif
-        
     </div>
 
 
@@ -134,6 +95,19 @@
 
 @section('addStyle')
     <style>
+
+        .btn-group > a{
+            opacity: 0.5;
+        }
+
+        .btn-group > a:hover{
+            opacity: 1;
+        }
+
+        a.disabled{
+            color: #2c3e50;
+        }
+
         .btn-xs{
         
         font-size: 14px;    
@@ -163,8 +137,23 @@
     $(document).ready(function(){
         //css
         $('a.disposisi-show.disabled').children().css('color','black');
-
-
+    
+        $('#datatable').DataTable({
+            responsive:true,
+            processing:true,
+            serverSide:true,
+            ajax:"{{route('permintaan.table')}}",
+            columns:[
+                {data: 'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},
+                {data:'judul'},
+                {data:'jenis_pengadaan'},
+                {data:'kode_bagian'},
+                {data:'kode_kegiatan'},
+                {data:'nilai'},
+                {data:'status_disposisi'},
+                {data:'action'},
+            ]
+        })
         //modal show
 
         var id_permintaan;
@@ -173,9 +162,10 @@
 
             var url ='{{route('disposisi.form')}}';
             var me = $(this);
-            var me = me.parent().parent();
-            var judul=me.find('.judul').text();
-            id_permintaan =me.find('.judul').attr('data-id');
+            var id= me.attr('data-id');
+            //var me = me.parent().parent();
+            var judul=me.attr('data-title');
+            id_permintaan =id
             console.log(id_permintaan);
             //get disposisi form
             $.ajax({
@@ -196,8 +186,8 @@
             
             var me = $(this);
             var id= me.attr('data-id');
-            var me = me.parent().parent();
-            var judul=me.find('.judul').text();
+            //var me = me.parent().parent();
+            //var judul=me.find('.judul').text();
             console.log(id);
           
             //get disposisi form

@@ -57,6 +57,11 @@ class PermintaanController extends Controller
         
     }
 
+    public function deletePermintaan($id){
+        $permintaan=Permintaan::findOrFail($id);
+        $permintaan->delete();
+    }
+
 
     public function create(){
         return view('Permintaan.form_permintaan');
@@ -111,15 +116,20 @@ class PermintaanController extends Controller
         return DataTables::of($permintaan)
             ->addColumn('action',function($permintaan){
             return view('Permintaan.permintaan_table._action',[
-                'disabled_status'=>($permintaan->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($permintaan->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "" : "disabled"
+                'disabled_status'=>($permintaan->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($permintaan->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "" : "disabled",
+                'data_id'=>$permintaan->id,
+                'judul'=>$permintaan->judul
             ]);
-        })->addColumn('status_disposisi',function($permintaan){
+            })->addColumn('status_disposisi',function($permintaan){
             return view('Permintaan.permintaan_table._disposisiStatus',[
                 'disposisi_badge'=>$permintaan->disposisi_status ==  'baru' ? 'badge-danger' : ($permintaan->disposisi_status == 'dikerjakan' ? 'badge-success' : 'badge-warning'),
                 'disposisi_status'=>$permintaan->disposisi_status
             ]);
-        })->addIndexColumn()->rawColumns(['action','status_disposisi'])->make(true);
+            })->addIndexColumn()->rawColumns(['action','status_disposisi'])->make(true);
         
 
+    }
+
+    public function bagianDataTable(){
     }
 }

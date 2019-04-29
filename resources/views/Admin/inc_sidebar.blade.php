@@ -2,7 +2,7 @@
   <!-- Brand Logo -->
   <a href="index3.html" class="brand-link">
     <img src="{{asset('img/brand.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-    <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <span class="brand-text font-weight-light">pengadaanApp</span>
   </a>
 
   <!-- Sidebar -->
@@ -35,7 +35,7 @@
               <ul class="nav nav-treeview">
            
                   <li class="nav-item">
-                  <a href="{{route('user_list.index')}}" class="nav-link ">
+                  <a href="{{route('user_list.index')}}" class="nav-link">
                         <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
                         <p>Daftar User</p>
                       </a>
