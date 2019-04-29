@@ -97,8 +97,8 @@ Route::group(['middleware' => ['auth']], function () {
     //Handling user
     Route::get('/user/list','UserController@index')->name('user_list.index');
     Route::get('/user/list_bagian','UserController@indexBagian')->name('user_list.indexBagian');
-
-
+    Route::get('/user/register/form','UserController@registerUserForm')->name('user.form.register');
+    Route::post('/user/postregister','UserController@storeRegister')->name('user.post.register');
     
 
 });

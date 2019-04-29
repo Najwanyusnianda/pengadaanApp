@@ -15,7 +15,7 @@
             @forelse ($pelaku as $data)
             <tr>
                     <td>
-                        <a href="#" style="color:black;" >
+                        <a href="" style="color:black;" >
                            <!-- <img src="{{asset('img/user.png')}}" class="avatar" alt="User Image" style="display:block;" width="40px" height="40px"> -->
                         <strong style="color:#0097e6">{{$data->nama}}</strong> 
                         </a>

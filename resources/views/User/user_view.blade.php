@@ -22,8 +22,8 @@
                                     </ul>
                         </div>
                         <div class="col-md-2 offset-md-4">
-                                <li class="row justify-content-end" style="">
-                                        <a class="btn btn-link" style="color:white;background-color: #353b48;">
+                                <li class="row justify-content-end" id="register-item">
+                                        <a class="btn btn-link"  id="register-show" style="color:white;background-color: #353b48;">
                                                 <i class="fas fa-user-plus"></i>
                                                 Add User
                                         </a>
@@ -56,5 +56,105 @@
     
     </div>    
 </div>
-    
+
+<!-- end tab-content -->
+
+
+<!-- modal add user -->
+
+<div class="modal fade register_modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+           
+            <div class="" id="form_register">
+              
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>
+                    <button  class="btn btn-primary btn-block btn-flat shadow" id="register_x" > Register</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+@endsection
+
+@section('addStyle')
+    <style>
+        #register-item > a {
+            opacity:0.5;
+        }
+        #register-item > a:hover{
+            opacity: 1;
+        }
+    </style>
+@endsection
+
+@section('addScript')
+    <script>
+        
+        $(document).ready(function(){
+            $('#register_x').click(
+            function(e){
+                var url="{{route('user.post.register')}}"
+                var nama= $('#nama').val(),
+                nip= $('#nip').val(),
+                role=$('#role').val(),
+                username= $('#username').val(),
+                password= $('#password').val();
+            
+                console.log(url+'||'+nama+'||'+nip+'||'+role+'||'+username+'||'+password);
+                $.ajaxSetup({
+                    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+                });
+               
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: url,
+                    data: {
+                        // change data to this object
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        nama: $('#nama').val(),
+                        nip: $('#nip').val(),
+                        role: $('#role').val(),
+                        username: $('#username').val(),
+                        password: $('#password').val(),
+                        
+                    },
+                    success: function(result) {
+                        //console.log(result);
+                        alert("Berhasil dikirim");
+                        //permintaanTable.ajax.reload();
+                        $("#close").trigger("click");
+                    }
+                });
+            }
+        )
+            
+            $('#register-show').click(function(e){
+            e.preventDefault();
+            
+            var url="{{route('user.form.register')}}"
+            $.ajax({
+                url: url,
+                dataType: 'html',
+                success: function(response) {
+                $('#form_register').html(response);
+                }
+            });
+            $('.register_modal').modal('show');
+        });
+        })    
+        
+        
+
+
+      
+
+        
+    </script>
 @endsection
