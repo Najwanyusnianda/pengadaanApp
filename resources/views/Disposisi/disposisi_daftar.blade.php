@@ -3,8 +3,8 @@
 @section('konten')
 <div class="container">
   <div class="row">
-    <div class="col-md-3">
-        <div class="card">
+    <div class="col-md-3" >
+      <div class="card" id="header-pills">
             <div class="card-header">
               <h3 class="card-title">Folders</h3>
 
@@ -37,56 +37,31 @@
             <!-- /.card-body -->
           </div>
     </div>
-    <div class="col-md-9">
-        <div class="card" style="font-family:QuickSand;font-size:14px;">
-            <div class="card-header">
-              <h3 class="card-title">Disposisi</h3>
-
+    <div class="col-md-9" id="card_table_disposisi">
+        <div class="card" style="font-family:Roboto;font-size:12px;">
+            <div class="card-header" style="background-color:#0984e3;">
+              <h3 class="card-title" style="color:white;font-family:QuickSand;"><i class="fas fa-envelope"></i><strong class="pl-2">Disposisi Masuk</strong> </h3>
+    
               <div class="card-tools">
-                <ul class="pagination pagination-sm m-0 float-right">
-                  <li class="page-item"><a class="page-link" href="#">«</a></li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">»</a></li>
-                </ul>
               </div>
             </div>
             <!-- /.card-header -->
-            <div class="card-body p-0">
-              <table class="table">
+            <div class="card-body p-2">
+              <table class="table" id="tableDisposisi" class="table-responsive table-bordered">
                 <thead>
                     <tr>
-                        <th style="width: 10px">#</th>
+                        <th>#</th>
                         <th>Permintaan</th>
                         <th>Pengirim</th>
                         <th>Tanggal Terima</th>
                         <th>Detail</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @if (count($disposisi)>0)
-                    @foreach ($disposisi as $data)
-                    <tr>
-                      <td>1</td>
-                      <td>{{$data->judul_permintaan}}</td>
-                      <td>{{$data->nama_pengirim}}</td>
-                    <td>{{\Carbon\Carbon::parse($data->created_at)->format('d, M Y')}}</td>
-                    <td>
-                      <button class="btn btn-link detail_disposisi_show" data-id="{{$data->id}}">detail</button>
-                    </td>
-                    </tr> 
-                    @endforeach
-                        
-                    @else
-                        <p>tidak ada data</p>
-                    @endif
-            
-                </tbody>
+              
               </table>
             </div>
             <!-- /.card-body -->
-          </div>
+        </div>  
     </div>
   </div>
 </div>
@@ -110,6 +85,12 @@
 
 @endsection
 
+
+@section('addStyle')
+    <style>
+     
+    </style>
+@endsection
 
 @section('addScript')
     <script>
@@ -139,6 +120,26 @@
 
 
       });
+
+      $('#tableDisposisi').DataTable({
+            responsive:true,
+            processing:true,
+            serverSide:true,
+            searching: false,
+            paging: false,
+            info: false,
+            ajax:"{{route('disposisi.tableMasuk')}}",
+            columns:[
+                {data:'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},
+                {data:'judul_permintaan'},
+                {data:'nama_pengirim'},
+                {data:'tgl_masuk'},
+                {data:'detail'}
+             
+            ]
+        });
+
+        //$('table').attr('class',"table dataTable no-footer table-responsive");
     
     </script>
 @endsection

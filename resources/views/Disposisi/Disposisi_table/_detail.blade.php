@@ -1,0 +1,1 @@
+<button type="button" class="btn btn-block btn-outline-info btn-sm detail_disposisi_show" data-id="{{$data_id}}">Info</button>

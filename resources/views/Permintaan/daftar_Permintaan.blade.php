@@ -100,6 +100,9 @@
             opacity: 0.5;
         }
 
+        .paginate_button{
+           padding: 0.1em 0.1em !important;
+        }
         .btn-group > a:hover{
             opacity: 1;
         }
@@ -147,7 +150,7 @@
                 {data: 'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},
                 {data:'judul'},
                 {data:'jenis_pengadaan'},
-                {data:'kode_bagian'},
+                {data:'nama_bagian'},
                 {data:'kode_kegiatan'},
                 {data:'nilai'},
                 {data:'status_disposisi'},
@@ -232,6 +235,7 @@
                         //console.log(result);
                         alert("Berhasil dikirim");
                         //permintaanTable.ajax.reload();
+                        $('#datatable').DataTable().ajax.reload();
                         $("#close").trigger("click");
                     }
                 });

@@ -112,13 +112,14 @@ class PermintaanController extends Controller
     }
 
     public function dataTable(){
-        $permintaan=Permintaan::query();
+        $permintaan=Permintaan::query()->join('sub_bagians','permintaans.kode_bagian','=','sub_bagians.kode_bagian')->select('permintaans.*','sub_bagians.nama_bagian')->latest()->get();
         return DataTables::of($permintaan)
             ->addColumn('action',function($permintaan){
             return view('Permintaan.permintaan_table._action',[
                 'disabled_status'=>($permintaan->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($permintaan->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "" : "disabled",
                 'data_id'=>$permintaan->id,
-                'judul'=>$permintaan->judul
+                'judul'=>$permintaan->judul,
+                'color_status'=>($permintaan->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($permintaan->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "#f39c12;" : "#b2bec3"
             ]);
             })->addColumn('status_disposisi',function($permintaan){
             return view('Permintaan.permintaan_table._disposisiStatus',[

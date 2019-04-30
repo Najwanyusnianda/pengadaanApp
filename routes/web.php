@@ -67,6 +67,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/disposisi','DisposisiController@daftar')->name('disposisi.list');
     Route::get('/disposisi/detail/{id}','DisposisiController@detail')->name('disposisi.detail');
     Route::post('/disposisi/store','DisposisiController@store')->name('disposisi.store');
+    Route::get('/disposisi/tableMasuk','DisposisiController@tableMasuk')->name('disposisi.tableMasuk');
+
 
     #-------------------------------
     //Paket

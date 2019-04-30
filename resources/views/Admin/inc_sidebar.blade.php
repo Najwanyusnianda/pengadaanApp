@@ -14,8 +14,10 @@
       </div>
       <div class="info">
         <a href="#" class="d-block">{{auth()->user()->username ? auth()->user()->username : ' '}}</a>
-        <a href="#" class="d-block">{{auth()->user()->person->role->deskripsi ? auth()->user()->person->role->deskripsi : ' '}}</a>
+        <small> <a href="#" class="d-block">{{auth()->user()->person->role->deskripsi ? auth()->user()->person->role->deskripsi : ' '}}</a></small>
       </div>
+      
+     
     </div>
 
     <!-- Sidebar Menu -->

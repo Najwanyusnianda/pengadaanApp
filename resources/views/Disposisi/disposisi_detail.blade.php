@@ -2,12 +2,13 @@
         <div class="">
                 <div class="post">
                         <div class="user-block">
-                          <img class="img-circle img-bordered-sm" src="{{asset('img/brand.jpg')}}" alt="user image">
+                          <img class="img-circle img-bordered-sm" src="{{asset('img/user.png')}}" alt="user image">
                           <span class="username">
-                            <a href="#">Jonathan Burke Jr.</a>
+                            <a href="#">
+                              {{$disp_detail->nama_pengirim}}</a>
                             <a href="#" class="float-right btn-tool"><i class="fa fa-times"></i></a>
                           </span>
-                          <span class="description">Shared publicly - 7:30 PM today</span>
+                          <span class="description">dikirim ke {{$disp_detail->nama_penerima}} - {{\Carbon\Carbon::parse($disp_detail->created_at)->diffForHumans()}}</span>
                         </div>
                         <!-- /.user-block -->
                         <p>
