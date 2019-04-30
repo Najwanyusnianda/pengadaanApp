@@ -34,24 +34,27 @@
         </div>
 
         <div class="card-body" style="font-size:13px">
-                <table  class="table  table-hover dataTable" id="datatable" role="grid" aria-describedby="example2_info">
-                    <thead>
-                        <tr  >
-                            <th>No</th>
-                            <th>Judul</th>
-                            <th>Jenis Pengadaan</th>
-                            <th>Subject Matter</th>
-                            <th>Kode Kegiatan</th>
-                            <th>Nilai</th>
-                            <th>Status</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-          
-                    <tfoot>
-                     
-                    </tfoot>
-                </table>
+            <div class="table-responsive">
+                    <table  class="table  table-hover dataTable" id="datatable" role="grid" aria-describedby="example2_info">
+                            <thead>
+                                <tr  >
+                                    <th>No</th>
+                                    <th>Judul</th>
+                                    <th>Jenis Pengadaan</th>
+                                    <th>Subject Matter</th>
+                                    <th>Kode Kegiatan</th>
+                                    <th>Nilai</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                  
+                            <tfoot>
+                             
+                            </tfoot>
+                        </table>
+            </div>
+                
         </div>
     </div>
 
@@ -148,7 +151,7 @@
             ajax:"{{route('permintaan.table')}}",
             columns:[
                 {data: 'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},
-                {data:'judul'},
+                {data:'date_diff'},
                 {data:'jenis_pengadaan'},
                 {data:'nama_bagian'},
                 {data:'kode_kegiatan'},

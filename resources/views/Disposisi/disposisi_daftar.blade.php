@@ -47,18 +47,21 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body p-2">
-              <table class="table" id="tableDisposisi" class="table-responsive table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Permintaan</th>
-                        <th>Pengirim</th>
-                        <th>Tanggal Terima</th>
-                        <th>Detail</th>
-                    </tr>
-                </thead>
-              
-              </table>
+              <div class="table-responsive">
+                  <table class="table" id="tableDisposisi" class="table-responsive table-bordered">
+                      <thead>
+                          <tr>
+                              <th>#</th>
+                              <th>Permintaan</th>
+                              <th>Pengirim</th>
+                              <th>Tanggal Terima</th>
+                              <th>Detail</th>
+                          </tr>
+                      </thead>
+                    
+                    </table>
+              </div>
+            
             </div>
             <!-- /.card-body -->
         </div>  

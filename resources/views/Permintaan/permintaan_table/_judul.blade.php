@@ -1,0 +1,1 @@
+{{$judul}} &nbsp; &nbsp; <span class="badge badge-info">{{$tgl}}</span>

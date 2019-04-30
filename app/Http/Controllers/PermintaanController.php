@@ -119,14 +119,22 @@ class PermintaanController extends Controller
                 'disabled_status'=>($permintaan->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($permintaan->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "" : "disabled",
                 'data_id'=>$permintaan->id,
                 'judul'=>$permintaan->judul,
-                'color_status'=>($permintaan->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($permintaan->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "#f39c12;" : "#b2bec3"
+                'color_status'=>($permintaan->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($permintaan->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "#f39c12;" : "#b2bec3",
+                "disabled_status_packet"=>($permintaan->disposisi_status =='dikerjakan' and auth()->user()->person->role->id == 6) ? '' : 'disabled',
+                'color_status_packet'=>($permintaan->disposisi_status =='dikerjakan' and auth()->user()->person->role->id == 6) ? '#d35400' : '#b2bec3'
             ]);
             })->addColumn('status_disposisi',function($permintaan){
             return view('Permintaan.permintaan_table._disposisiStatus',[
                 'disposisi_badge'=>$permintaan->disposisi_status ==  'baru' ? 'badge-danger' : ($permintaan->disposisi_status == 'dikerjakan' ? 'badge-success' : 'badge-warning'),
                 'disposisi_status'=>$permintaan->disposisi_status
             ]);
-            })->addIndexColumn()->rawColumns(['action','status_disposisi'])->make(true);
+            })->addColumn('date_diff',function($permintaan){
+                return view('Permintaan.permintaan_table._judul',[
+                    'judul'=>$permintaan->judul,
+                    'tgl'=>\Carbon\Carbon::parse($permintaan->created_at)->diffForHumans()
+                ]);
+            })
+            ->addIndexColumn()->rawColumns(['action','status_disposisi','date_diff'])->make(true);
         
 
     }
