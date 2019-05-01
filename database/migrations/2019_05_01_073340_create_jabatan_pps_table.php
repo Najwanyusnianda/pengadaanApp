@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJabatanPpksTable extends Migration
+class CreateJabatanPpsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateJabatanPpksTable extends Migration
      */
     public function up()
     {
-        Schema::create('jabatan_ppks', function (Blueprint $table) {
+        Schema::create('jabatan_pps', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('kode_jabatan');
             $table->string('nama_jabatan');
-            $table->string('kode_program');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateJabatanPpksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jabatan_ppks');
+        Schema::dropIfExists('jabatan_pps');
     }
 }

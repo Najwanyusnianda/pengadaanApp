@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\JabatanPpk;
+use App\JabatanPp;
 
-class JabatanPpkTableSeeder extends Seeder
+class JabatanPpTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,15 +13,13 @@ class JabatanPpkTableSeeder extends Seeder
     public function run()
     {
         //
-        DB::table('jabatan_ppks')->delete();
-        $json= File::get("database/data/ppk.json");
+        DB::table('jabatan_pps')->delete();
+        $json= File::get("database/data/pp.json");
         $data=json_decode($json);
         foreach ($data as $obj) {
-            JabatanPpk::create(array(
+            JabatanPp::create(array(
                 'kode_jabatan'=> $obj->jabatan,
-                'nama_jabatan'=>$obj->kode_ppk,
-                'kode_program'=>$obj->kode_program
-
+                'nama_jabatan'=>$obj->kode_pp,               
             ));
         }
     }

@@ -14,7 +14,9 @@ class CreatePpsTable extends Migration
     public function up()
     {
         Schema::create('pps', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
+            $table->unsignedInteger('person_id');
+            $table->string('kode_jabatan');
             $table->timestamps();
         });
     }

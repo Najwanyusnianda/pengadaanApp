@@ -113,12 +113,13 @@ class PermintaanController extends Controller
 
     public function dataTable(){
         $permintaan=Permintaan::query()->join('sub_bagians','permintaans.kode_bagian','=','sub_bagians.kode_bagian')->select('permintaans.*','sub_bagians.nama_bagian')->latest()->get();
+        
         return DataTables::of($permintaan)
             ->addColumn('action',function($permintaan){
             return view('Permintaan.permintaan_table._action',[
                 'disabled_status'=>($permintaan->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($permintaan->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "" : "disabled",
                 'data_id'=>$permintaan->id,
-                'judul'=>$permintaan->judul,
+                'judul'=>'Disposisi: Pengadaan '.$permintaan->judul,
                 'color_status'=>($permintaan->disposisi_status == 'baru' and auth()->user()->person->role->id == 4) || ($permintaan->disposisi_status == 'disposisi' and auth()->user()->person->role->id == 5) ? "#f39c12;" : "#b2bec3",
                 "disabled_status_packet"=>($permintaan->disposisi_status =='dikerjakan' and auth()->user()->person->role->id == 6) ? '' : 'disabled',
                 'color_status_packet'=>($permintaan->disposisi_status =='dikerjakan' and auth()->user()->person->role->id == 6) ? '#d35400' : '#b2bec3'

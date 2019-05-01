@@ -14,4 +14,9 @@ class PaketController extends Controller
     public function detail(){
         return view('Paket.detail_paket');
     }
+
+
+    public function penanggungJawabForm(){
+        return view('Paket.penanggung_jawab');
+    }
 }

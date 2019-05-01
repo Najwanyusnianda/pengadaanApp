@@ -61,11 +61,11 @@
 
     <!-- ########################################################-->
     <!--form disposisi-->
-        <div class="modal fade disposisi_modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade disposisi_modal" id="disposisi_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title"  id="exampleModalLabel"></h5>
+                <div class="modal-header" id="disposisi_modalHeader">
+                  <h5 class="modal-title"  id="disposisi_title"></h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -85,7 +85,7 @@
      
      <div class="modal fade permintaan_modal" id="exampleModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content detail-permintaan"  id="detail_body" style="width:800px;">
+          <div class="modal-content detail-permintaan"  id="detail_body" style=" width:100%">
            
             
 
@@ -93,12 +93,43 @@
           </div>
         </div>
     </div>
+
+
+    <!--form penanggung jawab pejabat_form-->
+        <div class="modal fade pejabat_form_modal" id="pejabat_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header" id="pejabat_modalHeader">
+                  <h5 class="modal-title"  id="pejabat_title"></h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body" id="pejabat_body">
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="pejabat_kirim">kirim</button>
+                </div>
+              </div>
+            </div>
+        </div>
         
 @endsection
 
 @section('addStyle')
     <style>
-
+        #disposisi_modalHeader{
+            background-color: #2980b9;
+            color: white;
+        }
+        
+        #disposisi_title{
+            font-size: 16px ;
+            font-family: 'QuickSand'
+            
+        }
         .btn-group > a{
             opacity: 0.5;
         }
@@ -122,9 +153,7 @@
         border-radius: 0%;
     }
 
-        .modal-title{
-            font-size: 12px;
-        }
+      
         
         td.aksi:nth-child(){
             opacity:0.5;
@@ -160,6 +189,7 @@
                 {data:'action'},
             ]
         })
+
         //modal show
 
         var id_permintaan;
@@ -186,6 +216,8 @@
 
         });
 
+        //// permintaan detail modal -----------------------------------
+
         $('body').on('click','.permintaan-show',function(e){
             e.preventDefault();
 
@@ -210,7 +242,28 @@
         });
 
 
-        //ajax post
+        //penanggunjawab form -----------------------------------------------------------------------
+        $('body').on('click','.penanggung-jawab-show',function(e){
+            e.preventDefault();
+
+            var url ="{{route('pejabat.form')}}";
+            var me = $(this);
+            //var judul=me.attr('data-title');
+        
+            //get permintaan form
+            $.ajax({
+                url: url,
+                dataType: 'html',
+                success: function(response) {
+                $('.modal-body').html(response);
+                //$('.modal-title').html(judul);
+                }
+            });
+            $('.pejabat_form_modal').modal('show');
+
+        });
+
+        //#####################################################ajax_ post_disposisi
 
         $('#disposisi_kirim').click(
             function(e){
@@ -236,7 +289,11 @@
                     },
                     success: function(result) {
                         //console.log(result);
-                        alert("Berhasil dikirim");
+                        Swal.fire(
+                            'Terkirim!',
+                            'Disposisi Telah Terkirim!',
+                            'success'
+                            )
                         //permintaanTable.ajax.reload();
                         $('#datatable').DataTable().ajax.reload();
                         $("#close").trigger("click");

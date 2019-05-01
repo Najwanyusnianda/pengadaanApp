@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ProgramTableSeeder::class);
         $this->call(KegiatanTableSeeder::class);
         $this->call(JabatanPpkTableSeeder::class);
+        $this->call(JabatanPpTableSeeder::class);
+        
 
     }
 

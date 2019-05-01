@@ -92,8 +92,8 @@
     <!-- Core plugin JavaScript-->
     <script src="{{asset('assets/jquery-easing/jquery.easing.min.js')}}"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-      <script type="text/javascript"src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-  
+    <script type="text/javascript"src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <!-- Custom scripts for all pages-->
     <script src="{{asset('assets/adminlte/adminlte.js')}}"></script>
     <!--<script src="{{asset('assets/sbadmin/js/sb-admin-2.min.js')}}"></script>-->
