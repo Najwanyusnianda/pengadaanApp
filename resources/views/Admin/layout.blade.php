@@ -18,11 +18,12 @@
         <link rel="stylesheet" href="{{asset('assets/adminlte/adminlte.css')}}">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
         <!--<link href="{{asset('assets\sbadmin\css\sb-admin-2.min.css')}}" rel="stylesheet">-->
-        
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/css/select2.min.css" rel="stylesheet" />
+
         @yield('addStyle')
     </head>
   
-    <body class="sidebar-mini" style="height: auto;">
+    <body class="sidebar-mini sidebar-collapse" style="height: auto;">
       <div class="wrapper">
       
         <!-- Navbar -->
@@ -97,7 +98,7 @@
     <!-- Custom scripts for all pages-->
     <script src="{{asset('assets/adminlte/adminlte.js')}}"></script>
     <!--<script src="{{asset('assets/sbadmin/js/sb-admin-2.min.js')}}"></script>-->
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/js/select2.min.js"></script>
     @yield('addScript')
   
   

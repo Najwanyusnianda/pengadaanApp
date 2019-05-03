@@ -29,11 +29,9 @@
 
 @section('konten')
     <div class="card shadow mb-4 permintaan-card" style="font-family:QuickSand;">
-        <div class="card-header py-3" style="background-color:#2c3e50;">
-          <h6 class="m-0 font-weight-bold " style="color:white;">Daftar Permintaan</h6>
-        </div>
 
-        <div class="card-body" style="font-size:13px">
+
+        <div class="card-body" style="font-size:15px">
             <div class="table-responsive">
                     <table  class="table  table-hover dataTable" id="datatable" role="grid" aria-describedby="example2_info">
                             <thead>

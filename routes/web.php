@@ -102,6 +102,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/user/list_bagian','UserController@indexBagian')->name('user_list.indexBagian');
     Route::get('/user/register/form','UserController@registerUserForm')->name('user.form.register');
     Route::post('/user/postregister','UserController@storeRegister')->name('user.post.register');
-    
-
+    #-------------------------------
+    //Handling  Project setting
+    Route::get('/pejabat/setting','UserSettingController@getPejabatSetting');
 });

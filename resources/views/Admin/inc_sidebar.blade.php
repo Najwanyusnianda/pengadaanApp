@@ -116,6 +116,28 @@
                 </ul>        
               </li>
             <li class="nav-item">
+
+                <li class="nav-item has-treeview ">
+                    <a href="#" class="nav-link ">
+                      
+                        <i class="nav-icon fas fa-cogs" style="color:#c8d6e5;"></i>
+                      <p>
+                        Setting
+                        <i class="right fa fa-angle-left"></i>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                 
+                        <li class="nav-item">
+                        <a href="{{url('/pejabat/setting')}}" class="nav-link ">
+                              <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                              <p>User Project</p>
+                            </a>
+                        </li>
+      
+                    </ul>        
+                  </li>
+                <li class="nav-item">  
             <a href="{{route('logout')}}" class="nav-link">
                 <i class="nav-icon fa fa-th"></i>
                 <p>

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class JabatanPpk extends Model
 {
     //
-    protected $primaryKey = 'kode_jabatan';
+    protected $primaryKey = 'id';
 }

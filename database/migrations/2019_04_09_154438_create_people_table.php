@@ -15,8 +15,11 @@ class CreatePeopleTable extends Migration
     {
         Schema::create('people', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama');
+            $table->string('nama_depan');
+            $table->string('nama_belakang');
             $table->string('nip');
+            //$table->string('email');
+            $table->string('kontak');
             $table->unsignedInteger('role_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->boolean('is_active')->default(true);

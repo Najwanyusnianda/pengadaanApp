@@ -82,6 +82,8 @@ class PermintaanController extends Controller
         ->select('permintaans.*','a.*','b.nama_bagian As eselonII','c.nama_bagian As eselonI','kegiatan.nama_kegiatan','program.nama_program','program.kode_program')
         ->first(); 
 
+  
+
         return view('Permintaan.detail_permintaan',compact('permintaan_detail'));
     }
 

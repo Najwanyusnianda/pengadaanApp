@@ -18,8 +18,8 @@ class JabatanPpTableSeeder extends Seeder
         $data=json_decode($json);
         foreach ($data as $obj) {
             JabatanPp::create(array(
-                'kode_jabatan'=> $obj->jabatan,
-                'nama_jabatan'=>$obj->kode_pp,               
+                'nama_jabatan'=> $obj->jabatan,
+                'kode_jabatan'=>$obj->kode_pp,               
             ));
         }
     }

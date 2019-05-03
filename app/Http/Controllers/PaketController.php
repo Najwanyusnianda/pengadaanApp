@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Ppk;
+use App\Pp;
+use App\Person;
 
 class PaketController extends Controller
 {
@@ -17,6 +20,9 @@ class PaketController extends Controller
 
 
     public function penanggungJawabForm(){
-        return view('Paket.penanggung_jawab');
+        $ppk=Person::where('role_id',3)->get();
+        $pp=Pp::all();
+
+        return view('Paket.penanggung_jawab',compact('ppk','pp'));
     }
 }
