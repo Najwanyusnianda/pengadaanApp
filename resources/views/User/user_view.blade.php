@@ -2,7 +2,7 @@
 
 @section('konten')
 <div class="container-fluid">
-    <div class="col">
+    <div class="col-md-6">
         <div class="row-md-8">
             <div class="card">
                 <div class="card-header">
@@ -54,7 +54,11 @@
         </div>  
 
     
-    </div>    
+    </div>  
+    
+    <div class="col-md-6">
+        
+    </div>
 </div>
 
 <!-- end tab-content -->
@@ -96,7 +100,7 @@
         
         $(document).ready(function(){
             $('#register_x').click(
-            function(e){
+                function(e){
                 var url="{{route('user.post.register')}}"
                 var nama= $('#nama').val(),
                 nip= $('#nip').val(),
@@ -104,7 +108,7 @@
                 username= $('#username').val(),
                 password= $('#password').val();
             
-                console.log(url+'||'+nama+'||'+nip+'||'+role+'||'+username+'||'+password);
+                //console.log(url+'||'+nama+'||'+nip+'||'+role+'||'+username+'||'+password);
                 $.ajaxSetup({
                     headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
                 });
@@ -132,29 +136,39 @@
                         $("#close").trigger("click");
                     }
                 });
-            }
-        )
+                }
+            )
             
             $('#register-show').click(function(e){
-            e.preventDefault();
+                e.preventDefault();
             
-            var url="{{route('user.form.register')}}"
-            $.ajax({
-                url: url,
-                dataType: 'html',
-                success: function(response) {
-                $('#form_register').html(response);
-                }
+                var url="{{route('user.form.register')}}"
+                $.ajax({
+                    url: url,
+                    dataType: 'html',
+                    success: function(response) {
+                    $('#form_register').html(response);
+                    }
+                });
+                $('.register_modal').modal('show');
             });
-            $('.register_modal').modal('show');
-        });
+
+            $('#userTable').DataTable({
+                responsive:true,
+                processing:true,
+                serverSide:true,
+                ajax:"{{route('table.user')}}",
+                columns:[
+                {data: 'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},
+                {data:'nama_depan'},
+                {data:'nip'},
+                {data:'deskripsi'},
+                {data:'status'},
+                {data:'action'}
+                ]
+            });
+
         })    
-        
-        
-
-
-      
-
         
     </script>
 @endsection

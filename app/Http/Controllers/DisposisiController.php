@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use DB;
 use App\Disposisi;
 use App\DisposisiStaff;
+use App\DisposisiHeader;
+use App\DisposisiDetail;
 use App\Person;
 use App\Permintaan;
 use DataTables;
@@ -19,7 +21,9 @@ class DisposisiController extends Controller
         return view('Disposisi.disposisi_daftar',compact('disposisi'));
     }
 
-    public function store(Request $request){
+    
+
+    public function store_temp(Request $request){
         $user_id=auth()->user()->id;
         $pengirim=Person::where('user_id','=',$user_id)->first();
         //if kulp
@@ -58,17 +62,58 @@ class DisposisiController extends Controller
     }
 
 
+    public function store(Request $request){
+       // dd(count($request->penerima));
+        $user_id=auth()->user()->id;
+        $pengirim=Person::where('user_id','=',$user_id)->first();
+        $role_id=auth()->user()->person->role->id;
+        
+        $disposisi_detail=DisposisiDetail::create([
+            'konten'=>$request->uraian,
+            'permintaan_id'=>$request->permintaan_id,
+        ]);
+        
+        for ($index = 0; $index < count($request->penerima) ; $index++) {
+            $disposisi_header=DisposisiHeader::create([
+                'from_id'=>$pengirim->id,
+                'to_id'=>$request->penerima,
+                'status'=>'dikirim',
+                'disposisi_detail_id'=>$disposisi_detail->id
+            ]);
+    
+        }
+
+        if($role_id==4){
+            $permintaan=Permintaan::find($disposisi_detail->permintaan_id);
+            $permintaan->disposisi_status='disposisi'; //baru,disposisi,dikerjakan
+            $permintaan->save();
+        }elseif ($role_id==5) {
+            # code...
+            $permintaan=Permintaan::find($disposisi_detail->permintaan_id);
+            $permintaan->disposisi_status='dikerjakan'; //baru,disposisi,dikerjakan
+            $permintaan->save();
+        }
+      
+
+    }
+
+
 
     public function form_handling(){
         if(auth()->user()->person->role->id == 4)
         {
             $pegawai=Person::where('role_id','=','5')->get();//kasi
-            return view('Disposisi.disposisi_form',compact('pegawai'));
+            
+
+            $ppk=Person::where('role_id','=','3')->get();
+            return view('Disposisi.disposisi_form',compact('pegawai','ppk'));
         }elseif (auth()->user()->person->role->id == 5) {
             $pegawai=Person::where('role_id','=','6')->get();//staff
             return view('Disposisi.disposisi_form',compact('pegawai'));
         }
     }
+
+
 
 
     public function detail($id){

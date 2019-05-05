@@ -14,9 +14,8 @@ class CreatePpksTable extends Migration
     public function up()
     {
         Schema::create('ppks', function (Blueprint $table) {
-            $table->increments('id');
             $table->unsignedInteger('person_id');
-            $table->string('kode_jabatan')->nullable();
+            $table->unsignedBigInteger('id_jabatan');
             $table->timestamps();
         });
     }

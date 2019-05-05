@@ -261,7 +261,7 @@
 
         });
 
-        //#####################################################ajax_ post_disposisi
+        //################Ajax_ post_disposisi
 
         $('#disposisi_kirim').click(
             function(e){
@@ -295,7 +295,10 @@
                         //permintaanTable.ajax.reload();
                         $('#datatable').DataTable().ajax.reload();
                         $("#close").trigger("click");
+                    },error:function(){
+                        alert('error');
                     }
+
                 });
 
             });

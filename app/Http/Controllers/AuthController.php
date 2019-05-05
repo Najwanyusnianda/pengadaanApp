@@ -35,7 +35,8 @@ class AuthController extends Controller
         ]);
 
         $person=Person::create([
-            'nama' =>$request->nama,
+            'nama_depan' =>$request->nama,
+            'nama_belakang'=>'test',
             'nip' => $request->nip,
             //'role_id' => $request->role_id,
             'user_id' => $user->id,

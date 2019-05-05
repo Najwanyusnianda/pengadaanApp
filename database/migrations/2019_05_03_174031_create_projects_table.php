@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePpsTable extends Migration
+class CreateProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreatePpsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pps', function (Blueprint $table) {
-            $table->unsignedInteger('person_id');
-            $table->unsignedInteger('id_jabatan');
+        Schema::create('projects', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('nama');
+            $table->string('deskripsi');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreatePpsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pps');
+        Schema::dropIfExists('projects');
     }
 }

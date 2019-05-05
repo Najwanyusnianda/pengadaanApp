@@ -15,6 +15,7 @@ class CreatePermintaansTable extends Migration
     {
         Schema::create('permintaans', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedInteger('project_id');
             $table->string('kode_bagian');
             $table->string('judul');
             $table->string('nomor_form');
@@ -29,7 +30,7 @@ class CreatePermintaansTable extends Migration
             $table->date('date_selesai');
             $table->date('date_created_form');
             $table->string('disposisi_status')->default('baru');
-            $table->integer('is_disposisi')->default(0);
+            //$table->integer('is_disposisi')->default(0);
             $table->timestamps();
         });
     }

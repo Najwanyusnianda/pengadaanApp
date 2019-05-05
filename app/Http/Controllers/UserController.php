@@ -7,12 +7,27 @@ use Illuminate\Support\Facades\DB;
 use App\SubBagian;
 use App\Person;
 use App\User;
+use DataTables;
 class UserController extends Controller
 {
     //
     public function index(){
         $pelaku=DB::table('people')->join('roles','people.role_id','roles.id')->select('people.*','roles.deskripsi')->get();
         return view('User.user_view',compact('pelaku'));
+    }
+
+    public function tableUser(){
+        $pelaku=Person::query()->join('roles','people.role_id','roles.id')->select('people.*','roles.deskripsi')->get();
+
+        $dt=DataTables::of($pelaku)
+        ->addColumn('action',function(){
+            return view('User.user_table._action');
+        })->addColumn('status',function($pelaku){
+            return view('User.user_table._status',[
+                'active'=>$pelaku->is_active ? 'aktif' : 'non-aktif'
+            ]);
+        })->addIndexColumn()->rawColumns(['action','status'])->make(true);
+        return $dt;
     }
 
     public function indexBagian(){
@@ -34,7 +49,8 @@ class UserController extends Controller
             ]);
     
             $person=Person::create([
-                'nama' =>$request->nama,
+                'nama_depan' =>$request->nama,
+                'nama_belakang'=>'test',
                 'nip' => $request->nip,
                 'role_id' => $request->role,
                 'user_id' => $user->id,

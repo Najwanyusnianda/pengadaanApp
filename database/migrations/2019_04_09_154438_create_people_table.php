@@ -19,8 +19,8 @@ class CreatePeopleTable extends Migration
             $table->string('nama_belakang');
             $table->string('nip');
             //$table->string('email');
-            $table->string('kontak');
-            $table->unsignedInteger('role_id')->nullable();
+            //$table->string('kontak');
+            $table->unsignedInteger('role_id');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
