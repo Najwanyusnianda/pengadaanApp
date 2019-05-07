@@ -111,6 +111,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/table/project','ProjectController@tableProject')->name('table.project');
     Route::post('/project/enrollment/{id}/store','ProjectController@store_Enrollment'); 
     Route::post('/project/store','ProjectController@store_Project');
+    Route::post('/project/update_active','ProjectController@update_Project');
     
     
 

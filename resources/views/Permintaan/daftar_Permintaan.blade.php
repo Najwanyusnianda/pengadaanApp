@@ -2,7 +2,7 @@
 
 @section('konten_head')
     <div class="card shadow mb-4 " >
-        <div class="card-header bg-white p-2">
+        <li class="card-header bg-white p-2">
             <ul class="nav nav-pills" style="font-size:14px">
                 <li class="nav-item">
                     <a class="nav-link" href="#activity" data-toggle="tab">Semua
@@ -21,13 +21,17 @@
                             <span class="right badge badge-danger"> 10</span>
                     </a>
                 </li>
-    
+
     </ul>
         </div>
     </div>
 @endsection
 
 @section('konten')
+    <div class="card">
+    <div class="card-header">Project : {{$project->nama}}</div>
+    </div>
+
     <div class="card shadow mb-4 permintaan-card" style="font-family:QuickSand;">
 
 

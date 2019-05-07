@@ -9,19 +9,24 @@ use App\Notifications\PermintaanMasuk;
 use Illuminate\Support\Facades\Notification;
 use DataTables;
 use DB;
+use App\Project;
 
 class PermintaanController extends Controller
 {
     //
     public function index(){
        // $permintaan=Permintaan::get();
-       $permintaan=DB::table('permintaans')->join('sub_bagians','permintaans.kode_bagian','=','sub_bagians.kode_bagian')->select('permintaans.*','sub_bagians.nama_bagian')->latest()->get();
-
-        return view('Permintaan.daftar_Permintaan',compact('permintaan'));
+       //$permintaan=DB::table('permintaans')->join('sub_bagians','permintaans.kode_bagian','=','sub_bagians.kode_bagian')->select('permintaans.*','sub_bagians.nama_bagian')->latest()->get();
+       $project=Project::where('is_active',true)->first();
+       //$projectid=$project->id;
+        return view('Permintaan.daftar_Permintaan',compact('permintaan','project'));
     }
 
     public function indexBagian($kode_bagian){
-        $permintaan_bagian=Permintaan::where('kode_bagian',$kode_bagian)->latest()->get();
+        //nambah project
+        $project=Project::where('is_active',true)->first();
+        $projectid=$project->id;
+        $permintaan_bagian=Permintaan::where('kode_bagian',$kode_bagian)->where('project_id',$projectid)->latest()->get();
         return view('Permintaan.daftar_permintaan_bagian',compact('permintaan_bagian'));
     }
 
@@ -89,6 +94,9 @@ class PermintaanController extends Controller
 
 
     public function save(Request $request){
+
+        $project=Project::where('is_active',true)->first();
+
         $permintaan=Permintaan::create([
             'kode_bagian'=>auth()->user()->sub_bagian->kode_bagian,
             'judul'=>$request->judul_permintaan,
@@ -102,7 +110,8 @@ class PermintaanController extends Controller
             'nilai'=>$request->nilai_anggaran,
             'date_mulai'=> date('Y-m-d', strtotime($request->date_mulai)),
             'date_selesai'=>date('Y-m-d', strtotime($request->date_selesai)),
-            'date_created_form'=>date('Y-m-d', strtotime($request->date_buat_form))
+            'date_created_form'=>date('Y-m-d', strtotime($request->date_buat_form)),
+            'project_id'=>$project->id
         ]);
         
         //$users=User::all();
@@ -114,7 +123,10 @@ class PermintaanController extends Controller
     }
 
     public function dataTable(){
-        $permintaan=Permintaan::query()->join('sub_bagians','permintaans.kode_bagian','=','sub_bagians.kode_bagian')->select('permintaans.*','sub_bagians.nama_bagian')->latest()->get();
+
+        $project=Project::where('is_active',true)->first();
+        $projectid=$project->id;
+        $permintaan=Permintaan::query()->join('sub_bagians','permintaans.kode_bagian','=','sub_bagians.kode_bagian')->where('project_id',$projectid)->select('permintaans.*','sub_bagians.nama_bagian')->latest()->get();
         
         return DataTables::of($permintaan)
             ->addColumn('action',function($permintaan){

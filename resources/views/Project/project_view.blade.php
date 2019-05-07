@@ -80,13 +80,54 @@
                     success: function(response) {
                         alert('berhasil');
                         $("#close").trigger("click");
-                        $.get('/project/enrollment'+response.id)
+                        //$.get('/project/'+response.id+'/enrollment')
                         
                         //permintaanTable.ajax.reload();
                        
                     }
                 });
 
+            })
+
+            $('body').on('click','#active_project',function(e){
+                e.preventDefault();
+                var me= $(this);
+                var id=me.attr('data-id');
+                //console.log(id)
+                var url="/project/update_active"
+
+                $.ajaxSetup({
+                    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+                });
+               
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: url,
+                    data: {
+                        // change data to this object
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        id_project:id    
+                    },
+                    success: function(result) {
+                        //console.log(result);
+                        Swal.fire(
+                            'Terganti!',
+                            'Disposisi Telah Terkirim!',
+                            'success'
+                            );
+
+                        setTimeout(function(){
+                            location.reload();
+                        },2000);    
+                   
+                    },error:function(){
+                        alert('error');
+                    }
+
+                });
             })
         })
         
@@ -98,6 +139,11 @@
 @section('addStyle')
     <style>
         #add_Project{
+            min-width: 233px;
+            min-height: 198px;
+        }
+
+        .card-deck .card{
             min-width: 233px;
             min-height: 198px;
         }

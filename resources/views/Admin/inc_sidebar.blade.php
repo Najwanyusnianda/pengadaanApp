@@ -129,7 +129,7 @@
                     <ul class="nav nav-treeview">
 
                           <li class="nav-item">
-                            <a href="{{url('/pejabat/setting')}}" class="nav-link ">
+                            <a href="{{route('project.index')}}" class="nav-link ">
                                   <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
                                   <p>Project Management</p>
                                 </a>
