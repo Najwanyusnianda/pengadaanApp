@@ -23,7 +23,7 @@
         @yield('addStyle')
     </head>
   
-    <body class="sidebar-mini sidebar-collapse" style="height: auto;">
+    <body class="sidebar-mini " style="height: auto;">
       <div class="wrapper">
       
         <!-- Navbar -->

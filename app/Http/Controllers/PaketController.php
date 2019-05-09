@@ -14,15 +14,32 @@ class PaketController extends Controller
         return view('Paket.daftar_paket');
     }
 
-    public function detail(){
+    public function detail($id){
         return view('Paket.detail_paket');
     }
 
+    public function spesifikasi($id){
+        return view('Paket.doc_persiapan.spesifikasi');
+    }
+
+    public function hps($id){
+        return view('Paket.doc_persiapan.hps');
+    }
 
     public function penanggungJawabForm(){
         $ppk=Person::where('role_id',3)->get();
         $pp=Pp::all();
 
         return view('Paket.penanggung_jawab',compact('ppk','pp'));
+    }
+
+    public function storeKak(Request $request){
+
+        $request->file('kak')->store('Kak');
+        if( $request->file('kak')){
+            
+        }
+        
+        return redirect()->back();
     }
 }

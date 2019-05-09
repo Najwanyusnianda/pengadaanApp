@@ -8,6 +8,8 @@ use App\SubBagian;
 use App\Person;
 use App\User;
 use DataTables;
+use App\JabatanPpk;
+use App\JabatanPp;
 class UserController extends Controller
 {
     //
@@ -26,7 +28,13 @@ class UserController extends Controller
             return view('User.user_table._status',[
                 'active'=>$pelaku->is_active ? 'aktif' : 'non-aktif'
             ]);
-        })->addIndexColumn()->rawColumns(['action','status'])->make(true);
+        })->addColumn('role',function($pelaku){
+            return view('User.user_table._role',[
+                'role'=>$pelaku->deskripsi ? $pelaku->deskripsi : 'tidak ada'
+            ]);
+        })
+        ->addIndexColumn()
+        ->rawColumns(['action','status','role'])->make(true);
         return $dt;
     }
 
@@ -52,13 +60,21 @@ class UserController extends Controller
                 'nama_depan' =>$request->nama,
                 'nama_belakang'=>'test',
                 'nip' => $request->nip,
-                'role_id' => $request->role,
+                'role_id' => 100,
                 'user_id' => $user->id,
                 //'role_id'=>1
             ]);
     
             return redirect()->back();
     
+    }
+
+    public function availableUser(){
+       $pegawai=Person::where('role_id','=',100)->get();
+   
+       $jabatan_ppk=JabatanPpk::all();
+       $jabatan_pp=JabatanPp::all();
+       return view('Project.user_available_list',compact('pegawai','jabatan_ppk','jabatan_pp'));
     }
 
 }

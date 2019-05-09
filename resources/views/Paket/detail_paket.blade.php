@@ -1,31 +1,34 @@
 @extends('Admin.layout')
 
 @section('konten')
-    <div class="col-8">
-        <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">Condensed Full Width Table</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body p-0">
-              <table class="table table-condensed">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>#</th>
-                      
-                    </tr>
-                </thead>
+    <div class="container">
+        <div class="card p-2">
+            <table class="table table-bordered">
                 <tbody>
-                    <tr>
-                        <td>Spesifikasi Teknis</td>
-                        <td></td>
-                    </tr>
-        
+                  <tr>
+                    <td>Spesifikasi</td>
+                    <td><a href="" class="badge badge-success">Buat Spesifikasi</a></td>
+                    
+                  </tr>
+                  <tr>
+                    <td>(HPS)</td>
+                    <td><a href="" class="badge badge-success">Buat Spesifikasi</a></td>
+            
+                  </tr>
+                  <tr>
+                    <td>KAK</td>
+                    <td>
+                      <form action="/paket/store_kak" method="post" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <input type="file" name="kak" id="kak">
+                        <button type="submit">
+                          simpan
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
                 </tbody>
-            </table>
-            </div>
-            <!-- /.card-body -->
+              </table>
         </div>
     </div>
 @endsection

@@ -14,7 +14,7 @@ class CreatePpsTable extends Migration
     public function up()
     {
         Schema::create('pps', function (Blueprint $table) {
-            $table->unsignedInteger('person_id');
+            $table->unsignedInteger('enrollment_id');
             $table->unsignedInteger('id_jabatan');
             $table->timestamps();
         });

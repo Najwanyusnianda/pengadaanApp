@@ -44,5 +44,10 @@ class RoleTableSeeder extends Seeder
             'nama'=>'staff',
             'deskripsi'=>'staff ULP'
         ]);
+        Role::create([
+            'id'=>100,
+            'nama'=>'tidak_aktif',
+            'deskripsi'=>'tidak aktif'
+        ]);
     }
 }

@@ -17,7 +17,7 @@
                     <input type="text" class="form-control" id="nip" name="nip" placeholder="">
             </div>
 
-            <div class="form-group">
+           <!-- <div class="form-group">
                     <label>Role</label>
                     <select class="form-control" id="role" name="role">
                         <option disabled selected>Pilih Role</option>
@@ -28,7 +28,7 @@
                         <option value="6">Staf ULP</option>
                     
                     </select>
-            </div>
+            </div> -->
 
             <br>
 

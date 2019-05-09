@@ -76,7 +76,7 @@ class DisposisiController extends Controller
         for ($index = 0; $index < count($request->penerima) ; $index++) {
             $disposisi_header=DisposisiHeader::create([
                 'from_id'=>$pengirim->id,
-                'to_id'=>$request->penerima,
+                'to_id'=>$request->penerima[$index],
                 'status'=>'dikirim',
                 'disposisi_detail_id'=>$disposisi_detail->id
             ]);
@@ -95,6 +95,22 @@ class DisposisiController extends Controller
         }
       
 
+    }
+
+    public function disposisiMasuk(){
+        $disposisi_masuk=DB::table('disposisi_headers ')->where('to_id',auth()->user()->person->id)
+        ->join('disposisi_details','disposisi_headers.disposisi_detail_id','disposisi_details.id')
+        ->select('disposisi_headers.*','disposisi_details.*')->get();
+
+        return view('Disposisi.disposisi_masuk',compact('disposisi_masuk'));
+    }
+
+    public function disposisiDiteruskan(){
+        $disposisi_masuk=DB::table('disposisi_headers ')->where('from_id',auth()->user()->person->id)
+        ->join('disposisi_details','disposisi_headers.disposisi_detail_id','disposisi_details.id')
+        ->select('disposisi_headers.*','disposisi_details.*')->get();
+
+        return view('Disposisi.disposisi_masuk',compact('disposisi_diteruskan'));
     }
 
 

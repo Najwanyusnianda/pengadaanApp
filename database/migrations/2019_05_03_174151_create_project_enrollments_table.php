@@ -17,6 +17,8 @@ class CreateProjectEnrollmentsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('project_id');
             $table->unsignedInteger('person_id');
+            $table->unsignedInteger('id_role');
+            $table->unsignedInteger('jabatan_id')->nullable();
             $table->timestamps();
         });
     }

@@ -80,6 +80,9 @@
                     success: function(response) {
                         alert('berhasil');
                         $("#close").trigger("click");
+                        setTimeout(function(){
+                            location.reload();
+                        },3000);
                         //$.get('/project/'+response.id+'/enrollment')
                         
                         //permintaanTable.ajax.reload();
@@ -121,7 +124,7 @@
 
                         setTimeout(function(){
                             location.reload();
-                        },2000);    
+                        },3000);    
                    
                     },error:function(){
                         alert('error');

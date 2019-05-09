@@ -67,6 +67,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/disposisi','DisposisiController@daftar')->name('disposisi.list');
     Route::get('/disposisi/detail/{id}','DisposisiController@detail')->name('disposisi.detail');
     Route::post('/disposisi/store','DisposisiController@store')->name('disposisi.store');
+    Route::get('/disposisi/{id}/masuk','DisposisiController@disposisiMasuk')->name('disposisi.masuk');
+    Route::get('/disposisi/{id}/diteruskan','DisposisiController@disposisiDiteruskan')->name('disposisi.diteruskan');
     Route::get('/disposisi/tableMasuk','DisposisiController@tableMasuk')->name('disposisi.tableMasuk');
 
 
@@ -74,7 +76,12 @@ Route::group(['middleware' => ['auth']], function () {
     //Paket
     Route::get('/paket/pejabat_form','PaketController@penanggungJawabForm')->name('pejabat.form');
     Route::get('/paket','PaketController@index')->name('paket.index');
-    Route::get('/paket/1/detail','PaketController@detail')->name('paket.detail');
+    Route::get('/paket/{id}/detail','PaketController@detail')->name('paket.detail');
+    Route::get('/paket/{id}/detail/spesifikasi','PaketController@spesifikasi');
+    Route::get('/paket/{id}/detail/hps','PaketController@hps');
+    Route::post('/paket/store_kak','PaketController@storeKak');
+    
+    //Route::get('/paket/{id}/detail');
     #-------------------------------
     //Handling doc
     Route::get('/generate-docx', 'DokumenController@generateDocx');
@@ -103,16 +110,23 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/user/register/form','UserController@registerUserForm')->name('user.form.register');
     Route::post('/user/postregister','UserController@storeRegister')->name('user.post.register');
     Route::get('/table/user','UserController@tableUser')->name('table.user');
+    Route::get('/available/user','UserController@availableUser');
+ 
+    
     #-------------------------------
     //Handling  Project setting
     Route::get('/project','ProjectController@index')->name('project.index');
     Route::get('/project/form','ProjectController@form')->name('project.form');
     Route::get('/project/{id}/enrollment','ProjectController@enroll')->name('project.enroll');
     Route::get('/table/project','ProjectController@tableProject')->name('table.project');
+    Route::get('/available/user/{id}/pp','ProjectController@pp_available');
+    Route::get('/available/user/{id}/ppk','ProjectController@ppk_available');
+
     Route::post('/project/enrollment/{id}/store','ProjectController@store_Enrollment'); 
     Route::post('/project/store','ProjectController@store_Project');
     Route::post('/project/update_active','ProjectController@update_Project');
-    
+    Route::post('/project/enrollment/save','ProjectController@add_user_Project');
+     
     
 
     Route::get('/pejabat/setting','UserSettingController@getPejabatSetting');
