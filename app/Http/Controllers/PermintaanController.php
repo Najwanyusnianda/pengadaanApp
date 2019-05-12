@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Notification;
 use DataTables;
 use DB;
 use App\Project;
+use App\KegiatanProgram;
 
 class PermintaanController extends Controller
 {
@@ -69,7 +70,8 @@ class PermintaanController extends Controller
 
 
     public function create(){
-        return view('Permintaan.form_permintaan');
+        $kode_kegiatan=KegiatanProgram::all();
+        return view('Permintaan.form_permintaan',compact('kode_kegiatan'));
     }
 
     public function detail($id){

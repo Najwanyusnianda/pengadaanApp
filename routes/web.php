@@ -23,7 +23,7 @@ Route::get('/home', function () {
 Route::get('/editor', function () {
     return view('Editor.ckEditor');
     
-})->middleware('guest');
+})->middleware('auth');
 #-------------------------------
 //autentikasi
 Route::get('/login','AuthController@getLogin')->name('login')->middleware('guest');
@@ -67,8 +67,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/disposisi','DisposisiController@daftar')->name('disposisi.list');
     Route::get('/disposisi/detail/{id}','DisposisiController@detail')->name('disposisi.detail');
     Route::post('/disposisi/store','DisposisiController@store')->name('disposisi.store');
-    Route::get('/disposisi/{id}/masuk','DisposisiController@disposisiMasuk')->name('disposisi.masuk');
-    Route::get('/disposisi/{id}/diteruskan','DisposisiController@disposisiDiteruskan')->name('disposisi.diteruskan');
+    Route::get('/disposisi/masuk','DisposisiController@disposisiMasuk')->name('disposisi.masuk');
+    Route::get('/disposisi/diteruskan','DisposisiController@disposisiDiteruskan')->name('disposisi.diteruskan');
     Route::get('/disposisi/tableMasuk','DisposisiController@tableMasuk')->name('disposisi.tableMasuk');
 
 
@@ -87,6 +87,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/generate-docx', 'DokumenController@generateDocx');
     Route::get('/generate-temp', 'DokumenController@generateTemp');
     Route::post('/store_temp', 'DokumenController@storeTemplate')->name('temp.docx');
+    Route::post('/hps/save','DokumenController@storeHps')->name('hps.save');
 
     #-------------------------------
     //Handling template
@@ -117,7 +118,7 @@ Route::group(['middleware' => ['auth']], function () {
     //Handling  Project setting
     Route::get('/project','ProjectController@index')->name('project.index');
     Route::get('/project/form','ProjectController@form')->name('project.form');
-    Route::get('/project/{id}/enrollment','ProjectController@enroll')->name('project.enroll');
+    Route::get('/project/{id}/enrollment','ProjectController@enroll')->name('project.enrollment');
     Route::get('/table/project','ProjectController@tableProject')->name('table.project');
     Route::get('/available/user/{id}/pp','ProjectController@pp_available');
     Route::get('/available/user/{id}/ppk','ProjectController@ppk_available');
@@ -129,6 +130,8 @@ Route::group(['middleware' => ['auth']], function () {
      
     
 
-    Route::get('/pejabat/setting','UserSettingController@getPejabatSetting');
+    //Route::get('/pejabat/setting','UserSettingController@getPejabatSetting');
+
+    Route::view('/temp_hps', 'Document.hps_form');
 
 });

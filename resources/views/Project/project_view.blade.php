@@ -2,9 +2,45 @@
 
 @section('konten')
     <div class="container">
-      
+      <div class="col">
+          <div class="row-md-8">
 
-        @include('Project.project_cards')
+          </div>
+          <div class="row-md-12">
+              <div class="card shadow p-3">
+                  <div class="card-header">
+                   
+                      <button type="button" id="add_Project" class="btn btn-primary float-right" style="margin-right: 5px;">
+                            <i class="fa fa-download"></i> Tambah Project
+                          </button>
+                  </div>
+                  <div class="card-body">
+                        <div class="table-responsive">
+                                <table class="table" id="project_table">
+                                      <thead>
+                                          <tr>
+                                              <th>#</th>
+                                              <th>Nama Project</th>
+                                              <th>Deskripsi</th>
+                                              <th>dibuat</th>
+                                              <th>aksi</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+          
+          
+                                      </tbody>
+                                </table>
+                            </div>
+                  </div>
+              
+              </div>
+          </div>
+      </div>
+
+       
+
+        
     </div>
 
 
@@ -78,14 +114,12 @@
                         
                     },
                     success: function(response) {
-                        alert('berhasil');
+                        swal.fire("...", "Project Telah ditambahkan!");
                         $("#close").trigger("click");
-                        setTimeout(function(){
-                            location.reload();
-                        },3000);
                         //$.get('/project/'+response.id+'/enrollment')
                         
-                        //permintaanTable.ajax.reload();
+                      
+                        $('#project_table').DataTable().ajax.reload();  
                        
                     }
                 });
@@ -116,21 +150,31 @@
                     },
                     success: function(result) {
                         //console.log(result);
-                        Swal.fire(
-                            'Terganti!',
-                            'Disposisi Telah Terkirim!',
-                            'success'
-                            );
-
-                        setTimeout(function(){
-                            location.reload();
-                        },3000);    
-                   
+                        swal.fire("...", "Project telah diaktifkan!");
+                        $('#project_table').DataTable().ajax.reload();  
+                        
                     },error:function(){
                         alert('error');
                     }
 
                 });
+            })
+
+
+            $('#project_table').DataTable({
+            responsive:true,
+            processing:true,
+            serverSide:true,
+            filter:false,
+            paging:false,
+            ajax:"{{route('table.project')}}",
+            columns:[
+                {data: 'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},
+                {data:'nama'},
+                {data:'deskripsi'},
+                {data:'created_at'},
+                {data:'action'},
+            ]
             })
         })
         
@@ -141,10 +185,7 @@
 
 @section('addStyle')
     <style>
-        #add_Project{
-            min-width: 233px;
-            min-height: 198px;
-        }
+   
 
         .card-deck .card{
             min-width: 233px;

@@ -3,12 +3,12 @@
     @section('auth_konten')
     <div class="login-box">
       <div class="login-logo">
-        <a href="../../index2.html"><b>Admin</b>LTE</a>
+        <a href="../../index2.html"><b>Pengadaan</b>App</a>
       </div>
       <!-- /.login-logo -->
       <div class="card">
         <div class="card-body login-card-body">
-          <p class="login-box-msg">Sign in to start your session</p>
+          <p class="login-box-msg">Sign in</p>
     
         <form action="{{route('post.login')}}" method="post">
           {{ csrf_field() }}
@@ -41,9 +41,9 @@
      <hr>
           <!-- /.social-auth-links -->
     
-          <p class="mb-1">
+         <!-- <p class="mb-1">
             <a href="#">I forgot my password</a>
-          </p>
+          </p>-->
           <p class="mb-0">
             <a href="{{route('get.register')}}" class="text-center">Register a new membership</a>
           </p>

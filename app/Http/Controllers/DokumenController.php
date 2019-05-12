@@ -116,5 +116,11 @@ class DokumenController extends Controller
 
     }
 
+    public function storeHps(Request $request){
+       $data= $request->temp;
+       //$data=json_decode($data);
+        dd($data[0]);
+    }
+
     
 }

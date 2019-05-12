@@ -16,11 +16,13 @@
         <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
         <!-- Custom styles for this template-->
         <link rel="stylesheet" href="{{asset('assets/adminlte/adminlte.css')}}">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+       <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">-->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
         <!--<link href="{{asset('assets\sbadmin\css\sb-admin-2.min.css')}}" rel="stylesheet">-->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/css/select2.min.css" rel="stylesheet" />
 
-        @yield('addStyle')
+        <link href="https://cdn.jsdelivr.net/npm/handsontable@7.0.2/dist/handsontable.full.min.css" rel="stylesheet" media="screen">
+      @yield('addStyle')
     </head>
   
     <body class="sidebar-mini " style="height: auto;">
@@ -40,7 +42,7 @@
             <div class="container-fluid">
               <div class="row mb-2">
                 <div class="col-sm-6">
-                  <h1 class="m-0 text-dark">Starter Page</h1>
+                  @yield('header_name')
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
@@ -93,13 +95,14 @@
   
     <!-- Core plugin JavaScript-->
     <script src="{{asset('assets/jquery-easing/jquery.easing.min.js')}}"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script type="text/javascript"  src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript"src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <!-- Custom scripts for all pages-->
     <script src="{{asset('assets/adminlte/adminlte.js')}}"></script>
     <!--<script src="{{asset('assets/sbadmin/js/sb-admin-2.min.js')}}"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handsontable@7.0.2/dist/handsontable.full.min.js"></script>
     @yield('addScript')
   
   

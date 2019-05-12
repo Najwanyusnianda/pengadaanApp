@@ -26,6 +26,34 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
              <li class="nav-item has-treeview ">
+                <a href="#" class="nav-link ">
+                  
+                    <i class="nav-icon fas fa-cogs" style="color:#c8d6e5;"></i>
+                  <p>
+                    Setting
+                    <i class="right fa fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+
+                      <li class="nav-item">
+                        <a href="{{route('project.index')}}" class="nav-link ">
+                              <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                              <p>Project Management</p>
+                            </a>
+                      </li>
+             
+                    <li class="nav-item">
+                    <a href="{{url('/pejabat/setting')}}" class="nav-link ">
+                          <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                          <p>User Project</p>
+                        </a>
+                    </li>
+  
+                </ul>        
+            </li>
+
+             <li class="nav-item has-treeview ">
               <a href="#" class="nav-link ">
                 
                   <i class="nav-icon fas fa-users" style="color:#3498db;"></i>
@@ -51,12 +79,7 @@
                   </a>
                 </li>
 
-                <li class="nav-item">
-                  <a href="{{route('disposisi.list')}}" class="nav-link ">
-                      <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                      <p>Disposisi</p>
-                    </a>
-                  </li>
+             
 
               </ul>        
             </li>
@@ -71,12 +94,6 @@
               </a>
               <ul class="nav nav-treeview">
            
-                  <li class="nav-item">
-                  <a href="{{route('permintaan.form')}}" class="nav-link ">
-                        <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                        <p>Entri Baru</p>
-                      </a>
-                  </li>  
              
               
                 <li class="nav-item">
@@ -86,15 +103,39 @@
                   </a>
                 </li>
 
-                <li class="nav-item">
-                  <a href="{{route('disposisi.list')}}" class="nav-link ">
-                      <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                      <p>Disposisi</p>
-                    </a>
-                  </li>
+         
 
               </ul>        
             </li>
+            <li class="nav-item has-treeview ">
+                <a href="#" class="nav-link ">
+                  
+                    <i class="nav-icon fas fa-mail-bulk"></i>
+                  <p>
+                    Disposisi
+                    <i class="right fa fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+             
+                    <li class="nav-item">
+                    <a href="{{route('disposisi.masuk')}}" class="nav-link ">
+                          <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                          <p>Masuk</p>
+                        </a>
+                    </li>  
+               
+                
+                  <li class="nav-item">
+                  <a href="{{route('disposisi.diteruskan')}}" class="nav-link ">
+                      <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                      <p>Diteruskan</p>
+                    </a>
+                  </li>
+  
+  
+                </ul>        
+              </li>            
             <li class="nav-item has-treeview ">
                 <a href="#" class="nav-link ">
                   
@@ -117,34 +158,8 @@
               </li>
             <li class="nav-item">
 
-                <li class="nav-item has-treeview ">
-                    <a href="#" class="nav-link ">
-                      
-                        <i class="nav-icon fas fa-cogs" style="color:#c8d6e5;"></i>
-                      <p>
-                        Setting
-                        <i class="right fa fa-angle-left"></i>
-                      </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-
-                          <li class="nav-item">
-                            <a href="{{route('project.index')}}" class="nav-link ">
-                                  <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                                  <p>Project Management</p>
-                                </a>
-                          </li>
-                 
-                        <li class="nav-item">
-                        <a href="{{url('/pejabat/setting')}}" class="nav-link ">
-                              <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                              <p>User Project</p>
-                            </a>
-                        </li>
-      
-                    </ul>        
-                  </li>
-                <li class="nav-item">  
+               
+            <li class="nav-item">  
             <a href="{{route('logout')}}" class="nav-link">
                 <i class="nav-icon fa fa-th"></i>
                 <p>

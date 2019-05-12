@@ -1,11 +1,16 @@
 @extends('Admin.layout')
 
+@section('header_name')
+<h2>User Management</h2>
+<h6>Project: <strong>{{$project->nama}}</strong></h6>
+
+@endsection
 @section('konten')
 <div class="container">
   <div class="">
       <div class="row-sm-6">
           <div id="project_" project-id={{$project->id}}>
-              {{$project->nama}}
+              
           </div>
       </div>
 
@@ -16,23 +21,19 @@
                       </button>
               </div>
       </div>
+      
       <div class="row-sm-6">
-          <div class="card">
-              <br>
-              <ul class="list-group">
-                  @forelse ($project_enroll as $item)
-                  <li class="list-group-item">
-                  {{$item->nama_depan}} {{$item->nama_belakang}}
-                  <span class="badge badge-info">{{$item->deskripsi}}</span><p>{{$item->jabatan_pp ?? ' '}}</p><p>{{$item->jabatan_ppk ?? ' '}}</p>
-                  </li>
+            @include('Project._ulp_enrollment')
+        </div>
 
-                  @empty
-                      
-                  @endforelse
-                     
-              </ul>
-          </div>  
+      <div class="row-sm-6">
+        @include('Project._ppk_enrollment')
       </div>
+
+        <div class="row-sm-6">
+            @include('Project._pp_enrollment')
+        </div>
+
 
   </div>
 </div>

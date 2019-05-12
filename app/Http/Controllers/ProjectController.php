@@ -11,6 +11,7 @@ use App\ProjectEnrollment;
 use App\Pp;
 use App\Ppk;
 use DB;
+use DataTables;
 
 class ProjectController extends Controller
 {
@@ -25,7 +26,21 @@ class ProjectController extends Controller
     }
 
     public function tableProject(){
+        $project=Project::query();
+        
+        $db=DataTables::of($project)
+        ->addColumn('action',function($project){
+            return view('Project.project_table._action',[
+                'id'=>$project->id,
+                'user_setup_link'=>route('project.enrollment',['id'=>$project->id]),
+                'is_disabled'=>$project->is_active ? 'disabled' : '',
+                'name_condition'=>$project->is_active ? '#b2bec3' : '#ff7675'
+            ]);
+        })
+        ->addIndexColumn()->rawColumns(['action'])
+        ->make(true);
 
+        return $db;
     }
 
     public function projectCard(){
@@ -35,33 +50,75 @@ class ProjectController extends Controller
 
     public function enroll($id){
         //$jabatan_pps=JabatanPp::all();
-       // $jabatan_ppks=JabatanPpk::all();
+       //$jabatan_ppks=JabatanPpk::all();
         $project=Project::find($id);
         //$user_left=Person::where('role_id','=',100)->get();
         
-        $project_enroll=DB::table('project_enrollments AS enroll')
-        ->where('project_id',$id)
+        //$project_enroll=DB::table('project_enrollments AS enroll')->where('project_id',$project->id)->join('people','enroll.person_id','people.id')->join('roles','enroll.id_role','=','roles.id')->leftJoin('jabatan_pps','enroll.jabatan_id','=','jabatan_pps.id')->leftJoin('jabatan_ppks','enroll.jabatan_id','=','jabatan_ppks.id')->select('enroll.*','people.*','roles.deskripsi','jabatan_pps.nama_jabatan AS jabatan_pp','jabatan_ppks.nama_jabatan AS jabatan_ppk','jabatan_ppks.kode_jabatan AS kode_ppk','jabatan_pps.kode_jabatan AS kode_pp')->get();
+        $data_pp=DB::table('project_enrollments AS enroll')
+        ->where('project_id',$project->id)->where('id_role','=','2')
         ->join('people','enroll.person_id','people.id')
         ->join('roles','enroll.id_role','=','roles.id')
         ->leftJoin('jabatan_pps','enroll.jabatan_id','=','jabatan_pps.id')
+        //->leftJoin('jabatan_ppks','enroll.jabatan_id','=','jabatan_ppks.id')
+        ->select('enroll.*','people.*','roles.deskripsi','jabatan_pps.nama_jabatan AS jabatan_pp','jabatan_pps.kode_jabatan AS kode_pp')
+        ->get();
+        $data_ppk=DB::table('project_enrollments AS enroll')
+        ->where('project_id',$project->id)->where('id_role','=','3')
+        ->join('people','enroll.person_id','people.id')
+        ->join('roles','enroll.id_role','=','roles.id')
+        //->leftJoin('jabatan_pps','enroll.jabatan_id','=','jabatan_pps.id')
         ->leftJoin('jabatan_ppks','enroll.jabatan_id','=','jabatan_ppks.id')
-        ->select('enroll.*','people.*','roles.deskripsi','jabatan_pps.nama_jabatan AS jabatan_pp','jabatan_ppks.nama_jabatan AS jabatan_ppk')->get();
+        ->select('enroll.*','people.*','roles.deskripsi','jabatan_ppks.nama_jabatan AS jabatan_ppk','jabatan_ppks.kode_jabatan AS kode_ppk')
+        ->get();
+        $data_kulp=DB::table('project_enrollments AS enroll')
+        ->where('project_id',$project->id)->where('id_role','=','4')
+        ->join('people','enroll.person_id','people.id')
+        ->join('roles','enroll.id_role','=','roles.id')
+        //->leftJoin('jabatan_pps','enroll.jabatan_id','=','jabatan_pps.id')
+        //->leftJoin('jabatan_ppks','enroll.jabatan_id','=','jabatan_ppks.id')
+        ->select('enroll.*','people.*','roles.deskripsi')
+        ->get();
+        $data_kasi=DB::table('project_enrollments AS enroll')
+        ->where('project_id',$project->id)->where('id_role','=','5')
+        ->join('people','enroll.person_id','people.id')
+        ->join('roles','enroll.id_role','=','roles.id')
+        //->leftJoin('jabatan_pps','enroll.jabatan_id','=','jabatan_pps.id')
+        //->leftJoin('jabatan_ppks','enroll.jabatan_id','=','jabatan_ppks.id')
+        ->select('enroll.*','people.*','roles.deskripsi')
+        ->get();
+        $data_staff=DB::table('project_enrollments AS enroll')
+        ->where('project_id',$project->id)->where('id_role','=','6')
+        ->join('people','enroll.person_id','people.id')
+        ->join('roles','enroll.id_role','=','roles.id')
+        //->leftJoin('jabatan_pps','enroll.jabatan_id','=','jabatan_pps.id')
+        //->leftJoin('jabatan_ppks','enroll.jabatan_id','=','jabatan_ppks.id')
+        ->select('enroll.*','people.*','roles.deskripsi')
+        ->get();
         
-        for ($i=0; $i <count($project_enroll); $i++) { 
-            if($project_enroll[$i]->id_role==2){
-                $project_enroll[$i]->jabatan_ppk=null;
-                //$project_enroll[$i]->save();
+        
+        //$project_enroll=$project_enroll->get();
+       /* function($project_enroll){
+            for ($i=0; $i <count($project_enroll); $i++) { 
+                if($project_enroll[$i]->id_role==2){
+                    $project_enroll[$i]->jabatan_ppk=null;
+                    $project_enroll[$i]->kode_ppk=null;
+                    //$project_enroll[$i]->save();
+        
+                }elseif ($project_enroll[$i]->id_role==3) {
+                    # code...
+                    $project_enroll[$i]->jabatan_pp=null;
+                    $project_enroll[$i]->kode_pp=null;
+                   // $project_enroll[$i]->save();
+                }
     
-            }elseif ($project_enroll[$i]->id_role==3) {
-                # code...
-                $project_enroll[$i]->jabatan_pp=null;
-               // $project_enroll[$i]->save();
+    
             }
+        };*/
+    
+        
 
-
-        }
-
-        return view('Project.project_enrollment',compact('project_enroll','project'));
+        return view('Project.project_enrollment',compact('project_enroll','project','data_ppk','data_pp','data_kulp','data_kasi','data_staff'));
     }
 
     public function store_Enrollment($id,Request $request){
@@ -121,24 +178,39 @@ class ProjectController extends Controller
     public function ppk_available($id){
         
         $project=Project::where('id',$id)->first();
+        
         $enroll=ProjectEnrollment::where('project_id',$project->id)->where('jabatan_id','!=',null)->get();
-    
-        foreach($enroll as $roll){
-            $data[]=$roll->jabatan_id;
+        
+        $jabatan_ppks;
+       if(count($enroll)>0){
+            foreach($enroll as $roll){
+                $data[]=$roll->jabatan_id;
+            }
+        
+        
+            $jabatan_ppks=JabatanPpk::whereNotIn('id',$data)->get();
+        }else {
+            $jabatan_ppks=JabatanPpk::all();
         }
     
-        $jabatan_ppks=JabatanPpk::whereNotIn('id',$data)->get();
         return view('Project._ppk_available',compact('jabatan_ppks'));
     }
 
     public function pp_available($id){
         $project=Project::where('id',$id)->first();
         $enroll=ProjectEnrollment::where('project_id',$project->id)->where('jabatan_id','!=',null)->get();
-    
-        foreach($enroll as $roll){
-            $data[]=$roll->jabatan_id;
+        $jabatan_pps;
+        if(count($enroll)>0){
+            foreach($enroll as $roll){
+                $data[]=$roll->jabatan_id;
+            }
+            $jabatan_pps=JabatanPp::whereNotIn('id',$data)->get();
+        
+        }else{
+            $jabatan_pps=JabatanPp::all();
         }
-        $jabatan_pps=JabatanPp::whereNotIn('id',$data)->get();
+       
+        
         return view('Project._pp_available',compact('jabatan_pps'));
     }
 

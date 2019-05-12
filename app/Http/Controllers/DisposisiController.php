@@ -98,19 +98,27 @@ class DisposisiController extends Controller
     }
 
     public function disposisiMasuk(){
-        $disposisi_masuk=DB::table('disposisi_headers ')->where('to_id',auth()->user()->person->id)
-        ->join('disposisi_details','disposisi_headers.disposisi_detail_id','disposisi_details.id')
-        ->select('disposisi_headers.*','disposisi_details.*')->get();
+        $disposisi_masuk=DB::table('disposisi_headers')
+        ->where('disposisi_headers.to_id',auth()->user()->person->id)
+        ->join('disposisi_details','disposisi_headers.disposisi_detail_id','=','disposisi_details.id')
+        ->join('people AS a','disposisi_headers.from_id','=','a.id')
+        ->join('people AS b','disposisi_headers.to_id','=','b.id')
+        ->join('permintaans','permintaan_id','=','permintaans.id')
+        ->select('disposisi_headers.*','disposisi_details.*','a.nama_depan AS nama_pengirim','a.nama_belakang AS nama_pengirim_last','a.nip AS nip_pengirim','b.nama_depan AS nama_penerima','b.nama_belakang AS nama_penerima_last','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->get();
 
         return view('Disposisi.disposisi_masuk',compact('disposisi_masuk'));
     }
 
     public function disposisiDiteruskan(){
-        $disposisi_masuk=DB::table('disposisi_headers ')->where('from_id',auth()->user()->person->id)
-        ->join('disposisi_details','disposisi_headers.disposisi_detail_id','disposisi_details.id')
-        ->select('disposisi_headers.*','disposisi_details.*')->get();
+        $disposisi_diteruskan=DB::table('disposisi_headers')
+        ->where('disposisi_headers.from_id',auth()->user()->person->id)
+        ->join('disposisi_details','disposisi_headers.disposisi_detail_id','=','disposisi_details.id')
+        ->join('people AS a','disposisi_headers.from_id','=','a.id')
+        ->join('people AS b','disposisi_headers.to_id','=','b.id')
+        ->join('permintaans','permintaan_id','=','permintaans.id')
+        ->select('disposisi_headers.*','disposisi_details.*','a.nama_depan AS nama_pengirim','a.nama_belakang AS nama_pengirim_last','a.nip AS nip_pengirim','b.nama_depan AS nama_penerima','b.nama_belakang AS nama_penerima_last','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->get();
 
-        return view('Disposisi.disposisi_masuk',compact('disposisi_diteruskan'));
+        return view('Disposisi.disposisi_diteruskan',compact('disposisi_diteruskan'));
     }
 
 

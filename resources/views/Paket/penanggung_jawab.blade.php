@@ -8,7 +8,7 @@
                   @foreach ($ppk as $data)
                     <option value="{{$data->id}}">
                         
-                        {{$data->nama}}
+                        {{$data->nama_depan}}
                     </option>
                   @endforeach
               @else
@@ -23,9 +23,9 @@
     
             <select class="form-control" id="penerima_disposisi">
                         <option disabled selected >Pilih penerima</option>
-                    @if (count($ppk)>0)
-                        @foreach ($ppk as $data)
-                        <option value="{{$data->id}}">{{$data->nama}}</option>
+                    @if (count($pp)>0)
+                        @foreach ($pp as $data)
+                        <option value="{{$data->id}}">{{$data->nama_depan}}</option>
                         @endforeach
                     @else
                         <option value="0" disabled>tidak ada data</option>

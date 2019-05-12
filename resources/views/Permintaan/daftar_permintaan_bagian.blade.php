@@ -12,7 +12,8 @@
                 </div>
                 @if (count($permintaan_bagian)>0)
                 <div class="card-body" style="font-size:13px">
-                        <table id="example2" class="table table-bordered table-hover dataTable table-responsive" role="grid" aria-describedby="example2_info">
+                    <div class="table-responsive">
+                        <table id="example2" class="table table-bordered table-hover dataTable " role="grid" aria-describedby="example2_info">
                             <thead>
                                 <tr role="row" >
                                     <th>No</th>
@@ -61,6 +62,8 @@
                              
                             </tfoot>
                         </table>
+                    </div>
+                       
                 </div>
                 @else
                     <p>tidak ada permintaan</p>

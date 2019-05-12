@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Ppk;
-use App\Pp;
+use App\ProjectEnrollment;
+use App\Project;
 use App\Person;
 
 class PaketController extends Controller
@@ -27,8 +27,10 @@ class PaketController extends Controller
     }
 
     public function penanggungJawabForm(){
-        $ppk=Person::where('role_id',3)->get();
-        $pp=Pp::all();
+       // $project_active=Project::where('is_active',true)->first();
+        //$project_enroll=ProjectEnrollment::where('project_id',$project_active->id)->get();
+        $ppk=Person::where('role_id','3')->get();
+        $pp=Person::where('role_id','2')->get();
 
         return view('Paket.penanggung_jawab',compact('ppk','pp'));
     }

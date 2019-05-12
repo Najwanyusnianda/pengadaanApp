@@ -36,7 +36,18 @@
                             </div>
                             <div class="form-group" >
                                 <label for="pwd">Kode Kegiatan:</label>
-                                <input type="text" class="form-control col-6" id="kode_kegiatan" name="kode_kegiatan" placeholder="Input 4 digit kode kegiatan">
+                        
+                                <select class="form-control custom-select" id="kode_kegiatan" name="kode_kegiatan">
+                                    
+                                    @forelse ($kode_kegiatan as $item)
+                                    <option >{{$item->kode_kegiatan}}</option>
+                                    @empty
+                                        
+                                    @endforelse
+
+                                
+                                </select>
+                                <!--<input type="text" class="form-control col-6" id="kode_kegiatan" name="kode_kegiatan" placeholder="Input 4 digit kode kegiatan">-->
                             </div>
                             <div class="form-group" >
                                 <label for="pwd">Output:</label>

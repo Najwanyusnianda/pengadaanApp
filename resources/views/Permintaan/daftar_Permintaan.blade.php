@@ -1,5 +1,11 @@
 @extends('Admin.layout')
 
+@section('header_name')
+<h1 class="m-0 text-dark" >Permintaan</h1>
+<h6 style="font-family:QuickSand">Project : {{$project->nama}}</h6>
+
+@endsection
+
 @section('konten_head')
     <div class="card shadow mb-4 " >
         <li class="card-header bg-white p-2">
@@ -28,16 +34,14 @@
 @endsection
 
 @section('konten')
-    <div class="card">
-    <div class="card-header">Project : {{$project->nama}}</div>
-    </div>
+
 
     <div class="card shadow mb-4 permintaan-card" style="font-family:QuickSand;">
 
 
         <div class="card-body" style="font-size:15px">
             <div class="table-responsive">
-                    <table  class="table  table-hover dataTable" id="datatable" role="grid" aria-describedby="example2_info">
+                    <table  class="table   table-hover dataTable" id="datatable" role="grid" aria-describedby="example2_info" style="width:100%">
                             <thead>
                                 <tr  >
                                     <th>No</th>
