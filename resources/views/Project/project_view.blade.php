@@ -46,7 +46,7 @@
 
     <!-----#modal -->
         <div class="modal fade projectNew_modal" id="project_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
               <div class="modal-content">
 
                 <div class="modal-body" id="projectNew_body">

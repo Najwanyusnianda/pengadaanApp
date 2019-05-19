@@ -18,7 +18,7 @@
                     @if (count($data_kulp)>0)
                       @forelse ($data_kulp as $data)
                       <tr>
-                          <td>{{$data->nama_depan}} {{$data->nama_belakang}}</td>
+                          <td>{{$data->nama}}</td>
                           <td>{{$data->nip}}</td>
                           <td>{{$data->deskripsi}}</td>
                           
@@ -31,7 +31,7 @@
                 @if (count($data_kasi)>0)
                     @forelse ($data_kasi as $data)
                     <tr>
-                        <td>{{$data->nama_depan}} {{$data->nama_belakang}}</td>
+                        <td>{{$data->nama}}</td>
                         <td>{{$data->nip}}</td>
                         <td>{{$data->deskripsi}}</td>
                         
@@ -44,7 +44,7 @@
                 @if (count($data_staff)>0)
                     @forelse ($data_staff as $data)
                     <tr>
-                        <td>{{$data->nama_depan}} {{$data->nama_belakang}}</td>
+                        <td>{{$data->nama}}</td>
                         <td>{{$data->nip}}</td>
                         <td>{{$data->deskripsi}}</td>
                         

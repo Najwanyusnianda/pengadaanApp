@@ -7,8 +7,7 @@ use App\User;
 $factory->define(Person::class, function (Faker $faker) {
     return [
         //
-        'nama_depan' => $faker->name,
-        'nama_belakang'=>'test',
+        'nama' => $faker->name,
         'nip' => str_random(16),
         'role_id' =>100,
         'is_active' => 1,

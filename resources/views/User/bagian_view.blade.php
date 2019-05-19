@@ -2,39 +2,28 @@
 
 @section('konten')
     <div class="container">
-            <div class="card">
+            <div class="card shadow-lg">
                 <div class="card-header">
-                  <h3 class="card-title">Bordered Table</h3>
+                  <h3 class="card-title">Daftar Subject Matter</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>kode bagian</th>
-                                <th>Nama Bagian</th>
-                                <th>Register</th>
-                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($subject_matter as $data)
-                                <tr>
-                                <td>{{$data->kode_bagian}}</td>
-                                    <td>{{$data->nama_bagian}}</td>
-                                    <td> 
-                                        <a href="" class="btn btn-link register_bagian_show">
-                                                <i class="fas fa-user-alt"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <p>tidak ada data</p>
-                            @endforelse
-                           
-                 
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                            <table class="table table-bordered" id="bagianTable">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>kode bagian</th>
+                                            <th>Nama Bagian</th>                   
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    
+                             
+                                    </tbody>
+                            </table>                        
+                    </div>
+
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -44,6 +33,21 @@
 
 @section('addScript')
     <script>
+        $(document).ready(function(){
+            $('#bagianTable').DataTable({
+                responsive:true,
+                processing:true,
+                serverSide:true,
+                ajax:"{{route('table.bagian')}}",
+                columns:[
+                {data: 'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},
+                {data:'kode_bagian'},
+                {data:'nama_bagian'}
+                ]
+            });
+
+            alert('wow');
+        })
 
     </script>    
 @endsection

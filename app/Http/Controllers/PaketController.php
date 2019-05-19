@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\ProjectEnrollment;
 use App\Project;
 use App\Person;
+use DataTables;
+use App\Paket;
 
 class PaketController extends Controller
 {
@@ -35,6 +37,15 @@ class PaketController extends Controller
         return view('Paket.penanggung_jawab',compact('ppk','pp'));
     }
 
+    public function pjStore(Request $request){
+    
+        $paket=Paket::create([
+            'permintaan_id'=>$request->permintaan_id,
+            'ppk_id'=>$request->ppk,
+            'pp_id'=>$request->pp
+        ]);
+    }
+
     public function storeKak(Request $request){
 
         $request->file('kak')->store('Kak');
@@ -43,5 +54,15 @@ class PaketController extends Controller
         }
         
         return redirect()->back();
+    }
+
+
+    public function paketTable(){
+        $paket=Paket::query();
+
+        $dt=DataTables::of($paket)
+        ->addIndexColumn()
+        ->make(true);
+        return $dt;
     }
 }

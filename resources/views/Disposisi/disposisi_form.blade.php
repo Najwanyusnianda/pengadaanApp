@@ -6,7 +6,7 @@
                     <option disabled selected >Pilih penerima</option>
                 @if (count($pegawai)>0)
                     @foreach ($pegawai as $data)
-                      <option value="{{$data->id}}">{{$data->nama_depan}}</option>
+                      <option value="{{$data->id}}">{{$data->nama}}</option>
                     @endforeach
                 @else
                     <option value="0" disabled>tidak ada data</option>

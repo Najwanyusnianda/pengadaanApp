@@ -1,0 +1,1 @@
+<span style="font-size:13px;">{{$number_current}}</span>

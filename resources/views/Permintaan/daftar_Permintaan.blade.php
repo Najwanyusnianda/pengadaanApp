@@ -2,7 +2,7 @@
 
 @section('header_name')
 <h1 class="m-0 text-dark" >Permintaan</h1>
-<h6 style="font-family:QuickSand">Project : {{$project->nama}}</h6>
+<h6 style="font-family:QuickSand">Project : {{$project->nama ?? 'tidak ada project yang aktif'}}</h6>
 
 @endsection
 
@@ -37,9 +37,11 @@
 
 
     <div class="card shadow mb-4 permintaan-card" style="font-family:QuickSand;">
+        <div class="card-header" style="color:white;background-color:#566787;">
+            Daftar Permintaan
+        </div>
 
-
-        <div class="card-body" style="font-size:15px">
+        <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;color:#566787;">
             <div class="table-responsive">
                     <table  class="table   table-hover dataTable" id="datatable" role="grid" aria-describedby="example2_info" style="width:100%">
                             <thead>
@@ -68,7 +70,7 @@
     <!-- ########################################################-->
     <!--form disposisi-->
         <div class="modal fade disposisi_modal" id="disposisi_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
               <div class="modal-content">
                 <div class="modal-header" id="disposisi_modalHeader">
                   <h5 class="modal-title"  id="disposisi_title"></h5>
@@ -90,7 +92,7 @@
      <!--detail permintaan--> 
      
      <div class="modal fade permintaan_modal" id="exampleModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
           <div class="modal-content detail-permintaan"  id="detail_body" style=" width:100%">
            
             
@@ -116,7 +118,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" id="pejabat_kirim">kirim</button>
+                  <button type="button" class="btn btn-primary" id="pejabat_kirim">Simpan</button>
                 </div>
               </div>
             </div>
@@ -174,8 +176,12 @@
 @section('addScript')
     <!-- Modal -->
     <script>
+        
     
     $(document).ready(function(){
+
+        //tolltip
+        $("body").tooltip({ selector: '[data-toggle=tooltip]' });
         //css
         $('a.disposisi-show.disabled').children().css('color','black');
     
@@ -190,7 +196,7 @@
                 {data:'jenis_pengadaan'},
                 {data:'nama_bagian'},
                 {data:'kode_kegiatan'},
-                {data:'nilai'},
+                {data:'nilai_rp'},
                 {data:'status_disposisi'},
                 {data:'action'},
             ]
@@ -255,13 +261,14 @@
             var url ="{{route('pejabat.form')}}";
             var me = $(this);
             //var judul=me.attr('data-title');
-        
+            var id= me.attr('data-id');
+            console.log(id);
             //get permintaan form
             $.ajax({
                 url: url,
                 dataType: 'html',
                 success: function(response) {
-                $('.modal-body').html(response);
+                $('#pejabat_body').html(response);
                 //$('.modal-title').html(judul);
                 }
             });
@@ -309,7 +316,45 @@
 
                 });
 
-            });
+        });
+
+        $('#pejabat_kirim').click(function(e){
+            e.preventDefault();
+                var url='{{route('pejabat.store')}}';
+                
+                $.ajaxSetup({
+                    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+                });
+               
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: url,
+                    data: {
+                        // change data to this object
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        ppk:$('#ppk_select').val(),
+                        pp:$('#pp_select').val()
+
+                        
+                    },
+                    success: function(result) {
+                        //console.log(result);
+                        Swal.fire(
+                            'Done!',
+                            'Penanggung jawab terpilih!'
+                            )
+                        //permintaanTable.ajax.reload();
+                        $('#datatable').DataTable().ajax.reload();
+                        $("#close").trigger("click");
+                    },error:function(){
+                        alert('error');
+                    }
+
+                });
+        })
     });    
     </script>
 @endsection

@@ -151,7 +151,7 @@
                 ajax:"{{route('table.user')}}",
                 columns:[
                 {data: 'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},
-                {data:'nama_depan'},
+                {data:'nama'},
                 {data:'nip'},
                 {data:'deskripsi'},
                 {data:'action'}

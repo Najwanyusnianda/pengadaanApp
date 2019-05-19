@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 600px;font-family:Roboto; background-color:#2c3e50;">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="min-height: 600px;font-family:Roboto; background-color:#2f3640;">
   <!-- Brand Logo -->
   <a href="index3.html" class="brand-link">
     <img src="{{asset('img/brand.jpg')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -25,64 +25,69 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-             <li class="nav-item has-treeview ">
+             @if (auth()->user()->person->role_id==1)
+              <li class="nav-item has-treeview ">
+                  <a href="#" class="nav-link ">
+                    
+                      <i class="nav-icon fas fa-cogs" style="color:#c8d6e5;"></i>
+                    <p>
+                      Setting
+                      <i class="right fa fa-angle-left"></i>
+                    </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+  
+                        <li class="nav-item">
+                          <a href="{{route('project.index')}}" class="nav-link ">
+                                <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                                <p>Project Management</p>
+                              </a>
+                        </li>
+               
+                      <li class="nav-item">
+                      <a href="{{url('/pejabat/setting')}}" class="nav-link ">
+                            <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                            <p>User Project</p>
+                          </a>
+                      </li>
+    
+                  </ul>        
+              </li>
+  
+               <li class="nav-item has-treeview ">
                 <a href="#" class="nav-link ">
                   
-                    <i class="nav-icon fas fa-cogs" style="color:#c8d6e5;"></i>
-                  <p>
-                    Setting
+                    <i class="nav-icon fas fa-users" style="color:#3498db;"></i>
+                  <p >
+                    Users
                     <i class="right fa fa-angle-left"></i>
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
-
-                      <li class="nav-item">
-                        <a href="{{route('project.index')}}" class="nav-link ">
-                              <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                              <p>Project Management</p>
-                            </a>
-                      </li>
              
                     <li class="nav-item">
-                    <a href="{{url('/pejabat/setting')}}" class="nav-link ">
+                    <a href="{{route('user_list.index')}}" class="nav-link">
                           <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                          <p>User Project</p>
+                          <p>Daftar User</p>
                         </a>
-                    </li>
+                    </li>  
+               
+                
+                  <li class="nav-item">
+                  <a href="{{route('user_list.indexBagian')}}" class="nav-link ">
+                      <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                      <p>Daftar Subdirektorat</p>
+                    </a>
+                  </li>
+  
+               
   
                 </ul>        
-            </li>
-
-             <li class="nav-item has-treeview ">
-              <a href="#" class="nav-link ">
-                
-                  <i class="nav-icon fas fa-users" style="color:#3498db;"></i>
-                <p >
-                  Users
-                  <i class="right fa fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-           
-                  <li class="nav-item">
-                  <a href="{{route('user_list.index')}}" class="nav-link">
-                        <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                        <p>Daftar User</p>
-                      </a>
-                  </li>  
+              </li>
              
-              
-                <li class="nav-item">
-                <a href="{{route('user_list.indexBagian')}}" class="nav-link ">
-                    <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                    <p>Daftar Subdirektorat</p>
-                  </a>
-                </li>
+                 
+             @endif
 
-             
-
-              </ul>        
-            </li>
              <li class="nav-item has-treeview ">
               <a href="#" class="nav-link ">
                 

@@ -1,18 +1,20 @@
 <div class="col">
         <div class="">
-                <div class="post">
+      
+              <div class="post">
                         <div class="user-block">
                           <img class="img-circle img-bordered-sm" src="{{asset('img/user.png')}}" alt="user image">
                           <span class="username">
                             <a href="#">
-                              {{$disp_detail->nama_pengirim}}</a>
-                            <a href="#" class="float-right btn-tool"><i class="fa fa-times"></i></a>
+                              {{$disp_detail->nama_pengirim}}
+                            </a>
+                            
                           </span>
                           <span class="description">dikirim ke {{$disp_detail->nama_penerima}} - {{\Carbon\Carbon::parse($disp_detail->created_at)->diffForHumans()}}</span>
                         </div>
                         <!-- /.user-block -->
                         <p>
-                          {{$disp_detail->uraian}}
+                          {{$disp_detail->konten}}
                         </p>
                 
                         <p>

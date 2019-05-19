@@ -1,1 +1,1 @@
-<span class="badge {{$disposisi_badge}}">{{$disposisi_status}}</span>
+<span class="badge {{$disposisi_badge}}" >{{$disposisi_status}}</span>

@@ -15,6 +15,7 @@ class CreatePaketsTable extends Migration
     {
         Schema::create('pakets', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedInteger('permintaan_id')->nullable();
             $table->unsignedInteger('ppk_id')->nullable();
             $table->unsignedInteger('pp_id')->nullable();
             $table->string('kak')->nullable();

@@ -92,9 +92,10 @@
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('assets/bootstrap/jquery-3.3.1.min.js')}}"></script>
     <script src="{{asset('assets/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-  
+    
+
     <!-- Core plugin JavaScript-->
-    <script src="{{asset('assets/jquery-easing/jquery.easing.min.js')}}"></script>
+    <!--<script src="{{asset('assets/jquery-easing/jquery.easing.min.js')}}"></script>-->
     <script type="text/javascript"  src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript"src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>

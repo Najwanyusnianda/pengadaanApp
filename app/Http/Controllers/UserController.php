@@ -7,9 +7,12 @@ use Illuminate\Support\Facades\DB;
 use App\SubBagian;
 use App\Person;
 use App\User;
+use App\Project;
 use DataTables;
 use App\JabatanPpk;
 use App\JabatanPp;
+use App\ProjectEnrollment;
+
 class UserController extends Controller
 {
     //
@@ -38,9 +41,17 @@ class UserController extends Controller
         return $dt;
     }
 
+    public function tableBagian(){
+        $bagian=SubBagian::query()->where('kode_bagian_up','<>','1000')->where('kode_bagian_up','LIKE','__00')->where('kode_bagian_up','NOT LIKE','_000')->get();
+        $dt=DataTables::of($bagian)
+        ->addIndexColumn()
+        ->make(true);
+        return $dt;
+    }
+
     public function indexBagian(){
-        $subject_matter=DB::table('sub_bagians')->where('kode_bagian_up','<>','1000')->where('kode_bagian_up','LIKE','__00')->where('kode_bagian_up','NOT LIKE','_000')->paginate(10);
-        return view('User.bagian_view')->with('subject_matter',$subject_matter);
+        //$subject_matter=DB::table('sub_bagians')->where('kode_bagian_up','<>','1000')->where('kode_bagian_up','LIKE','__00')->where('kode_bagian_up','NOT LIKE','_000')->paginate(10);
+        return view('User.bagian_view');
     }
 
     public function registerUserForm(){
@@ -57,8 +68,7 @@ class UserController extends Controller
             ]);
     
             $person=Person::create([
-                'nama_depan' =>$request->nama,
-                'nama_belakang'=>'test',
+                'nama' =>$request->nama,
                 'nip' => $request->nip,
                 'role_id' => 100,
                 'user_id' => $user->id,
@@ -69,8 +79,22 @@ class UserController extends Controller
     
     }
 
-    public function availableUser(){
-       $pegawai=Person::where('role_id','=',100)->get();
+    public function availableUser($id){
+       $pegawai; 
+       $project=Project::where('id',$id)->first();
+       $enrol=ProjectEnrollment::where('project_id',$project->id)->get();
+       if (count($enrol)>0) {
+        foreach($enrol as $roll){
+            $data[]=$roll->person_id;
+        }
+        $pegawai=Person::whereNotIn('id',$data)->where('role_id','!=','1')->get();
+       }else {
+        $pegawai=Person::where('role_id','!=','1')->get();
+       }
+       
+       
+       
+       //$pegawai=Person::where('role_id','=',100)->get();
    
        $jabatan_ppk=JabatanPpk::all();
        $jabatan_pp=JabatanPp::all();

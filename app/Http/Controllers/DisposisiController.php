@@ -104,8 +104,8 @@ class DisposisiController extends Controller
         ->join('people AS a','disposisi_headers.from_id','=','a.id')
         ->join('people AS b','disposisi_headers.to_id','=','b.id')
         ->join('permintaans','permintaan_id','=','permintaans.id')
-        ->select('disposisi_headers.*','disposisi_details.*','a.nama_depan AS nama_pengirim','a.nama_belakang AS nama_pengirim_last','a.nip AS nip_pengirim','b.nama_depan AS nama_penerima','b.nama_belakang AS nama_penerima_last','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->get();
-
+        ->select('disposisi_headers.*','disposisi_details.*','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->paginate(5);
+        //$disposisi_masuk=DB::table('disposisi_details')->join('disposisi_headers','disposisi_details.id','=','disposisi_headers.disposisi_detail_id')->get();
         return view('Disposisi.disposisi_masuk',compact('disposisi_masuk'));
     }
 
@@ -116,7 +116,7 @@ class DisposisiController extends Controller
         ->join('people AS a','disposisi_headers.from_id','=','a.id')
         ->join('people AS b','disposisi_headers.to_id','=','b.id')
         ->join('permintaans','permintaan_id','=','permintaans.id')
-        ->select('disposisi_headers.*','disposisi_details.*','a.nama_depan AS nama_pengirim','a.nama_belakang AS nama_pengirim_last','a.nip AS nip_pengirim','b.nama_depan AS nama_penerima','b.nama_belakang AS nama_penerima_last','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->get();
+        ->select('disposisi_headers.*','disposisi_details.*','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->get();
 
         return view('Disposisi.disposisi_diteruskan',compact('disposisi_diteruskan'));
     }
@@ -141,25 +141,9 @@ class DisposisiController extends Controller
 
 
     public function detail($id){
-        $role_id=auth()->user()->person->role->id;
-        if($role_id==6){
-            $disp_detail=DB::table('disposisi_staff')
-            ->where('disposisi_staff.id',$id)
-            ->join('disposisis','disposisi_staff.disposisi_id','=','disposisis.id')
-            ->join('people AS b','disposisis.penerima_id','=','b.id')
-            ->join('people AS a','disposisi_staff.penerima_id','=','a.id')
-            ->select('disposisi_staff.*','a.nama AS nama_penerima','b.nama AS nama_pengirim')->first();
-        }elseif ($role_id==4 ||$role_id==5) {
-            $disp_detail=DB::table('disposisis')
-            ->where('disposisis.id',$id)
-            ->join('people AS a','disposisis.pengirim_id','=','a.id')
-            ->join('people AS b','disposisis.penerima_id','=','b.id')
-            ->join('permintaans','permintaan_id','=','permintaans.id')
-            ->select('disposisis.*','a.nama AS nama_pengirim','b.nama AS nama_penerima','permintaans.judul AS judul_permintaan')->first();
-            
-        }
-
-  
+        $disp_detail=DB::table('disposisi_details')->where('disposisi_details.id','1')->join('disposisi_headers','disposisi_details.id','=','disposisi_headers.disposisi_detail_id')->join('people AS a','disposisi_headers.from_id','=','a.id')->join('people AS b','disposisi_headers.to_id','=','b.id')->join('permintaans','permintaan_id','=','permintaans.id')->select('disposisi_headers.*','disposisi_details.*','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->first();
+      
+        
         return view('Disposisi.disposisi_detail',compact('disp_detail'));
     }
 

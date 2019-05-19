@@ -2,8 +2,12 @@
 
 @section('header_name')
 <h2>User Management</h2>
-<h6>Project: <strong>{{$project->nama}}</strong></h6>
-
+<h6>Project: <strong style="color:cornflowerblue">{{$project->nama}}</strong></h6>
+<div class="">
+    <button type="button" id="add_user_project" class="btn btn-info btn-sm ">
+        Tambahkan Pengguna 
+    </button>
+</div>
 @endsection
 @section('konten')
 <div class="container">
@@ -14,25 +18,39 @@
           </div>
       </div>
 
-      <div class="row-sm-6">
-              <div class="list-group mb-4">
-                      <button type="button" id="add_user_project" class="list-group-item list-group-item-action">
-                              Tambahkan User ke Dalam Project
-                      </button>
-              </div>
+      <div class="row-6 ">
+     
+          <div class="card mt-1 p-1">
+              <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-ULP" role="tab" aria-controls="pills-ULP" aria-selected="true">ULP</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-PPK" role="tab" aria-controls="pills-PPK" aria-selected="false">PPK</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-PP" role="tab" aria-controls="pills-PP" aria-selected="false">PP</a>
+                  </li>
+              </ul>
+
+          </div>
+
+     
+
       </div>
-      
       <div class="row-sm-6">
-            @include('Project._ulp_enrollment')
-        </div>
+        
+
+      </div>
 
       <div class="row-sm-6">
-        @include('Project._ppk_enrollment')
+        <div class="tab-content" id="pills-tabContent">
+          <div class="tab-pane fade show active" id="pills-ULP" role="tabpanel" aria-labelledby="pills-home-tab">@include('Project._ulp_enrollment')</div>
+          <div class="tab-pane fade" id="pills-PPK" role="tabpanel" aria-labelledby="pills-profile-tab"> @include('Project._ppk_enrollment')</div>
+          <div class="tab-pane fade" id="pills-PP" role="tabpanel" aria-labelledby="pills-contact-tab"> @include('Project._pp_enrollment')</div>
+        </div>
       </div>
 
-        <div class="row-sm-6">
-            @include('Project._pp_enrollment')
-        </div>
 
 
   </div>
@@ -43,7 +61,7 @@
 
 
 <div class="modal fade userChoose" id="choose" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header" id="userChoose_modalHeader">
               <h5 class="modal-title"  id="disposisi_title"></h5>
@@ -56,7 +74,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" id="user_save">kirim</button>
+              <button type="button" class="btn btn-primary btn-block" id="user_save">Tambahkan</button>
             </div>
           </div>
         </div>
@@ -70,9 +88,9 @@
 $(document).ready(function(){
   $('#add_user_project').click(function(event){
     event.preventDefault();
-
+    var project_id=$('#project_').attr('project-id')
     $.ajax({
-                url: '/available/user',
+                url: '/available/user/'+project_id,
                 dataType: 'html',
                 success: function(response) {
                 $('.modal-body').html(response);
@@ -119,13 +137,18 @@ $('#user_save').click(function(){
         success: function(result) {
             //console.log(result);
             Swal.fire(
-                'User ditambahkan!',
-                'berhasil Telah Terkirim!',
+                'Sukses',
+                'Pengguna Telah di Tambahkan!',
                 'success'
                 )
             //permintaanTable.ajax.reload();
           
             $("#close").trigger("click");
+            setTimeout(
+                  function() 
+                  {
+                     location.reload();
+                  }, 1000);
         },error:function(){
             alert('error');
         }

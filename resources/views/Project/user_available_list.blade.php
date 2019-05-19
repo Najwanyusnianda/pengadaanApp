@@ -5,7 +5,7 @@
                             @if (count($pegawai)>0)
                                 <select name="" id="pegawai_choose" class="custom-select form-control" >
                                         @forelse ($pegawai as $data)
-                                        <option value="{{$data->id}}">{{$data->nama_depan}} <br><small>{{$data->nip}}</small></option>
+                                        <option value="{{$data->id}}">{{$data->nama}} <br><small>{{$data->nip}}</small></option>
                                         @empty
                                             <option disabled>tidak ada user</option>
                                         @endforelse

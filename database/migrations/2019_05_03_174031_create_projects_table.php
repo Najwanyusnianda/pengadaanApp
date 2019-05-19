@@ -17,6 +17,7 @@ class CreateProjectsTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama');
             $table->string('deskripsi');
+            $table->string('project_storage')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

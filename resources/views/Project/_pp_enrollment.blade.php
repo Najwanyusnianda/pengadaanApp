@@ -19,7 +19,7 @@
                   
                       @forelse ($data_pp as $pp)
                       <tr>
-                          <td>{{$pp->nama_depan}} {{$pp->nama_belakang}}</td>
+                          <td>{{$pp->nama}}</td>
                           <td>{{$pp->nip}}</td>
                           <td>{{$pp->jabatan_pp}}</td>
                           <td><span class="badge badge-primary p-2">{{$pp->kode_pp}}</span></td>

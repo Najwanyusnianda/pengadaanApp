@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use DataTables;
+use Storage;
 use App\Project;
 use App\JabatanPpk;
 use App\JabatanPp;
@@ -10,8 +13,8 @@ use App\Person;
 use App\ProjectEnrollment;
 use App\Pp;
 use App\Ppk;
-use DB;
-use DataTables;
+use File;
+
 
 class ProjectController extends Controller
 {
@@ -133,6 +136,13 @@ class ProjectController extends Controller
             'is_active'=>1
         ]);
         
+        $date_project=\Carbon\Carbon::parse($project->created_at)->format('Y_m_d_his');
+        $store_link='berkas/'.$date_project.'_'.$project->nama;
+        $storage=Storage::makeDirectory($store_link);
+        
+        Project::where('id',$project->id)->update([
+            'project_storage'=>$store_link
+        ]);
         $project_other=Project::where('id','!=',$project->id)->update(['is_active' => 0]);
 
         //return response()->json($project);

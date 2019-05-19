@@ -76,9 +76,11 @@ Route::group(['middleware' => ['auth']], function () {
     //Paket
     Route::get('/paket/pejabat_form','PaketController@penanggungJawabForm')->name('pejabat.form');
     Route::get('/paket','PaketController@index')->name('paket.index');
+    Route::get('/table/paket','PaketController@paketTable')->name('table.paket');
     Route::get('/paket/{id}/detail','PaketController@detail')->name('paket.detail');
-    Route::get('/paket/{id}/detail/spesifikasi','PaketController@spesifikasi');
+    Route::get('/paket/{id}/detail/spesifikasi','PaketController@spesifikasi')->name('paket.spek');
     Route::get('/paket/{id}/detail/hps','PaketController@hps');
+    Route::post('/paket/pejabat/store','PaketController@pjStore')->name('pejabat.store');
     Route::post('/paket/store_kak','PaketController@storeKak');
     
     //Route::get('/paket/{id}/detail');
@@ -86,6 +88,7 @@ Route::group(['middleware' => ['auth']], function () {
     //Handling doc
     Route::get('/generate-docx', 'DokumenController@generateDocx');
     Route::get('/generate-temp', 'DokumenController@generateTemp');
+    Route::get('/generate-excel', 'DokumenController@generateExcel');
     Route::post('/store_temp', 'DokumenController@storeTemplate')->name('temp.docx');
     Route::post('/hps/save','DokumenController@storeHps')->name('hps.save');
 
@@ -111,7 +114,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/user/register/form','UserController@registerUserForm')->name('user.form.register');
     Route::post('/user/postregister','UserController@storeRegister')->name('user.post.register');
     Route::get('/table/user','UserController@tableUser')->name('table.user');
-    Route::get('/available/user','UserController@availableUser');
+    Route::get('/table/bagian','UserController@tableBagian')->name('table.bagian');
+    Route::get('/available/user/{project}','UserController@availableUser');
  
     
     #-------------------------------
