@@ -260,9 +260,10 @@
 
             var url ="{{route('pejabat.form')}}";
             var me = $(this);
-            //var judul=me.attr('data-title');
+            var id=me.attr('data-id');
+            id_permintaan =id;
             var id= me.attr('data-id');
-            console.log(id);
+            console.log(id_permintaan);
             //get permintaan form
             $.ajax({
                 url: url,
@@ -336,7 +337,8 @@
                         // change data to this object
                         _token: $('meta[name="csrf-token"]').attr('content'),
                         ppk:$('#ppk_select').val(),
-                        pp:$('#pp_select').val()
+                        pp:$('#pp_select').val(),
+                        permintaan_id:id_permintaan
 
                         
                     },

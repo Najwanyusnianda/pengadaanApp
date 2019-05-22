@@ -8,23 +8,29 @@ use App\Project;
 use App\Person;
 use DataTables;
 use App\Paket;
+use App\Permintaan;
+
 
 class PaketController extends Controller
 {
     //
     public function index(){
-        return view('Paket.daftar_paket');
+        $paket=Paket::query()->join('permintaans','pakets.permintaan_id','=','permintaans.id')->get();
+        return view('Paket.daftar_paket')->with('paket',$paket);
     }
 
     public function detail($id){
-        return view('Paket.detail_paket');
+        $paket=Paket::find($id);
+        return view('Paket.detail_paket')->with('paket',$paket);
     }
 
     public function spesifikasi($id){
+
         return view('Paket.doc_persiapan.spesifikasi');
     }
 
     public function hps($id){
+        
         return view('Paket.doc_persiapan.hps');
     }
 
@@ -38,7 +44,7 @@ class PaketController extends Controller
     }
 
     public function pjStore(Request $request){
-    
+   
         $paket=Paket::create([
             'permintaan_id'=>$request->permintaan_id,
             'ppk_id'=>$request->ppk,

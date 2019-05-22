@@ -78,8 +78,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/paket','PaketController@index')->name('paket.index');
     Route::get('/table/paket','PaketController@paketTable')->name('table.paket');
     Route::get('/paket/{id}/detail','PaketController@detail')->name('paket.detail');
-    Route::get('/paket/{id}/detail/spesifikasi','PaketController@spesifikasi')->name('paket.spek');
-    Route::get('/paket/{id}/detail/hps','PaketController@hps');
+    //handling jadwal
+    Route::get('/paket/{id}/jadwal','PaketController@jadwalIndex')->name('paket.jadwal');
+    Route::post('/paket/{id}/jadwal/store','PaketController@jadwalStore')->name('paket.jadwal.store');
+    //
+    Route::get('/paket/{id}/detail/spesifikasi','PaketController@spesifikasi')->name('paket.detail.spek');
+    Route::get('/paket/{id}/detail/hps','PaketController@hps')->name('paket.detail.hps');
     Route::post('/paket/pejabat/store','PaketController@pjStore')->name('pejabat.store');
     Route::post('/paket/store_kak','PaketController@storeKak');
     
@@ -137,5 +141,8 @@ Route::group(['middleware' => ['auth']], function () {
     //Route::get('/pejabat/setting','UserSettingController@getPejabatSetting');
 
     Route::view('/temp_hps', 'Document.hps_form');
+
+
+ 
 
 });

@@ -38,7 +38,7 @@
                                         </td> 
                                         <td>{{$data->judul_permintaan}}</td>
                                         <td>{{\Carbon\Carbon::parse($data->created_at)->format('l, d F Y H:i')}}</td>
-                                        <td><button class="btn btn-info btn-sm btn-flat detail_disposisi_show" data-id="{{$data->disposisi_detail_id}}" style="font-size:11px;"> Detail</button></td>
+                                        <td><button class="btn  btn-sm btn-flat detail_disposisi_show" data-id="{{$data->disposisi_detail_id}}" > <i class="fas fa-eye " style="color:#3498db"></i></button></td>
                                        
                                     </tr>
                                 @empty

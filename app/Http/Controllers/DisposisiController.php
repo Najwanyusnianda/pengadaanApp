@@ -116,8 +116,8 @@ class DisposisiController extends Controller
         ->join('people AS a','disposisi_headers.from_id','=','a.id')
         ->join('people AS b','disposisi_headers.to_id','=','b.id')
         ->join('permintaans','permintaan_id','=','permintaans.id')
-        ->select('disposisi_headers.*','disposisi_details.*','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->get();
-
+        ->select('disposisi_headers.*','disposisi_details.*','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->paginate(5);
+        
         return view('Disposisi.disposisi_diteruskan',compact('disposisi_diteruskan'));
     }
 
@@ -141,7 +141,7 @@ class DisposisiController extends Controller
 
 
     public function detail($id){
-        $disp_detail=DB::table('disposisi_details')->where('disposisi_details.id','1')->join('disposisi_headers','disposisi_details.id','=','disposisi_headers.disposisi_detail_id')->join('people AS a','disposisi_headers.from_id','=','a.id')->join('people AS b','disposisi_headers.to_id','=','b.id')->join('permintaans','permintaan_id','=','permintaans.id')->select('disposisi_headers.*','disposisi_details.*','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->first();
+        $disp_detail=DB::table('disposisi_details')->where('disposisi_details.id',$id)->join('disposisi_headers','disposisi_details.id','=','disposisi_headers.disposisi_detail_id')->join('people AS a','disposisi_headers.from_id','=','a.id')->join('people AS b','disposisi_headers.to_id','=','b.id')->join('permintaans','permintaan_id','=','permintaans.id')->select('disposisi_headers.*','disposisi_details.*','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->first();
       
         
         return view('Disposisi.disposisi_detail',compact('disp_detail'));
