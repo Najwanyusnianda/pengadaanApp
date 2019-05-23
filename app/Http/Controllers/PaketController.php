@@ -9,7 +9,8 @@ use App\Person;
 use DataTables;
 use App\Paket;
 use App\Permintaan;
-
+use App\KegiatanPengadaan;
+use App\JadwalKegiatanPengadaan;
 
 class PaketController extends Controller
 {
@@ -71,4 +72,55 @@ class PaketController extends Controller
         ->make(true);
         return $dt;
     }
+
+
+    public function kegiatan($id){
+        $id_paket=$id;
+        $kegiatan_list=KegiatanPengadaan::all();
+        return view('Paket.pilih_kegiatan',compact('kegiatan_list','id_paket'));
+    }
+
+    public function kegiatanStore(Request $request,$id){
+        //dd($request->kegiatan[0]);
+        $id_paket=$id;
+        for ($index =0; $index <count($request->kegiatan);  $index++ ) {
+            $kegiatan=JadwalKegiatanPengadaan::create([
+                'paket_id'=>$id_paket,
+                'kegiatan_id'=>$request->kegiatan[$index]
+            ]);
+            
+        };
+        return redirect()->route('paket.jadwal',[$id_paket]);
+    }
+
+    public function jadwalIndex($id){
+        $id_paket=$id;
+    
+        $kegiatan_pengadaan=JadwalKegiatanPengadaan::where('paket_id',$id)->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')->get();
+       
+        if (count($kegiatan_pengadaan)>0) {
+            $paket=Paket::find($id_paket);
+           
+            $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
+          
+            $project=Project::where('id',$permintaan->project_id)->first();
+            $kode_kegiatan=$permintaan->kode_kegiatan;
+            $ppk=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->ppk_id)
+            ->join('jabatan_ppks','project_enrollments.jabatan_id','jabatan_ppks.id')->first();
+
+            $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
+            ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->first();
+            return view('Paket.jadwal_pengadaan',compact('id_paket','kegiatan_pengadaan','ppk','pp','kode_kegiatan'));
+        }else {
+            return redirect()->route('paket.pilihKegiatan',['id'=>$id_paket]);
+        }
+
+
+        
+    }
+
+    public function storeJadwal(){
+
+    }
+
 }

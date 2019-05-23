@@ -1,0 +1,18 @@
+[
+  {
+    "Jenis_Kegiatan": "Penetapan HPS",
+    "Kode_kegiatan": "OE"
+  },
+  {
+    "Jenis_Kegiatan": "Surat Permintaan Pengadaan",
+    "Kode_kegiatan": "S"
+  },
+  {
+    "Jenis_Kegiatan": "Surat Pesanan",
+    "Kode_kegiatan": "PM"
+  },
+  {
+    "Jenis_Kegiatan": "Berita Acara Pemeriksaan Pengadaan",
+    "Kode_kegiatan": "BA"
+  }
+]
