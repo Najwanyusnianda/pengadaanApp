@@ -4,8 +4,11 @@
 @section('konten')
     <div class="container">
         <div class="card shadow-lg">
-            <div class="card-header"></div>
-            <form action="{{route('paket.jadwal.store',['id'=>$id_paket])}}">
+            <div class="card-header" style="color:white;background-color:#566787;">
+                Jadwal Pengadaan Barang/Jasa : <strong>{{$judul}}</strong>
+            </div>
+            <form action="{{route('paket.jadwal.store',['id'=>$id_paket])}}" method="POST">
+                {{ csrf_field() }}
                 <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered">
@@ -28,15 +31,17 @@
                                             @forelse ($kegiatan_pengadaan as $data)
 
                                                 <tr>
-                                                    <td>{{$data->nama_kegiatan_p}}</td>
-                                                    <td class="wow">
+                                                    <td>{{$data->nama_kegiatan_p}}
+                                                                    <input type="hidden"  class="form-control jadwal" id="" name="id_kegiatan[]" value="{{$data->kegiatan_id}}" >
+                                                    </td>
+                                                    <td >
                                                             <div class="form-group" >
-                                                                    <input type="date" data-id={{$data->kode_kegiatan_p}} class="form-control jadwal" id="" name="jadwal[]" placeholder="dd - m - yyyy">
+                                                                    <input type="date" data-id={{$data->kode_kegiatan_p}} class="form-control jadwal"  name="jadwal[]" placeholder="dd - m - yyyy" value="{{$data->jadwal_kegiatan ?? ''}}">
                                                             </div>
                                                     </td>
                                                     <td>
                                                             <div class="form-group" >
-                                                                    <input type="text" class="form-control nomor_kegiatan"  disabled name="nomor">
+                                                            <input type="text" class="form-control nomor_kegiatan"  readonly="readonly" name="nomor[]" value="{{$data->nomor_kegiatan ?? ''}}">
                                                             </div>
                                                     </td>
                                                 </tr>
@@ -57,6 +62,7 @@
                 </div>
                 <div class="card-footer align-item-center">
                     <button type="submit" class="btn btn-primary btn-flat"> Simpan Jadwal</button>
+                    <a class="btn btn-link btn-secondary" href="{{route('paket.pilihKegiatan',['id'=>$id_paket])}}">Pilih kegiatan</a>
                 </div>
 
             </form>

@@ -37,19 +37,22 @@
                                     <td>test</td>
                                     <td>
                                         <div class="btn-group" >
-                                            <button type="button" class="btn btn-info btn-flat">Aksi</button>
-                                            <button type="button" class="btn btn-info btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                              <span class="caret"></span>
+                                            
+                                            <button type="button" class="btn  btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-h"></i>
+                                                <span class="caret"></span>
                                               <span class="sr-only">Toggle Dropdown</span>
                                             </button>
                                             <div class="dropdown-menu" style="font-size:10px;"role="menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(67px, 38px, 0px);">
-                                            <a class="dropdown-item" href="{{route('paket.detail',['id'=>$data->id])}}">Detail</a>
-                                              <a class="dropdown-item" href="{{route('paket.jadwal',['id'=>$data->id])}}">Jadwal</a>
-                                              <a class="dropdown-item" href="#">Something else here</a>
+                                                <a class="dropdown-item" href="{{route('paket.jadwal',['id'=>$data->id])}}">Buat Jadwal</a>
+                                                <a class="dropdown-item" href="{{route('paket.detail',['id'=>$data->id])}}">Kelola Berkas</a>                                              <a class="dropdown-item" href="#">Something else here</a>
                                               <div class="dropdown-divider"></div>
                                               <a class="dropdown-item" href="#">Separated link</a>
                                             </div>
-                                          </div>
+                                            <button class="btn btn-flat">
+                                                <i class="fas fa-eye " style="color:#3498db"></i>
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                                 @empty
@@ -72,4 +75,12 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('addStyle')
+    <style>
+    .dropdown-toggle::after {
+    display: none;
+}
+    </style>
 @endsection

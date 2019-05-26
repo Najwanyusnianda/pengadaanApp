@@ -11,6 +11,8 @@ use App\Paket;
 use App\Permintaan;
 use App\KegiatanPengadaan;
 use App\JadwalKegiatanPengadaan;
+use App\SpekTeknis;
+use DB;
 
 class PaketController extends Controller
 {
@@ -26,13 +28,42 @@ class PaketController extends Controller
     }
 
     public function spesifikasi($id){
+        $id_paket=$id;
+        return view('Paket.doc_persiapan.spesifikasi',compact('id_paket'));
+    }
 
-        return view('Paket.doc_persiapan.spesifikasi');
+    public function spesifikasiStore(Request $request,$id){
+        $id_paket=$id;
+        $spek=SpekTeknis::create([
+            'paket_id'=>$id_paket,
+            'nama_item'=>$request->nama_barang,
+            'volume'=>$request->volume_barang,
+            'satuan'=>$request->satuan_barang
+        ]);
+        return redirect()->back();
+        //return redirect()->route('paket.detail.hps',['id'=>$id_paket]);
     }
 
     public function hps($id){
-        
-        return view('Paket.doc_persiapan.hps');
+        $id_paket=$id;
+        $hps=SpekTeknis::where('paket_id',$id_paket)->get();
+        return view('Paket.doc_persiapan.hps',compact('id_paket','hps'));
+    }
+
+    public function hpsStore(Request $request,$id){
+        $id_paket=$id;
+        $num_item=count($request->id);
+        for ($i=0; $i <$num_item ; $i++) { 
+         $hps=SpekTeknis::where('paket_id',$id_paket)->where('id',$request->id[$i])
+         ->update([
+             'harga'=>$request->harga_satuan[$i],
+             'jumlah'=>$request->jumlah[$i]
+         ]);
+         
+        };
+        $paket=Paket::find($id);
+        $paket->total_hps=$request->total_hps;  
+
     }
 
     public function penanggungJawabForm(){
@@ -83,13 +114,29 @@ class PaketController extends Controller
     public function kegiatanStore(Request $request,$id){
         //dd($request->kegiatan[0]);
         $id_paket=$id;
-        for ($index =0; $index <count($request->kegiatan);  $index++ ) {
-            $kegiatan=JadwalKegiatanPengadaan::create([
-                'paket_id'=>$id_paket,
-                'kegiatan_id'=>$request->kegiatan[$index]
-            ]);
-            
-        };
+        $temp=JadwalKegiatanPengadaan::where('paket_id',$id_paket)->get();
+        if(count($temp)>0){
+            foreach($temp as $temps){
+                $data[]=$temps->paket_id;
+            }
+            DB::table('jadwal_kegiatan_pengadaans')->whereIn('paket_id',$data)->delete();
+            for ($index =0; $index <count($request->kegiatan);  $index++ ) {
+                $kegiatan=JadwalKegiatanPengadaan::create([
+                    'paket_id'=>$id_paket,
+                    'kegiatan_id'=>$request->kegiatan[$index]
+                ]);
+                
+            };
+        }else{
+            for ($index =0; $index <count($request->kegiatan);  $index++ ) {
+                $kegiatan=JadwalKegiatanPengadaan::create([
+                    'paket_id'=>$id_paket,
+                    'kegiatan_id'=>$request->kegiatan[$index]
+                ]);
+                
+            };
+        }
+  
         return redirect()->route('paket.jadwal',[$id_paket]);
     }
 
@@ -100,17 +147,18 @@ class PaketController extends Controller
        
         if (count($kegiatan_pengadaan)>0) {
             $paket=Paket::find($id_paket);
-           
+            
             $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
-          
+            $judul=$permintaan->judul;
             $project=Project::where('id',$permintaan->project_id)->first();
+            
             $kode_kegiatan=$permintaan->kode_kegiatan;
             $ppk=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->ppk_id)
             ->join('jabatan_ppks','project_enrollments.jabatan_id','jabatan_ppks.id')->first();
 
             $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
             ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->first();
-            return view('Paket.jadwal_pengadaan',compact('id_paket','kegiatan_pengadaan','ppk','pp','kode_kegiatan'));
+            return view('Paket.jadwal_pengadaan',compact('id_paket','kegiatan_pengadaan','ppk','pp','kode_kegiatan','judul'));
         }else {
             return redirect()->route('paket.pilihKegiatan',['id'=>$id_paket]);
         }
@@ -119,8 +167,20 @@ class PaketController extends Controller
         
     }
 
-    public function storeJadwal(){
+    public function jadwalStore(Request $request,$id){
+     
 
+       $index=count($request->id_kegiatan);
+       for ($i=0; $i <$index ; $i++) { 
+           $jadwal=JadwalKegiatanPengadaan::where('paket_id',$id)->where('kegiatan_id',$request->id_kegiatan[$i])
+           ->update([
+               'jadwal_kegiatan'=>$request->jadwal[$i],
+               'nomor_kegiatan'=>$request->nomor[$i]
+           ]);
+       }
+       return redirect()->route('paket.detail',['id'=>$id]);
     }
+
+
 
 }

@@ -83,9 +83,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/paket/{id}/kegiatan/store','PaketController@kegiatanStore')->name('paket.pilihKegiatan.store');
     Route::get('/paket/{id}/jadwal','PaketController@jadwalIndex')->name('paket.jadwal');
     Route::post('/paket/{id}/jadwal/store','PaketController@jadwalStore')->name('paket.jadwal.store');
-    //
+    //persiapan
     Route::get('/paket/{id}/detail/spesifikasi','PaketController@spesifikasi')->name('paket.detail.spek');
+    Route::post('/paket/{id}/spesifikasi/store','PaketController@spesifikasiStore')->name('paket.detail.spek.store');
     Route::get('/paket/{id}/detail/hps','PaketController@hps')->name('paket.detail.hps');
+    Route::post('/paket/{id}/hps/store','PaketController@hpsStore')->name('paket.detail.hps.store');
+    
     Route::post('/paket/pejabat/store','PaketController@pjStore')->name('pejabat.store');
     Route::post('/paket/store_kak','PaketController@storeKak');
     

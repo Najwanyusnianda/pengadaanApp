@@ -2,74 +2,75 @@
 
 @section('konten')
     <div class="container">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="card p-2 ">
+        <div class="card col-sm-6">
             <div class="card-header">
-              Tambah Spesifikasi
+
             </div>
-              <form action="" method="post" class="m-2">
-                  
-                  <div class="form-group">
-                      <label for="email">Nama Barang/Jasa</label>
-                      <input type="text" class="form-control" id="nama_barang" name="nama_barang" placeholder="masukkan nama barang/jasa">
-                  </div>
-                  <div class="form-group">
-                      <label for="email">Spesifikasi</label>
-                      <textarea name="spek_barang" id="" class="form-control" cols="30" rows="10"></textarea>
-                  </div>
+            <div class="card-body">
+                <div class="">
+                <form action="{{route('paket.detail.spek.store',['id'=>$id_paket])}}" method="POST">
+                    {{ csrf_field() }}
+                            <div class="row">
+                                <div class="col">
+                                        <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Nama Barang/Jasa</label>
+                                                <input type="text "class="form-control" id="nama_barang" name="nama_barang">
+                                        </div>
+                                </div>
 
-                  <div class="form-group ">
-                      <label for="email">Volume</label>
-                      <input type="number" class="form-control form-control-sm " id="volume" name="volume" placeholder="masukkan nama barang/jasa">
-                  </div>
-                  <div class="form-group ">
-                      <label for="email">Satuan</label>
-                      <input type="text" class="form-control form-control-sm " id="satuan" name="volume" placeholder="masukkan nama barang/jasa">
-                  </div>
-              </form>
-              <div class="card-footer">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">Tambah</button>
-              </div>
-          </div>
+                            </div>
 
-        </div>
-        <div class="col-md-8">
-          <div class="card p-2">
-              <div class="table-responsive">
-                  <table class="table table-borderled">
-                      <thead>
-                        <tr>
-                          <th style="width:30%">Nama Barang/Jasa</th>
-                          <th>Volume</th>
-                          <th>Satuan</th>
-                          <th>Keterangan</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                          <tr>
-                            <td>test</td>
-                            <td>20</td>
-                            <td>gram</td>
-                            <td>keterangan</td>
-                          </tr>
-                          <tr>
-                            <td>Spesifikasi:</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                          </tr>
-                          <tr>
-                            <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate quo, alias ipsum consequatur expedita repellendus rerum praesentium. Accusamus unde explicabo, necessitatibus eligendi quae a reprehenderit incidunt qui. Enim, et dolor.</td>
-                          </tr>
-                      </tbody>
-                  </table>
+                            <div class="row">
+                                <div class="col">
+                                        <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Volume</label>
+                                                <input type="number" class="form-control" id="volume_barang" name="volume_barang" >
+                                        </div>
+                                </div>
+                                <div class="col">
+                                        <div class="form-group">
+                                                <label for="satuan_barang">Satuan</label>
+                                                <input type="text" class="form-control custom-number" id="satuan_barang" name="satuan_barang" >
+                                        </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                    <div class="col">
+                                            <div class="form-group">
+                                                    <label for="exampleFormControlTextarea1">Spesifikasi</label>
+                                                    <textarea  class="form-control" id="spek_barang" name="spek_barang" rows="3"></textarea>
+                                            </div>
+                                    </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                        <div class="form-group">
+                                                <label for="exampleFormControlTextarea1">Keterangan</label>
+                                                <textarea class="form-control" id="spek_barang" name="spek_barang" rows="3"></textarea>
+                                        </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <button type="submit" class="btn btn-block btn-primary"> Tambah Item</button>
+                            </div>
+                           
+                        </form>
                 </div>
-          </div>
 
+            </div>
         </div>
-      </div>    
-
-
+        
     </div>
+@endsection
+
+
+@section('addScript')
+  <!--<script src="https://cdn.ckeditor.com/4.11.4/standard-all/ckeditor.js"></script>
+  <script>
+      CKEDITOR.replace( 'editor1' );
+</script> -->
 @endsection

@@ -7,11 +7,11 @@
         @endif
 
         <div class="card shadow mb-4 permintaan-card mt-3" style="font-family:QuickSand;">
-                <div class="card-header py-3" style="background-color:#2c3e50;">
+                <div class="card-header py-3" style="color:white;background-color:#566787;">
                 <h6 class="m-0  " style="color:white;">Daftar Permintaan <span class="font-weight-bold">{{auth()->user()->sub_bagian->nama_bagian}}</span></h6>
                 </div>
                 @if (count($permintaan_bagian)>0)
-                <div class="card-body" style="font-size:13px">
+                <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;color:#566787;">
                     <div class="table-responsive">
                         <table id="example2" class="table table-bordered table-hover dataTable " role="grid" aria-describedby="example2_info">
                             <thead>
@@ -25,7 +25,7 @@
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody style="color:black"> 
+                            <tbody> 
                                 @foreach ($permintaan_bagian as $key=>$data)
                                     <tr role="row" class="odd">
                                         <td>{{$key+1}}</td>
