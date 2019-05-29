@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/paket/pejabat_form','PaketController@penanggungJawabForm')->name('pejabat.form');
     Route::get('/paket','PaketController@index')->name('paket.index');
     Route::get('/table/paket','PaketController@paketTable')->name('table.paket');
+    //Route::get('/paket/detail/{id}','PaketController@detailTemp');
     Route::get('/paket/{id}/detail','PaketController@detail')->name('paket.detail');
     //handling jadwal
     Route::get('/paket/{id}/pilih_kegiatan','PaketController@kegiatan')->name('paket.pilihKegiatan');
@@ -89,9 +90,18 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/paket/{id}/detail/hps','PaketController@hps')->name('paket.detail.hps');
     Route::post('/paket/{id}/hps/store','PaketController@hpsStore')->name('paket.detail.hps.store');
     
+    //penawaran
+    Route::get('/paket/{id}/detail/penyedia','PaketController@formPenyedia')->name('paket.detail.penyedia');
+    Route::get('/paket/{id}/detail/evaluasiPenawaran','PaketController@formPembukaanPenawaran')->name('paket.detail.pembukaan_evaluasi');
+
+
     Route::post('/paket/pejabat/store','PaketController@pjStore')->name('pejabat.store');
     Route::post('/paket/store_kak','PaketController@storeKak');
-    
+     
+    #-------------------------------
+    //berkas
+    Route::get('berkas/{id}/bahps','BerkasController@generateBahps');
+
     //Route::get('/paket/{id}/detail');
     #-------------------------------
     //Handling doc

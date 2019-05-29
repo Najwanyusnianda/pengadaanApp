@@ -23,7 +23,7 @@
                     <table class="table table-bordered table-hover " id="disp_masuk">
 
                         <thead>
-                            <tr style="font-family:Valera Round, sans-serif;color:#566787" >
+                            <tr style="font-family:Valera Round, sans-serif;color:#566787;font-size:13px;" >
                                 <th>Kepada</th>
                                 <th>Judul</th>
                                 <th>Diterima</th>

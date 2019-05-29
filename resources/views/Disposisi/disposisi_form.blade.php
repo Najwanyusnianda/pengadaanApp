@@ -3,7 +3,7 @@
           <div class="form-group">
          
               <select class="form-control" id="penerima_disposisi" name="states[]" multiple="multiple">
-                    <option disabled selected >Pilih penerima</option>
+                   
                 @if (count($pegawai)>0)
                     @foreach ($pegawai as $data)
                       <option value="{{$data->id}}">{{$data->nama}}</option>
@@ -47,6 +47,21 @@
 
 <script>
   $(document).ready(function() {
-    $('#penerima_disposisi').select2();
+    function formatState (pegawai) {
+    if (!pegawai.id) {
+    return pegawai.text;
+    }
+  
+    var $state = $(
+    '<span><img src="{{asset('img/user.png')}}" class="img-circle " alt="User Image" style="heigth:10px;width:10%"> ' + pegawai.text + '</span>'
+    
+    );
+    return $state;
+  };
+     
+    $('#penerima_disposisi').select2({
+      placeholder:'Pilih Kasi',
+      templateResult: formatState
+    });
 });
 </script>

@@ -1,0 +1,47 @@
+@extends('Admin.layout')
+
+@section('link_bread')
+<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item active"><a href="{{route('paket.index')}}">Paket</a></li>
+<li class="breadcrumb-item active"><a href="{{route('paket.detail',['id'=>$id_paket])}}">Detail</a></li>
+<li class="breadcrumb-item active">Penyedia</li>
+@endsection
+@section('konten')
+    
+<style>
+.form-control{
+    border-radius: 0%;
+}
+</style>
+
+<div class="container">
+    <div class="card" style="margin:auto;width:50%">
+        <form action="" method="POST" class="m-4" style="font-family:QuickSand;font-size:13px">
+            <div class="form-group">
+                <label for="">Nama Penyedia</label>
+                <input type="text" class="form-control" id="nama_penyedia" name="nama_penyedia" placeholder="masukkan Judul">
+            </div>
+            <div class="form-group">
+                <label for="">NPWP</label>
+                <input type="text" class="form-control" id="npwp" name="npwp" placeholder="input npwp">
+            </div>
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="email" class="form-control" id="email_penyedia" name="email_penyedia" placeholder="input email">
+            </div>
+            <div class="form-group">
+                <label for="">Telepon</label>
+                <input type="number" class="form-control" id="email_penyedia" name="email_penyedia" placeholder="input number">
+            </div>
+            <div class="form-group">
+                <label for="">Alamat</label>
+                <input type="email" class="form-control" id="alamat_penyedia" name="alamat_penyedia" placeholder="masukkan Alamat">
+            
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-block btn-primary"> Tambah Penyedia</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection

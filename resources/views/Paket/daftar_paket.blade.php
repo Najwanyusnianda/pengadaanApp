@@ -1,23 +1,26 @@
 @extends('Admin.layout')
+@section('link_bread')
+<li class="breadcrumb-item"><a href="/">Home</a></li>
+<li class="breadcrumb-item active">Paket</li>
 
+@endsection
 @section('konten')
-<div class="container">
-    <div class="col">
+<div class="container-fluid">
+    <div class="col-md-12">
         <div class="row">
 
         </div>
-        <div class="row-md-8 justify-content-center" style="margin:auto;width:80%">
+        <div class="row-md-12 justify-content-center" >
             <div class="card shadow-lg" style="font-family:Roboto,sans-serif">
                 <div class="card-header" class="justify-content-between" style="background-color:#566787;color:white;">
                    
                         Daftar Paket
                  
                     <div class="card-tools float-right">
-                   
                     </div>
 
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;color:#566787;">
                    
                     <table class="table table-bordered table-hover " id="paketTable">
 

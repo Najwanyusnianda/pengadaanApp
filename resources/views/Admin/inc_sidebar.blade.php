@@ -134,7 +134,7 @@
                   <li class="nav-item">
                   <a href="{{route('disposisi.diteruskan')}}" class="nav-link ">
                       <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                      <p>Diteruskan</p>
+                      <p>Terkirim</p>
                     </a>
                   </li>
   

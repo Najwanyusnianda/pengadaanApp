@@ -24,8 +24,10 @@ class PaketController extends Controller
 
     public function detail($id){
         $paket=Paket::find($id);
-        return view('Paket.detail_paket')->with('paket',$paket);
+        return view('Paket.detail_temp')->with('paket',$paket);
     }
+
+ 
 
     public function spesifikasi($id){
         $id_paket=$id;
@@ -81,6 +83,17 @@ class PaketController extends Controller
             'permintaan_id'=>$request->permintaan_id,
             'ppk_id'=>$request->ppk,
             'pp_id'=>$request->pp
+        ]);
+        $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
+        $judul=$permintaan->judul;
+        $project=Project::where('id',$permintaan->project_id)->first();
+
+        $paket_date=\Carbon\Carbon::parse($paket->created_at)->format('Y_m_d_his');
+        $store_link=$project->project_storage.'/'.$paket_date.'_'.$judul;
+        $storage=Storage::makeDirectory($store_link);
+
+        $paket->update([
+            'paket_storage'=>$store_link
         ]);
     }
 
@@ -179,6 +192,30 @@ class PaketController extends Controller
            ]);
        }
        return redirect()->route('paket.detail',['id'=>$id]);
+    }
+
+
+    //pl
+    public function formPenyedia($id){
+        
+        return view('Paket.penawaran.form_penyedia')->with('id_paket',$id);
+    }
+
+
+    ///penawaran
+
+    public function formPembukaanPenawaran($id){
+
+        return view('Paket.penawaran.form_pembukaan_penawaran');
+
+    }
+
+    public function formKlarifikasiNegosiasi(){
+        //return view('Paket.penawaran.form_pembukaan_penawaran');
+    }
+
+    public function storePembukaanPenawaran(Request $request){
+
     }
 
 

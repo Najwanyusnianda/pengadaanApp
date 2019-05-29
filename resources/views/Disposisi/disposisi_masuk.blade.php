@@ -19,26 +19,39 @@
                     </div>
                     <div class="card-body">
                         @if (count($disposisi_masuk)>0)
-                        <table class="table table-bordered table-hover " id="disp_masuk">
+                        <table class="table table-condensed table-hover " id="disp_masuk">
 
                             <thead>
-                                <tr style="font-family:Valera Round, sans-serif;color:#566787" >
-                                    <th>Dari</th>
-                                    <th>Judul</th>
-                                    <th>Diterima</th>
-                                    <th>Detail</th>
+                                <tr style="font-family:Valera Round, sans-serif;color:#566787;font-size:13px;" >
+                                    <th colspan="2">Surat</th>
+                                    <th>status</th>
+                                    <th>Tgl.Terima</th>
+
                                 </tr>
                             </thead>
                             <tbody style="font-family:'Varela Round', sans-serif;color:#566787;font-size:13px;">
                                 @forelse ($disposisi_masuk as $data)
-                                    <tr> 
-                                        <td>
-                                                {{$data->nama_pengirim}}
-                                            <small>{{$data->nip_pengirim}}</small>
+                                    <tr>
+                                        <td width=40px;>
+                                                <img src="{{asset('img/user.png')}}" class="img-circle" alt="User Image" width="40px" height="40px">
                                         </td> 
-                                        <td>{{$data->judul_permintaan}}</td>
+                                        <td>
+                                            <div class="d-block" >
+                                                    <a href="#" class=" detail_disposisi_show" data-id="{{$data->disposisi_detail_id}}">
+                                                            <strong style="color: #566787;font-family:QuickSand;font-size:13px;">Permintaan {{$data->judul_permintaan}}</strong>
+                                                    </a>
+                                               
+                                                    
+                                            </div>
+                                            <div class="d-block" style="font-size:11px;">
+                                                  dari:  {{$data->nama_pengirim}}
+                                            </div>
+                                                
+                                            <p style="color:gray"><small>nomor: <strong>{{$data->nomor_form}}</strong> </small> </p>
+                                        </td> 
+                                        <td>belum dibaca</td>
                                         <td>{{\Carbon\Carbon::parse($data->created_at)->format('l, d F Y H:i')}}</td>
-                                        <td><button class="btn  btn-sm btn-flat detail_disposisi_show" data-id="{{$data->disposisi_detail_id}}" > <i class="fas fa-eye " style="color:#3498db"></i></button></td>
+                                        
                                        
                                     </tr>
                                 @empty

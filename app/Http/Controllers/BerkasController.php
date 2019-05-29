@@ -10,19 +10,25 @@ use PhpOffice\PhpWord\PhpWord;
 use App\Project;
 use App\ProjectEnrollment;
 use App\Paket;
+use App\Permintaan;
 
 class BerkasController extends Controller
 {
     //
-    public function generateBahps(){
-        $id=1;
-        $project_active=Project::where('is_active',true)->first();
-        $enroll=ProjectEnrollment::where('project_id',$project_active->id)->get();       
-        $permintaan=Permintaan::where('id',$id)->first();
-        $paket_up=Paket::where('permintaan_id',$permintaan->id)->first();
-        $paket_ppk=DB::table('pakets')->where('pakets.permintaan_id','=',$permintaan->id)->join('permintaans','pakets.permintaan_id','=','permintaans.id')->join('projects','permintaans.project_id','=','projects.id')->join('project_enrollments AS enroll','projects.id','=','enroll.project_id')->where('enroll.id_role','=','3')->where('enroll.person_id','=',$paket_up->ppk_id)->join('jabatan_ppks','enroll.jabatan_id','=','jabatan_ppks.id')->join('people','pakets.ppk_id','=','people.id')->get();
+    public function generateBahps($id){
+       $id_paket=$id;
+        $paket=Paket::find($id_paket);
+            
+        $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
+        $judul=$permintaan->judul;
+        $project=Project::where('id',$permintaan->project_id)->first();
+        $ppk=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->ppk_id)
+        ->join('jabatan_ppks','project_enrollments.jabatan_id','jabatan_ppks.id')->join('people','project_enrollments.person_id','people.id')->first();
+        //dd($ppk);
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app\templateBerkas\lainnya\BAhps.docx'));
+        
 
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app\templateBerkas\persiapan\bahps.docx'));
+        $templateProcessor->setValue(array('nama_ppk', 'nip_ppk','jabatan_ppk'), array($ppk->nama,$ppk->nip,$ppk->nama_jabatan));
         
         $templateProcessor->saveAs(storage_path('MyWordFile.docx'));
         return response()->download(storage_path('MyWordFile.docx'));
