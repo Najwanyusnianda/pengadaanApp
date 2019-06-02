@@ -10,6 +10,10 @@ use App\DisposisiHeader;
 use App\DisposisiDetail;
 use App\Person;
 use App\Permintaan;
+use App\Paket;
+use App\Project;
+use App\ProjectEnrollment;
+use Storage;
 use DataTables;
 
 class DisposisiController extends Controller
@@ -89,6 +93,21 @@ class DisposisiController extends Controller
             $permintaan->save();
         }elseif ($role_id==5) {
             # code...
+            $paket=Paket::create([
+                'permintaan_id'=>$request->permintaan_id,
+
+            ]);
+            $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
+            $judul=$permintaan->judul;
+            $project=Project::where('id',$permintaan->project_id)->first();
+    
+            $paket_date=\Carbon\Carbon::parse($paket->created_at)->format('Y_m_d_his');
+            $store_link=$project->project_storage.'/'.$paket_date.'_'.$judul;
+            $storage=Storage::makeDirectory($store_link);
+    
+            $paket->update([
+                'paket_storage'=>$store_link
+            ]);
             $permintaan=Permintaan::find($disposisi_detail->permintaan_id);
             $permintaan->disposisi_status='dikerjakan'; //baru,disposisi,dikerjakan
             $permintaan->save();

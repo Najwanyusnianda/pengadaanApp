@@ -89,13 +89,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/paket/{id}/spesifikasi/store','PaketController@spesifikasiStore')->name('paket.detail.spek.store');
     Route::get('/paket/{id}/detail/hps','PaketController@hps')->name('paket.detail.hps');
     Route::post('/paket/{id}/hps/store','PaketController@hpsStore')->name('paket.detail.hps.store');
+
+    
     
     //penawaran
     Route::get('/paket/{id}/detail/penyedia','PaketController@formPenyedia')->name('paket.detail.penyedia');
-    Route::get('/paket/{id}/detail/evaluasiPenawaran','PaketController@formPembukaanPenawaran')->name('paket.detail.pembukaan_evaluasi');
+    Route::post('/paket/{id}/penyedia/store','PaketController@storePenyedia')->name('paket.detail.penyedia.store');
+    Route::get('/paket/{id}/detail/jadwal_penawaran','PaketController@jadwalPenawaran')->name('paket.detail.jadwal_penawaran');
+    Route::post('/paket/{id}/jadwal_penawaran/store','PaketController@jadwalPenawaranStore');
+
+    Route::get('/paket/{id}/detail/evaluasi_penawaran','PaketController@formPembukaanPenawaran')->name('paket.detail.pembukaan_evaluasi');
 
 
-    Route::post('/paket/pejabat/store','PaketController@pjStore')->name('pejabat.store');
+    Route::post('/paket/pejabat/{id}/store','PaketController@pjStore')->name('pejabat.store');
     Route::post('/paket/store_kak','PaketController@storeKak');
      
     #-------------------------------

@@ -1,15 +1,70 @@
 @extends('Admin.layout')
 
+@section('addStyle')
+    <style>
+    th{
+            font-weight: 700;
+            color:#566787;
+    }
+    #item-modal{
+        font-family: 'QuickSand';
+        font-weight: 300; 
+    
+    }
+
+    .form-control{
+        border-radius: 0%;
+        font-family: 'Varela Round';
+    }
+    </style>
+@endsection
+
 @section('konten')
     <div class="container">
-        <div class="card col-sm-6">
+        <div class="card ">
             <div class="card-header">
-
+                Spesifikasi Input
             </div>
-            <div class="card-body">
+            <div class="card-body" >
                 <div class="">
                 <form action="{{route('paket.detail.spek.store',['id'=>$id_paket])}}" method="POST">
                     {{ csrf_field() }}
+                    <div class="hidden" id="hidden_item">
+                                
+                    </div>
+
+                    <table class="table table-bordered">
+                        <thead>
+                
+                        </thead>
+                        <tbody>
+                                <tr>
+
+                                  
+                                        <td>
+                                                <button class="btn btn-outline-primary mb-3" data-target="item-show" id="item-show"> Tambah item</button>
+                                                
+                                                <table class="table">
+                                                        <thead>
+                                                                <tr>
+                                                                        <th>Jenis Pekerjaan</th>
+                                                                        <th>Volume</th>
+                                                                        <th>Satuan</th>
+                                                                        
+                                                                </tr>
+                                                        </thead>
+                                                        <tbody class="itemlist" style="font-size:13px;font-family:'Varela Round'">
+                                                        </tbody>
+                                                </table>
+                                        </td>  
+                                </tr>
+
+                        </tbody>
+                    </table>
+
+
+                    <button type="submit" class="btn">Simpan</button>
+                    <!--
                             <div class="row">
                                 <div class="col">
                                         <div class="form-group">
@@ -56,15 +111,66 @@
 
                             <div class="row">
                                 <button type="submit" class="btn btn-block btn-primary"> Tambah Item</button>
-                            </div>
+                            </div>-->
+
+                            
                            
-                        </form>
+                </form>
                 </div>
 
             </div>
         </div>
         
     </div>
+
+        <div class="modal fade" id="item-modal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body" style="font-size:13px;font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+                                            <div class="row">
+                                                <div class="col">
+                                                        <div class="form-group">
+                                                                <label for="exampleFormControlTextarea1" style="font-family: 'QuickSand';font-weight:500;">Nama Barang/Pekerjaan</label>
+                                                                <input type="text "class="form-control" id="nama_barang" name="nama_barang">
+                                                        </div>
+                                                </div>
+                
+                                            </div>
+                
+                                            <div class="row">
+                                                <div class="col">
+                                                        <div class="form-group">
+                                                                <label for="exampleFormControlTextarea1" style="font-family: 'QuickSand';font-weight:500;">Volume</label>
+                                                                <input type="number" class="form-control" id="volume_barang" name="volume_barang" >
+                                                        </div>
+                                                </div>
+                                                <div class="col">
+                                                        <div class="form-group">
+                                                                <label for="satuan_barang" style="font-family: 'QuickSand';font-weight:500;">Satuan</label>
+                                                                
+                                                                <input type="text" class="form-control custom-number" id="satuan_barang" name="satuan_barang" >
+                                                        </div>
+                                                </div>
+                                            </div>
+                
+
+        
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close">Close</button>
+                      <button type="button" class="btn btn-primary" id="addItem">Add Item</button>
+                    </div>
+                  </div>
+                </div>
+        </div>
+
+
 @endsection
 
 
@@ -73,4 +179,24 @@
   <script>
       CKEDITOR.replace( 'editor1' );
 </script> -->
+<script>
+$('#item-show').click(function(e){
+        e.preventDefault();
+        $('#item-modal').modal('show');
+        
+})
+
+$('#addItem').click(function(e){
+      
+        var nama_barang=$('#nama_barang').val();
+        var volume=$('#volume_barang').val();
+        var satuan=$('#satuan_barang').val();
+
+        $('#hidden_item').append('<input hidden type="text "class="form-control" class="nama_barang" name="nama_barang[]" value='+'"'+nama_barang+'"'+'>');
+        $('#hidden_item').append('<input hidden type="number" class="form-control" id="volume_barang" name="volume_barang[]" value='+'"'+volume+'"'+'>');
+        $('#hidden_item').append('<input hidden type="text" class="form-control custom-number" id="satuan_barang" name="satuan_barang[]" value='+'"'+satuan+'"'+'>')
+        $('.itemlist').append(' <tr><td>'+nama_barang+'</td><td>'+volume+'</td><td>'+satuan+'</td></tr>');
+        $('#close').trigger("click");
+})
+</script>
 @endsection

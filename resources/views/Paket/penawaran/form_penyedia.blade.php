@@ -12,14 +12,20 @@
 .form-control{
     border-radius: 0%;
 }
+
+
+
+
+
 </style>
 
 <div class="container">
     <div class="card" style="margin:auto;width:50%">
-        <form action="" method="POST" class="m-4" style="font-family:QuickSand;font-size:13px">
+    <form action="{{route('paket.detail.penyedia.store',['id'=>$id_paket])}}" method="POST" class="m-4" style="font-family:QuickSand;font-size:13px;color:#566787;font-weight: 500;">
+            {{ csrf_field() }}
             <div class="form-group">
                 <label for="">Nama Penyedia</label>
-                <input type="text" class="form-control" id="nama_penyedia" name="nama_penyedia" placeholder="masukkan Judul">
+                <input type="text" class="form-control" id="nama_penyedia" name="nama_penyedia" placeholder="masukkan nama penyedia">
             </div>
             <div class="form-group">
                 <label for="">NPWP</label>
@@ -31,11 +37,11 @@
             </div>
             <div class="form-group">
                 <label for="">Telepon</label>
-                <input type="number" class="form-control" id="email_penyedia" name="email_penyedia" placeholder="input number">
+                <input type="number" class="form-control" id="telp_penyedia" name="telp_penyedia" placeholder=" ">
             </div>
             <div class="form-group">
                 <label for="">Alamat</label>
-                <input type="email" class="form-control" id="alamat_penyedia" name="alamat_penyedia" placeholder="masukkan Alamat">
+                <input type="text" class="form-control" id="alamat_penyedia" name="alamat_penyedia" placeholder="masukkan Alamat">
             
             </div>
             <div class="card-footer">

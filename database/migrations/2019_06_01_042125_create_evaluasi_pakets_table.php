@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSpekTeknisTable extends Migration
+class CreateEvaluasiPaketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateSpekTeknisTable extends Migration
      */
     public function up()
     {
-        Schema::create('spek_teknis', function (Blueprint $table) {
+        Schema::create('evaluasi_pakets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('spesifikasi')->nullable();
-            $table->string('keterangan')->nullable();
+            $table->unsignedInteger('id_paket');
+            $table->unsignedInteger('id_kriteria');
+            $table->boolean('status_evaluasi')->nullable();
+            $table->boolean('hasil_evaluasi')->nullable();
             $table->timestamps();
-
         });
     }
 
@@ -29,6 +30,6 @@ class CreateSpekTeknisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('spek_teknis');
+        Schema::dropIfExists('evaluasi_pakets');
     }
 }

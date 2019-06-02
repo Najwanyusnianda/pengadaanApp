@@ -12,19 +12,28 @@ use App\Permintaan;
 use App\KegiatanPengadaan;
 use App\JadwalKegiatanPengadaan;
 use App\SpekTeknis;
+use App\SpekHpsItem;
+use App\Penyedia;
+use App\jadwalPenawaran;
+use App\KegiatanPenawaran;
 use DB;
 
 class PaketController extends Controller
 {
     //
     public function index(){
-        $paket=Paket::query()->join('permintaans','pakets.permintaan_id','=','permintaans.id')->get();
+        $paket=DB::table('pakets')->join('permintaans','pakets.permintaan_id','=','permintaans.id')->select('pakets.*','permintaans.judul AS judul')->get();
+  
+        //dd($paket);
         return view('Paket.daftar_paket')->with('paket',$paket);
     }
 
     public function detail($id){
         $paket=Paket::find($id);
-        return view('Paket.detail_temp')->with('paket',$paket);
+        //dd($id);
+        $penyedia=Paket::where('pakets.id',$id)->join('penyedias','pakets.penyedia_id','penyedias.npwp')->select('penyedias.nama','penyedias.npwp')->first();
+        $paket_penanggung_jawab=Paket::where('pakets.id',$id)->join('people AS ppk','pakets.ppk_id','ppk.id')->join('people AS pp','pakets.pp_id','pp.id')->select('ppk.nama AS nama_ppk','ppk.nip AS nip_ppk','pp.nama AS nama_pp','pp.nip AS nip_pp')->first();
+        return view('Paket.detail_temp')->with('paket',$paket)->with('pj',$paket_penanggung_jawab)->with('penyedia',$penyedia);
     }
 
  
@@ -35,28 +44,52 @@ class PaketController extends Controller
     }
 
     public function spesifikasiStore(Request $request,$id){
+        
         $id_paket=$id;
-        $spek=SpekTeknis::create([
-            'paket_id'=>$id_paket,
-            'nama_item'=>$request->nama_barang,
-            'volume'=>$request->volume_barang,
-            'satuan'=>$request->satuan_barang
-        ]);
-        return redirect()->back();
+        //dd($request->nama_barang);
+        if(count($request->nama_barang)>0){
+            $spek=SpekTeknis::create([
+                'spesifikasi'=>'test_spesifikasi',
+                'keterangan'=>'test_keterangan'
+            ]);
+            for ($i=0; $i <count($request->nama_barang) ; $i++) { 
+                # code...
+
+
+                $spek=SpekHpsItem::create([
+                    'paket_id'=>$id_paket,
+                    'spek_id'=>$spek->id,
+                    'nama_item'=>$request->nama_barang[$i],
+                    'volume'=>$request->volume_barang[$i],
+                    'satuan'=>$request->satuan_barang[$i]
+                ]);
+            }
+        }
+        
+        //dd($spek);
+        return redirect()->route('paket.detail.hps',['id'=>$id_paket]);
         //return redirect()->route('paket.detail.hps',['id'=>$id_paket]);
     }
 
     public function hps($id){
         $id_paket=$id;
-        $hps=SpekTeknis::where('paket_id',$id_paket)->get();
+        //$spek=SpekTeknis::where('paket_id',$id_paket)->get();
+        $hps=SpekHpsItem::where('paket_id',$id_paket)->get();
+        
+        //buat hps hanya 1 saja
+        //dd($hps[0]);
+        
+        //$hps=SpekHpsItem::where('spek_id',$spek->id)->get();
         return view('Paket.doc_persiapan.hps',compact('id_paket','hps'));
     }
 
     public function hpsStore(Request $request,$id){
+        
         $id_paket=$id;
+
         $num_item=count($request->id);
         for ($i=0; $i <$num_item ; $i++) { 
-         $hps=SpekTeknis::where('paket_id',$id_paket)->where('id',$request->id[$i])
+         $hps=SpekHpsItem::where('paket_id',$id_paket)->where('id',$request->id[$i])
          ->update([
              'harga'=>$request->harga_satuan[$i],
              'jumlah'=>$request->jumlah[$i]
@@ -64,7 +97,11 @@ class PaketController extends Controller
          
         };
         $paket=Paket::find($id);
-        $paket->total_hps=$request->total_hps;  
+
+        $paket->update([
+            'total_hps'=>$request->total_hps
+        ]);  
+        return redirect()->route('paket.detail',['id'=>$id_paket]);
 
     }
 
@@ -77,9 +114,13 @@ class PaketController extends Controller
         return view('Paket.penanggung_jawab',compact('ppk','pp'));
     }
 
-    public function pjStore(Request $request){
-   
-        $paket=Paket::create([
+    public function pjStore($id,Request $request){
+        $paket=Paket::find($id);
+        $paket->update([
+            'ppk_id'=>$request->ppk,
+            'pp_id'=>$request->pp
+        ]);
+        /*$paket=Paket::create([
             'permintaan_id'=>$request->permintaan_id,
             'ppk_id'=>$request->ppk,
             'pp_id'=>$request->pp
@@ -94,7 +135,7 @@ class PaketController extends Controller
 
         $paket->update([
             'paket_storage'=>$store_link
-        ]);
+        ]);*/
     }
 
     public function storeKak(Request $request){
@@ -201,12 +242,55 @@ class PaketController extends Controller
         return view('Paket.penawaran.form_penyedia')->with('id_paket',$id);
     }
 
+    public function storePenyedia(Request $request,$id){
+        $penyedia=Penyedia::create([
+            'npwp'=>$request->npwp,
+            'nama'=>$request->nama_penyedia,
+            'email'=>$request->email_penyedia,
+            'telepon'=>$request->telp_penyedia,
+            'alamat'=>$request->alamat_penyedia
+        ]);
+
+        $paket=Paket::find($id);
+        $paket->update([
+            'penyedia_id'=>$penyedia->npwp
+        ]);
+        
+        return redirect()->route('paket.detail',['id'=>$id]);
+
+    }
+
+    public function jadwalPenawaran(Request $request,$id){
+        $kegiatan_penawaran=KegiatanPenawaran::all();
+
+        return view('Paket.Penawaran.jadwal_penawaran',compact('kegiatan_penawaran'));
+    }
+
+    public function jadwalPenawaranStore(Request $request,$id){
+        if(count($request->id_kegiatan_penawaran)>0){
+            for ($i=0; $i <count($request->id_kegiatan_penawaran); $i++) { 
+                $jadwal_penawaran=jadwalPenawaran::create([
+                    'paket_id'=>$id,
+                    'kegiatan_penawaran_id'=>$request->id_kegiatan_penawaran[$i],
+                    'tanggal_pelaksanaan'=>$request->tanggal_pelaksanaan[$i],
+                    'waktu_mulai'=>$request->waktu_mulai,
+                    'waktu_selesai'=>$request->waktu_selesai
+                ]);
+            }
+
+        }
+
+
+        return redirect()->route('paket.detail',['id'=>$id]);
+
+    }
+
 
     ///penawaran
 
     public function formPembukaanPenawaran($id){
 
-        return view('Paket.penawaran.form_pembukaan_penawaran');
+        return view('Paket.Penawaran.form_pembukaan_penawaran');
 
     }
 

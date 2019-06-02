@@ -40,7 +40,6 @@
                                     <td>test</td>
                                     <td>
                                         <div class="btn-group" >
-                                            
                                             <button type="button" class="btn  btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                                 <i class="fas fa-ellipsis-h"></i>
                                                 <span class="caret"></span>

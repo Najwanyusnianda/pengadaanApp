@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePenyediasTable extends Migration
+class CreateKegiatanPenawaransTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreatePenyediasTable extends Migration
      */
     public function up()
     {
-        Schema::create('penyedias', function (Blueprint $table) {
-            $table->string('npwp')->primary();
-            $table->string('nama');
-            $table->string('email')->nullable();
-            $table->string('telepon')->nullable();
-            $table->text('alamat');
+        Schema::create('kegiatan_penawarans', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('nama_kegiatan_penawaran');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreatePenyediasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penyedias');
+        Schema::dropIfExists('kegiatan_penawarans');
     }
 }

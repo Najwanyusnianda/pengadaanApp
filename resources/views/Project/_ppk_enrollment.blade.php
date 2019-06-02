@@ -10,7 +10,7 @@
                   <th>Nama</th>
                   <th>NIP</th>
                   <th width=30%>Jabatan</th>
-                  <th>Kode</th>
+                  <th>Label</th>
                    </tr>
               </thead>
               @if (count($data_ppk)>0)

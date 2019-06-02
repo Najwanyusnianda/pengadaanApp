@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(JabatanPpkTableSeeder::class);
         $this->call(JabatanPpTableSeeder::class);
         $this->call(KegiatanPengadaanTableSeeder::class);
+        $this->call(KegiatanPenawaranTableSeeder::class);
         
         //$this->call(pejabatSeeder::class);
         

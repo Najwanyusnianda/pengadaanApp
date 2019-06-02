@@ -1,11 +1,33 @@
 @extends('admin.layout')
 
+@section('addStyle')
+    <style>
+    .form-control{
+        border-radius: 0%;
+    }
+    th{
+        font-weight: 600;
+        color:#566787;
+
+    }
+
+    tbody{
+        font-family: 'Varela Round';
+        font-size:13px;
+    }
+
+    thead{
+
+    }
+    </style>
+@endsection
+
 @section('konten')
     <div class="container">
         <div class="col">
             <div class="card">
-                <div class="card-header">
-                    Harga Perkiraan Sementara : <span id="total_hps">Rp.0</span>
+                <div class="card-header" style="color:white;background-color:#566787;">
+                    Harga Perkiraan Sementara ( <strong>HPS</strong>   ) : <span id="total_hps">Rp.0</span>
                 </div>
                 <div class="card-body">
                         <form action="{{route('paket.detail.hps.store',['id'=>$id_paket])}}" method="post">
@@ -17,7 +39,7 @@
                                                 <th>Nama Item</th>
                                                 <th>Volume</th>
                                                 <th>Satuan</th>
-                                                <th>Harga Satuan</th>
+                                                <th style="width:20%">Harga Satuan (Rp)</th>
                                                 <th>Ppn 10% (Rp)</th>
                                                 <th>Jumlah</th>
 
@@ -35,7 +57,7 @@
                                                         <td> <span class="volume_text">{{$item->volume}} </span></td>
                                                         <td>{{$item->satuan}}</td>
                                                         <td>
-                                                            <input width=20% type="number" name="harga_satuan[]" class="form-control harga_input">
+                                                            <input width=20% type="number" name="harga_satuan[]" class="form-control form-control-sm harga_input">
                                                         </td>
                                                         <td>
                                                             <span class="ppn" ></span>
@@ -56,7 +78,11 @@
                                     </table>
                                 </div>
                                 <input type="number" name="total_hps" id="sum_hps" hidden>
-                                <button type="submit" class="btn btn-primary">Simpan</button>
+                                <hr>
+                                <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                </div>
+                                
                         </form>
                 </div>
 

@@ -103,7 +103,7 @@
     </div>
 
 
-    <!--form penanggung jawab pejabat_form-->
+    <!--form penanggung jawab pejabat_form
         <div class="modal fade pejabat_form_modal" id="pejabat_form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
@@ -122,7 +122,7 @@
                 </div>
               </div>
             </div>
-        </div>
+        </div>-->
         
 @endsection
 
@@ -255,7 +255,7 @@
 
 
         //penanggunjawab form -----------------------------------------------------------------------
-        $('body').on('click','.penanggung-jawab-show',function(e){
+        /*$('body').on('click','.penanggung-jawab-show',function(e){
             e.preventDefault();
 
             var url ="{{route('pejabat.form')}}";
@@ -275,7 +275,7 @@
             });
             $('.pejabat_form_modal').modal('show');
 
-        });
+        });*/
 
         //################Ajax_ post_disposisi
 
@@ -319,9 +319,9 @@
 
         });
 
-        $('#pejabat_kirim').click(function(e){
+        /*$('#pejabat_kirim').click(function(e){
             e.preventDefault();
-                var url='{{route('pejabat.store')}}';
+                //var url='route('pejabat.store')';
                 
                 $.ajaxSetup({
                     headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
@@ -356,7 +356,7 @@
                     }
 
                 });
-        })
+        })*/
     });    
     </script>
 @endsection

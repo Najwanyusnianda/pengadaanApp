@@ -46,7 +46,7 @@
                 ]
             });
 
-            alert('wow');
+        
         })
 
     </script>    

@@ -29,9 +29,9 @@
               <li class="nav-item has-treeview ">
                   <a href="#" class="nav-link ">
                     
-                      <i class="nav-icon fas fa-cogs" style="color:#c8d6e5;"></i>
+                      <i class="nav-icon fas fa-cogs" ></i>
                     <p>
-                      Setting
+                      Project Management
                       <i class="right fa fa-angle-left"></i>
                     </p>
                   </a>
@@ -40,24 +40,31 @@
                         <li class="nav-item">
                           <a href="{{route('project.index')}}" class="nav-link ">
                                 <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                                <p>Project Management</p>
+                                <p>Project </p>
                               </a>
                         </li>
                
                       <li class="nav-item">
-                      <a href="{{url('/pejabat/setting')}}" class="nav-link ">
-                            <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                            <p>User Project</p>
+                      <a href="{{route('user_list.index')}}" class="nav-link ">
+                            <i class="fas fa-users nav-icon" style="font-size: 15px;"></i>
+                            <p>Pegawai</p>
                           </a>
+                      </li>
+
+                      <li class="nav-item">
+                          <a href="{{route('user_list.indexBagian')}}" class="nav-link ">
+                                <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                                <p>Subdirektorat</p>
+                              </a>
                       </li>
     
                   </ul>        
               </li>
-  
+              <!--
                <li class="nav-item has-treeview ">
                 <a href="#" class="nav-link ">
                   
-                    <i class="nav-icon fas fa-users" style="color:#3498db;"></i>
+                    <i class="nav-icon fas fa-users" ></i>
                   <p >
                     Users
                     <i class="right fa fa-angle-left"></i>
@@ -83,7 +90,7 @@
                
   
                 </ul>        
-              </li>
+              </li>-->
              
                  
              @endif
@@ -91,7 +98,7 @@
              <li class="nav-item has-treeview ">
               <a href="#" class="nav-link ">
                 
-                  <i class="nav-icon fas fa-file-alt" style="color:#fdcb6e;"></i>
+                  <i class="nav-icon fas fa-file-alt" ></i>
                 <p>
                   Permintaan
                   <i class="right fa fa-angle-left"></i>
@@ -144,7 +151,7 @@
             <li class="nav-item has-treeview ">
                 <a href="#" class="nav-link ">
                   
-                    <i class="nav-icon fas fa-box" style="color:#f39c12;"></i>
+                    <i class="nav-icon fas fa-box" ></i>
                   <p>
                     Paket
                     <i class="right fa fa-angle-left"></i>
