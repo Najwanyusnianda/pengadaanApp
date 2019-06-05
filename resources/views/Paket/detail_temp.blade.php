@@ -4,6 +4,7 @@
 <li class="breadcrumb-item"><a href="/">Home</a></li>
 <li class="breadcrumb-item active"><a href="{{route('paket.index')}}">Paket</a></li>
 <li class="breadcrumb-item active">Detail {{$paket->id}}</li>
+<li class="breadcrumb-item active"><a href="{{Storage::url("app/logo-badan-pusat-statistik-bps.jpg'")}}">test</a></li>
 @endsection
 
 @section('konten')
@@ -14,6 +15,8 @@
     }
     </style>
     <div class="container card" style="font-family:QuickSand;font-size:12px;">
+    <button class="btn" id="moth">lol</button>    
+    <!--<iframe class="doc" src="http://127.0.0.1:8000/storage/testam.docx"></iframe>-->
         <table class="table table-bordered m-2">
             <tbody>
                 <tr>
@@ -65,16 +68,44 @@
                     <th>Dokumen Persiapan Pengadaan</th>
                     <td>
                         <div class="list-group">
-                                <li class="list-group-item">Spesifikasi Teknis 
-                                    <span class="badge badge-success">detail</span> 
+                                <li class="list-group-item">
+                                    @if ($is_spek)
+                                    <i class="fas fa-check-circle mr-2 text-success"></i> 
+                                    @endif
+                                    
+                                    Spesifikasi Teknis 
+                                    <span class="badge badge-info">detail</span> 
+                                    @if (auth()->user()->person->role->id == 3)
                                     <a href="{{route('paket.detail.spek',['id'=>$paket->id])}}"><span class="badge badge-secondary">buat spesifikasi</span></a>
+                                    @endif
+                                    
                                 </li>
-                                <li href="#" class="list-group-item ">HPS 
-                                        <span class="badge badge-success">detail</span> 
-                                        <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}"><span class="badge badge-secondary">rincian</span></a>
+                                <li href="#" class="list-group-item ">
+                                    @if ($is_not_hps)
+                                        
+                                    @else
+                                        <i class="fas fa-check-circle mr-2 text-success"></i>
+                                    @endif
+                                        
+                                    HPS :
+                                    @if ($paket->total_hps)
+                                    Rp.<a href="" style="color:#566787;font-family:'Courier New', Courier, monospace"><strong>  {{ number_format($paket->total_hps,0,',','.')}}</strong></a>
+                                    @endif
+                                    @if (auth()->user()->person->role->id == 3)
+                                    <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}"><span class="badge badge-secondary">isi rincian</span></a>
+                                    @endif
+                                        
+                                        <a href="{{route('doc.bahps',['id'=>$paket->id])}}">download bahps</a>
                                 </li>
                                 <li class="list-group-item ">Kerangka Acuan Kerja</li>
                                 <li class="list-group-item ">Rancangan Kontrak</li>
+                        </div>
+                        <br>
+                        <div class="list-group">
+                                <li class="list-group-item ">Surat Permohonan Pengadaan
+                                        <a href="{{route('doc.permohonan',['id'=>$paket->id])}}">download permohonan</a>
+                                </li>
+                                
                         </div>
                         <hr>
                         <div class="card-footer">
@@ -223,7 +254,7 @@
                             function() 
                             {
                                 location.reload();
-                            }, 1000);
+                            }, 2000);
                     },error:function(){
                         alert('error');
                     }
@@ -231,4 +262,5 @@
                 });
         })
     </script>
+
 @endsection

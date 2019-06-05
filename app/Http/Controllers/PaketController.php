@@ -31,9 +31,18 @@ class PaketController extends Controller
     public function detail($id){
         $paket=Paket::find($id);
         //dd($id);
+        $spek=SpekHpsItem::where('paket_id',$paket->id)->get();
+        $spek=count($spek);
+        $is_not_hps=SpekHpsItem::where('paket_id',$paket->id)->whereNull('harga')->get();
+        $is_not_hps=count($is_not_hps);
         $penyedia=Paket::where('pakets.id',$id)->join('penyedias','pakets.penyedia_id','penyedias.npwp')->select('penyedias.nama','penyedias.npwp')->first();
         $paket_penanggung_jawab=Paket::where('pakets.id',$id)->join('people AS ppk','pakets.ppk_id','ppk.id')->join('people AS pp','pakets.pp_id','pp.id')->select('ppk.nama AS nama_ppk','ppk.nip AS nip_ppk','pp.nama AS nama_pp','pp.nip AS nip_pp')->first();
-        return view('Paket.detail_temp')->with('paket',$paket)->with('pj',$paket_penanggung_jawab)->with('penyedia',$penyedia);
+        return view('Paket.detail_temp')
+        ->with('paket',$paket)
+        ->with('pj',$paket_penanggung_jawab)
+        ->with('penyedia',$penyedia)
+        ->with('is_not_hps',$is_not_hps)
+        ->with('is_spek',$spek);
     }
 
  

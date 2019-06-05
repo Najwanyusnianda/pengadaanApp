@@ -18,7 +18,7 @@
         
         @yield('addStyle')
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page " >
 @yield('auth_konten')
 <!-- /.login-box -->
 

@@ -3,10 +3,10 @@
     @section('auth_konten')
     <div class="login-box">
       <div class="login-logo">
-        <a href="../../index2.html"><b>Pengadaan</b>App</a>
+        <a href=""><b >Pengadaan</b><span >App</span> </a>
       </div>
       <!-- /.login-logo -->
-      <div class="card">
+      <div class="card shadow shadow-lg">
         <div class="card-body login-card-body">
           <p class="login-box-msg">Sign in</p>
     

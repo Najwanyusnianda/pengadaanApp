@@ -106,7 +106,8 @@ Route::group(['middleware' => ['auth']], function () {
      
     #-------------------------------
     //berkas
-    Route::get('berkas/{id}/bahps','BerkasController@generateBahps');
+    Route::get('berkas/{id}/bahps','BerkasController@generateBahps')->name('doc.bahps');
+    Route::get('berkas/{id}/permohonan','BerkasController@generatePermohonanPengadaan')->name('doc.permohonan');
 
     //Route::get('/paket/{id}/detail');
     #-------------------------------
@@ -144,7 +145,7 @@ Route::group(['middleware' => ['auth']], function () {
  
     
     #-------------------------------
-    //Handling  Project setting
+    //Handling  Project
     Route::get('/project','ProjectController@index')->name('project.index');
     Route::get('/project/form','ProjectController@form')->name('project.form');
     Route::get('/project/{id}/enrollment','ProjectController@enroll')->name('project.enrollment');
