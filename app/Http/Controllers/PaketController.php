@@ -31,10 +31,15 @@ class PaketController extends Controller
     public function detail($id){
         $paket=Paket::find($id);
         //dd($id);
+
+        //check true
         $spek=SpekHpsItem::where('paket_id',$paket->id)->get();
         $spek=count($spek);
         $is_not_hps=SpekHpsItem::where('paket_id',$paket->id)->whereNull('harga')->get();
         $is_not_hps=count($is_not_hps);
+        $is_not_penawaran=jadwalPenawaran::where('paket_id',$paket->id)->get();
+        $is_not_penawaran=count($is_not_penawaran);
+
         $penyedia=Paket::where('pakets.id',$id)->join('penyedias','pakets.penyedia_id','penyedias.npwp')->select('penyedias.nama','penyedias.npwp')->first();
         $paket_penanggung_jawab=Paket::where('pakets.id',$id)->join('people AS ppk','pakets.ppk_id','ppk.id')->join('people AS pp','pakets.pp_id','pp.id')->select('ppk.nama AS nama_ppk','ppk.nip AS nip_ppk','pp.nama AS nama_pp','pp.nip AS nip_pp')->first();
         return view('Paket.detail_temp')
@@ -42,7 +47,8 @@ class PaketController extends Controller
         ->with('pj',$paket_penanggung_jawab)
         ->with('penyedia',$penyedia)
         ->with('is_not_hps',$is_not_hps)
-        ->with('is_spek',$spek);
+        ->with('is_spek',$spek)
+        ->with('is_not_penawaran',$is_not_penawaran);
     }
 
  
@@ -270,22 +276,25 @@ class PaketController extends Controller
     }
 
     public function jadwalPenawaran(Request $request,$id){
+        $paket_id=$id;
         $kegiatan_penawaran=KegiatanPenawaran::all();
 
-        return view('Paket.Penawaran.jadwal_penawaran',compact('kegiatan_penawaran'));
+        return view('Paket.Penawaran.jadwal_penawaran',compact('kegiatan_penawaran','paket_id'));
     }
 
     public function jadwalPenawaranStore(Request $request,$id){
+        
         if(count($request->id_kegiatan_penawaran)>0){
             for ($i=0; $i <count($request->id_kegiatan_penawaran); $i++) { 
                 $jadwal_penawaran=jadwalPenawaran::create([
                     'paket_id'=>$id,
                     'kegiatan_penawaran_id'=>$request->id_kegiatan_penawaran[$i],
                     'tanggal_pelaksanaan'=>$request->tanggal_pelaksanaan[$i],
-                    'waktu_mulai'=>$request->waktu_mulai,
-                    'waktu_selesai'=>$request->waktu_selesai
+                    'waktu_mulai'=>$request->waktu_mulai[$i],
+                    'waktu_selesai'=>$request->waktu_selesai[$i]
                 ]);
             }
+            return redirect()->route('paket.detail',$id);
 
         }
 

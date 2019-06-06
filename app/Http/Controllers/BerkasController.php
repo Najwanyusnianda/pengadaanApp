@@ -9,12 +9,15 @@ use PhpOffice\PhpWord\TemplateProcessor;
 use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\PhpWord;
 use PDF;
+use DB;
 //use PhpOffice\PhpWord\Shared\Html;
 use PhpOffice\Common\XMLWriter;
 use App\Project;
 use App\ProjectEnrollment;
 use App\Paket;
 use App\Permintaan;
+use App\SpekTeknis;
+use App\SpekHpsItem;
 
 class BerkasController extends Controller
 {
@@ -94,25 +97,160 @@ class BerkasController extends Controller
         $paket=Paket::find($id_paket);
             
         $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
+        $bagian=DB::table('permintaans')->where('id',$id)
+        ->join('sub_bagians AS a','permintaans.kode_bagian','=','a.kode_bagian')
+        ->select('a.*')->first();
+        //dd($bagian->nama_bagian);
         $judul=$permintaan->judul;
         $project=Project::where('id',$permintaan->project_id)->first();
         $ppk=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->ppk_id)
         ->join('jabatan_ppks','project_enrollments.jabatan_id','jabatan_ppks.id')->join('people','project_enrollments.person_id','people.id')->first();
         $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
         ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->join('people','project_enrollments.person_id','people.id')->first();
-        dd($pp);
+       
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app\templateBerkas\lainnya\permohonan pengadaan.docx'));
         
-        $templateProcessor->setValue(array('nama_ppk', 'nip_ppk','jabatan_ppk'), array($ppk->nama,$ppk->nip,$ppk->nama_jabatan));
-        $templateProcessor->setValue(array('label_pp',$pp->nama_jabatan));
-        $templateProcessor->setValue('judul_paket',$judul);
+        //header surat
+        $templateProcessor->setValue('nomor_permohonan_pengadaan','test_nomor');
+        $templateProcessor->setValue('tanggal_penetapan','test_tanggal');
+
+        //isi
+        $templateProcessor->setValue('nama_bagian',$bagian->nama_bagian);
+        $templateProcessor->setValue(array('judul_paket','nomor_paket'),array($judul,$permintaan->nomor_form));
+        $templateProcessor->setValue('tanggal_buat_form',$permintaan->date_created_form);
+
+        $templateProcessor->setValue(array('nama_ppk', 'nip_ppk','label_ppk'), array($ppk->nama,$ppk->nip,$ppk->nama_jabatan));
+        $templateProcessor->setValue('label_pp',$pp->nama_jabatan);
+
+
+
         
         $docxfile='App/'.$paket->paket_storage.'/'.$judul.'-permohonan'.'.docx';
         $templateProcessor->saveAs(storage_path($docxfile));
      
         return response()->download(storage_path($docxfile));
+        //\Carbon\Carbon::parse($now)->formatLocalized('%A, %d %B %Y %H:%I:%S');
 
     }
+
+    public function generatSpesifikasi($id){
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+
+        /* Note: any element you append to a document must reside inside of a Section. */
+
+        // Adding an empty Section to the document...
+        $section = $phpWord->addSection();
+        // Adding Text element to the Section having font styled by default...
+        $section->addText(
+            '"Learn from yesterday, live for today, hope for tomorrow. '
+                . 'The important thing is not to stop questioning." '
+                . '(Albert Einstein)'
+        );
+
+        $tableStyle = array(
+            'borderColor' => '006699',
+            'borderSize'  => 6,
+            'cellMargin'  => 50
+        );
+        $firstRowStyle = array('bgColor' => '66BBFF');
+        $phpWord->addTableStyle('myTable', $tableStyle, $firstRowStyle);
+        $table = $section->addTable('myTable');
+        
+            $table->addRow();
+            $table->addCell(1750)->addText(htmlspecialchars( "Row {1}, Cell {1}"));
+            $table->addCell(1750)->addText("Row {1}, Cell {2}");
+          
+        
+
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        $objWriter->save('helloWorld.docx');
+        return response()->download('helloWorld.docx');
+
+
+    }
+
+    public function generateSpesifikasi($id){
+
+        ///
+        $id_paket=$id;
+        $paket=Paket::find($id_paket);
+            
+        $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
+        //dd($bagian->nama_bagian);
+        $judul=$permintaan->judul;
+        $project=Project::where('id',$permintaan->project_id)->first();
+        $ppk=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->ppk_id)
+        ->join('jabatan_ppks','project_enrollments.jabatan_id','jabatan_ppks.id')->join('people','project_enrollments.person_id','people.id')->first();
+
+
+        ///
+        $spek_item=SpekHpsItem::where('paket_id',$id)->get();
+        //dd($spek_item[0]);
+        $n_item=count($spek_item);
+        
+        ///
+            $template_spesifikasi = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app\templateBerkas\lainnya\Spesifikasi Teknis.docx'));
+
+            //
+            $template_spesifikasi->setValue('judul_paket',$judul);
+            $template_spesifikasi->setValue(array('nama_ppk', 'nip_ppk','label_ppk'), array($ppk->nama,$ppk->nip,$ppk->nama_jabatan));
+
+            //item merge
+            $template_spesifikasi->cloneRow('nama_item',$n_item);
+            for ($i=0; $i <$n_item ; $i++) {
+                $num=$i+1; 
+                $no_item='no_item#'.$num;
+                $nama_item='nama_item#'.$num;
+                $volume_item='volume_item#'.$num;
+                $satuan_item='satuan_item#'.$num;
+
+                $template_spesifikasi->setValue($no_item, htmlspecialchars($num));
+                $template_spesifikasi->setValue($nama_item, htmlspecialchars($spek_item[$i]->nama_item));
+                $template_spesifikasi->setValue($volume_item, htmlspecialchars($spek_item[$i]->volume));
+                $template_spesifikasi->setValue($satuan_item, htmlspecialchars($spek_item[$i]->satuan));
+            
+            }
+
+            $template_spesifikasi->saveAs('template_with_table.docx');
+
+            return response()->download('template_with_table.docx');
+    }
+
+    public function generateHps($id){
+
+    }
+
+    public function generateUndanganPengadaan($id){
+        $id_paket=$id;
+        $paket=Paket::find($id_paket);
+            
+        $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
+
+        //dd($bagian->nama_bagian);
+        $judul=$permintaan->judul;
+        $project=Project::where('id',$permintaan->project_id)->first();
+        $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
+        ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->join('people','project_enrollments.person_id','people.id')->first();
+       
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app\templateBerkas\lainnya\Undangan Pengadaan.docx'));
+        
+        //merge
+        $templateProcessor->setValue('nomor_undangan','test undangan');
+        $templateProcessor->setValue('nama_penyedia','test_penyedia');
+        $templateProcessor->setValue('nama_paket','test_paket');
+        $templateProcessor->setValue('tanggal_akhir_pekerjaan','test_akhir');
+
+        //jadwal merge
+        $templateProcessor->setValue(array('tanggal_pembukaan','rentang_pembukaan'),array('a','b','c'));
+        $templateProcessor->setValue(array('tanggal_nego','rentang_nego'),array('a','b','c'));
+        $templateProcessor->setValue(array('tanggal_spk','rentang_spk'),array('a','b','c'));
+
+        $docxfile='App/'.$paket->paket_storage.'/'.$judul.'-undangan'.'.docx';
+        $templateProcessor->saveAs(storage_path($docxfile));
+        return response()->download(storage_path($docxfile));
+    }
+
+
 
     
 }

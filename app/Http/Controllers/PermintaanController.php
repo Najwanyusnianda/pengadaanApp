@@ -20,7 +20,7 @@ class PermintaanController extends Controller
        //$permintaan=DB::table('permintaans')->join('sub_bagians','permintaans.kode_bagian','=','sub_bagians.kode_bagian')->select('permintaans.*','sub_bagians.nama_bagian')->latest()->get();
        $project=Project::where('is_active',true)->first();
        //$projectid=$project->id;
-        return view('Permintaan.daftar_Permintaan',compact('permintaan','project'));
+        return view('Permintaan.daftar_Permintaan',compact('project'));
     }
 
     public function indexBagian($kode_bagian){

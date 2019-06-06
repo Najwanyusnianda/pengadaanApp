@@ -22,6 +22,11 @@ class CreateSpekHpsItemsTable extends Migration
             $table->string('satuan');
             $table->unsignedInteger('harga')->nullable();
             $table->unsignedInteger('jumlah')->nullable();
+            $table->unsignedInteger('harga_penawaran')->nullable();
+            $table->unsignedInteger('jumlah_penawaran')->nullable();
+            $table->unsignedInteger('harga_nego')->nullable();
+            $table->unsignedInteger('jumlah_nego')->nullable();
+            
             $table->timestamps();
         });
     }

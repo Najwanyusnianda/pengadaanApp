@@ -6,7 +6,8 @@
 
 @section('konten')
     <div class="container card">
-        <form action="" method="post">
+    <form action="{{route('paket.jadwal_penawaran.store',['id'=>$paket_id])}}" method="post">
+        {{ csrf_field() }}
                 <table class="table">
                         <thead>
                             <tr>
@@ -23,11 +24,11 @@
                                         {{$key+1}}
                                     </td>
                                     <td>{{$kegiatan->nama_kegiatan_penawaran}}
-                                        <input type="number" hidden name="id_kegiatan_penawaran" value="{{$kegiatan->id}}" readonly>
+                                        <input type="number" hidden name="id_kegiatan_penawaran[]" value="{{$kegiatan->id}}" readonly>
                                     </td>
                                     <td>
                                         <div class="form-group">
-                                                <input type="date" name="tanggal_pelaksanaan" class="form-control">
+                                                <input type="date" name="tanggal_pelaksanaan[]" class="form-control">
                                         </div>
                                         
                                     </td>
@@ -35,12 +36,12 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="time" name="waktu_mulai" class="form-control" placeholder="waktu mulai">
+                                                    <input type="time" name="waktu_mulai[]" class="form-control" placeholder="waktu mulai">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="time" name="waktu_selesai" class="form-control" placeholder="waktu selesai">
+                                                    <input type="time" name="waktu_selesai[]" class="form-control" placeholder="waktu selesai">
                                                 </div>
                                             </div>
                                         </div>
@@ -52,6 +53,8 @@
             
                         </tbody>
                     </table>
+
+                    <button type="submit" class="btn btn-primary"> Simpan Jadwal</button>
         </form>
 
     </div>

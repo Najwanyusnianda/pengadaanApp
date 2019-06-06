@@ -121,7 +121,7 @@ class ProjectController extends Controller
     
         
 
-        return view('Project.project_enrollment',compact('project_enroll','project','data_ppk','data_pp','data_kulp','data_kasi','data_staff'));
+        return view('Project.project_enrollment',compact('project','data_ppk','data_pp','data_kulp','data_kasi','data_staff'));
     }
 
     public function store_Enrollment($id,Request $request){

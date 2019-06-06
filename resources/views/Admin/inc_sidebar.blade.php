@@ -153,7 +153,7 @@
                   
                     <i class="nav-icon fas fa-box" ></i>
                   <p>
-                    Paket
+                    Paket Pengadaan
                     <i class="right fa fa-angle-left"></i>
                   </p>
                 </a>

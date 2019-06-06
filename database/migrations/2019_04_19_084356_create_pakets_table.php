@@ -20,6 +20,8 @@ class CreatePaketsTable extends Migration
             $table->unsignedInteger('pp_id')->nullable();
             $table->unsignedInteger('penyedia_id')->nullable();
             $table->unsignedBigInteger('total_hps')->nullable();
+            $table->unsignedBigInteger('total_penawaran')->nullable();
+            $table->unsignedBigInteger('total_negosiasi')->nullable();
             $table->string('paket_storage')->nullable();
             $table->timestamps();
         });
