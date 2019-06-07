@@ -16,6 +16,9 @@ use App\SpekHpsItem;
 use App\Penyedia;
 use App\jadwalPenawaran;
 use App\KegiatanPenawaran;
+use App\Evaluasi;
+use App\EvaluasiKriteria;
+use App\EvaluasiPaket;
 use DB;
 
 class PaketController extends Controller
@@ -311,6 +314,7 @@ class PaketController extends Controller
         return view('Paket.Penawaran.form_pembukaan_penawaran');
 
     }
+
 
     public function formKlarifikasiNegosiasi(){
         //return view('Paket.penawaran.form_pembukaan_penawaran');

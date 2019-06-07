@@ -14,8 +14,9 @@
         font-weight:bold;
     }
     </style>
+    <!--<iframe src="https://docs.google.com/viewerng/viewer?url=127.0.0.1:8000/storage/testam.doc"></iframe>-->
     <div class="container card shadow-lg" style="font-family:QuickSand;font-size:12px;">
-    <button class="btn" id="moth">lol</button>    
+    <!--<button class="btn" id="moth">lol</button>  -->  
     <!--<iframe class="doc" src="http://127.0.0.1:8000/storage/testam.docx"></iframe>-->
     <div class="table-responsive">
             <table class="table table-bordered m-2">
@@ -155,7 +156,14 @@
                                 <hr>
                                 <div class="list-group">
                                         <li class="list-group-item">Undangan Pengadaan <a href="{{route('doc.undangan',['id'=>$paket->id])}}"><span>download</span></a></li>
-                                        <li class="list-group-item">Surat Penawaran <small>(Upload)</small></li>
+                                        <li class="list-group-item">Surat Penawaran <small>(Upload)</small>
+                                            <!--<div class="custom-file" id="customFile" lang="es" name="kak" id="kak">
+                                                    <input type="file" class="custom-file-input" id="exampleInputFile" aria-describedby="fileHelp">
+                                                    <label class="custom-file-label" for="exampleInputFile">
+                                                       Pilih file...
+                                                    </label>
+                                            </div>-->
+                                        </li>
                                 </div>
                             </td>
                         </tr>

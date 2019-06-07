@@ -1,131 +1,75 @@
 @extends('Admin.layout')
 
 @section('konten')
-    <div class="container invoice pt-3">
-        <div class="row-md-8">
-                <div class="card ">
-                        <div class="p-2">
-                            <div class="card-header">
-                                Pembukaan penawaran dari @nama_penyedia
+    <div class="container invoice pt-3" style="font-size:13px;font-family:'Varela Round'">
+        <form action="" method="post">
+                <div class="row-md-8 mb-2 ">
+                    <div class="btn-group">
+                            <div class="col-md-6">
+                                    <button class=" shadow btn btn-outline-info btn-sm btn-flat back-step btn-block" style="width=50%;margin:auto;" > Back</button>
                             </div>
-                            <br>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>No.</th>
-                                        <th>Dokumen</th>
-                                        <th>Unsur</th>
-                                        <th>Keterangan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td rowspan="2" >1</td>
-                                        <td rowspan="2">Surat Penawaran</td>
-                                        <td>
-                                            Penawaran teknis
-                                        </td>
-                                        <td>Lengkap</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Penawaran Harga</td>
-                                        <td>Lengkap</td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Surat Kuasa</td>
-                                        <td>-</td>
-                                        <td>Lengkap</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Pakta Integritas</td>
-                                        <td>-</td>
-                                        <td>Lengkap</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Form Isian Kualifikasi</td>
-                                        <td>-</td>
-                                        <td>Lengkap</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                            <div class="col-md-6">
+                                    <button class=" shadow btn btn-outline-info btn-sm btn-flat next-step btn-block" style="width=50%;margin:auto;" > Next</button>
+                            </div>
                     </div>
-        </div>
-        <hr>
+
+                </div>    
+
         <div class="row-md-8">
-            <div class="card">
-                <div class="card-header">
-                    Evaluasi Penawaran
-                </div>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Unsur</th>
-                            <th>Kriteria</th>
-                            <th colspan="2">Hasil Evaluasi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td rowspan="4">1</td>
-                            <td rowspan="4">Evaluasi Administrasi</td>
-                            <td >Ditandatangani oleh pihak berwenang</td>
-                            <td>Ada</td>
-                            <td>Memenuhi Syarat</td>
-                        </tr>
-                        <tr>
-                            <td >Mencantumkan Harga</td>
-                            <td>Ada</td>
-                            <td>Memenuhi Syarat</td>
-                        </tr>
-                        <tr>
-                            <td >Jangka Waktu Berlakunya Penawaran</td>
-                            <td>Ada</td>
-                            <td>Memenuhi Syarat</td>
-                        </tr>
-                        <tr>
-                            <td >Jangka waktu pelaksanaan pekerjaan yang ditawarkan tidak kurang dari ketentuan</td>
-                            <td>Ada</td>
-                            <td>Memenuhi Syarat</td>
-                        </tr>
-
-                        <!--...-->
-                        <tr>
-                            <td rowspan="5">2</td>
-                            <td rowspan="5">Evaluasi Kualifikasi</td>
-                            <td >Surat Keterangan Domisili Perusahaan</td>
-                            <td>Ada</td>
-                            <td>Memenuhi Syarat</td>
-                        </tr>
-                        <tr>
-                            <td>SIUP</td>
-                            <td>Ada</td>
-                            <td>Memenuhi Syarat</td>
-                        </tr>
-                        <tr>
-                            <td >Akta Pendirian dan Perubahannya</td>
-                            <td>Ada</td>
-                            <td>Memenuhi Syarat</td>
-                        </tr>
-                        <tr>
-                            <td>NPWP</td>
-                            <td>Ada</td>
-                            <td>Memenuhi Syarat</td>
-                        </tr>
-                        <tr>
-                            <td>Bukti Setor Pajak Tahun Terakhir</td>
-                            <td>Ada</td>
-                            <td>Memenuhi Syarat</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
+                @include('Paket.penawaran._pembukaan_penawaran')
+        </div>
+        
+        <div class="row-md-8">
+            
+            @include('Paket.penawaran._evaluasi_penawaran')
+    
         </div>
 
+
+
+        </form>
     </div>
+@endsection
+
+@section('addStyle')
+    <style>
+            .custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+        background-color:#28a745;
+    }
+    </style>
+@endsection
+
+
+@section('addScript')
+    <script>
+    $(document).ready(function(){
+        alert('lol');
+        var eval_penawaran= $('#evaluasi_penawaran_component');
+        var pembukaan_penawaran=$('#pembukaan_penawaran_component');
+        //$('#evaluasi_penawaran_component').hide();
+        eval_penawaran.hide();
+        var nextStep=$('.next-step');
+        var backStep=$('.back-step');
+        backStep.attr('disabled', 'disabled');
+        nextStep.click(function(e){
+            e.preventDefault();
+            pembukaan_penawaran.hide();
+            eval_penawaran.show();
+            $(this).attr('disabled', 'disabled');
+            backStep.removeAttr('disabled');
+        });
+
+        backStep.click(function(e){
+            e.preventDefault();
+            eval_penawaran.hide();
+            pembukaan_penawaran.show();
+            $(this).attr('disabled', 'disabled');
+            nextStep.removeAttr('disabled');
+
+        })
+
+        
+
+    })
+    </script>
 @endsection
