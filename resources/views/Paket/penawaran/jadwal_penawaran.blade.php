@@ -2,19 +2,31 @@
 
 @section('addStyle')
 <link rel="stylesheet" href="{{asset('assets/flatpickr/flatpickr.min.css')}}">
+<style>
+    .flatpickr-input {
+            background-color: white !important;
+        }
+    .form-control{
+        font-size: 11px;
+    }    
+</style>
 @endsection
 
 @section('konten')
-    <div class="container card">
-    <form action="{{route('paket.jadwal_penawaran.store',['id'=>$paket_id])}}" method="post">
+<form action="{{route('paket.jadwal_penawaran.store',['id'=>$paket_id])}}" method="post">
+    <div class="container card shadow col-md-12" style="width:80%;margin:auto;">
+        <div class="card-header card-header-pills">
+            Jadwal Penawaran <button type="submit" class="btn btn-primary btn-sm float-right"> Simpan Jadwal</button>
+        </div>
+    
         {{ csrf_field() }}
-                <table class="table">
+                <table class="table" style="font-size:13px;font-family:'Varela Round'">
                         <thead>
                             <tr>
                                 <th>No.</th>
                                 <th>Kegiatan</th>
                                 <th>Tanggal</th>
-                                <th>Waktu</th>
+                                <th>Waktu <span style="font-weight:300"><small>(mulai s/d selesai)</small></span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,12 +48,12 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="time" name="waktu_mulai[]" class="form-control" placeholder="waktu mulai">
+                                                    <input type="time" name="waktu_mulai[]" class="form-control" placeholder="">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <input type="time" name="waktu_selesai[]" class="form-control" placeholder="waktu selesai">
+                                                <input type="time" name="waktu_selesai[]" class="form-control" placeholder="">
                                                 </div>
                                             </div>
                                         </div>
@@ -54,10 +66,11 @@
                         </tbody>
                     </table>
 
-                    <button type="submit" class="btn btn-primary"> Simpan Jadwal</button>
-        </form>
+                    
+        
 
     </div>
+</form>
 @endsection
 
 
@@ -69,6 +82,17 @@ $("input[type='date']").flatpickr({
     altInput: true,
     altFormat: "j - F - Y",
     dateFormat: "Y-m-d",
+    "disable": [
+        function(date) {
+            // return true to disable
+            return (date.getDay() === 0 || date.getDay() === 6);
+
+        }
+    ],
+    "locale": {
+        "firstDayOfWeek": 1 // start week on Monday
+    }
+
 });
     </script>   
     

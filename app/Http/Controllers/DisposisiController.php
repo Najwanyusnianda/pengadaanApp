@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\User;
 use App\Disposisi;
 use App\DisposisiStaff;
 use App\DisposisiHeader;
@@ -13,6 +14,8 @@ use App\Permintaan;
 use App\Paket;
 use App\Project;
 use App\ProjectEnrollment;
+use App\Notifications\disposisiTerkirim;
+use Illuminate\Support\Facades\Notification;
 use Storage;
 use DataTables;
 
@@ -88,7 +91,11 @@ class DisposisiController extends Controller
             ]);
     
         }
-
+        foreach($request->penerima as $temps){
+            $data[]=$temps;
+        }
+        $penerima=User::whereIn('id',$data)->get();
+        Notification::send($penerima,new disposisiTerkirim($disposisi_detail));
         if($role_id==4){
             $permintaan=Permintaan::find($disposisi_detail->permintaan_id);
             $permintaan->disposisi_status='disposisi'; //baru,disposisi,dikerjakan

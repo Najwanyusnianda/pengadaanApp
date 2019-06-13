@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                     <label for="">Nama Pimpinan Penyedia</label>
-                    <input type="text" class="form-control" id="nama_penyedia" name="nama_penyedia" placeholder="masukkan nama penyedia">
+                    <input type="text" class="form-control" id="nama_pimpinan" name="nama_pimpinan" placeholder="masukkan nama penyedia">
                 </div>
             <div class="form-group">
                 <label for="">NPWP</label>

@@ -96,11 +96,13 @@ Route::group(['middleware' => ['auth']], function () {
     
     
     //penawaran
+    Route::get('/paket/{id}/pembukaan','PaketController@pembukaan')->name('paket.pembukaan');
     Route::get('/paket/{id}/detail/penyedia','PaketController@formPenyedia')->name('paket.detail.penyedia');
     Route::post('/paket/{id}/penyedia/store','PaketController@storePenyedia')->name('paket.detail.penyedia.store');
     Route::get('/paket/{id}/detail/jadwal_penawaran','PaketController@jadwalPenawaran')->name('paket.detail.jadwal_penawaran');
     Route::post('/paket/{id}/jadwal_penawaran/store','PaketController@jadwalPenawaranStore')->name('paket.jadwal_penawaran.store');
 
+    Route::get('/paket/{id}/detail/klarifikasi_teknis','PaketController@klarifikasi_teknis')->name('paket.detail.klarifikasi_teknis');
     Route::get('/paket/{id}/detail/evaluasi_penawaran','PaketController@formPembukaanPenawaran')->name('paket.detail.pembukaan_evaluasi');
 
 

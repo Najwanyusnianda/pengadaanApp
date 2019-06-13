@@ -309,7 +309,8 @@ class PaketController extends Controller
             'nama'=>$request->nama_penyedia,
             'email'=>$request->email_penyedia,
             'telepon'=>$request->telp_penyedia,
-            'alamat'=>$request->alamat_penyedia
+            'alamat'=>$request->alamat_penyedia,
+            'nama_pimpinan'=>$request->nama_pimpinan
         ]);
 
         $paket=Paket::find($id);
@@ -340,7 +341,7 @@ class PaketController extends Controller
                     'waktu_selesai'=>$request->waktu_selesai[$i]
                 ]);
             }
-            return redirect()->route('paket.detail',$id);
+            return redirect()->route('paket.index');
 
         }
 
@@ -351,6 +352,17 @@ class PaketController extends Controller
 
 
     ///penawaran
+    public function pembukaan($id){
+        $id_paket=$id;
+        $paket=Paket::find($id);
+        return view('Paket.Penawaran.pembukaan')->with('paket',$paket);
+    }
+
+    public function klarifikasi_teknis($id){
+        $id_paket=$id;
+        $item_spek=SpekHpsItem::where('paket_id',$id_paket)->get();
+        return view('Paket.Penawaran.form_klarifikasi_teknis')->with('item_spek',$item_spek);
+    }
 
     public function formPembukaanPenawaran($id){
         

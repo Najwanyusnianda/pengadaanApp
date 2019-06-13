@@ -16,6 +16,7 @@ class CreatePenyediasTable extends Migration
         Schema::create('penyedias', function (Blueprint $table) {
             $table->string('npwp')->primary();
             $table->string('nama');
+            $table->string('nama_pimpinan');
             $table->string('email')->nullable();
             $table->string('telepon')->nullable();
             $table->text('alamat');
