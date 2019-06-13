@@ -1,18 +1,49 @@
-[
-  {
-    "Jenis_Kegiatan": "Penetapan HPS",
-    "Kode_kegiatan": "OE"
-  },
-  {
-    "Jenis_Kegiatan": "Surat Permintaan Pengadaan",
-    "Kode_kegiatan": "S"
-  },
-  {
-    "Jenis_Kegiatan": "Surat Pesanan",
-    "Kode_kegiatan": "PM"
-  },
-  {
-    "Jenis_Kegiatan": "Berita Acara Pemeriksaan Pengadaan",
-    "Kode_kegiatan": "BA"
-  }
+[{
+        "Jenis_Kegiatan": "Penetapan Spek Teknis",
+        "Kode_kegiatan": "null",
+        "Kode_format": "null"
+
+    },
+    {
+        "Jenis_Kegiatan": "Penetapan HPS",
+        "Kode_kegiatan": "OE",
+        "Kode_format": "a1"
+    },
+    {
+        "Jenis_Kegiatan": "Rancangan Kontrak",
+        "Kode_kegiatan": "null",
+        "Kode_format": "null"
+
+    },
+    {
+        "Jenis_Kegiatan": "Surat Permohonan Pengadaan",
+        "Kode_kegiatan": "S",
+        "Kode_format": "a1"
+    },
+    {
+        "Jenis_Kegiatan": "Surat Undangan Pengadaan",
+        "Kode_kegiatan": "S",
+        "Kode_format": "a2"
+    },
+    {
+        "Jenis_Kegiatan": "Berita Acara klarifikasi dan Negosiasi Teknis Harga",
+        "Kode_kegiatan": "BA",
+        "Kode_format": "a2"
+    },
+    {
+        "Jenis_Kegiatan": "Berita Acara Pembukaan Hasil Pengadaan Langsung",
+        "Kode_kegiatan": "BA",
+        "Kode_format": "a2"
+    },
+    {
+        "Jenis_Kegiatan": "Surat Perintah Kerja (SPK)",
+        "Kode_kegiatan": "SPK",
+        "Kode_format": "a2"
+    },
+    {
+        "Jenis_Kegiatan": "Surat Perintah Mulai Kerja(SPMK)",
+        "Kode_kegiatan": "SPMK",
+        "Kode_format": "a2"
+    }
+
 ]

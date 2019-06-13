@@ -15,7 +15,9 @@ class CreateDisposisiDetailsTable extends Migration
     {
         Schema::create('disposisi_details', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedInteger('source_id')->nullable();
             $table->string('konten');
+            $table->string('status')->nullable();
             $table->unsignedInteger('permintaan_id');
             $table->timestamps();
         });

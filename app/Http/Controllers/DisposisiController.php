@@ -36,7 +36,8 @@ class DisposisiController extends Controller
                 'pengirim_id'=>$pengirim->id,
                 'penerima_id'=>$request->penerima,
                 'uraian'=>$request->uraian,
-                'permintaan_id'=>$request->permintaan_id
+                'permintaan_id'=>$request->permintaan_id,
+              
             ]);
             
             $permintaan=Permintaan::find($disposisi->permintaan_id);
@@ -52,6 +53,7 @@ class DisposisiController extends Controller
                 'pengirim_id'=>$pengirim->id,//bisa dihapus
                 'penerima_id'=>$request->penerima,
                 'uraian'=>$request->uraian,
+              
             ]);
 
             $permintaan=Permintaan::find($disposisi->permintaan_id);
@@ -81,7 +83,7 @@ class DisposisiController extends Controller
             $disposisi_header=DisposisiHeader::create([
                 'from_id'=>$pengirim->id,
                 'to_id'=>$request->penerima[$index],
-                'status'=>'dikirim',
+                //'status'=>'dikirim',
                 'disposisi_detail_id'=>$disposisi_detail->id
             ]);
     
@@ -161,7 +163,7 @@ class DisposisiController extends Controller
 
     public function detail($id){
         $disp_detail=DB::table('disposisi_details')->where('disposisi_details.id',$id)->join('disposisi_headers','disposisi_details.id','=','disposisi_headers.disposisi_detail_id')->join('people AS a','disposisi_headers.from_id','=','a.id')->join('people AS b','disposisi_headers.to_id','=','b.id')->join('permintaans','permintaan_id','=','permintaans.id')->select('disposisi_headers.*','disposisi_details.*','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->first();
-      
+       
         
         return view('Disposisi.disposisi_detail',compact('disp_detail'));
     }

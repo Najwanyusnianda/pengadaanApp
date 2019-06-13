@@ -31,6 +31,17 @@ class PaketController extends Controller
         return view('Paket.daftar_paket')->with('paket',$paket);
     }
 
+    public function indexMe($id){
+        $my_id=auth()->user()->person->id;
+        if($my_id !=$id){
+            return redirect()->back();
+        }
+        return view('Paket.my_paket');
+
+
+
+    }
+
     public function detail($id){
         $paket=Paket::find($id);
         //dd($id);
@@ -54,7 +65,21 @@ class PaketController extends Controller
         ->with('is_not_penawaran',$is_not_penawaran);
     }
 
- 
+    public function persiapan($id){
+        $id_paket=$id;
+        $paket=Paket::find($id);
+        $spek=SpekHpsItem::where('paket_id',$id_paket)->get();
+        $spek=count($spek);
+        $is_not_hps=SpekHpsItem::where('paket_id',$id_paket)->whereNull('harga')->get();
+        //dd($is_not_hps);
+        $is_not_hps=count($is_not_hps);
+        
+        return view('Paket.doc_persiapan.persiapan')
+        ->with('paket',$paket)
+        ->with('is_not_hps',$is_not_hps)
+        ->with('is_spek',$spek);
+
+    }
 
     public function spesifikasi($id){
         $id_paket=$id;
@@ -64,10 +89,10 @@ class PaketController extends Controller
     public function spesifikasiStore(Request $request,$id){
         
         $id_paket=$id;
-        //dd($request->nama_barang);
+      
         if(count($request->nama_barang)>0){
             $spek=SpekTeknis::create([
-                'spesifikasi'=>'test_spesifikasi',
+                'spesifikasi'=>$request->spek_barang,
                 'keterangan'=>'test_keterangan'
             ]);
             for ($i=0; $i <count($request->nama_barang) ; $i++) { 
@@ -85,7 +110,7 @@ class PaketController extends Controller
         }
         
         //dd($spek);
-        return redirect()->route('paket.detail.hps',['id'=>$id_paket]);
+        return redirect()->route('paket.persiapan',['id'=>$id_paket]);
         //return redirect()->route('paket.detail.hps',['id'=>$id_paket]);
     }
 
@@ -119,7 +144,25 @@ class PaketController extends Controller
         $paket->update([
             'total_hps'=>$request->total_hps
         ]);  
-        return redirect()->route('paket.detail',['id'=>$id_paket]);
+        return redirect()->route('paket.persiapan',['id'=>$id_paket]);
+
+    }
+
+
+    public function sendPermohonan($id){
+        $pengirim_id=auth()->user()->person->id;
+        $paket=Paket::find($id);
+        $penerima_id=$paket->pp_id;
+        $permintaan_id=$paket->permintaan_id;
+        $type="Permohonan Pengadaan";
+
+        if($paket->ppk_id==$pengirim){
+            $data="kesalahan";
+            return response()->json($data);
+        }else{
+
+        }
+
 
     }
 
@@ -310,8 +353,9 @@ class PaketController extends Controller
     ///penawaran
 
     public function formPembukaanPenawaran($id){
-
+        
         return view('Paket.Penawaran.form_pembukaan_penawaran');
+
 
     }
 

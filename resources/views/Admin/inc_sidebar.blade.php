@@ -95,10 +95,61 @@
                  
              @endif
 
+             @if (auth()->user()->person->role_id==1)
+             @else
+             <li class="nav-item">  
+                <a href="{{route('logout')}}" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Dashboard
+                    <span class="right badge badge-danger"></span>
+                  </p>
+                </a>
+              </li>
+             <li class="nav-item">  
+                <a href="{{route('logout')}}" class="nav-link">
+                <i class="nav-icon fas fa-bell"></i>
+                
+                  <p>
+                    Notifikasi
+                    <span class="right badge badge-danger"></span>
+                  </p>
+                </a>
+              </li>
              <li class="nav-item has-treeview ">
               <a href="#" class="nav-link ">
                 
-                  <i class="nav-icon fas fa-file-alt" ></i>
+                  <i class="nav-icon far fa-envelope"></i>
+                <p>
+                  Inbox
+                  <i class="right fa fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+           
+                  <li class="nav-item">
+                  <a href="{{route('disposisi.masuk')}}" class="nav-link ">
+                        <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                        <p>Masuk</p>
+                      </a>
+                  </li>  
+             
+              
+                <li class="nav-item">
+                <a href="{{route('disposisi.diteruskan')}}" class="nav-link ">
+                    <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                    <p>Terkirim</p>
+                  </a>
+                </li>
+
+
+              </ul>        
+            </li>  
+             
+             <li class="nav-item has-treeview ">
+              <a href="#" class="nav-link ">
+                
+                  <i class="nav-icon fas fa-table" ></i>
                 <p>
                   Permintaan
                   <i class="right fa fa-angle-left"></i>
@@ -119,35 +170,7 @@
 
               </ul>        
             </li>
-            <li class="nav-item has-treeview ">
-                <a href="#" class="nav-link ">
-                  
-                    <i class="nav-icon fas fa-mail-bulk"></i>
-                  <p>
-                    Disposisi
-                    <i class="right fa fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-             
-                    <li class="nav-item">
-                    <a href="{{route('disposisi.masuk')}}" class="nav-link ">
-                          <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                          <p>Masuk</p>
-                        </a>
-                    </li>  
-               
-                
-                  <li class="nav-item">
-                  <a href="{{route('disposisi.diteruskan')}}" class="nav-link ">
-                      <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                      <p>Terkirim</p>
-                    </a>
-                  </li>
-  
-  
-                </ul>        
-              </li>            
+          
             <li class="nav-item has-treeview ">
                 <a href="#" class="nav-link ">
                   
@@ -165,15 +188,23 @@
                           <p>Daftar Paket</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                      <a href="{{route('paket.index.me',['person'=>auth()->user()->person->id])}}" class="nav-link ">
+                            <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                            <p>Tugas Paket</p>
+                          </a>
+                      </li>
   
                 </ul>        
               </li>
             <li class="nav-item">
+             @endif
+
 
                
             <li class="nav-item">  
-            <a href="{{route('logout')}}" class="nav-link">
-                <i class="nav-icon fa fa-th"></i>
+              <a href="{{route('logout')}}" class="nav-link">
+              <i class="nav-icon fas fa-power-off"></i>
                 <p>
                   Log Out
                   <span class="right badge badge-danger"></span>
@@ -191,5 +222,14 @@
 
 .nav-link{
   font-size: 14px;
+}
+
+.main-sidebar { 
+  background-color: #2d3436!important ;
+ 
+
+}
+p{
+ 
 }
 </style>

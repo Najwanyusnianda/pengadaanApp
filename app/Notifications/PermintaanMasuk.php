@@ -42,7 +42,8 @@ class PermintaanMasuk extends Notification
         
         return [
             //
-            //'repliedTime'=>\Carbon\Carbon::now()
+            'repliedTime'=>\Carbon\Carbon::now(),
+            'bagian'=>auth()->user()->sub_bagian->nama_bagian,
             'permintaan'=>$this->permintaan,
             'user'=>$notifiable
         ];

@@ -3,7 +3,7 @@
             <div class="row-md-6">
                     <div class="form-group">
                             @if (count($pegawai)>0)
-                                <select name="" id="pegawai_choose" class="custom-select form-control" >
+                                <select name="states[]" id="pegawai_choose" class="custom-select form-control" >
                                         @forelse ($pegawai as $data)
                                         <option value="{{$data->id}}">{{$data->nama}} <br><small>{{$data->nip}}</small></option>
                                         @empty
@@ -64,6 +64,30 @@
    
 </div>
 
+
+<script>
+
+             /*   $(document).ready(function(){
+                     function formatState (pegawai) {
+                 if (!pegawai.id) {
+                 return pegawai.text;
+                 }
+               
+                 var $state = $(
+                 '<span><img src="{{asset('img/user.png')}}" class="img-circle " alt="User Image" style="heigth:10px;width:10%"> ' + pegawai.text + '</span>'
+                 
+                 );
+                 return $state;
+               };
+             
+                $('#pegawai_choose').select2({
+                   placeholder:'penerima',
+                   templateResult: formatState
+                 });
+                })     
+             */
+             
+ </script>
 <script>
 
        
@@ -101,3 +125,4 @@ $('#role_choose').change(function(e){
 })
 
 </script>
+

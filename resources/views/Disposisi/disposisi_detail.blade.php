@@ -27,11 +27,15 @@
                         </div>
                         <br>
                         <div class="d-block">
-                            <button class="btn btn-sm btn-flat btn-outline-secondary">Lihat Form</button>
+                            <button class="btn btn-sm btn-flat btn-outline-secondary">Lihat Form Permintaan</button>
                         </div>
                         <hr>
                         <p>
                           <a href="#" class="link-black text-sm mr-2"><i class="fa fa-share mr-1"></i> Diteruskan</a>
+                          @if (auth()->user()->person->id==$disp_detail->from_id)
+                          <a href="#" class="link-black text-sm mr-2"><i class="fas fa-pen"></i> Edit</a>
+                          @endif
+                          
                         
 
                         </p>

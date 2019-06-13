@@ -17,7 +17,7 @@ class CreateDisposisiHeadersTable extends Migration
             $table->bigIncrements('id');
             $table->string('from_id');
             $table->string('to_id');
-            $table->string('status');
+            //$table->string('status');
             //$table->boolean('is_read');
             $table->unsignedInteger('disposisi_detail_id');
             $table->timestamps();

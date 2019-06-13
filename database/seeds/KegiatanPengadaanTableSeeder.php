@@ -19,7 +19,8 @@ class KegiatanPengadaanTableSeeder extends Seeder
         foreach ($data as $obj) {
             KegiatanPengadaan::create(array(
                 'nama_kegiatan_p'=> $obj->Jenis_Kegiatan,
-                'kode_kegiatan_p'=>$obj->Kode_kegiatan,               
+                'kode_kegiatan_p'=>$obj->Kode_kegiatan,  
+                'kode_format'=>$obj->Kode_format             
             ));
         }
     }

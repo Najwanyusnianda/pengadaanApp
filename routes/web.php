@@ -76,6 +76,8 @@ Route::group(['middleware' => ['auth']], function () {
     //Paket
     Route::get('/paket/pejabat_form','PaketController@penanggungJawabForm')->name('pejabat.form');
     Route::get('/paket','PaketController@index')->name('paket.index');
+    Route::get('/paket/{person}','PaketController@indexMe')->name('paket.index.me');
+
     Route::get('/table/paket','PaketController@paketTable')->name('table.paket');
     //Route::get('/paket/detail/{id}','PaketController@detailTemp');
     Route::get('/paket/{id}/detail','PaketController@detail')->name('paket.detail');
@@ -85,6 +87,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/paket/{id}/jadwal','PaketController@jadwalIndex')->name('paket.jadwal');
     Route::post('/paket/{id}/jadwal/store','PaketController@jadwalStore')->name('paket.jadwal.store');
     //persiapan
+    Route::get('/paket/{id}/persiapan','PaketController@persiapan')->name('paket.persiapan');
     Route::get('/paket/{id}/detail/spesifikasi','PaketController@spesifikasi')->name('paket.detail.spek');
     Route::post('/paket/{id}/spesifikasi/store','PaketController@spesifikasiStore')->name('paket.detail.spek.store');
     Route::get('/paket/{id}/detail/hps','PaketController@hps')->name('paket.detail.hps');

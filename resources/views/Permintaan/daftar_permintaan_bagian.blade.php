@@ -66,7 +66,16 @@
                        
                 </div>
                 @else
-                    <p>tidak ada permintaan</p>
+                    <div class="col text-center " >
+                        <div class="p-5">
+                                <h1 style="color:gray"> Tidak Ada Permintaan Yang Dibuat</h1>
+                                <button class="btn btn-secondary btn-lg">
+                                    Buat Permintaan
+                                </button>
+                                
+                        </div>
+                        
+                    </div>
                 @endif
                 
             </div>

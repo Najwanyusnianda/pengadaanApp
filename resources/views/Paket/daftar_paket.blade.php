@@ -6,11 +6,11 @@
 @endsection
 @section('konten')
 <div class="container-fluid">
-    <div class="col-md-12">
+    <div class="col-md-6" style="width:50%;margin:auto;">
         <div class="row">
 
         </div>
-        <div class="row-md-12 justify-content-center" >
+        <div class="row-md-6 justify-content-center" >
             <div class="card shadow-lg" style="font-family:Roboto,sans-serif">
                 <div class="card-header" class="justify-content-between" style="background-color:#566787;color:white;">
                    
@@ -22,13 +22,13 @@
                 </div>
                 <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;color:#566787;">
                    
-                    <table class="table table-bordered table-hover " id="paketTable">
+                    <table class="table table-condensed table-hover " id="paketTable">
 
                         <thead>
                             <tr style="font-family:Valera Round, sans-serif;color:#566787" >
                                 <th>Nama Paket</th>
                                 <th>Status Paket</th>
-                                <th>Aksi</th>
+                              
                             </tr>
                         </thead>
         
@@ -36,12 +36,11 @@
                             @if (count($paket)>0)
                                 @forelse ($paket as $data)
                                 <tr>
-                                    <td>{{$data->judul}}</td>
-                                    <td>test</td>
-                                    <td>
+                                    <td>{{$data->judul}}
+                                    
                                         <div class="btn-group" >
                                             <button type="button" class="btn  btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                                <i class="fas fa-ellipsis-h"></i>
+                                                <i class="fas fa-ellipsis-v"style="color:#3498db"></i>
                                                 <span class="caret"></span>
                                               <span class="sr-only">Toggle Dropdown</span>
                                             </button>
@@ -51,11 +50,13 @@
                                               <div class="dropdown-divider"></div>
                                               <a class="dropdown-item" href="#">Separated link</a>
                                             </div>
-                                            <button class="btn btn-flat">
-                                                <i class="fas fa-eye " style="color:#3498db"></i>
-                                            </button>
                                         </div>
                                     </td>
+                                    <td>
+                                    <a href="{{route('paket.persiapan',[$data->id])}}"><span class="badge badge-info">Dokumen Persiapan Pengadaan</span></a>
+                                    <a href="{{route('paket.detail.penyedia',['id'=>$data->id])}}" class="badge badge-info">Pilih Calon Penyedia</a>
+                                    </td>
+
                                 </tr>
                                 @empty
                                     

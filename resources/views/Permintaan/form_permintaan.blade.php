@@ -11,7 +11,7 @@
                     <h6 class="m-0 font-weight-bold text-center" style="color:white;font-size:20px;">Form Permintaan</h6>
             </div>
             <div class="card-body">
-            <form action="{{route('permintaan.add')}}" method="POST" class="m-3" style="font-size:16px;">
+            <form action="{{route('permintaan.add')}}" method="POST" class="m-3" style="font-size:12px;">
                 {{csrf_field()}}
                             <div class="form-group">
                                 <label for="email">Judul:</label>
@@ -111,7 +111,7 @@
 @section('addStyle')
     <style>
     .form-control{
-        
+        font-size:12px;
     }
     label{
         font-weight: bold;
@@ -137,5 +137,35 @@ $("input[type='date']").flatpickr({
     altFormat: "j - F - Y",
     dateFormat: "Y-m-d",
 })
+
+var mulai=$("#date_mulai").val();
+
+var  startpicker=$("#date_mulai").flatpickr({
+    altInput: true,
+    altFormat: "j - F - Y",
+    dateFormat: "Y-m-d",
+    minDate:"today",
+    defaultDate: "today",
+    onClose: function(selectedDates, dateStr, instance) {
+      endpicker.set('minDate', dateStr);
+    },
+})
+
+
+
+
+
+var endpicker=$("#date_selesai").flatpickr({
+    altInput: true,
+    altFormat: "j - F - Y",
+    dateFormat: "Y-m-d",
+    minDate: $('date_mulai').attr('value'),
+    onClose: function(selectedDates, dateStr, instance) {
+      startpicker.set('maxDate', dateStr);
+    },
+  
+})
+
+
 </script>
 @endsection

@@ -17,6 +17,7 @@ class CreateKegiatanPengadaansTable extends Migration
             $table->bigIncrements('id');
             $table->string('nama_kegiatan_p');
             $table->string('kode_kegiatan_p')->nullable();
+            $table->string('kode_format')->nullable();
             $table->timestamps();
         });
     }

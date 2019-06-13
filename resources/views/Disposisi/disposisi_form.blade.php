@@ -21,8 +21,7 @@
               <textarea class="form-control" id="uraian_disposisi" rows="3"></textarea>
           </div>
       </div>
-    <br>
-    <hr>       
+    
     <div>
     </div>
 
@@ -58,9 +57,10 @@
     );
     return $state;
   };
+  
      
     $('#penerima_disposisi').select2({
-      placeholder:'Pilih Kasi',
+      placeholder:"Pilih Penerima",
       templateResult: formatState
     });
 });

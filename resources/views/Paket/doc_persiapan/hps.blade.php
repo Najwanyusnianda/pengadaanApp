@@ -24,11 +24,21 @@
 
 @section('konten')
     <div class="container">
-        <div class="col">
-            <div class="card">
-                <div class="card-header" style="color:white;background-color:#566787;">
-                    Harga Perkiraan Sementara ( <strong>HPS</strong>   ) : <span id="total_hps">Rp.0</span>
+        <div class="col-md-12" style="margin:auto;width:80%">
+            <div class="card shadow">
+                <div class="card-header" >
+                    
+                        <div class="row">
+                                <div class="col-sm-8"style="font-family:Roboto"><h5>Harga Perkiraan Sementara: <b> <span id="total_hps">Rp.0</span></b></h5></div>
+                                <div class="col-sm-4">
+                                       
+                                </div>
+                        </div>
+                        
+
                 </div>
+                   
+              
                 <div class="card-body">
                         <form action="{{route('paket.detail.hps.store',['id'=>$id_paket])}}" method="post">
                             {{ csrf_field() }}
@@ -80,7 +90,7 @@
                                 <input type="number" name="total_hps" id="sum_hps" hidden>
                                 <hr>
                                 <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                        <button type="submit" class="btn btn-success">Simpan</button>
                                 </div>
                                 
                         </form>

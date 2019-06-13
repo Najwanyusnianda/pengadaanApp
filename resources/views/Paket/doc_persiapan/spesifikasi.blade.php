@@ -21,11 +21,17 @@
 
 @section('konten')
     <div class="container">
-        <div class="card ">
-            <div class="card-header">
-                Spesifikasi Input
-            </div>
-            <div class="card-body" >
+        <div class="card shadow col-md-6 " style="margin:auto;width:50%">
+            <div class="card-header" >
+                        <div class="row">
+                                        <div class="col-sm-8"><h3>Spesifikasi Teknis</h3></div>
+                                        <div class="col-sm-4">
+                                                <button class="btn btn-info btn-sm  float-right" data-target="item-show" id="item-show"> Tambah item</button>
+                                        </div>
+                                    </div>
+
+                        </div>
+            <div class="card-body " >
                 <div class="">
                 <form action="{{route('paket.detail.spek.store',['id'=>$id_paket])}}" method="POST">
                     {{ csrf_field() }}
@@ -33,37 +39,42 @@
                                 
                     </div>
 
-                    <table class="table table-bordered">
-                        <thead>
-                
-                        </thead>
-                        <tbody>
-                                <tr>
-
-                                  
-                                        <td>
-                                                <button class="btn btn-outline-primary mb-3" data-target="item-show" id="item-show"> Tambah item</button>
+                   
                                                 
-                                                <table class="table">
-                                                        <thead>
-                                                                <tr>
-                                                                        <th>Jenis Pekerjaan</th>
-                                                                        <th>Volume</th>
-                                                                        <th>Satuan</th>
-                                                                        
-                                                                </tr>
-                                                        </thead>
-                                                        <tbody class="itemlist" style="font-size:13px;font-family:'Varela Round'">
-                                                        </tbody>
-                                                </table>
-                                        </td>  
-                                </tr>
+                    <table class="table">
+                            <thead>
+                                    <tr>
+                           
+                                            <th>Jenis Pekerjaan</th>
+                                            <th>Volume</th>
+                                            <th>Satuan</th>
+                                            
+                                    </tr>
+                            </thead>
+                            <tbody class="itemlist" style="font-size:13px;font-family:'Varela Round'">
+                               
 
-                        </tbody>
+                            </tbody>
+                            <tfoot>
+                                    
+                            </tfoot>
                     </table>
-
-
-                    <button type="submit" class="btn">Simpan</button>
+                    <hr>
+                    <br>
+                    <div class="row">
+                                <div class="col">
+                                        <div class="form-group">
+                                                <label for="spek_barang" style="font-size:13px;font-family:Roboto;font-weight:600 !important">Spesifikasi:</label>
+                                                <textarea class="form-control" id="spek_barang" name="spek_barang" rows="3"></textarea>
+                                        </div>
+                                </div>
+                            </div>
+                    <hr>
+                    <div class="card-footer mt-4">
+                                <button type="submit" class="btn btn-success btn-sm">Simpan</button>
+                                <a class="btn btn-link btn-outline-secondary btn-sm ml-3" >Kembali</a>
+                    </div>
+         
                     <!--
                             <div class="row">
                                 <div class="col">
@@ -175,10 +186,10 @@
 
 
 @section('addScript')
-  <!--<script src="https://cdn.ckeditor.com/4.11.4/standard-all/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.11.4/basic/ckeditor.js"></script>
   <script>
-      CKEDITOR.replace( 'editor1' );
-</script> -->
+      CKEDITOR.replace('spek_barang');
+</script>
 <script>
 $('#item-show').click(function(e){
         e.preventDefault();

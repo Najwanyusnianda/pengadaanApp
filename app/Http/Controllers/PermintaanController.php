@@ -11,6 +11,7 @@ use DataTables;
 use DB;
 use App\Project;
 use App\KegiatanProgram;
+use App\Person;
 
 class PermintaanController extends Controller
 {
@@ -116,9 +117,13 @@ class PermintaanController extends Controller
             'project_id'=>$project->id
         ]);
         
-        //$users=User::all();
-        //Notification::send($users, new PermintaanMasuk($permintaan));
-        auth()->user()->notify(new PermintaanMasuk($permintaan));
+        $pegawai=Person::where('role_id','!=','100')->get();
+        foreach($pegawai as $temps){
+            $data[]=$temps->user_id;
+        }
+        $users=User::whereIn('id',$data)->get();
+        Notification::send($users, new PermintaanMasuk($permintaan));
+        //auth()->user()->notify(new PermintaanMasuk($permintaan));
         $request->session()->flash('success','Permintaan berhasil di tambahkan');
 
         return redirect()->route('bagian.permintaan.index',['bagian'=>auth()->user()->sub_bagian->kode_bagian]);
