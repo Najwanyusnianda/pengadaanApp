@@ -12,9 +12,9 @@
         
                           
                                 <div class="list-group ">
-                                <li  class="list-group-item list-group-item-action">Klarifikasi dan Negosisasi Teknis dan Harga <a href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}" class="badge badge-info float-right">buat</a></li>
-                                        <li  class="list-group-item list-group-item-action">Pembukaan, Evaluasi, Klarifikasi, Negosiasi Penawaran <a href="{{route('paket.detail.pembukaan_evaluasi',['id'=>$paket->id])}}"></a></li>
-                                        <li  class="list-group-item list-group-item-action">Hasil Pengadaan Langsung</li>
+                                        <li  class="list-group-item list-group-item-action">Klarifikasi dan Negosisasi Teknis dan Harga <a href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}" class="badge badge-info float-right">buat</a></li>
+                                        <li  class="list-group-item list-group-item-action">Pembukaan, Evaluasi, Klarifikasi, Negosiasi Penawaran <a href="{{route('paket.detail.pembukaan_evaluasi',['id'=>$paket->id])}}" class="badge badge-info float-right">buat</a></li>
+
                                 </div>
                                 <br>
                                 <hr>

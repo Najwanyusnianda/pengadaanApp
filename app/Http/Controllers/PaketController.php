@@ -49,7 +49,7 @@ class PaketController extends Controller
         //check true
         $spek=SpekHpsItem::where('paket_id',$paket->id)->get();
         $spek=count($spek);
-        $is_not_hps=SpekHpsItem::where('paket_id',$paket->id)->whereNull('harga')->get();
+        $is_not_hps=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga')->get();
         $is_not_hps=count($is_not_hps);
         $is_not_penawaran=jadwalPenawaran::where('paket_id',$paket->id)->get();
         $is_not_penawaran=count($is_not_penawaran);
@@ -346,7 +346,7 @@ class PaketController extends Controller
         }
 
 
-        return redirect()->route('paket.detail',['id'=>$id]);
+        return redirect()->route('paket.index');
 
     }
 
@@ -356,12 +356,38 @@ class PaketController extends Controller
         $id_paket=$id;
         $paket=Paket::find($id);
         return view('Paket.Penawaran.pembukaan')->with('paket',$paket);
+        
     }
 
     public function klarifikasi_teknis($id){
         $id_paket=$id;
         $item_spek=SpekHpsItem::where('paket_id',$id_paket)->get();
-        return view('Paket.Penawaran.form_klarifikasi_teknis')->with('item_spek',$item_spek);
+        return view('Paket.Penawaran.form_klarifikasi_teknis')->with('item_spek',$item_spek)->with('id_paket',$id_paket);
+    }
+    public function klarifikasi_teknis_store(Request $request,$id){
+       
+        
+        $item_id=$request->id;
+        if(count($item_id)>0){
+            
+            for ($i=0; $i <count($item_id); $i++) { 
+                $spek_item=SpekHpsItem::where('paket_id')->where('id',$item_id[$i])
+                ->update([
+                    'harga_penawaran'=>$request->harga_satuan_penawaran[$i],
+                    'harga_nego'=>$request->harga_satuan_nego[$i],
+                    'jumlah_penawaran'=>$request->jumlah_penawaran[$i],
+                    'jumlah_nego'=>$request->jumlah_nego[$i],
+                    
+                ]);
+            }
+            $paket=Paket::find($id);
+            $paket->update([
+                'total_penawaran'=>$request->total_penawaran,
+                'total_negosiasi'=>$request->total_nego
+            ]); 
+            return redirect()->back(); 
+        }
+        
     }
 
     public function formPembukaanPenawaran($id){

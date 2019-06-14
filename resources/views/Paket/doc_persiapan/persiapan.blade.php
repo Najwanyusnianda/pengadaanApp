@@ -16,7 +16,7 @@
                                         @if ($is_spek >0)
                                         <i class="fas fa-check-circle mr-2 text-success"></i> 
                                         @else
-                                        <i class="fas fa-circle mr-2 text-secondary"></i>
+                                      
                                         @endif                                
                                         Spesifikasi Teknis 
                                         @if (auth()->user()->person->role->id == 3)
@@ -35,7 +35,7 @@
                                         
                                     </li>
                                     <li href="#" class="list-group-item ">
-                                        @if (!$is_not_hps >0)
+                                        @if ($is_not_hps >0)
                                         <i class="fas fa-check-circle mr-2 text-success"></i>
                                         @else
                                         
@@ -46,7 +46,7 @@
                                         Rp.<a href="" style="color:#566787;font-family:'Courier New', Courier, monospace"><strong>  {{ number_format($paket->total_hps,0,',','.')}}</strong></a>
                                         @endif
                                         @if (auth()->user()->person->role->id == 3)
-                                        @if (!$is_not_hps >0)
+                                        @if ($is_not_hps >0)
                                         <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}"><span class="badge badge-secondary float-right">edit rincian</span></a>
                                         @else
                                         <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}"><span class="badge badge-secondary float-right">buat rincian</span></a>
@@ -109,7 +109,7 @@
             confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
             if (result.value) {
-                
+
             Swal.fire(
                 'Deleted!',
                 'Your file has been deleted.',

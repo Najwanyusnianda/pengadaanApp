@@ -91,11 +91,11 @@ class DisposisiController extends Controller
             ]);
     
         }
-        foreach($request->penerima as $temps){
-            $data[]=$temps;
-        }
-        $penerima=User::whereIn('id',$data)->get();
-        Notification::send($penerima,new disposisiTerkirim($disposisi_detail));
+       // foreach($request->penerima as $temps){
+       //     $data[]=$temps;
+        //}
+       // $penerima=User::whereIn('id',$data)->get();
+        //Notification::send($penerima,new disposisiTerkirim($disposisi_detail));
         if($role_id==4){
             $permintaan=Permintaan::find($disposisi_detail->permintaan_id);
             $permintaan->disposisi_status='disposisi'; //baru,disposisi,dikerjakan

@@ -146,8 +146,8 @@
               </ul>        
             </li>  
              
-             <li class="nav-item has-treeview ">
-              <a href="#" class="nav-link ">
+             <li class="nav-item has-treeview {{Request::is('permintaan') ? 'menu-open' : ''}}">
+              <a href="#" class="nav-link {{Request::is('permintaan') ? 'active' : ''}}">
                 
                   <i class="nav-icon fas fa-table" ></i>
                 <p>
@@ -160,7 +160,7 @@
              
               
                 <li class="nav-item">
-                <a href="{{route('permintaan.list')}}" class="nav-link ">
+                <a href="{{route('permintaan.list')}}" class="nav-link {{Request::is('permintaan') ? 'active' : ''}}">
                     <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
                     <p>Daftar Permintaan</p>
                   </a>
@@ -171,8 +171,8 @@
               </ul>        
             </li>
           
-            <li class="nav-item has-treeview ">
-                <a href="#" class="nav-link ">
+            <li class="nav-item has-treeview {{Request::is('paket') ? 'menu-open' : ''}}">
+                <a href="#" class="nav-link {{Request::is('paket') ? 'active' : ''}}">
                   
                     <i class="nav-icon fas fa-box" ></i>
                   <p>

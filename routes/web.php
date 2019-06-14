@@ -103,6 +103,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/paket/{id}/jadwal_penawaran/store','PaketController@jadwalPenawaranStore')->name('paket.jadwal_penawaran.store');
 
     Route::get('/paket/{id}/detail/klarifikasi_teknis','PaketController@klarifikasi_teknis')->name('paket.detail.klarifikasi_teknis');
+    Route::post('/paket/{id}/klarifikasi_teknis/store','PaketController@klarifikasi_teknis_store')->name('paket.klarifikasi_teknis.store');
     Route::get('/paket/{id}/detail/evaluasi_penawaran','PaketController@formPembukaanPenawaran')->name('paket.detail.pembukaan_evaluasi');
 
 
