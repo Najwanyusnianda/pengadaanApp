@@ -433,11 +433,24 @@ class PaketController extends Controller
         
         //nex
         $id_paket=$id;
+        $paketEvaluasi=EvaluasiPaket::where('evaluasi_pakets.id_paket',$id)
+        ->join('evaluasi_kriterias','evaluasi_kriterias.id','evaluasi_pakets.id_kriteria')
+        ->select('evaluasi_kriterias.id_evaluasi','evaluasi_pakets.*')
+        ->get();
+
+        $paketDokumen=EvaluasiPaket::where('evaluasi_pakets.id_paket',$id)
+        ->join('evaluasi_kriterias','evaluasi_kriterias.id','evaluasi_pakets.id_kriteria')
+        ->select('evaluasi_kriterias.id_evaluasi','evaluasi_pakets.*')
+        ->where('id_evaluasi','PD')
+        ->orderBy('id_kriteria','ASC')
+        ->get();
+
         $pembukaan_dokumen=EvaluasiKriteria::where('id_evaluasi','PD')->get();
      
         return view('Paket.Penawaran.form_pembukaan_penawaran')
         ->with('id_paket',$id)
-        ->with('doc_kriteria',$pembukaan_dokumen);
+        ->with('doc_kriteria',$pembukaan_dokumen)
+        ->with('eval_dokumen',$paketDokumen);
 
 
     }
@@ -448,19 +461,54 @@ class PaketController extends Controller
     }
 
     public function storePembukaanPenawaran(Request $request,$id){
-        dd($request);
+        
         if ($request->kelengkapan) {
             
             for ($i=0; $i <count($request->kelengkapan) ; $i++) { 
                 $pembukaan_dokumen=EvaluasiPaket::create([
-                    ''
+                    'id_paket'=>$id,
+                    'id_kriteria'=>$request->kriteria_id[$i],
+                    'status_evaluasi'=>$request->kelengkapan[$i],
+                    'hasil_evaluasi'=>$request->kelengkapan[$i] 
                 ]);
             }
         }
+        return redirect()->back();
     }
 
     public function formEvaluasiPenawaran($id){
         $id_paket=$id;
+    
+        $paketEvaluasi=EvaluasiPaket::where('evaluasi_pakets.id_paket',$id)
+        ->join('evaluasi_kriterias','evaluasi_kriterias.id','evaluasi_pakets.id_kriteria')
+        ->select('evaluasi_kriterias.id_evaluasi','evaluasi_pakets.*')
+        ->get();
+        
+        $paketAdministrasi=EvaluasiPaket::where('evaluasi_pakets.id_paket',$id)
+        ->join('evaluasi_kriterias','evaluasi_kriterias.id','evaluasi_pakets.id_kriteria')
+        ->select('evaluasi_kriterias.id_evaluasi','evaluasi_pakets.*')
+        ->where('id_evaluasi','EA')
+        ->orderBy('id_kriteria','ASC')
+        ->get();
+        $paketKualifikasi=EvaluasiPaket::where('evaluasi_pakets.id_paket',$id)
+        ->join('evaluasi_kriterias','evaluasi_kriterias.id','evaluasi_pakets.id_kriteria')
+        ->select('evaluasi_kriterias.id_evaluasi','evaluasi_pakets.*')
+        ->where('id_evaluasi','EK')
+        ->orderBy('id_kriteria','DESC')
+        ->get();
+        $paketHarga=EvaluasiPaket::where('evaluasi_pakets.id_paket',$id)
+        ->join('evaluasi_kriterias','evaluasi_kriterias.id','evaluasi_pakets.id_kriteria')
+        ->select('evaluasi_kriterias.id_evaluasi','evaluasi_pakets.*')
+        ->where('id_evaluasi','EH')
+        ->orderBy('id_kriteria','DESC')
+        ->get();
+        $paketTeknis=EvaluasiPaket::where('evaluasi_pakets.id_paket',$id)
+        ->join('evaluasi_kriterias','evaluasi_kriterias.id','evaluasi_pakets.id_kriteria')
+        ->select('evaluasi_kriterias.id_evaluasi','evaluasi_pakets.*')
+        ->where('id_evaluasi','ET')
+        ->orderBy('id_kriteria','DESC')
+        ->get();
+     
         $evaluasiAdministrasi=EvaluasiKriteria::where('id_evaluasi','EA')->get();
         $evaluasiKualifikasi=EvaluasiKriteria::where('id_evaluasi','EK')->get();
         $evaluasiHarga=EvaluasiKriteria::where('id_evaluasi','EH')->get();
@@ -472,8 +520,29 @@ class PaketController extends Controller
         ->with('administrasi',$evaluasiAdministrasi)
         ->with('kualifikasi',$evaluasiKualifikasi)
         ->with('harga',$evaluasiHarga)
-        ->with('teknis',$evaluasiTeknis);
+        ->with('teknis',$evaluasiTeknis)
+        ->with('eval',$paketEvaluasi)
+        ->with('eval_adm',$paketAdministrasi)
+        ->with('eval_kualifikasi',$paketKualifikasi)
+        ->with('eval_harga',$paketHarga)
+        ->with('eval_teknis',$paketTeknis);
 
+    }
+
+    public function evaluasiStore($id,Request $request){
+      
+        if (!empty($request->syarat_verifikasi)) {
+          
+            for ($i=0; $i <count($request->kriteria_id) ; $i++) { 
+                $evaluasi=EvaluasiPaket::create([
+                    'id_paket'=>$id,
+                    'id_kriteria'=>$request->kriteria_id[$i],
+                    'status_evaluasi'=>$request->syarat_verifikasi[$i],
+                    'hasil_evaluasi'=>$request->syarat_verifikasi[$i]     
+                ]);
+            }
+        }
+        return redirect()->back();
     }
 
 

@@ -14,7 +14,7 @@
             </div>
             <div class="card-body " >
                 <div class="">
-                <form action="{{route('paket.pembukaan_penawaran.store',['id'=>$id_paket])}}" method="POST">
+                <form action="{{route('paket.penawaran_evaluasi.store',['id'=>$id_paket])}}" method="POST">
                     {{ csrf_field() }}
 
                    
@@ -37,11 +37,21 @@
                                         <input type="hidden" name="kriteria_id[]"  readonly value="{{$kriteria->id}}">
                                         </td>
                                         <td>
-                                                <div class="custom-control custom-checkbox">
-                                                <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
-                                                <input type="checkbox" class="custom-control-input check_lengkap" id="administrasi{{$key+1}}" name="check_syarat[]" value="1">
-                                                        <label class="custom-control-label" for="administrasi{{$key+1}}">Memenuhi Syarat</label>
-                                                </div>
+                                                
+                                                @if (!count($eval_adm)>0)
+                                                                <div class="custom-control custom-checkbox">        
+                                                                <input class="kelengkapan" readonly  type='hidden' value="{{$eval_adm[$key]->hasil_evaluasi=="1" ? "1" : "0"}}" name='syarat_verifikasi[]'>
+                                                                <input type="checkbox" class="custom-control-input check_lengkap" id="administrasi{{$key+1}}" name="check_syarat[]" value="1" >
+                                                                <label class="custom-control-label" for="administrasi{{$key+1}}">Memenuhi Syarat</label>
+                                                                </div>
+                                                @else
+                                                                <div class="custom-control custom-checkbox">        
+                                                                <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
+                                                                <input type="checkbox" class="custom-control-input check_lengkap" id="administrasi{{$key+1}}" name="check_syarat[]" value="1" {{$eval_adm[$key]->hasil_evaluasi=="1" ? "checked" : ""}}>
+                                                                <label class="custom-control-label" for="administrasi{{$key+1}}">Memenuhi Syarat</label>
+                                                                </div>
+                                                @endif
+
                                         </td>
 
                                     </tr>
@@ -73,11 +83,21 @@
                                         <input type="hidden" name="kriteria_id[]"  readonly value="{{$kriteria->id}}">
                                         </td>
                                         <td>
-                                                <div class="custom-control custom-checkbox">
-                                                <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
-                                                <input type="checkbox" class="custom-control-input check_lengkap" id="kualifikasi{{$key+1}}" name="check_syarat[]" value="1">
-                                                        <label class="custom-control-label" for="kualifikasi{{$key+1}}">Memenuhi Syarat</label>
-                                                </div>
+                                                @if (count($eval_kualifikasi)>0)
+                                                                <div class="custom-control custom-checkbox">
+                                                                <input class="kelengkapan" readonly  type='hidden' value="{{$eval_kualifikasi[$key]->hasil_evaluasi=="1" ? "1" : "0"}}" name='syarat_verifikasi[]'>
+                                                                <input type="checkbox" class="custom-control-input check_lengkap" id="kualifikasi{{$key+1}}" name="check_syarat[]" value="1" {{$eval_kualifikasi[$key]->hasil_evaluasi=="1" ? "checked" : ""}}>
+                                                                        <label class="custom-control-label" for="kualifikasi{{$key+1}}">Memenuhi Syarat</label>
+                                                                </div>
+                                                @else
+                                                                <div class="custom-control custom-checkbox">
+                                                                <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
+                                                                <input type="checkbox" class="custom-control-input check_lengkap" id="kualifikasi{{$key+1}}" name="check_syarat[]" value="1">
+                                                                        <label class="custom-control-label" for="kualifikasi{{$key+1}}">Memenuhi Syarat</label>
+                                                                </div>
+                                                    
+                                                @endif
+
                                         </td>
 
                                     </tr>
@@ -92,12 +112,25 @@
                     <div class="list-group">
                         <li class="list-group-item">
                             @foreach ($teknis as $key=> $kriteria)
-                            <div class="custom-control custom-checkbox">
-                                    <input type="hidden" name="kriteria_id[]"  readonly value="{{$kriteria->id}}">
-                                    <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
-                                    <input type="checkbox" class="custom-control-input check_lengkap" id="teknis{{$key+1}}" name="check_syarat[]" value="1">
-                                            <label class="custom-control-label" for="teknis{{$key+1}}">Lulus</label>
-                                    </div>
+                            
+                            @if (count($eval_teknis)>0)
+                                        <div class="custom-control custom-checkbox">
+                                        <input type="hidden" name="kriteria_id[]"  readonly value="{{$kriteria->id}}">
+                                        <input class="kelengkapan" readonly  type='hidden' value="{{$eval_teknis[$key]->hasil_evaluasi=="1" ? "1" : "0"}}" name='syarat_verifikasi[]'>
+                                        <input type="checkbox" class="custom-control-input check_lengkap" id="teknis{{$key+1}}" name="check_syarat[]" value="1" {{$eval_teknis[$key]->hasil_evaluasi=="1" ? "checked" : ""}}>
+                                                <label class="custom-control-label" for="teknis{{$key+1}}">Lulus</label>
+                                        </div>
+
+
+                            @else
+                                        <div class="custom-control custom-checkbox">
+                                        <input type="hidden" name="kriteria_id[]"  readonly value="{{$kriteria->id}}">
+                                        <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
+                                        <input type="checkbox" class="custom-control-input check_lengkap" id="teknis{{$key+1}}" name="check_syarat[]" value="1">
+                                                <label class="custom-control-label" for="teknis{{$key+1}}">Lulus</label>
+                                        </div>
+                            @endif
+
                             @endforeach
                         </li>
                     </div>
@@ -113,18 +146,30 @@
                                     </tr>
                             </thead>
                             <tbody class="list_kriteria" style="font-size:13px;font-family:'Varela Round'">
-                                    @foreach ($kualifikasi as $key=> $kriteria)
+                                    @foreach ($harga as $key=> $kriteria)
                                     <tr>
                                         <td>{{$key+1}}</td>
                                         <td>{{$kriteria->nama_kriteria}}
                                         <input type="hidden" name="kriteria_id[]"  readonly value="{{$kriteria->id}}">
                                         </td>
                                         <td>
-                                                <div class="custom-control custom-checkbox">
-                                                <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
-                                                <input type="checkbox" class="custom-control-input check_lengkap" id="harga{{$key+1}}" name="check_syarat[]" value="1">
-                                                        <label class="custom-control-label" for="harga{{$key+1}}">Memenuhi Syarat</label>
-                                                </div>
+
+                                                @if (count($eval_harga)>0)
+
+                                                                <div class="custom-control custom-checkbox">
+                                                                <input class="kelengkapan" readonly  type='hidden' value="{{$eval_harga[$key]->hasil_evaluasi=="1" ? "1" : "0"}}" name='syarat_verifikasi[]'>
+                                                                <input type="checkbox" class="custom-control-input check_lengkap" id="harga{{$key+1}}" name="check_syarat[]" value="1" {{$eval_harga[$key]->hasil_evaluasi=="1" ? "checked" : ""}}>
+                                                                        <label class="custom-control-label" for="harga{{$key+1}}">Memenuhi Syarat</label>
+                                                                </div>
+                                                @else
+                                                                 <div class="custom-control custom-checkbox">
+                                                                <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
+                                                                <input type="checkbox" class="custom-control-input check_lengkap" id="harga{{$key+1}}" name="check_syarat[]" value="1">
+                                                                        <label class="custom-control-label" for="harga{{$key+1}}">Memenuhi Syarat</label>
+                                                                </div>
+                                                @endif
+
+                                  
                                         </td>
 
                                     </tr>
