@@ -431,8 +431,13 @@ class PaketController extends Controller
 
     public function formPembukaanPenawaran($id){
         
-        
-        return view('Paket.Penawaran.form_pembukaan_penawaran');
+        //nex
+        $id_paket=$id;
+        $pembukaan_dokumen=EvaluasiKriteria::where('id_evaluasi','PD')->get();
+     
+        return view('Paket.Penawaran.form_pembukaan_penawaran')
+        ->with('id_paket',$id)
+        ->with('doc_kriteria',$pembukaan_dokumen);
 
 
     }
@@ -442,7 +447,32 @@ class PaketController extends Controller
         //return view('Paket.penawaran.form_pembukaan_penawaran');
     }
 
-    public function storePembukaanPenawaran(Request $request){
+    public function storePembukaanPenawaran(Request $request,$id){
+        dd($request);
+        if ($request->kelengkapan) {
+            
+            for ($i=0; $i <count($request->kelengkapan) ; $i++) { 
+                $pembukaan_dokumen=EvaluasiPaket::create([
+                    ''
+                ]);
+            }
+        }
+    }
+
+    public function formEvaluasiPenawaran($id){
+        $id_paket=$id;
+        $evaluasiAdministrasi=EvaluasiKriteria::where('id_evaluasi','EA')->get();
+        $evaluasiKualifikasi=EvaluasiKriteria::where('id_evaluasi','EK')->get();
+        $evaluasiHarga=EvaluasiKriteria::where('id_evaluasi','EH')->get();
+        $evaluasiTeknis=EvaluasiKriteria::where('id_evaluasi','ET')->get();
+
+
+        return view('Paket.Penawaran.form_evaluasi_paket')
+        ->with('id_paket',$id_paket)
+        ->with('administrasi',$evaluasiAdministrasi)
+        ->with('kualifikasi',$evaluasiKualifikasi)
+        ->with('harga',$evaluasiHarga)
+        ->with('teknis',$evaluasiTeknis);
 
     }
 

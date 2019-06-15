@@ -28,7 +28,7 @@
                                 <div class="list-group ">
                                         <a  class="list-group-item list-group-item-action" href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}">Klarifikasi dan Negosisasi Teknis dan Harga</a>
                                         <a  class="list-group-item list-group-item-action" href="{{route('paket.detail.pembukaan_evaluasi',['id'=>$paket->id])}}">Pembukaan Penawaran</a>
-                                        <a  class="list-group-item list-group-item-action" href="{{route('paket.detail.pembukaan_evaluasi',['id'=>$paket->id])}}">Evaluasi Administrasi, Teknis dan Harga</a>
+                                        <a  class="list-group-item list-group-item-action" href="{{route('paket.detail.penawaran_evaluasi',['id'=>$paket->id])}}">Evaluasi Administrasi, Teknis dan Harga</a>
                                        
 
                                 </div>

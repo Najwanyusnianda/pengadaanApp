@@ -1,0 +1,200 @@
+@extends('Admin.layout')
+
+@section('konten')
+<div class="container">
+        <div class="card shadow col-md-6 " style="margin:auto;width:50%">
+            <div class="card-header" >
+                        <div class="row justify-content-center">
+                            <div class="col-sm-8 text-center">
+                                <h3>Evaluasi Penawaran</h3>
+                            </div>
+
+                        </div>
+
+            </div>
+            <div class="card-body " >
+                <div class="">
+                <form action="{{route('paket.pembukaan_penawaran.store',['id'=>$id_paket])}}" method="POST">
+                    {{ csrf_field() }}
+
+                   
+                    <b>Evaluasi  Administrasi </b>                         
+                    <table class="table">
+                            <thead>
+                                    <tr>
+                           
+                                            <th>No.</th>
+                                            <th>Evaluasi</th>
+                                            <th>Hasil Evaluasi</th>
+                                            
+                                    </tr>
+                            </thead>
+                            <tbody class="list_kriteria" style="font-size:13px;font-family:'Varela Round'">
+                                    @foreach ($administrasi as $key=> $kriteria)
+                                    <tr>
+                                        <td>{{$key+1}}</td>
+                                        <td>{{$kriteria->nama_kriteria}}
+                                        <input type="hidden" name="kriteria_id[]"  readonly value="{{$kriteria->id}}">
+                                        </td>
+                                        <td>
+                                                <div class="custom-control custom-checkbox">
+                                                <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
+                                                <input type="checkbox" class="custom-control-input check_lengkap" id="administrasi{{$key+1}}" name="check_syarat[]" value="1">
+                                                        <label class="custom-control-label" for="administrasi{{$key+1}}">Memenuhi Syarat</label>
+                                                </div>
+                                        </td>
+
+                                    </tr>
+                                    @endforeach
+    
+                            </tbody>
+                            <tfoot>
+                                    
+                            </tfoot>
+                    </table>
+                    <hr>
+                    <b>Evaluasi  Kualifikasi </b>                         
+                    <table class="table">
+                            <thead>
+                                    <tr>
+                           
+                                            <th>No.</th>
+                                            <th>Evaluasi</th>
+                                            <th>Hasil Evaluasi</th>
+                                            
+                                    </tr>
+                            </thead>
+                            <tbody class="list_kriteria" style="font-size:13px;font-family:'Varela Round'">
+                                
+                                    @foreach ($kualifikasi as $key=> $kriteria)
+                                    <tr>
+                                        <td>{{$key+1}}</td>
+                                        <td>{{$kriteria->nama_kriteria}}
+                                        <input type="hidden" name="kriteria_id[]"  readonly value="{{$kriteria->id}}">
+                                        </td>
+                                        <td>
+                                                <div class="custom-control custom-checkbox">
+                                                <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
+                                                <input type="checkbox" class="custom-control-input check_lengkap" id="kualifikasi{{$key+1}}" name="check_syarat[]" value="1">
+                                                        <label class="custom-control-label" for="kualifikasi{{$key+1}}">Memenuhi Syarat</label>
+                                                </div>
+                                        </td>
+
+                                    </tr>
+                                    @endforeach
+                            </tbody>
+                            <tfoot>
+                                    
+                            </tfoot>
+                    </table>
+                    <hr>
+                    <b>Evaluasi Teknis</b>
+                    <div class="list-group">
+                        <li class="list-group-item">
+                            @foreach ($teknis as $key=> $kriteria)
+                            <div class="custom-control custom-checkbox">
+                                    <input type="hidden" name="kriteria_id[]"  readonly value="{{$kriteria->id}}">
+                                    <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
+                                    <input type="checkbox" class="custom-control-input check_lengkap" id="teknis{{$key+1}}" name="check_syarat[]" value="1">
+                                            <label class="custom-control-label" for="teknis{{$key+1}}">Lulus</label>
+                                    </div>
+                            @endforeach
+                        </li>
+                    </div>
+                    <b>Evaluasi  Harga </b>                         
+                    <table class="table">
+                            <thead>
+                                    <tr>
+                           
+                                            <th>No.</th>
+                                            <th>Evaluasi</th>
+                                            <th>Hasil Evaluasi</th>
+                                            
+                                    </tr>
+                            </thead>
+                            <tbody class="list_kriteria" style="font-size:13px;font-family:'Varela Round'">
+                                    @foreach ($kualifikasi as $key=> $kriteria)
+                                    <tr>
+                                        <td>{{$key+1}}</td>
+                                        <td>{{$kriteria->nama_kriteria}}
+                                        <input type="hidden" name="kriteria_id[]"  readonly value="{{$kriteria->id}}">
+                                        </td>
+                                        <td>
+                                                <div class="custom-control custom-checkbox">
+                                                <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
+                                                <input type="checkbox" class="custom-control-input check_lengkap" id="harga{{$key+1}}" name="check_syarat[]" value="1">
+                                                        <label class="custom-control-label" for="harga{{$key+1}}">Memenuhi Syarat</label>
+                                                </div>
+                                        </td>
+
+                                    </tr>
+                                    @endforeach
+    
+                            </tbody>
+                            <tfoot>
+                                    
+                            </tfoot>
+                    </table>
+                    <br>
+                    <hr>
+                    <div class="card-footer mt-4">
+                                <button type="submit" class="btn btn-success btn-sm">Simpan</button>
+                                <a class="btn btn-link btn-outline-secondary btn-sm ml-3" >Kembali</a>
+                    </div>
+         
+     
+
+                            
+                           
+                </form>
+                </div>
+
+            </div>
+        </div>
+        
+</div>
+@endsection
+
+@section('addStyle')
+<style>
+        .custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+    background-color:#28a745;
+}
+
+.custom-control.custom-checkbox{padding-left: 0;}
+
+label.custom-control-label {
+position: relative;
+padding-right: 1.5rem;
+}
+
+label.custom-control-label::before, label.custom-control-label::after{
+right: 0;
+left: auto;
+}
+
+label:not(.form-check-label):not(.custom-file-label){
+font-weight: 500
+}
+</style>
+@endsection
+
+@section('addScript')
+    <script>
+    $(document).ready(function(){
+
+
+        $('body').on('click','.check_lengkap',function(e){
+            me=$(this);
+            var kelengkapan=me.parent().find('.kelengkapan');
+            
+            if(me.prop("checked")==true){
+                kelengkapan.val("1")
+            }else if(me.prop("checked")==false){
+                kelengkapan.val("0")
+            }
+        })
+
+    })
+    </script>
+@endsection
