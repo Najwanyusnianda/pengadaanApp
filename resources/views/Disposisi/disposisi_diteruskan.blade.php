@@ -11,7 +11,7 @@
             <div class="card shadow" style="font-family:Roboto,sans-serif">
                 <div class="card-header" class="justify-content-between" style="background-color:#566787;color:white;">
                    
-                        Daftar disposisi diteruskan
+                        Daftar Surat Diteruskan
                  
                     <div class="card-tools float-right">
                             {{$disposisi_diteruskan->links()}}
@@ -20,14 +20,15 @@
                 </div>
                 <div class="card-body">
                     @if (count($disposisi_diteruskan)>0)
-                    <table class="table table-bordered table-hover " id="disp_masuk">
+                    <table class="table table-condensed table-hover " id="disp_masuk">
 
                         <thead>
                             <tr style="font-family:Valera Round, sans-serif;color:#566787;font-size:13px;" >
                                 <th>Kepada</th>
-                                <th>Judul</th>
+                                <th>Surat</th>
+                                <th>Jenis</th>
                                 <th>Diterima</th>
-                                <th>Detail</th>
+                               
                             </tr>
                         </thead>
                         <tbody style="font-family:'Varela Round', sans-serif;color:#566787;font-size:13px;">
@@ -37,10 +38,14 @@
                                             {{$data->nama_penerima}}
                                         <small>{{$data->nip_penerima}}</small>
                                     </td> 
-                                    <td>{{$data->judul_permintaan}}</td>
+                                    <td>
+                                            <p style="margin-bottom:1px;">{{$data->judul_permintaan}}</p>
+                                        <button style="padding-left:0px;" class="btn  btn-sm detail_disposisi_show btn-link" data-id="{{$data->disposisi_detail_id}}"><span  style="font-family:Roboto, sans-serif;color:#566787;font-size:13px;font-weight:600"><small>Detail Pesan</small></span> </button>
+                                        
+                                    </td>
+                                <td>{{$data->type}}</td>
                                     <td>{{\Carbon\Carbon::parse($data->created_at)->format('l, d F Y H:i')}}</td>
-                                    <td><button class="btn  btn-sm btn-flat detail_disposisi_show" data-id="{{$data->disposisi_detail_id}}"><i class="fas fa-eye " style="color:#3498db"></i></button></td>
-                                   
+                                    
                                 </tr>
                             @empty
                                     

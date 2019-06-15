@@ -26,8 +26,8 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
              @if (auth()->user()->person->role_id==1)
-              <li class="nav-item has-treeview ">
-                  <a href="#" class="nav-link ">
+              <li class="nav-item has-treeview  {{Request::is('user/list') ? 'menu-open' : Request::is('project') ? 'menu-open' : Request::is('user/list_bagian') ? 'menu-open' : Request::is('project/*') ? 'menu-open' : ''}}">
+                  <a href="#" class="nav-link {{Request::is('user/list') ? 'active' : Request::is('project') ? 'active' : Request::is('user/list_bagian') ? 'active' : Request::is('project/*') ? 'active' : ''}}">
                     
                       <i class="nav-icon fas fa-cogs" ></i>
                     <p>
@@ -38,21 +38,21 @@
                   <ul class="nav nav-treeview">
   
                         <li class="nav-item">
-                          <a href="{{route('project.index')}}" class="nav-link ">
+                          <a href="{{route('project.index')}}" class="nav-link {{Request::is('project') ? 'active' : Request::is('project/*') ? 'active' : ''}} ">
                                 <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
                                 <p>Project </p>
                               </a>
                         </li>
                
                       <li class="nav-item">
-                      <a href="{{route('user_list.index')}}" class="nav-link ">
+                      <a href="{{route('user_list.index')}} " class="nav-link {{Request::is('user/list') ? 'active' : ''}}">
                             <i class="fas fa-users nav-icon" style="font-size: 15px;"></i>
                             <p>Pegawai</p>
                           </a>
                       </li>
 
                       <li class="nav-item">
-                          <a href="{{route('user_list.indexBagian')}}" class="nav-link ">
+                          <a href="{{route('user_list.indexBagian')}}" class="nav-link {{Request::is('user/list_bagian') ? 'active' : ''}}">
                                 <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
                                 <p>Subdirektorat</p>
                               </a>
@@ -116,8 +116,8 @@
                   </p>
                 </a>
               </li>
-             <li class="nav-item has-treeview ">
-              <a href="#" class="nav-link ">
+             <li class="nav-item has-treeview {{Request::is('disposisi/*') ? 'menu-open' : ''}}">
+              <a href="#" class="nav-link {{Request::is('disposisi/*') ? 'active' : ''}}">
                 
                   <i class="nav-icon far fa-envelope"></i>
                 <p>
@@ -128,7 +128,7 @@
               <ul class="nav nav-treeview">
            
                   <li class="nav-item">
-                  <a href="{{route('disposisi.masuk')}}" class="nav-link ">
+                  <a href="{{route('disposisi.masuk')}}" class="nav-link {{Request::is('disposisi/masuk') ? 'active' : ''}}">
                         <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
                         <p>Masuk</p>
                       </a>
@@ -136,7 +136,7 @@
              
               
                 <li class="nav-item">
-                <a href="{{route('disposisi.diteruskan')}}" class="nav-link ">
+                <a href="{{route('disposisi.diteruskan')}}" class="nav-link {{Request::is('disposisi/diteruskan') ? 'active' : ''}}">
                     <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
                     <p>Terkirim</p>
                   </a>
@@ -171,8 +171,8 @@
               </ul>        
             </li>
           
-            <li class="nav-item has-treeview {{Request::is('paket') ? 'menu-open' : ''}}">
-                <a href="#" class="nav-link {{Request::is('paket') ? 'active' : ''}}">
+            <li class="nav-item has-treeview {{Request::is('paket') ? 'menu-open' : Request::is('paket/*') ? 'menu-open' : ''}}">
+                <a href="#" class="nav-link {{Request::is('paket') ? 'active' : Request::is('paket/*') ? 'active' : ''}}">
                   
                     <i class="nav-icon fas fa-box" ></i>
                   <p>

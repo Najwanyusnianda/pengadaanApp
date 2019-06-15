@@ -17,7 +17,7 @@ class CreateDisposisiDetailsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedInteger('source_id')->nullable();
             $table->string('konten');
-            $table->string('status')->nullable();
+            $table->string('type')->nullable();
             $table->unsignedInteger('permintaan_id');
             $table->timestamps();
         });

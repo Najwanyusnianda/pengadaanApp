@@ -47,7 +47,7 @@ class PaketController extends Controller
         //dd($id);
 
         //check true
-        $spek=SpekHpsItem::where('paket_id',$paket->id)->get();
+        /*$spek=SpekHpsItem::where('paket_id',$paket->id)->get();
         $spek=count($spek);
         $is_not_hps=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga')->get();
         $is_not_hps=count($is_not_hps);
@@ -62,7 +62,15 @@ class PaketController extends Controller
         ->with('penyedia',$penyedia)
         ->with('is_not_hps',$is_not_hps)
         ->with('is_spek',$spek)
-        ->with('is_not_penawaran',$is_not_penawaran);
+        ->with('is_not_penawaran',$is_not_penawaran);*/
+        $spesifikasi=SpekHpsItem::where('paket_id',$id)->get();
+        $paket_penanggung_jawab=Paket::where('pakets.id',$id)
+        ->join('people AS ppk','pakets.ppk_id','ppk.id')->join('people AS pp','pakets.pp_id','pp.id')
+        ->select('ppk.nama AS nama_ppk','ppk.nip AS nip_ppk','pp.nama AS nama_pp','pp.nip AS nip_pp')->first();
+        return view('Paket.detail_paket')
+        ->with('paket',$paket)
+        ->with('spesifikasi',$spesifikasi)
+        ->with('pj',$paket_penanggung_jawab);
     }
 
     public function persiapan($id){
@@ -166,6 +174,33 @@ class PaketController extends Controller
 
     }
 
+    public function penanggungJawab($id){
+        $paket=Paket::find($id);
+            
+        $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
+
+        $project=Project::where('id',$permintaan->project_id)->first();
+        $ppk=ProjectEnrollment::where('project_id',$project->id)->where('id_role',3)
+        ->join('jabatan_ppks','project_enrollments.jabatan_id','jabatan_ppks.id')
+        ->join('people','project_enrollments.person_id','people.id')
+        ->select('people.id AS id_pegawai','people.nama','people.nip','jabatan_ppks.*')
+        ->get();
+        $pp=ProjectEnrollment::where('project_id',$project->id)->where('id_role',2)
+        ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')
+        ->join('people','project_enrollments.person_id','people.id')
+        ->select('people.id AS id_pegawai','people.nama','people.nip','jabatan_pps.*')
+        ->get();
+        
+        
+        
+        $paket=Paket::find($id);
+        return view('Paket.pj')
+        ->with('paket',$paket)
+        ->with('ppk',$ppk)
+        ->with('pp',$pp);
+
+    }
+
     public function penanggungJawabForm(){
        // $project_active=Project::where('is_active',true)->first();
         //$project_enroll=ProjectEnrollment::where('project_id',$project_active->id)->get();
@@ -176,11 +211,14 @@ class PaketController extends Controller
     }
 
     public function pjStore($id,Request $request){
+     
         $paket=Paket::find($id);
         $paket->update([
-            'ppk_id'=>$request->ppk,
-            'pp_id'=>$request->pp
+            'ppk_id'=>$request->ppk_id,
+            'pp_id'=>$request->pp_id
         ]);
+
+        
         /*$paket=Paket::create([
             'permintaan_id'=>$request->permintaan_id,
             'ppk_id'=>$request->ppk,
@@ -197,6 +235,7 @@ class PaketController extends Controller
         $paket->update([
             'paket_storage'=>$store_link
         ]);*/
+        return redirect()->back();
     }
 
     public function storeKak(Request $request){
@@ -391,6 +430,7 @@ class PaketController extends Controller
     }
 
     public function formPembukaanPenawaran($id){
+        
         
         return view('Paket.Penawaran.form_pembukaan_penawaran');
 

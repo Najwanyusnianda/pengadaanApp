@@ -10,7 +10,7 @@
                 <div class="card shadow-lg" style="font-family:Roboto,sans-serif">
                     <div class="card-header" class="justify-content-between" style="background-color:#566787;color:white;">
                        
-                            Daftar disposisi masuk
+                            Daftar Surat masuk
                      
                         <div class="card-tools float-right">
                                 {{$disposisi_masuk->links()}}
@@ -24,7 +24,7 @@
                             <thead>
                                 <tr style="font-family:Valera Round, sans-serif;color:#566787;font-size:13px;" >
                                     <th colspan="2">Surat</th>
-                                    <th>status</th>
+                                    <th>Jenis</th>
                                     <th>Tgl.Terima</th>
 
                                 </tr>
@@ -49,7 +49,7 @@
                                                 
                                             <p style="color:gray"><small>nomor: <strong>{{$data->nomor_form}}</strong> </small> </p>
                                         </td> 
-                                        <td>belum dibaca</td>
+                                    <td>{{$data->type}}</td>
                                         <td>{{\Carbon\Carbon::parse($data->created_at)->format('l, d F Y H:i')}}</td>
                                         
                                        

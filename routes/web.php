@@ -74,9 +74,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     #-------------------------------
     //Paket
-    Route::get('/paket/pejabat_form','PaketController@penanggungJawabForm')->name('pejabat.form');
     Route::get('/paket','PaketController@index')->name('paket.index');
     Route::get('/paket/{person}','PaketController@indexMe')->name('paket.index.me');
+
+    //pj
+    Route::get('/paket/{id}/pj','PaketController@penanggungJawab')->name('paket.pj');
+    Route::get('/paket/pejabat_form','PaketController@penanggungJawabForm')->name('pejabat.form');
+ 
 
     Route::get('/table/paket','PaketController@paketTable')->name('table.paket');
     //Route::get('/paket/detail/{id}','PaketController@detailTemp');

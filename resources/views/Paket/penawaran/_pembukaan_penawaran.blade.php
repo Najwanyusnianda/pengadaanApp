@@ -22,28 +22,6 @@
                                     </td>
                                     <td>Lengkap</td>
                                 </tr>
-                                <tr>
-                                    <td>Penawaran Harga</td>
-                                    <td>Lengkap</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Surat Kuasa</td>
-                                    <td>-</td>
-                                    <td>Lengkap</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Pakta Integritas</td>
-                                    <td>-</td>
-                                    <td>Lengkap</td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>Form Isian Kualifikasi</td>
-                                    <td>-</td>
-                                    <td>Lengkap</td>
-                                </tr>
                             </tbody>
                         </table>
             </div>

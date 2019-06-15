@@ -14,7 +14,7 @@ class CreateEvaluasisTable extends Migration
     public function up()
     {
         Schema::create('evaluasis', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->string('id',2)->primary();
             $table->string('nama_evaluasi');
             $table->timestamps();
         });

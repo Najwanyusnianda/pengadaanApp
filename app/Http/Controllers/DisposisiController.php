@@ -30,45 +30,6 @@ class DisposisiController extends Controller
 
     
 
-    public function store_temp(Request $request){
-        $user_id=auth()->user()->id;
-        $pengirim=Person::where('user_id','=',$user_id)->first();
-        //if kulp
-        if(auth()->user()->person->role->id == 4){
-            $disposisi=Disposisi::create([
-                'pengirim_id'=>$pengirim->id,
-                'penerima_id'=>$request->penerima,
-                'uraian'=>$request->uraian,
-                'permintaan_id'=>$request->permintaan_id,
-              
-            ]);
-            
-            $permintaan=Permintaan::find($disposisi->permintaan_id);
-            $permintaan->disposisi_status='disposisi';
-            $permintaan->save();
-        }//if kasi
-        elseif(auth()->user()->person->role->id == 5){
-            $permintaanId =$request->permintaan_id;
-            $disposisi=Disposisi::where('permintaan_id',$permintaanId)->first();
-            
-            $disposisi_staff=DisposisiStaff::create([
-                'disposisi_id'=>$disposisi->id,
-                'pengirim_id'=>$pengirim->id,//bisa dihapus
-                'penerima_id'=>$request->penerima,
-                'uraian'=>$request->uraian,
-              
-            ]);
-
-            $permintaan=Permintaan::find($disposisi->permintaan_id);
-            $permintaan->disposisi_status='dikerjakan';
-            $permintaan->save();
-
-        }
-
-        
-        return redirect()->back();
-
-    }
 
 
     public function store(Request $request){
@@ -79,7 +40,9 @@ class DisposisiController extends Controller
         
         $disposisi_detail=DisposisiDetail::create([
             'konten'=>$request->uraian,
+            'type'=>'disposisi',
             'permintaan_id'=>$request->permintaan_id,
+
         ]);
         
         for ($index = 0; $index < count($request->penerima) ; $index++) {

@@ -15,7 +15,7 @@ class CreateEvaluasiKriteriasTable extends Migration
     {
         Schema::create('evaluasi_kriterias', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('id_evaluasi');
+            $table->string('id_evaluasi',2);
             $table->string('nama_kriteria');
             $table->timestamps();
         });

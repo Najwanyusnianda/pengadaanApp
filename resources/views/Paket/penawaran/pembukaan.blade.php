@@ -1,19 +1,35 @@
 @extends('Admin.layout')
 
 @section('konten')
-<div class="container mt-5">
-        <div class="col-md-8" style="width:50%;margin:auto;">
+<div class="container ">
+                <div class="row-md-8">
+                                <nav aria-label="breadcrumb ">
+                                   
+                                    <ol class="breadcrumb arr-right bg-info ">
+                                   
+                                      <li class="breadcrumb-item "><a href="#" class="text-light">Paket</a></li>
+                                   
+                                      <li class="breadcrumb-item text-light active " aria-current="page">Pembukaan, Evaluasi, Klarifikasi dan Negosiasi Teknis</li>
+                                   
+                                   
+                                    </ol>
+                                   
+                                </nav>
+                </div>
+        <div class="col-md-8 mt-5" style="width:50%;margin:auto;">
             <div class="row-md-8">
                     <div class="card card-outline card-info shadow p-2" style="font-family:QuickSand;font-size:12px; ">
                             <div class="card-header text-center" style="font-size:16px;">
-                                Pembukaan, Evaluasi, Klarifikasi dan Negosiasi Teknis
+                                Pembukaan, Evaluasi, Klarifikasi dan Negosiasi Teknis dan Harga
                                 <hr>
                             </div>
         
                           
                                 <div class="list-group ">
-                                        <li  class="list-group-item list-group-item-action">Klarifikasi dan Negosisasi Teknis dan Harga <a href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}" class="badge badge-info float-right">buat</a></li>
-                                        <li  class="list-group-item list-group-item-action">Pembukaan, Evaluasi, Klarifikasi, Negosiasi Penawaran <a href="{{route('paket.detail.pembukaan_evaluasi',['id'=>$paket->id])}}" class="badge badge-info float-right">buat</a></li>
+                                        <a  class="list-group-item list-group-item-action" href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}">Klarifikasi dan Negosisasi Teknis dan Harga</a>
+                                        <a  class="list-group-item list-group-item-action" href="{{route('paket.detail.pembukaan_evaluasi',['id'=>$paket->id])}}">Pembukaan Penawaran</a>
+                                        <a  class="list-group-item list-group-item-action" href="{{route('paket.detail.pembukaan_evaluasi',['id'=>$paket->id])}}">Evaluasi Administrasi, Teknis dan Harga</a>
+                                       
 
                                 </div>
                                 <br>
@@ -37,4 +53,22 @@
         </div>
 
     </div>
+@endsection
+
+@section('addStyle')
+    <style>
+    .arr-right .breadcrumb-item+.breadcrumb-item::before {
+ 
+ content: "›";
+
+ vertical-align:top;
+
+ color: #408080;
+
+ font-size:35px;
+
+ line-height:18px;
+
+}
+    </style>
 @endsection

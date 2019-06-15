@@ -129,7 +129,7 @@
                                 <hr>
                                 <div class="card-footer">
                                         <button type="submit" class="btn btn-success">Simpan</button>
-                                        <a href="{{route('paket.index')}}" class="btn btn-link btn-outline-primary"> Kembali</a>
+                                        <a href="{{route('paket.pembukaan',[$id_paket])}}" class="btn btn-link btn-outline-primary"> Kembali</a>
                                 </div>
                                 
                         </form>

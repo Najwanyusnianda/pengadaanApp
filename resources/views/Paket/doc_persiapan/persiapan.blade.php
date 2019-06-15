@@ -1,8 +1,22 @@
 @extends('Admin.layout')
 
 @section('konten')
-    <div class="container mt-5">
-        <div class="col-md-8" style="width:50%;margin:auto;">
+    <div class="container">
+            <div class="row-md-8">
+                    <nav aria-label="breadcrumb ">
+                       
+                        <ol class="breadcrumb arr-right bg-info ">
+                       
+                          <li class="breadcrumb-item "><a href="#" class="text-light">Paket</a></li>
+                       
+                          <li class="breadcrumb-item text-light active " aria-current="page">Dokumen Persiapan Pengadaan</li>
+                       
+                       
+                        </ol>
+                       
+                    </nav>
+                </div>
+        <div class="col-md-8 mt-5" style="width:50%;margin:auto;">
             <div class="row-md-8">
                     <div class="card card-outline card-info shadow p-2" style="font-family:QuickSand;font-size:12px; ">
                             <div class="card-header text-center" style="font-size:16px;">
@@ -12,56 +26,27 @@
         
                           
                                 <div class="list-group ">
-                                    <li class="list-group-item">
-                                        @if ($is_spek >0)
-                                        <i class="fas fa-check-circle mr-2 text-success"></i> 
-                                        @else
-                                      
-                                        @endif                                
-                                        Spesifikasi Teknis 
-                                        @if (auth()->user()->person->role->id == 3)
-                                        @if ($is_spek >0)
-                                        <a href="{{route('paket.detail.spek',['id'=>$paket->id])}}">
-                                                <span class="badge badge-secondary float-right">edit</span>
-                                        </a>
-                                        @else
-                                        <a href="{{route('paket.detail.spek',['id'=>$paket->id])}}">
-                                                <span class="badge badge-secondary float-right">buat spesifikasi</span>
-                                        </a>
-                                        @endif    
-
-                                        
-                                        @endif
-                                        
-                                    </li>
-                                    <li href="#" class="list-group-item ">
-                                        @if ($is_not_hps >0)
-                                        <i class="fas fa-check-circle mr-2 text-success"></i>
-                                        @else
-                                        
-                                        @endif
+                                    <a href="{{route('paket.detail.spek',['id'=>$paket->id])}}" class="list-group-item list-group-item-action">      
+                                        Spesifikasi Teknis                            
+  
+                                    </a>
+                                    <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}" class="list-group-item list-group-item-action">
                                             
                                         HPS :
                                         @if ($paket->total_hps)
-                                        Rp.<a href="" style="color:#566787;font-family:'Courier New', Courier, monospace"><strong>  {{ number_format($paket->total_hps,0,',','.')}}</strong></a>
-                                        @endif
-                                        @if (auth()->user()->person->role->id == 3)
-                                        @if ($is_not_hps >0)
-                                        <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}"><span class="badge badge-secondary float-right">edit rincian</span></a>
-                                        @else
-                                        <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}"><span class="badge badge-secondary float-right">buat rincian</span></a>
-                                        @endif
-                                        
-                                        @endif
+                                        Rp.<span  style="color:#566787;font-family:'Roboto">
+                                            <strong>  {{ number_format($paket->total_hps,0,',','.')}}</strong>
+                                            </span>
                                             
-                                    </li>
-                                    <li class="list-group-item ">Kerangka Acuan Kerja</li>
-                                    <li class="list-group-item ">Rancangan Kontrak</li>
+                                        @endif
+
+                                            
+                                    </a>
                                 </div>
                                 <br>
                                 <hr>
                                 <div class="list-group">
-                                        <li class="list-group-item ">Surat Permohonan Pengadaan <button class="btn btn-secondary btn-sm float-right" id="permohonan_show">Kirim</button></li>
+                                        <button class="list-group-item list-group-item-action" id="Permohonan">Kirim Permohonan Pengadaan </button>
                                         
                                 </div>
                         </div>
@@ -69,9 +54,9 @@
             </div>
 
             <div class="row-md-8">
-                    <div class="card ">
-                        <div class="col-3 float-left ml-3 pt-2 pb-2 ">
-                        <a href="{{route('paket.index')}}" class="btn btn-outline-info"> Kembali</a>    
+                    <div class="card shadow">
+                        <div class="col-3 float-left ml-3 pt-1 pb-2 ">
+                        <a href="{{route('paket.detail',[$paket->id])}}" class="btn btn-outline-info"> Kembali</a>    
     
                         </div>
                         
@@ -84,10 +69,23 @@
 
 @section('addStyle')
     <style>
-        ul.list-group:after {
+ul.list-group:after {
   clear: both;
   display: block;
   content: "";
+}
+.arr-right .breadcrumb-item+.breadcrumb-item::before {
+ 
+ content: "›";
+
+ vertical-align:top;
+
+ color: #408080;
+
+ font-size:35px;
+
+ line-height:18px;
+
 }
 
 
