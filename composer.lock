@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ad2ac0dc3c70de598a89366fac204378",
+    "content-hash": "6dc5bebd92dc580c2d733ada704be229",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -2174,6 +2174,46 @@
                 "uuid"
             ],
             "time": "2018-07-19T23:38:55+00:00"
+        },
+        {
+            "name": "rkorebrits/htmltoopenxml",
+            "version": "0.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rkorebrits/HTMLtoOpenXML.git",
+                "reference": "ee2635beb4422f288acdec21f465dfec8ac2d58d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rkorebrits/HTMLtoOpenXML/zipball/ee2635beb4422f288acdec21f465dfec8ac2d58d",
+                "reference": "ee2635beb4422f288acdec21f465dfec8ac2d58d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 || ^7.0 || ^7.1 || ^7.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HTMLtoOpenXML\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Richard Korebrits",
+                    "email": "richard@korebrits.com"
+                }
+            ],
+            "description": "Convert HTML to OpenOfficeXML",
+            "keywords": [
+                "OOXML",
+                "html"
+            ],
+            "time": "2018-09-19T12:15:52+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",

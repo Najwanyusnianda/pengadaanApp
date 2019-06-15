@@ -120,6 +120,7 @@ Route::group(['middleware' => ['auth']], function () {
     #-------------------------------
     //berkas
     Route::get('berkas/{id}/bahps','BerkasController@generateBahps')->name('doc.bahps');
+    Route::get('berkas/{id}/hps','BerkasController@generateHps')->name('doc.hps');
     Route::get('berkas/{id}/spek_teknis','BerkasController@generateSpesifikasi')->name('doc.spekTeknis');
     Route::get('berkas/{id}/permohonan','BerkasController@generatePermohonanPengadaan')->name('doc.permohonan');
     Route::get('berkas/{id}/undangan','BerkasController@generateUndanganPengadaan')->name('doc.undangan');

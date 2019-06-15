@@ -99,21 +99,21 @@
                           <td>Spesifikasi Teknis</td>
                           <td>
                             <button class="btn btn-outline-secondary btn-sm shadow"> Preview </button>
-                            <button class="btn btn-outline-secondary btn-sm shadow">Download </button>
+                            <a class="btn btn-outline-secondary btn-sm shadow" href="{{route('doc.spekTeknis',['id'=>$paket->id])}}">Download </a>
                           </td>
                         </tr>
                           <tr>
                             <td>Berita Acara HPS</td>
                             <td>
                               <button class="btn btn-outline-secondary btn-sm shadow"> Preview </button>
-                              <button class="btn btn-outline-secondary btn-sm shadow">Download </button>
+                              <a class="btn btn-outline-secondary btn-sm shadow" href={{route('doc.bahps',['id'=>$paket->id])}}>Download </a>
                             </td>
                           </tr>
                           <tr>
-                              <td>Surat Permohonan Pengadaan Langsung</td>
+                              <td>HPS</td>
                               <td>
                                 <button class="btn btn-outline-secondary btn-sm shadow"> Preview </button>
-                                <button class="btn btn-outline-secondary btn-sm shadow">Download </button>
+                                <a class="btn btn-outline-secondary btn-sm shadow" href={{route('doc.hps',['id'=>$paket->id])}}>Download </a>
                               </td>
                             </tr>
                       </tbody>
@@ -131,10 +131,39 @@
             </div>
             <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;color:#566787;">
                 <div class="div">
-                    <a class="btn btn-outline-info btn-sm " href="#" role="button"><i class="fas fa-plus"></i> <small>Buat Dokumen Persiapan</small></a>
+                    <a class="btn btn-outline-info btn-sm mb-2" href="#" role="button"><i class="fas fa-plus"></i> <small>Buat Dokumen Pengadaan</small></a>
                     <div class="table-responsive">
                         <table class="table table-condensed table-hover">
-                      
+                            <thead>
+                              <tr>
+                                  <th>Dokumen</th>
+                                  <th>Aksi</th>
+                              </tr>
+      
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>Undangan Pengadaan Langsung</td>
+                                <td>
+                                  <button class="btn btn-outline-secondary btn-sm shadow"> Preview </button>
+                                  <button class="btn btn-outline-secondary btn-sm shadow">Download </button>
+                                </td>
+                              </tr>
+                                <tr>
+                                  <td>Instruksi Kepada Peserta (IKP)</td>
+                                  <td>
+                                    <button class="btn btn-outline-secondary btn-sm shadow"> Preview </button>
+                                    <button class="btn btn-outline-secondary btn-sm shadow">Download </button>
+                                  </td>
+                                </tr>
+                                <tr>
+                                    <td>Lembar Data Pengadaan (LDP)</td>
+                                    <td>
+                                      <button class="btn btn-outline-secondary btn-sm shadow"> Preview </button>
+                                      <button class="btn btn-outline-secondary btn-sm shadow">Download </button>
+                                    </td>
+                                  </tr>
+                            </tbody>
                           </table>
                     </div>
 
