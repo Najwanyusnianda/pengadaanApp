@@ -63,6 +63,7 @@ class PaketController extends Controller
         ->with('is_not_hps',$is_not_hps)
         ->with('is_spek',$spek)
         ->with('is_not_penawaran',$is_not_penawaran);*/
+        $jadwal_pengadaan=JadwalKegiatanPengadaan::where('paket_id',$id)->get();
         $spesifikasi=SpekHpsItem::where('paket_id',$id)->get();
         $paket_penanggung_jawab=Paket::where('pakets.id',$id)
         ->join('people AS ppk','pakets.ppk_id','ppk.id')->join('people AS pp','pakets.pp_id','pp.id')
@@ -70,7 +71,8 @@ class PaketController extends Controller
         return view('Paket.detail_paket')
         ->with('paket',$paket)
         ->with('spesifikasi',$spesifikasi)
-        ->with('pj',$paket_penanggung_jawab);
+        ->with('pj',$paket_penanggung_jawab)
+        ->with('jadwal_pengadaan',$jadwal_pengadaan);
     }
 
     public function persiapan($id){
@@ -215,7 +217,8 @@ class PaketController extends Controller
         $paket=Paket::find($id);
         $paket->update([
             'ppk_id'=>$request->ppk_id,
-            'pp_id'=>$request->pp_id
+            'pp_id'=>$request->pp_id,
+            'status'=>"jadwal_pengadaan"
         ]);
 
         
@@ -235,6 +238,7 @@ class PaketController extends Controller
         $paket->update([
             'paket_storage'=>$store_link
         ]);*/
+        $request->session()->flash('success','Penanggungjawab telah ditambahkan');
         return redirect()->back();
     }
 
@@ -291,7 +295,8 @@ class PaketController extends Controller
             };
         }
   
-        return redirect()->route('paket.jadwal',[$id_paket]);
+        //return redirect()->route('paket.jadwal',[$id_paket]);
+        return redirect()->back();
     }
 
     public function jadwalIndex($id){
@@ -332,7 +337,9 @@ class PaketController extends Controller
                'nomor_kegiatan'=>$request->nomor[$i]
            ]);
        }
-       return redirect()->route('paket.detail',['id'=>$id]);
+       //return redirect()->route('paket.detail',['id'=>$id]);
+       $request->session()->flash('success','Jadwal Pengadaan Telah berhasil di buat');
+       return redirect()->back();
     }
 
 
@@ -349,7 +356,8 @@ class PaketController extends Controller
             'email'=>$request->email_penyedia,
             'telepon'=>$request->telp_penyedia,
             'alamat'=>$request->alamat_penyedia,
-            'nama_pimpinan'=>$request->nama_pimpinan
+            'nama_pimpinan'=>$request->nama_pimpinan,
+            'jabatan_pimpinan'=>$request->jabatan_pimpinan
         ]);
 
         $paket=Paket::find($id);
@@ -514,7 +522,8 @@ class PaketController extends Controller
         $evaluasiHarga=EvaluasiKriteria::where('id_evaluasi','EH')->get();
         $evaluasiTeknis=EvaluasiKriteria::where('id_evaluasi','ET')->get();
 
-
+      
+        
         return view('Paket.Penawaran.form_evaluasi_paket')
         ->with('id_paket',$id_paket)
         ->with('administrasi',$evaluasiAdministrasi)
@@ -526,6 +535,7 @@ class PaketController extends Controller
         ->with('eval_kualifikasi',$paketKualifikasi)
         ->with('eval_harga',$paketHarga)
         ->with('eval_teknis',$paketTeknis);
+    
 
     }
 

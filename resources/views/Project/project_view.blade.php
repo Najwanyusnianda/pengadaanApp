@@ -2,21 +2,21 @@
 
 @section('konten')
     <div class="container">
-      <div class="col">
+      <div class="col-md-8" style="margin:auto;">
           <div class="row-md-8">
 
           </div>
-          <div class="row-md-12">
+          <div class="row-md-8">
               <div class="card shadow p-3">
                   <div class="card-header">
                    
                       <button type="button" id="add_Project" class="btn btn-primary float-right" style="margin-right: 5px;">
-                            <i class="fa fa-download"></i> Tambah Project
+                            <i class="fas fa-plus"></i> Tambah Project
                           </button>
                   </div>
                   <div class="card-body">
                         <div class="table-responsive">
-                                <table class="table" id="project_table">
+                                <table class="table table-condensed" id="project_table" style="font-family:Arial, Helvetica, sans-serif">
                                       <thead>
                                           <tr>
                                               <th>#</th>
@@ -61,6 +61,7 @@
             </div>
         </div>
 @endsection
+
 
 
 @section('addScript')
@@ -198,6 +199,17 @@
             border: none;
             white-space: normal;
             }
+        
+            th{
+        font-weight: 600;
+        font-family: 'Roboto';
+        font-size:13px;
+    }
+
+    td{
+        font-size: 12px;
+        font-family: 'Segoe UI';
+    }
 
     </style>
 @endsection

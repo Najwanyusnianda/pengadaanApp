@@ -3,20 +3,39 @@
 
 @section('konten')
     <div class="container">
-        <div class="card shadow-lg">
-            <div class="card-header" style="color:white;background-color:#566787;">
-                Jadwal Pengadaan Barang/Jasa : <strong>{{$judul}}</strong>
+            @if(Session::has('success'))
+    <div class="alert alert-success" role="alert">{{session('success')}}</div>
+    @endif
+    <div class="row-md-8">
+            <nav aria-label="breadcrumb ">
+               
+                <ol class="breadcrumb arr-right" style="background-color:#2c3e50">
+               
+                  <li class="breadcrumb-item "><a href="{{route('paket.index')}}" class="text-light">Paket</a></li>
+               
+                  <li class="breadcrumb-item "><a href="{{route('paket.detail',[$id_paket])}}" class="text-light">Paket detail</a></li>
+               
+                  <li class="breadcrumb-item text-light active" aria-current="page">Jadwal Pengadaan</li>
+               
+                </ol>
+               
+            </nav>
+        </div>
+        <div class="card shadow-lg col-md-8 card-primary card-outline mx-auto">
+            <div class="card-header" style="font-family:Roboto">
+              <h5>Jadwal Pengadaan Barang/Jasa :
+                  <p><strong>{{$judul}}</strong></p> </h5>  
             </div>
             <form action="{{route('paket.jadwal.store',['id'=>$id_paket])}}" method="POST">
                 {{ csrf_field() }}
                 <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered">
+                                <table class="table table-condensed" style="font-size:13px;font-family:'Varela Round'">
                                     <thead>
                                             <tr>
                                                 <th>Nama Kegiatan</th>
                                                 <th>Jadwal</th>
-                                                <th>Nomor</th>
+                                                
                                             </tr>
                                     </thead>
                           
@@ -26,7 +45,7 @@
                                             <tr>
                                                 <td> </td>
                                                 <td></td>
-                                                <td></td>
+                                                
                                             </tr>
                                             @forelse ($kegiatan_pengadaan as $data)
 
@@ -39,11 +58,7 @@
                                                                     <input type="date" data-id={{$data->kode_kegiatan_p}} class="form-control jadwal"  name="jadwal[]" placeholder="dd - m - yyyy" value="{{$data->jadwal_kegiatan ?? ''}}">
                                                             </div>
                                                     </td>
-                                                    <td>
-                                                            <div class="form-group" >
-                                                            <input type="text" class="form-control nomor_kegiatan"  readonly="readonly" name="nomor[]" value="{{$data->nomor_kegiatan ?? ''}}">
-                                                            </div>
-                                                    </td>
+
                                                 </tr>
 
                                             @empty
@@ -71,12 +86,13 @@
 @endsection
 
 
+
 @section('addScript')
 <script src="{{asset('assets/flatpickr/flatpickr.js')}}">
 </script>
         <script>
 
-            var nomorFunction=function(kode_ppk,kode_pp,kode_tanggal,kode_kegiatan,tahun,kode_kegiatan_p){
+            /*var nomorFunction=function(kode_ppk,kode_pp,kode_tanggal,kode_kegiatan,tahun,kode_kegiatan_p){
                 var nomor;
                 if(kode_kegiatan_p =="OE"){
                     nomor=kode_ppk+"/"+kode_kegiatan+"/"+kode_tanggal+"/"+kode_kegiatan_p+"/"+tahun
@@ -87,73 +103,25 @@
                 }
 
                 return nomor;
-            }
-
-            $(document).ready(function(){
-            var dat=$("input[type='date']").flatpickr({
+            }*/
+$(document).ready(function(){
+    var dat=$("input[type='date']").flatpickr({
             altInput: true,
             altFormat: " d/m/Y",
             dateFormat: "Y-m-d",
-            })
+            "disable": [
+                    function(date) {
+                        // return true to disable
+                        return (date.getDay() === 0 || date.getDay() === 6);
 
-
-            $('body').on('change','.jadwal',function(e){
-                me=$(this)
-              	var nomor_func=me.parent().parent().parent().find('.nomor_kegiatan');
-                var kode_ppk="{{$ppk->kode_jabatan}}"
-                var kode_pp="{{$pp->kode_jabatan}}"
-                var kode_kegiatan_p=me.attr('data-id');
-                var kode_kegiatan="{{$kode_kegiatan}}"
-
-                //console.log(kode_ppk,kode_pp);  
-
-                    var tanggal=me.val();
-                    var array_tanggal=tanggal.split("-");
-                    var tahun=array_tanggal[0];
-                var kode_tanggal=function(me){
-                    var tanggal=me.val();
-                    var array_tanggal=tanggal.split("-");
-
-                    var tahun=array_tanggal[0];
-                    var bulan=array_tanggal[1];
-                    var hari=array_tanggal[2];
-
-                    var kode_tanggal=hari+"."+bulan+"."+"01";
-                    return kode_tanggal;
+                    }
+                ],
+                "locale": {
+                    "firstDayOfWeek": 1 // start week on Monday
                 }
-                
-                var kode_tgl=kode_tanggal(me)
-
-                var nomor= nomorFunction(kode_ppk,kode_pp,kode_tgl,kode_kegiatan,tahun,kode_kegiatan_p)
-                
-                nomor_func.val(nomor);
-                /*var addzero=function(number){
-                    if(number<10){
-                        return "0"+number;
-                    }else{
-                        return number
-                    }
-                }*/
-
-                /*var getindexTanggalkode=function(){
-                    var index_kode;
-                    var jadwalArray = $('input.form-control.jadwal.flatpickr-input.input').map(function() {
-                    return this.value;
-                    }).get();
-                    for (let i = 0; i < jadwalArray.length; i++) {
-                        for (let j = 0; j < jadwalArray.length; j++){
-                            if(i<j){
-                                if(jadwalArray[i]==jadwalArray[j]){
-                                    
-                                }
-                            }
-                        }
-                        
-                    }
-                }*/
-
             });
-            });
+})
+
 
 
 
@@ -169,6 +137,13 @@ td{
     height: ;
 
 }
+.flatpickr-input {
+                background-color: white !important;
+            }
+        .form-control{
+            font-size: 11px;
+        } 
 
 </style>
+
 @endsection

@@ -2,8 +2,8 @@
 
 @section('konten')
 <div class="container-fluid">
-    <div class="col-md-12">
-        <div class="row-md-8">
+    <div class="col-md-8" style="margin:auto;">
+        <!--<div class="row-md-8">
             <div class="card ">
                 <div class="card-header">
                     <div class="row">
@@ -26,12 +26,21 @@
                 </div> 
 
             </div> 
-        </div> 
+        </div> -->
      <!-- END OF PILLS --> 
 
 
-        <div class="row-md-8 shadow-lg justify-content-center align-content-center">
-            <div class="card">  
+        <div class="row-md-8  " >
+            <div class="card shadow" >  
+                <div class="card-header">
+                        <div class="" id="register-item" style="font-family:Roboto;">
+                                Daftar Pegawai
+                                <a class="btn  btn-primary float-right"  id="register-show" style="color:white" role="button">
+                                        <i class="fas fa-user-plus"></i>
+                                        Tambah Pengguna
+                                </a>
+                        </div>
+                </div>
                     @include('User._user_semua')
                <!-- <div class="tab-content m-2 p-2" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab">

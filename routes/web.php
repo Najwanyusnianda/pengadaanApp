@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     #-------------------------------   
     Route::get('/dashboard','DashboardController@getDashboard')->name('dashboard');
+    Route::get('/notifikasi','NotificationController@index')->name('notif');
     #-------------------------------  
     //permintaan
 
@@ -166,6 +167,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/project/form','ProjectController@form')->name('project.form');
     Route::get('/project/{id}/enrollment','ProjectController@enroll')->name('project.enrollment');
     Route::get('/table/project','ProjectController@tableProject')->name('table.project');
+    Route::get('/available/user/{id}/ulp','ProjectController@ulp_available');
     Route::get('/available/user/{id}/pp','ProjectController@pp_available');
     Route::get('/available/user/{id}/ppk','ProjectController@ppk_available');
 

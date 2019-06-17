@@ -38,18 +38,20 @@
                                         </td>
                                         <td>
                                                 
-                                                @if (!count($eval_adm)>0)
-                                                                <div class="custom-control custom-checkbox">        
+                                                @if (count($eval_adm)>0)
+                                                <div class="custom-control custom-checkbox">        
                                                                 <input class="kelengkapan" readonly  type='hidden' value="{{$eval_adm[$key]->hasil_evaluasi=="1" ? "1" : "0"}}" name='syarat_verifikasi[]'>
-                                                                <input type="checkbox" class="custom-control-input check_lengkap" id="administrasi{{$key+1}}" name="check_syarat[]" value="1" >
-                                                                <label class="custom-control-label" for="administrasi{{$key+1}}">Memenuhi Syarat</label>
-                                                                </div>
-                                                @else
-                                                                <div class="custom-control custom-checkbox">        
-                                                                <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
                                                                 <input type="checkbox" class="custom-control-input check_lengkap" id="administrasi{{$key+1}}" name="check_syarat[]" value="1" {{$eval_adm[$key]->hasil_evaluasi=="1" ? "checked" : ""}}>
                                                                 <label class="custom-control-label" for="administrasi{{$key+1}}">Memenuhi Syarat</label>
                                                                 </div>
+                                                @else
+                                             
+
+                                                                <div class="custom-control custom-checkbox">        
+                                                                                <input class="kelengkapan" readonly  type='hidden' value="0" name='syarat_verifikasi[]'>
+                                                                                <input type="checkbox" class="custom-control-input check_lengkap" id="administrasi{{$key+1}}" name="check_syarat[]" value="1" >
+                                                                                <label class="custom-control-label" for="administrasi{{$key+1}}">Memenuhi Syarat</label>
+                                                                                </div>
                                                 @endif
 
                                         </td>

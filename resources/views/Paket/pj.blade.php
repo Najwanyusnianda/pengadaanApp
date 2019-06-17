@@ -1,13 +1,17 @@
 @extends('Admin.layout')
 
 @section('konten')
+
 <div class="container ">
+    @if(Session::has('success'))
+    <div class="alert alert-success" role="alert">{{session('success')}}</div>
+    @endif
                 <div class="row-md-8">
                                 <nav aria-label="breadcrumb ">
                                    
                                     <ol class="breadcrumb arr-right bg-info ">
                                    
-                                      <li class="breadcrumb-item "><a href="#" class="text-light">Paket</a></li>
+                                    <li class="breadcrumb-item "><a href="#" class="text-light">Detail Paket</a></li>
                                    
                                       <li class="breadcrumb-item text-light active " aria-current="page">Penanggung Jawab</li>
                                    
@@ -31,10 +35,10 @@
                           
                                 <div class="list-group ">
                                         <li  class="list-group-item list-group-item-action" id="pp">Pejabat Pengadaan
-                                                <input type="text" readonly="readonly" name="pp_id" id="pp_id">
+                                                <input type="hidden" readonly="readonly" name="pp_id" id="pp_id">
                                         </li>
                                         <li  class="list-group-item list-group-item-action" id="ppk">PPK
-                                            <input type="text" readonly="readonly" name="ppk_id" id="ppk_id">
+                                            <input type="hidden" readonly="readonly" name="ppk_id" id="ppk_id">
                                         </li>
                                         
                                        

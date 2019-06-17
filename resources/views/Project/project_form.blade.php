@@ -1,7 +1,7 @@
-<div class="col" style="font-family:QuickSand;">
+<div class="col" style="font-family:'Roboto;">
     <hr>
         <div class="row-md-6 text-center">
-            <strong style="font-size:30px;">Project Baru</strong>
+            <strong style="font-size:14px;">Project Baru</strong>
         </div>
         <br>
         <br>

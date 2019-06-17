@@ -37,7 +37,7 @@
                             @if (count($paket)>0)
                                 @forelse ($paket as $data)
                                 <tr>
-                                    <td>
+                                    <td style="vertical-align:middle">
                                             <div class="btn-group" >
                                                     <button type="button" class="btn  btn-flat dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                                         <i class="fas fa-ellipsis-v"style="color:#3498db"></i>
@@ -45,25 +45,30 @@
                                                       <span class="sr-only">Toggle Dropdown</span>
                                                     </button>
                                                     <div class="dropdown-menu" style="font-size:10px;"role="menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(67px, 38px, 0px);">
-                                                        <a class="dropdown-item" href="{{route('paket.jadwal',['id'=>$data->id])}}">Buat Jadwal</a>
-                                                        <a class="dropdown-item" href="{{route('paket.detail',['id'=>$data->id])}}">Kelola Berkas</a>                                              <a class="dropdown-item" href="#">Something else here</a>
+                                                        <!--<a class="dropdown-item" href="{{route('paket.jadwal',['id'=>$data->id])}}">Buat Jadwal</a>-->
+                                                        <a class="dropdown-item" href="{{route('paket.detail',['id'=>$data->id])}}">Detail Paket</a>                                              <a class="dropdown-item" href="#">Something else here</a>
                                                       <div class="dropdown-divider"></div>
-                                                      <a class="dropdown-item" href="#">Separated link</a>
+                                                      <!--<a class="dropdown-item" href="#">Separated link</a>-->
                                                     </div>
                                                 </div>
                                     </td>
 
-                                    <td>
+                                    <td style="vertical-align:middle">
                                         
                                         {{$data->judul}}
                                     
                                         
                                     </td>
-                                    <td>
+                                    <td style="vertical-align:middle">
+                                    @if ($data->status=="pj")
+                                    <a href="{{route('paket.detail.penyedia',['id'=>$data->id])}}" class="badge badge-info">Pilih Penanggung jawab</a>
+                                    @else
                                     <a href="{{route('paket.persiapan',[$data->id])}}"><span class="badge badge-info">Dokumen Persiapan Pengadaan</span></a>
                                     <a href="{{route('paket.detail.penyedia',['id'=>$data->id])}}" class="badge badge-info">Pilih Calon Penyedia</a>
                                     <a href="{{route('paket.detail.jadwal_penawaran',['id'=>$data->id])}}" class="badge badge-info">Buat Jadwal Penawaran</a> 
                                     <a href="{{route('paket.pembukaan',['id'=>$data->id])}}" class="badge badge-info">Pembukaan, Evaluasi, Klarifikasi, dan Negosiasi Teknis </a>    
+                                    @endif
+               
                                 </td>
 
                                 </tr>

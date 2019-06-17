@@ -1,58 +1,208 @@
 @extends('Admin.layout')
 
 @section('header_name')
-<h2>User Management</h2>
-<h6>Project: <strong style="color:cornflowerblue">{{$project->nama}}</strong></h6>
-<div class="">
-    <button type="button" id="add_user_project" class="btn btn-info btn-sm ">
-        Tambahkan Pengguna 
-    </button>
-</div>
+
+
 @endsection
 @section('konten')
 <div class="container">
-  <div class="">
-      <div class="row-sm-6">
-          <div id="project_" project-id={{$project->id}}>
-              
-          </div>
-      </div>
-
-      <div class="row-6 ">
-     
-          <div class="card mt-1 p-1">
-              <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-ULP" role="tab" aria-controls="pills-ULP" aria-selected="true">ULP</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-PPK" role="tab" aria-controls="pills-PPK" aria-selected="false">PPK</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-PP" role="tab" aria-controls="pills-PP" aria-selected="false">PP</a>
-                  </li>
-              </ul>
-
-          </div>
-
-     
-
-      </div>
-      <div class="row-sm-6">
+    <div class="row-md-8">
+        <nav aria-label="breadcrumb ">
+           
+            <ol class="breadcrumb arr-right  " style="background-color:#2c3e50">
+           
+              <li class="breadcrumb-item "><a href="/project" class="text-light">Project</a></li>
+           
+              <li class="breadcrumb-item text-light active" aria-current="page">User Project :{{$project->nama}}</li>
+           
+            </ol>
+           
+        </nav>
+    </div>
+    <div class="row-md-8">
         
-
-      </div>
-
-      <div class="row-sm-6">
-        <div class="tab-content" id="pills-tabContent">
-          <div class="tab-pane fade show active" id="pills-ULP" role="tabpanel" aria-labelledby="pills-home-tab">@include('Project._ulp_enrollment')</div>
-          <div class="tab-pane fade" id="pills-PPK" role="tabpanel" aria-labelledby="pills-profile-tab"> @include('Project._ppk_enrollment')</div>
-          <div class="tab-pane fade" id="pills-PP" role="tabpanel" aria-labelledby="pills-contact-tab"> @include('Project._pp_enrollment')</div>
+            <button type="button" id="add_user_project" class="btn btn-info  ">
+                Tambahkan Pengguna 
+            </button>
+   
+        <div id="project_" project-id={{$project->id}}>
+            
+        </div>
+    </div>
+    <br>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card  card-outline card-info shadow" id="addULP">
+        <div class="card-header">
+          
+          <b class="align-center" style="font-family:Roboto">Unit Pelayanan Pengadaan</b>
+          <button class="btn float-right">
+            <i class="fas fa-user-plus " style="color:#95a5a6"></i>
+          </button>
+        </div>
+        <div class="card-body" style="padding-left: 10px;padding-right: 10px;">
+          <table class="table table-condensed" style="font-family:'Roboto', sans-serif;color:#566787;font-size:13px;">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Nama</th>
+                    <th>Role</th>
+                  </tr>
+            </thead>
+            <tbody>
+                @if (count($data_kulp)>0)
+                  @forelse ($data_kulp as $data)
+                  <tr>
+                      <td width=20px;>
+                          <img src="{{asset('img/user.png')}}" class="img-circle img-bordered-sm" alt="User Image" width="40px" height="40px">
+                      </td> 
+                      <td style="vertical-align:middle">
+                        {{$data->nama}}
+                      <small class="d-block">NIP.{{$data->nip}}</small>
+                      </td>
+                      <td style="vertical-align:middle"> 
+                        <span class="badge badge-info">{{$data->deskripsi}}</span>
+                        
+                      </td>
+                      
+                  </tr>    
+                  @empty
+                    <tr>Tidak ada kepala ULP</tr>  
+                  @endforelse
+                @endif
+              @if (count($data_kasi)>0)
+                @forelse ($data_kasi as $data)
+                <tr>
+                    <td width=20px;>
+                        <img src="{{asset('img/user.png')}}" class="img-circle img-bordered-sm" alt="User Image" width="40px" height="40px">
+                    </td> 
+                    <td style="vertical-align:middle">
+                      {{$data->nama}}
+                    <small class="d-block">NIP.{{$data->nip}}</small>
+                    </td>
+                    <td style="vertical-align:middle"> 
+                      <span class="badge badge-info">{{$data->deskripsi}}</span>
+                      
+                    </td>
+                    
+                </tr>    
+                @empty
+                  <tr>Tidak ada kepala ULP</tr>  
+                @endforelse
+              @endif
+              @if (count($data_staff)>0)
+              @forelse ($data_staff as $data)
+              <tr>
+                  <td width=20px;>
+                      <img src="{{asset('img/user.png')}}" class="img-circle img-bordered-sm" alt="User Image" width="40px" height="40px">
+                  </td> 
+                  <td style="vertical-align:middle">
+                    {{$data->nama}}
+                  <small class="d-block">NIP.{{$data->nip}}</small>
+                  </td>
+                  <td style="vertical-align:middle"> 
+                    <span class="badge badge-info">{{$data->deskripsi}}</span>
+                    
+                  </td>
+                  
+              </tr>    
+              @empty
+                <tr>Tidak ada kepala ULP</tr>  
+              @endforelse
+            @endif
+            </tbody>
+          </table>
         </div>
       </div>
-
-
-
+    </div>
+    <div class="col-md-4">
+        <div class="card  card-outline card-info shadow" id="addULP">
+          <div class="card-header">
+            
+            <b class="align-center" style="font-family:Roboto">Pejabat Pengadaan</b>
+            <button class="btn float-right">
+              <i class="fas fa-user-plus " style="color:#95a5a6"></i>
+            </button>
+          </div>
+          <div class="card-body" style="padding-left: 10px;padding-right: 10px;">
+            <table class="table table-condensed" style="font-family:'Roboto', sans-serif;color:#566787;font-size:13px;">
+              <thead>
+                  <tr>
+                      <th></th>
+                      <th>Nama</th>
+                      <th>Role</th>
+                    </tr>
+              </thead>
+              <tbody>
+                @if (count($data_pp)>0)
+                  @forelse ($data_pp as $data)
+                  <tr>
+                      <td width=20px;>
+                          <img src="{{asset('img/user.png')}}" class="img-circle img-bordered-sm" alt="User Image" width="40px" height="40px">
+                      </td> 
+                      <td style="vertical-align:middle">
+                        {{$data->nama}}
+                      <small class="d-block">NIP.{{$data->nip}}</small>
+                      </td>
+                      <td style="vertical-align:middle"> 
+                        <span class="badge badge-info">{{$data->kode_pp}}</span>
+                        
+                      </td>
+                      
+                  </tr>    
+                  @empty
+                    <tr>Tidak ada kepala ULP</tr>  
+                  @endforelse
+                @endif
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <div class="col-md-4">
+        <div class="card  card-outline card-info shadow" id="addULP">
+            <div class="card-header">
+              
+              <b class="align-center" style="font-family:Roboto">Pejabat Pembuat Komitmen</b>
+              <button class="btn float-right">
+                <i class="fas fa-user-plus " style="color:#95a5a6"></i>
+              </button>
+            </div>
+            <div class="card-body" style="padding-left: 10px;padding-right: 10px;">
+              <table class="table table-condensed" style="font-family:'Roboto', sans-serif;color:#566787;font-size:13px;">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nama</th>
+                        <th>Role</th>
+                      </tr>
+                </thead>
+                <tbody>
+                  @if (count($data_ppk)>0)
+                    @forelse ($data_ppk as $data)
+                    <tr>
+                        <td width=20px;>
+                            <img src="{{asset('img/user.png')}}" class="img-circle img-bordered-sm" alt="User Image" width="40px" height="40px">
+                        </td> 
+                        <td style="vertical-align:middle">
+                          {{$data->nama}}
+                        <small class="d-block">NIP.{{$data->nip}}</small>
+                        </td>
+                        <td style="vertical-align:middle"> 
+                          <span class="badge badge-info">{{$data->kode_ppk}}</span>
+                          
+                        </td>
+                        
+                    </tr>    
+                    @empty
+                      <tr>Tidak ada kepala ULP</tr>  
+                    @endforelse
+                  @endif
+                </tbody>
+              </table>
+            </div>
+          </div>
+    </div>
   </div>
 </div>
 
@@ -78,7 +228,7 @@
             </div>
           </div>
         </div>
-    </div>
+</div>
 @endsection
 
 @section('addScript')

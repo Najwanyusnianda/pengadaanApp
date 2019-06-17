@@ -17,6 +17,7 @@ class CreatePenyediasTable extends Migration
             $table->string('npwp')->primary();
             $table->string('nama');
             $table->string('nama_pimpinan');
+            $table->string('jabatan_pimpinan');
             $table->string('email')->nullable();
             $table->string('telepon')->nullable();
             $table->text('alamat');

@@ -124,7 +124,7 @@ class PermintaanController extends Controller
         $users=User::whereIn('id',$data)->get();
         Notification::send($users, new PermintaanMasuk($permintaan));
         //auth()->user()->notify(new PermintaanMasuk($permintaan));
-        $request->session()->flash('success','Permintaan berhasil di tambahkan');
+        $request->session()->flash('success','Permintaan berhasil di Tambahkan!');
 
         return redirect()->route('bagian.permintaan.index',['bagian'=>auth()->user()->sub_bagian->kode_bagian]);
     }

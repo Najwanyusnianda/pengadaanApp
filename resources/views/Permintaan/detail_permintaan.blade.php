@@ -4,21 +4,18 @@
         
             <!-- title row -->
             <div class="row">
-                <div class="col-12">
+               
                 <h5 class="mx-auto text-center mt-4">
                     <div class="">
-                            FORMULIR PERMINTAAN <br>  {{$permintaan_detail->judul}}                    
+                            FORM PERMINTAAN <br>  {{$permintaan_detail->judul}}                    
                     </div>
-                    <small class="p-1">Nomor :</small>
+                    <small class="p-1">Nomor : {{$permintaan_detail->nomor_form}}</small>
                     <!-- <small class="float-right">Date: 2/10/2014</small>-->
                 </h5>
-                </div>
+              
                 <!-- /.col -->
             </div>
             <!-- info row -->
-            <div class="row invoice-info">
-
-            </div>
         
             <!-- /.row -->
 
@@ -27,7 +24,7 @@
                 
                 <div class="col-12 table-responsive p-2">
                 
-                <table class="table text-left ">
+                <table class="table text-left " style="font-family:Roboto;font-size:13px;">
                     <thead>
                         <th width="5%"></th>
                         <th width="35%"></th>
@@ -113,7 +110,7 @@
 
         
     
-            <!-- this row will not appear when printing -->
+            <!-- this row will not appear when printing 
         <div class="row no-print">
             <div class="col-12">
             <a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
@@ -125,7 +122,7 @@
                 <i class="fa fa-download"></i> Generate PDF
             </button>
             </div>
-        </div>
+        </div>-->
         </div>
     </div>
 </div>

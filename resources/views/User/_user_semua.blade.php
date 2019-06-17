@@ -1,6 +1,6 @@
-<div class="p-4" style="font-family:QuickSand;font-size:14px;">
+<div class="p-4" style="font-family:'Varela Round';font-size:13px;">
         <!-- /.card-header -->
-        <div class="card-body table-responsive p-0">
+        <div class="card-body table-responsive ">
           <table class="table table-condensed" id="userTable">
             <thead>
                     <tr>
@@ -9,7 +9,7 @@
                         <th>NIP</th>
                         <th>Role</th>
                      
-                        <th>Modify</th>
+                        <th>Aksi</th>
                     </tr>
             </thead>
         

@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 class NotificationController extends Controller
 {
     //
+    public function index(){
+        return view('notifikasi.list_notifikasi');
+    }
+
     public function readNotif(){
         auth()->user()->unreadNotifications->markAsRead();
 

@@ -5,13 +5,12 @@
       <div class="row-md-8">
           <nav aria-label="breadcrumb ">
              
-              <ol class="breadcrumb arr-right bg-dark ">
+              <ol class="breadcrumb arr-right" style="background-color:#2c3e50">
              
-                <li class="breadcrumb-item "><a href="#" class="text-light">Electronics Home</a></li>
+                <li class="breadcrumb-item "><a href="{{route('paket.index')}}" class="text-light">Paket</a></li>
              
-                <li class="breadcrumb-item "><a href="#" class="text-light">Smart Phones</a></li>
              
-                <li class="breadcrumb-item text-light active" aria-current="page">Brand Name Product Page</li>
+                <li class="breadcrumb-item text-light active" aria-current="page">Detail Paket</li>
              
               </ol>
              
@@ -22,7 +21,7 @@
           <div class="card-header ">
             Detail Paket
           </div>
-          <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;color:#566787;">
+          <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;">
               <div class="div">
                   <table class="table table-condensed ">
                     <tr>
@@ -32,31 +31,57 @@
                     <tr>
                       <th>Penanggung Jawab</th>
                       <td>
-                        <div class="col-md-8">  
-                        <a class="btn btn-outline-info btn-sm" href="{{route('paket.pj',[$paket->id])}}" role="button" ><i class="fas fa-user-plus"></i> <small>PenanggungJawab</small> </a>       
-                        </div>
+                        @if (auth()->user()->person->role->id==6)
+                          <div class="col-md-8">  
+                            <a class="btn btn-outline-info btn-sm" href="{{route('paket.pj',[$paket->id])}}" role="button" ><i class="fas fa-user-plus"></i> <small>PenanggungJawab</small> </a>       
+                            </div> 
+                        @endif
+
                         <br>
                         @if (!empty($pj))
                             <table class="table table-condensed">
                               <tr>
+                               
+                                <th colspan="2">Nama</th>
+                        
                                 <th>#</th>
-                                <th>Nama</th>
-                                <th>NiP</th>
                                 
                               </tr>
+
                               <tr>
-                                <td>PPK</td>  
-                                <td>{{$pj->nama_ppk}}</td>
-                                <td>{{$pj->nip_ppk}}</td>
-                              </tr>
+                                  <td width=20px;>
+                                      <img src="{{asset('img/user.png')}}" class="img-circle img-bordered-sm" alt="User Image" width="40px" height="40px">
+                                  </td> 
+                                  <td style="vertical-align:middle">
+                                      {{$pj->nama_ppk}}
+                                  <small class="d-block">NIP.{{$pj->nip_ppk}}</small>
+                                  </td>
+                                  <td style="vertical-align:middle"> 
+                                    <span class="badge badge-info">PPK</span>
+                                    
+                                  </td>
+                                  
+                              </tr>    
                               <tr>
-                                  <td>PP</td>  
-                                  <td>{{$pj->nama_pp}}</td>
-                                  <td>{{$pj->nip_pp}}</td>
+                                  <td width=20px;>
+                                      <img src="{{asset('img/user.png')}}" class="img-circle img-bordered-sm" alt="User Image" width="40px" height="40px">
+                                  </td> 
+                                  <td style="vertical-align:middle">
+                                      {{$pj->nama_pp}}
+                                  <small class="d-block">NIP.{{$pj->nip_pp}}</small>
+                                  </td>
+                                  <td style="vertical-align:middle"> 
+                                    <span class="badge badge-info">PP</span>
+                                    
+                                  </td>
                               </tr>
                             </table>
                         @else
-                            <small>PenanggungJawab belum ditentukan</small>
+                        <div class="alert alert-info alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h5><i class="icon fas fa-info"></i> Alert!</h5>
+                            PenanggungJawab belum ditentukan
+                          </div>
                         @endif
                         
                       </td>
@@ -65,7 +90,14 @@
                       <th>Jadwal Kegiatan Pengadaan</th>
                       <td>
                         <div class="col-md-8">
-                            <a class="btn btn-outline-info btn-sm" href="#" role="button"><i class="fas fa-calendar-plus"></i> <small>Buat Jadwal</small></a>
+                        <a class="btn btn-outline-info btn-sm {{empty($pj) ? 'disabled' :  ''}}" href="{{route('paket.jadwal',['id'=>$paket->id])}}" role="button"><i class="fas fa-calendar-plus"></i> <small>Buat Jadwal</small></a>
+                        <hr>
+                        @if (!empty($jadwal_pengadaan))
+                        <button class="btn btn-outline-secondary btn-sm shadow"> lihat jadwal </button>
+                        @else
+                            <small style="color:gray">jadwal belum dibuat</small>
+                        @endif
+                        
                         </div>
                          
                       </td>
@@ -82,7 +114,7 @@
             <div class="card-header ">
               Dokumen Persiapan Pengadaan 
             </div>
-            <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;color:#566787;">
+            <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;">
                 <div class="div">
                     <a class="btn btn-outline-info btn-sm mb-2" href="{{route('paket.persiapan',[$paket->id])}}" role="button"><i class="fas fa-plus"></i> <small>Buat Dokumen Persiapan</small></a>
                     
@@ -164,7 +196,7 @@
                                     </td>
                                   </tr>
                             </tbody>
-                          </table>
+                        </table>
                     </div>
 
                 </div>
@@ -179,9 +211,11 @@
             <div class="card-header ">
               Dokumen Penawaran
             </div>
-            <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;color:#566787;">
+            <div class="card-body" style="font-size:13px;font-family:'Varela Round'">
                 <div class="div">
                     <a class="btn btn-outline-info btn-sm " href="#" role="button"><i class="fas fa-plus"></i> <small>Upload Dokumen Penawaran</small></a>
+                    <a href="{{route('paket.detail.penyedia',['id'=>$paket->id])}}" class="badge badge-info">Pilih Calon Penyedia</a>
+                    <a href="{{route('paket.detail.jadwal_penawaran',['id'=>$paket->id])}}" class="badge badge-info">Buat Jadwal Penawaran</a> 
                     <div class="table-responsive">
                         <table class="table table-condensed table-hover">
                       
@@ -200,7 +234,7 @@
               <div class="card-header ">
                 Dokumen Hasil Pengadaan Langsung
               </div>
-              <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;color:#566787;">
+              <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif">
                   <div class="div">
                       <a class="btn btn-outline-info btn-sm " href="{{route('paket.pembukaan',['id'=>$paket->id])}}" role="button"><i class="fas fa-plus"></i> <small>Buat Pembukaan, Evaluasi, Klarifikasi dan Negosiasi Teknis dan Harga</small></a>
                       <div class="table-responsive">
@@ -220,7 +254,7 @@
             <div class="card-header ">
               Dokumen Kontrak
             </div>
-            <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;color:#566787;">
+            <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;">
                 <div class="div">
                     <a class="btn btn-outline-info btn-sm " href="#" role="button"><i class="fas fa-plus"></i> <small>Buat Dokumen Persiapan</small></a>
                     <div class="table-responsive">
@@ -272,7 +306,7 @@ color: white;
 th{
         font-size: 12px;
         font-weight: 600;
-        color:#566787;
+        font-family: "Roboto";
 
     }
  

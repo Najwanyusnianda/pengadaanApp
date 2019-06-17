@@ -98,7 +98,9 @@ class UserController extends Controller
    
        $jabatan_ppk=JabatanPpk::all();
        $jabatan_pp=JabatanPp::all();
+       
        return view('Project.user_available_list',compact('pegawai','jabatan_ppk','jabatan_pp'));
+       //return view('Project.user_available_temp',compact('pegawai'));
     }
 
 }

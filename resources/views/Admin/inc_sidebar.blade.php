@@ -26,7 +26,7 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
              @if (auth()->user()->person->role_id==1)
-              <li class="nav-item has-treeview  {{Request::is('user/list') ? 'menu-open' : Request::is('project') ? 'menu-open' : Request::is('user/list_bagian') ? 'menu-open' : Request::is('project/*') ? 'menu-open' : ''}}">
+              <li class="nav-item has-treeview  {{Request::is('user/list') ? 'menu-open' : Request::is('project') ? 'menu-open' : Request::is('user/list_bagian') ? 'menu-open' : Request::is('project/*') ? 'menu-open' : 'menu-open'}}">
                   <a href="#" class="nav-link {{Request::is('user/list') ? 'active' : Request::is('project') ? 'active' : Request::is('user/list_bagian') ? 'active' : Request::is('project/*') ? 'active' : ''}}">
                     
                       <i class="nav-icon fas fa-cogs" ></i>
@@ -39,7 +39,8 @@
   
                         <li class="nav-item">
                           <a href="{{route('project.index')}}" class="nav-link {{Request::is('project') ? 'active' : Request::is('project/*') ? 'active' : ''}} ">
-                                <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                                <i class="fas fa-sliders-h nav-icon" style="font-size: 15px;"></i>
+                                
                                 <p>Project </p>
                               </a>
                         </li>
@@ -53,7 +54,8 @@
 
                       <li class="nav-item">
                           <a href="{{route('user_list.indexBagian')}}" class="nav-link {{Request::is('user/list_bagian') ? 'active' : ''}}">
-                                <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                                <i class="fas fa-network-wired nav-icon" style="font-size: 15px;"></i>
+                                
                                 <p>Subdirektorat</p>
                               </a>
                       </li>
@@ -98,7 +100,7 @@
              @if (auth()->user()->person->role_id==1)
              @else
              <li class="nav-item">  
-                <a href="{{route('logout')}}" class="nav-link">
+                <a href="{{route('dashboard')}}" class="nav-link {{Request::is('dashboard') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
                     Dashboard
@@ -107,7 +109,7 @@
                 </a>
               </li>
              <li class="nav-item">  
-                <a href="{{route('logout')}}" class="nav-link">
+                <a href="{{route('notif')}}" class="nav-link {{Request::is('notifikasi') ? 'active' : ''}}">
                 <i class="nav-icon fas fa-bell"></i>
                 
                   <p>
@@ -121,9 +123,14 @@
                 
                   <i class="nav-icon far fa-envelope"></i>
                 <p>
+                    
                   Inbox
+                  @if (count(auth()->user()->unreadNotifications->where('type','App\Notifications\disposisiTerkirim'))>0)
+                  <span class="badge badge-danger ">New</span>
+                  @endif
                   <i class="right fa fa-angle-left"></i>
-                </p>
+                 
+              </p>
               </a>
               <ul class="nav nav-treeview">
            
@@ -131,6 +138,9 @@
                   <a href="{{route('disposisi.masuk')}}" class="nav-link {{Request::is('disposisi/masuk') ? 'active' : ''}}">
                         <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
                         <p>Masuk</p>
+                        @if (count(auth()->user()->unreadNotifications->where('type','App\Notifications\disposisiTerkirim'))>0)
+                        <span class="badge badge-info right">{{count(auth()->user()->unreadNotifications->where('type','App\Notifications\disposisiTerkirim'))}}</span>
+                        @endif
                       </a>
                   </li>  
              
@@ -188,12 +198,12 @@
                           <p>Daftar Paket</p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                   <!-- <li class="nav-item">
                       <a href="{{route('paket.index.me',['person'=>auth()->user()->person->id])}}" class="nav-link ">
                             <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
                             <p>Tugas Paket</p>
                           </a>
-                      </li>
+                      </li>-->
   
                 </ul>        
               </li>

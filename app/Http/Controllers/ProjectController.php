@@ -13,6 +13,7 @@ use App\Person;
 use App\ProjectEnrollment;
 use App\Pp;
 use App\Ppk;
+use App\Role;
 use File;
 
 
@@ -222,6 +223,13 @@ class ProjectController extends Controller
        
         
         return view('Project._pp_available',compact('jabatan_pps'));
+    }
+
+
+    public function ulp_available($id){
+        $project=Project::where('id',$id)->first();
+        $enroll=ProjectEnrollment::where('project_id',$project->id)->get();
+        
     }
 
 

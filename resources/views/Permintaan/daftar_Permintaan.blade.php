@@ -129,8 +129,8 @@
 @section('addStyle')
     <style>
         #disposisi_modalHeader{
-            background-color: #2980b9;
-            color: white;
+            font-family: 'Roboto';
+            font-size: 15px;
         }
         
         #disposisi_title{

@@ -10,6 +10,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 class disposisiTerkirim extends Notification
 {
     use Queueable;
+
     protected $disposisi_detail;
 
     /**
@@ -57,7 +58,7 @@ class disposisiTerkirim extends Notification
 
     public function toDatabase($notifiable)
     {
-        dd($notifiable);
+      
         return [
             //
             

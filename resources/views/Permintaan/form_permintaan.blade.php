@@ -8,7 +8,7 @@
             @endif
         <div class="card shadow ">
             <div class="card-header py-3" style="background-color:#2c3e50;">
-                    <h6 class="m-0 font-weight-bold text-center" style="color:white;font-size:20px;">Form Permintaan</h6>
+                    <h6 class="m-0 font-weight-bold text-center" style="color:white;font-size:20px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Form Permintaan</h6>
             </div>
             <div class="card-body">
             <form action="{{route('permintaan.add')}}" method="POST" class="m-3" style="font-size:12px;">

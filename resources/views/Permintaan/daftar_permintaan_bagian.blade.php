@@ -3,8 +3,10 @@
 @section('konten_bagian')
 <div class="container">
         @if(Session::has('success'))
-        <div class="alert alert-success" style="background-color:#7bed9f; color:white;font-weight:bold;">{{session('success')}}</div>
+        <div class="alert alert-success" role="alert">{{session('success')}}</div>
         @endif
+
+   
 
         <div class="card shadow mb-4 permintaan-card mt-3" style="font-family:QuickSand;">
                 <div class="card-header py-3" style="color:white;background-color:#566787;">

@@ -20,7 +20,7 @@
 </style>
 
 <div class="container">
-    <div class="card" style="margin:auto;width:50%">
+    <div class="card shadow" style="margin:auto;width:50%">
     <form action="{{route('paket.detail.penyedia.store',['id'=>$id_paket])}}" method="POST" class="m-4" style="font-family:QuickSand;font-size:13px;color:#566787;font-weight: 500;">
             {{ csrf_field() }}
             <div class="form-group">
@@ -29,8 +29,12 @@
             </div>
             <div class="form-group">
                     <label for="">Nama Pimpinan Penyedia</label>
-                    <input type="text" class="form-control" id="nama_pimpinan" name="nama_pimpinan" placeholder="masukkan nama penyedia">
-                </div>
+                    <input type="text" class="form-control" id="nama_pimpinan" name="nama_pimpinan" placeholder="nama pimpinan Penyedia">
+            </div>
+            <div class="form-group">
+                    <label for="">Jabatan Pimpinan Penyedia</label>
+                    <input type="text" class="form-control" id="jabatan_pimpinan" name="jabatan_pimpinan" placeholder="nama jabatan pimpinan penyedia">
+            </div>
             <div class="form-group">
                 <label for="">NPWP</label>
                 <input type="text" class="form-control" id="npwp" name="npwp" placeholder="input npwp">
