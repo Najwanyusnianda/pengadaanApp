@@ -6,11 +6,11 @@
           <div class="row-md-8">
 
           </div>
-          <div class="row-md-8">
-              <div class="card shadow p-3">
-                  <div class="card-header">
-                   
-                      <button type="button" id="add_Project" class="btn btn-primary float-right" style="margin-right: 5px;">
+          <div class="row-md-9">
+              <div class="card shadow ">
+                  <div class="card-header" >
+                    <h5 style="font-family:Roboto">Daftar Project</h5>
+                      <button type="button" id="add_Project" class="btn btn-primary float-right shadow" style="margin-right: 5px;">
                             <i class="fas fa-plus"></i> Tambah Project
                           </button>
                   </div>
@@ -202,14 +202,18 @@
         
             th{
         font-weight: 600;
-        font-family: 'Roboto';
+        font-family: 'QuickSand';
         font-size:13px;
+        color:
     }
 
     td{
-        font-size: 12px;
-        font-family: 'Segoe UI';
+        font-family: 'Varela Round';
+        font-size: 13px;
+        font-weight: 500;
     }
+
+
 
     </style>
 @endsection

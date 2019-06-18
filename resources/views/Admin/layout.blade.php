@@ -45,7 +45,7 @@
                   @yield('header_name')
                 </div><!-- /.col -->
                 <div class="col-sm-6">
-                  <ol class="breadcrumb float-sm-right">
+                  <ol class="breadcrumb float-sm-right arr-right bg-dark p-2" >
                     @yield('link_bread')
                     <!--<li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item active">Starter Page</li>

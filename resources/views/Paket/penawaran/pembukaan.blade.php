@@ -69,6 +69,19 @@
 
  line-height:18px;
 
+ 
+
+}
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+.card-login {
+width: 800px;
+}
+}
+
+@media screen and (max-width: 991px) {
+.card-login {
+width: 400px;
+margin-bottom: 40px;
 }
     </style>
 @endsection

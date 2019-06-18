@@ -93,7 +93,10 @@ class PaketController extends Controller
 
     public function spesifikasi($id){
         $id_paket=$id;
-        return view('Paket.doc_persiapan.spesifikasi',compact('id_paket'));
+        $spek_item=SpekHpsItem::where('paket_id',$id_paket)->get();
+        $spek_first=SpekHpsItem::where('paket_id',$id_paket)->first();
+        $spek_teknis=SpekTeknis::where('id',$spek_first->spek_id)->first();
+        return view('Paket.doc_persiapan.spesifikasi',compact('id_paket','spek_item','spek_teknis'));
     }
 
     public function spesifikasiStore(Request $request,$id){
@@ -120,7 +123,8 @@ class PaketController extends Controller
         }
         
         //dd($spek);
-        return redirect()->route('paket.persiapan',['id'=>$id_paket]);
+        $request->session()->flash('success','Spesifikasi teknis telah dibuat');
+        return redirect()->back();
         //return redirect()->route('paket.detail.hps',['id'=>$id_paket]);
     }
 
@@ -254,10 +258,22 @@ class PaketController extends Controller
 
 
     public function paketTable(){
-        $paket=Paket::query();
+        $paket=Paket::query()->join('permintaans','pakets.permintaan_id','=','permintaans.id')->select('pakets.*','permintaans.judul AS judul')->get();
+  
+        //dd($paket);
 
         $dt=DataTables::of($paket)
+        ->addColumn('action',function($paket){
+            return view('Paket.tabel_paket._action_paket',['id_paket'=>$paket->id]);
+        })
+        ->addColumn('status',function($paket){
+            return view('Paket.tabel_paket._status_paket',[
+                'id_paket'=>$paket->id,
+                'status_paket'=>$paket->status
+                ]);
+        })
         ->addIndexColumn()
+        ->rawColumns(['action','status'])
         ->make(true);
         return $dt;
     }

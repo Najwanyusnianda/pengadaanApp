@@ -34,11 +34,12 @@
             <div class="card shadow" >  
                 <div class="card-header">
                         <div class="" id="register-item" style="font-family:Roboto;">
-                                Daftar Pegawai
-                                <a class="btn  btn-primary float-right"  id="register-show" style="color:white" role="button">
+                            
+                                <h5>Daftar Pegawai</h5>
+                                <button class="btn  btn-primary float-right"  id="register-show"  >
                                         <i class="fas fa-user-plus"></i>
                                         Tambah Pengguna
-                                </a>
+                                </button>
                         </div>
                 </div>
                     @include('User._user_semua')

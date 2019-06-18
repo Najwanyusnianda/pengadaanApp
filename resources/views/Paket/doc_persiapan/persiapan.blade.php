@@ -1,22 +1,17 @@
 @extends('Admin.layout')
 
+@section('link_bread')
+                           
+<li class="breadcrumb-item "><a href="#" class="text-light">Paket</a></li>
+                       
+<li class="breadcrumb-item text-light active " aria-current="page">Dokumen Persiapan Pengadaan</li>
+
+
+@endsection
 @section('konten')
     <div class="container">
-            <div class="row-md-8">
-                    <nav aria-label="breadcrumb ">
-                       
-                        <ol class="breadcrumb arr-right bg-info ">
-                       
-                          <li class="breadcrumb-item "><a href="#" class="text-light">Paket</a></li>
-                       
-                          <li class="breadcrumb-item text-light active " aria-current="page">Dokumen Persiapan Pengadaan</li>
-                       
-                       
-                        </ol>
-                       
-                    </nav>
-                </div>
-        <div class="col-md-8 mt-5" style="width:50%;margin:auto;">
+
+        <div class="col-md-8 mt-5" id="persiapan-component" style="margin:auto;">
             <div class="row-md-8">
                     <div class="card card-outline card-info shadow p-2" style="font-family:QuickSand;font-size:12px; ">
                             <div class="card-header text-center" style="font-size:16px;">
@@ -49,19 +44,16 @@
                                         <button class="list-group-item list-group-item-action" id="Permohonan">Kirim Permohonan Pengadaan </button>
                                         
                                 </div>
+                                <hr>
+                                <div class="col-3 float-left  pt-1 pb-2 ">
+                                        <a href="{{route('paket.detail',[$paket->id])}}" class="btn btn-outline-info"> Kembali</a>    
+                    
+                                </div>
                         </div>
 
             </div>
 
-            <div class="row-md-8">
-                    <div class="card shadow">
-                        <div class="col-3 float-left ml-3 pt-1 pb-2 ">
-                        <a href="{{route('paket.detail',[$paket->id])}}" class="btn btn-outline-info"> Kembali</a>    
-    
-                        </div>
-                        
-                    </div>
-            </div>
+   
         </div>
 
     </div>
@@ -88,6 +80,25 @@ ul.list-group:after {
 
 }
 
+#persiapan-component{
+    width:50%
+}
+
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+    #persiapan-component{
+    width:100%
+}
+}
+
+@media screen and (max-width: 991px) {
+#persiapan-component{
+    width:100%;
+}
+}
+.list-group a{
+    font-size: 15px;
+
+}
 
     </style>
 @endsection

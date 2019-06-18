@@ -48,12 +48,12 @@
       </div>
   </div> -->
   <div class="container mt-5">
-      <div class="card card-login col-md-4 " style="min-width:400px;min-height:517px;margin:auto;">
+      <div class="card card-login col-md-6 " style="min-height:517px;margin:auto;">
         <div class="card-body" >
           <div class="row justify-content-center" >
             <div class=" ">
               <div class="padding">
-                <h2>Login</h2>
+                <h2>PengadaaanApp</h2>
                 <p class="lead">Login Terlebih dahulu sebelum masuk kedalam sistem</p>
                 <form autocomplete="off" action="{{route('post.login')}}" method="post">
                     {{ csrf_field() }}
@@ -322,6 +322,7 @@ width: 800px;
 width: 400px;
 margin-bottom: 40px;
 }
+
 
 .card-login .row [class^="col-"] {
 min-height: 480px;

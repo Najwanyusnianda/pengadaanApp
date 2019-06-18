@@ -37,11 +37,11 @@
 
 
     <div class="card shadow mb-4 permintaan-card" style="font-family:QuickSand;">
-        <div class="card-header" style="color:white;background-color:#566787;">
+        <div class="card-header" style="font-family:Roboto">
             Daftar Permintaan
         </div>
 
-        <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;color:#566787;">
+        <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;">
             <div class="table-responsive">
                     <table  class="table   table-hover dataTable" id="datatable" role="grid" aria-describedby="example2_info" style="width:100%">
                             <thead>
@@ -137,6 +137,10 @@
             font-size: 16px ;
             font-family: 'QuickSand'
             
+        }
+
+        th{
+            color:#566787;
         }
         .btn-group > a{
             opacity: 0.5;

@@ -1,21 +1,14 @@
 @extends('Admin.layout')
+@section('link_bread')
+<li class="breadcrumb-item "><a href="{{route('paket.index')}}" class="text-light">Paket</a></li>
+       
+   
+<li class="breadcrumb-item text-light active" aria-current="page">Detail Paket</li>
 
+@endsection
 @section('konten')
     <div class="container">
-      <div class="row-md-8">
-          <nav aria-label="breadcrumb ">
-             
-              <ol class="breadcrumb arr-right" style="background-color:#2c3e50">
-             
-                <li class="breadcrumb-item "><a href="{{route('paket.index')}}" class="text-light">Paket</a></li>
-             
-             
-                <li class="breadcrumb-item text-light active" aria-current="page">Detail Paket</li>
-             
-              </ol>
-             
-          </nav>
-      </div>
+
       <div class="row-md-8">
         <div class="card" style="font-family:Roboto">
           <div class="card-header ">

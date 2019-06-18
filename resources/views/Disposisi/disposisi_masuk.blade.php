@@ -1,13 +1,19 @@
 @extends('Admin.layout')
 
+@section('header_name')
+<div class="mb-5"></div>
+
+@endsection
+
 @section('konten')
     <div class="container">
         <div class="col">
             <div class="row">
 
             </div>
-            <div class="row-md-8 justify-content-center" style="margin:auto;width:80%">
-                <div class="card shadow-lg" style="font-family:Roboto,sans-serif">
+            <div class="row-md-8 justify-content-center" style="margin:auto;width:100%">
+                @if (count($disposisi_masuk)>0)
+                <div class="card " style="font-family:Roboto,sans-serif">
                     <div class="card-header" class="justify-content-between" style="background-color:#566787;color:white;">
                        
                             Daftar Surat masuk
@@ -18,7 +24,7 @@
  
                     </div>
                     <div class="card-body">
-                        @if (count($disposisi_masuk)>0)
+                  
                         <table class="table table-condensed table-hover " id="disp_masuk">
 
                             <thead>
@@ -60,15 +66,26 @@
                             </tbody>
                         </table>        
 
-                    @else
-                        <p>tidak ada disposisi</p>
-                    @endif
+       
                     </div>
                     
 
 
+
                    
                 </div>
+                @else
+                    <div class="card col-md-4 shadow" style="margin:auto">
+                        <div class="p-5">
+                            <div class="text-center">
+                                    <i class="far fa-envelope fa-3x" style="color:#c8d6e5"></i>
+                                    <p style="color:gray">Tidak ada pesan yang ditemukan</p>
+                            </div>
+                            
+                        </div>
+                    </div>
+                @endif
+
             
             </div>
         </div>
