@@ -28,8 +28,13 @@ class PermintaanController extends Controller
         //nambah project
         $project=Project::where('is_active',true)->first();
         $projectid=$project->id;
+        if($projectid){
         $permintaan_bagian=Permintaan::where('kode_bagian',$kode_bagian)->where('project_id',$projectid)->latest()->get();
         return view('Permintaan.daftar_permintaan_bagian',compact('permintaan_bagian'));
+        }else{
+            return redirect()->back();
+        }
+
     }
 
     public function editPermintaan($kode_bagian,$id){

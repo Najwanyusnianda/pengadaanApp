@@ -24,7 +24,7 @@
                 width:50%
         }
 
-    @media screen and (min-width: 769px) and (max-width: 1023px) {
+   @media screen and (min-width: 769px) and (max-width: 1023px) {
         .card.shadow.col-md-6{
                 width:100%
         }
@@ -40,7 +40,7 @@
         .card.shadow.col-md-6{
                 width:100%;
         }
-}
+} 
     </style>
 @endsection
 

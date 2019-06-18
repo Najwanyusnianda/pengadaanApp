@@ -7,7 +7,7 @@
         @endif
 
    
-
+        @if (count($permintaan_bagian)>0)
         <div class="card shadow mb-4 permintaan-card mt-3" style="font-family:QuickSand;">
                 <div class="card-header py-3" style="color:white;background-color:#566787;">
                 <h6 class="m-0  " style="color:white;">Daftar Permintaan <span class="font-weight-bold">{{auth()->user()->sub_bagian->nama_bagian}}</span></h6>
@@ -80,7 +80,19 @@
                     </div>
                 @endif
                 
+        </div>
+        @else
+        <div class="card col-md-4 shadow mt-5" style="margin:auto">
+                <div class="p-5">
+                    <div class="text-center">
+                            <i class="far fa-envelope fa-3x" style="color:#c8d6e5"></i>
+                            <p style="color:gray">Tidak ada permintaan yang dikirim</p>
+                    </div>
+                    
+                </div>
             </div>
+        @endif
+
 </div>
 
 <div class="modal fade permintaan_modal" id="exampleModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

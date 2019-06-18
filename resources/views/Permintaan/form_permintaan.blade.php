@@ -2,15 +2,17 @@
 
 @section('konten_bagian')
 
-    <div class="container col-md-8" style="font-family:'Quicksand';font-size:14px;" >
+    <div class="container col-md-6" style="font-family:'Quicksand';font-size:14px;" >
             @if(Session::has('success'))
             <div class="alert alert-success">{{session('success')}}</div>
             @endif
         <div class="card shadow ">
-            <div class="card-header py-3" style="background-color:#2c3e50;">
-                    <h6 class="m-0 font-weight-bold text-center" style="color:white;font-size:20px;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Form Permintaan</h6>
-            </div>
+
             <div class="card-body">
+                    <div class="py-3 "" >
+                            <h5 class="m-0  text-center" style="font-family:Roboto">Form Permintaan</h5>
+                    </div>
+                    <hr>
             <form action="{{route('permintaan.add')}}" method="POST" class="m-3" style="font-size:12px;">
                 {{csrf_field()}}
                             <div class="form-group">
@@ -111,7 +113,7 @@
 @section('addStyle')
     <style>
     .form-control{
-        font-size:12px;
+        font-size:15px;
     }
     label{
         font-weight: bold;
@@ -121,9 +123,46 @@
         }
 
     .form-group{
-        margin-left: 10%;
-        margin-right: 10%;
-    }    
+        margin-left: 20%;
+        margin-right: 20%;
+     
+    } 
+
+    
+
+       @media screen and (min-width: 769px) and (max-width: 1023px) {
+        .container.col-md-6 {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+        .form-control{
+        font-size:12px;
+        }
+        .form-group{
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+}
+
+@media screen and (min-width: 400px)  {
+    .form-group{
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+    .form-control{
+        font-size:12px;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .form-group{
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+    .form-control{
+        font-size:12px;
+    }
+}   
     </style>
     <link rel="stylesheet" href="{{asset('assets/flatpickr/flatpickr.min.css')}}">
 @endsection

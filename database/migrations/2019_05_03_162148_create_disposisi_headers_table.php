@@ -15,8 +15,8 @@ class CreateDisposisiHeadersTable extends Migration
     {
         Schema::create('disposisi_headers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('from_id');
-            $table->string('to_id');
+            $table->unsignedInteger('from_id');
+            $table->unsignedInteger('to_id');
             //$table->string('status');
             //$table->boolean('is_read');
             $table->unsignedInteger('disposisi_detail_id');
