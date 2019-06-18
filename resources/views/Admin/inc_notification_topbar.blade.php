@@ -14,7 +14,7 @@
       <div class="dropdown-divider"></div>
       
       @foreach (auth()->user()->unreadNotifications as $notifikasi)
-          @include('Admin.notifikasi.permintaan_masuk')
+          @include('Admin.Notifikasi.permintaan_masuk')
       @endforeach
    
       <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
