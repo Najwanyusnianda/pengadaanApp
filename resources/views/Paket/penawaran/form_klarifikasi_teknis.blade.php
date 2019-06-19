@@ -24,6 +24,11 @@
 
 @section('konten')
     <div class="container">
+            @if(session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+        </div> 
+        @endif
         <div class="col-md-12" style="margin:auto;width:80%">
             <div class="card shadow">
                 <div class="card-header" >
@@ -54,9 +59,9 @@
 
                                             </tr>
                                             <tr>
-                                                <th>Harga Satuan</th>
+                                                <th style="width:20%">Harga Satuan</th>
                                                 <th>Jumlah</th>
-                                                <th>Harga Satuan</th>
+                                                <th style="width:20%">Harga Satuan</th>
                                                 <th>Jumlah</th>
                                                 
                                             </tr>

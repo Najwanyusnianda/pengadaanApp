@@ -1,5 +1,14 @@
 @extends('Admin.layout')
 
+@section('link_bread')
+                   
+<li class="breadcrumb-item "><a href="{{route('paket.index')}}" class="text-light">Paket</a></li>
+               
+<li class="breadcrumb-item "><a href="{{route('paket.detail',[$id_paket])}}" class="text-light">Paket detail</a></li>
+
+<li class="breadcrumb-item text-light active" aria-current="page">Jadwal Pengadaan</li>
+
+@endsection
 
 @section('konten')
     <div class="container">
@@ -7,19 +16,7 @@
     <div class="alert alert-success" role="alert">{{session('success')}}</div>
     @endif
     <div class="row-md-8">
-            <nav aria-label="breadcrumb ">
-               
-                <ol class="breadcrumb arr-right" style="background-color:#2c3e50">
-               
-                  <li class="breadcrumb-item "><a href="{{route('paket.index')}}" class="text-light">Paket</a></li>
-               
-                  <li class="breadcrumb-item "><a href="{{route('paket.detail',[$id_paket])}}" class="text-light">Paket detail</a></li>
-               
-                  <li class="breadcrumb-item text-light active" aria-current="page">Jadwal Pengadaan</li>
-               
-                </ol>
-               
-            </nav>
+
         </div>
         <div class="card shadow-lg col-md-8 card-primary card-outline mx-auto">
             <div class="card-header" style="font-family:Roboto">
@@ -78,6 +75,7 @@
                 <div class="card-footer align-item-center">
                     <button type="submit" class="btn btn-primary btn-flat"> Simpan Jadwal</button>
                     <a class="btn btn-link btn-secondary" href="{{route('paket.pilihKegiatan',['id'=>$id_paket])}}">Pilih kegiatan</a>
+                    <a class="btn btn-link btn-outline-secondary btn-sm ml-3" href="{{route('paket.detail',['id'=>$id_paket])}}">Kembali</a>
                 </div>
 
             </form>

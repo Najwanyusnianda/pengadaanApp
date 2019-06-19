@@ -40,7 +40,10 @@ class SubBagianTableSeeder extends Seeder
             ]);
 
             $kode_bagian=$subject_matter[$index]->kode_bagian;
-            SubBagian::where('kode_bagian',$kode_bagian)->update(['user_id' =>$user->id ]);
+            $bagian=SubBagian::where('kode_bagian',$kode_bagian)->update(['user_id' =>$user->id ]);
+            $user->update([
+                'username'=>$kode_bagian
+            ]);
             
         }
     }

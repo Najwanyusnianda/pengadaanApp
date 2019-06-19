@@ -91,6 +91,8 @@
                                 <hr>
                                 <div class="card-footer">
                                         <button type="submit" class="btn btn-success">Simpan</button>
+                                        <a class="btn btn-link btn-outline-secondary btn-sm ml-3" href="{{route('paket.persiapan',['id'=>$id_paket])}}">Kembali</a>
+                 
                                 </div>
                                 
                         </form>

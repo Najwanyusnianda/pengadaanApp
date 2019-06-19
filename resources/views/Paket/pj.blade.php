@@ -2,32 +2,19 @@
 
 @section('konten')
 
-<div class="container ">
+<div class="container mt-5 ">
     @if(Session::has('success'))
     <div class="alert alert-success" role="alert">{{session('success')}}</div>
     @endif
-                <div class="row-md-8">
-                                <nav aria-label="breadcrumb ">
-                                   
-                                    <ol class="breadcrumb arr-right bg-info ">
-                                   
-                                    <li class="breadcrumb-item "><a href="#" class="text-light">Detail Paket</a></li>
-                                   
-                                      <li class="breadcrumb-item text-light active " aria-current="page">Penanggung Jawab</li>
-                                   
-                                   
-                                    </ol>
-                                   
-                                </nav>
-                </div>
-        <div class="col-md-8 mt-5" style="width:50%;margin:auto;">
+
+        <div class="col-md-8 mt-5" style=";margin:auto;">
             
             <form action="{{route('pejabat.store',["id"=>$paket->id])}}" method="post">
 
            {{ csrf_field() }}
             <div class="row-md-8">
                     <div class="card card-outline card-info shadow p-2" style="font-family:QuickSand;font-size:12px; ">
-                            <div class="card-header text-center" style="font-size:16px;">
+                          <div class="card-header text-center" style="font-size:16px;">
                                 Penanggung Jawab
                                 <hr>
                             </div>
@@ -35,9 +22,11 @@
                           
                                 <div class="list-group ">
                                         <li  class="list-group-item list-group-item-action" id="pp">Pejabat Pengadaan
+                                            <span id="nama_pp"></span>
                                                 <input type="hidden" readonly="readonly" name="pp_id" id="pp_id">
                                         </li>
                                         <li  class="list-group-item list-group-item-action" id="ppk">PPK
+                                            <span id="nama_ppk"></span>
                                             <input type="hidden" readonly="readonly" name="ppk_id" id="ppk_id">
                                         </li>
                                         
@@ -47,8 +36,12 @@
                                 <br>
                                 <hr>
                                 <div class="btn-group">
-                                    <button type="submit" class="btn btn-success btn-sm btn-block save_data">Simpan Data</button>
-                                </div>
+                                  <button type="submit" class="btn btn-success btn-sm  save_data">Simpan Data</button>
+                                  <a href="{{route('paket.detail',[$paket->id])}}" class="btn btn-outline-info btn-sm ml-2"> Kembali</a>   
+                                  </div>
+                                  <div >
+                                      
+                                    </div>
 
                         </div>
 
@@ -56,10 +49,7 @@
 
             <div class="row-md-8">
                     <div class="card ">
-                        <div class="col-3 float-left ml-3 pt-2 pb-2 ">
-                        <a href="{{route('paket.detail',[$paket->id])}}" class="btn btn-outline-info"> Kembali</a>    
-    
-                        </div>
+
                         
                     </div>
             </div>
@@ -142,6 +132,27 @@
  line-height:18px;
 
 }
+.col-md-8.mt-5{
+                width:50%
+        }
+
+@media screen and (min-width: 769px) and (max-width: 1023px) {
+        .col-md-8.mt-5{
+                width:100%
+        }
+}
+
+@media screen and (min-width: 400px)  {
+        .col-md-8.mt-5{
+                width:100%
+        }
+}
+
+@media screen and (max-width: 991px) {
+        .col-md-8.mt-5{
+                width:100%;
+        }
+}
     </style>
 @endsection
 
@@ -171,9 +182,13 @@
                 var me=$(this);
                 var pp_input=$('#pp_id');
                 var person_id=me.attr('data-id');
-                console.log(person_id);
+                var nama_ppk=me.text();
+                console.log(nama_ppk);
+                $('#nama_ppk').text(nama_ppk);
+                //console.log(person_id);
                 var ppk_input=$('#ppk_id');
                 ppk_input.val(person_id);
+
                 if(!ppk_input.val()=="" && !pp_input.val()=="" ){
                  $(".save_data"). attr("disabled", false);
                 }

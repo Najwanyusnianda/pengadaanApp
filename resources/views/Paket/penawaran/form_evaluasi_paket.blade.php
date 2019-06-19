@@ -2,6 +2,11 @@
 
 @section('konten')
 <div class="container">
+             @if(session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+        </div> 
+        @endif
         <div class="card shadow col-md-6 " style="margin:auto;width:50%">
             <div class="card-header" >
                         <div class="row justify-content-center">
@@ -186,7 +191,7 @@
                     <hr>
                     <div class="card-footer mt-4">
                                 <button type="submit" class="btn btn-success btn-sm">Simpan</button>
-                                <a class="btn btn-link btn-outline-secondary btn-sm ml-3" >Kembali</a>
+                                <a class="btn btn-link btn-outline-secondary btn-sm ml-3" href={{route('paket.detail',[$id_paket])}}>Kembali</a>
                     </div>
          
      

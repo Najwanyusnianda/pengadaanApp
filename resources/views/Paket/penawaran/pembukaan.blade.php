@@ -37,19 +37,17 @@
                                 <div class="list-group">
                                         <a href="#" class="list-group-item list-group-item-action">Berita Acara Hasil Pengadaan Langsung</a>
                                 </div>
-                        </div>
-
-            </div>
-
-            <div class="row-md-8">
-                    <div class="card ">
-                        <div class="col-3 float-left ml-3 pt-2 pb-2 ">
-                        <a href="{{route('paket.index')}}" class="btn btn-outline-info"> Kembali</a>    
+                             
+                                <br>
+                                <div class="col-3 float-left ml-3 pt-2 pb-2 ">
+                                <a href="{{route('paket.detail',[$paket->id])}}" class="btn btn-outline-info"> Kembali</a>    
     
+                                </div>
                         </div>
-                        
-                    </div>
+
             </div>
+
+
         </div>
 
     </div>

@@ -241,9 +241,12 @@
     @empty
         
     @endforelse
-    <script>
+@if (!empty($spek_teknis))
+                <script>
                 $('#spek_barang').append("{{$spek_teknis->spesifikasi}}");
               </script>
+@endif  
+
 @endif
 
 <script>

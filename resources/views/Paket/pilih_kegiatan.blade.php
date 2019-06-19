@@ -22,6 +22,7 @@
             </div>
             <div class="card-footer">
                 <button type="submit" class="btn btn-primary">next</button>
+                <a class="btn btn-link btn-outline-secondary btn-sm ml-3" href="{{route('paket.detail',['id'=>$id_paket])}}">Kembali</a>
             </div>
         </form>
         </div>

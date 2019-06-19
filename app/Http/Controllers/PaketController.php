@@ -19,6 +19,7 @@ use App\KegiatanPenawaran;
 use App\Evaluasi;
 use App\EvaluasiKriteria;
 use App\EvaluasiPaket;
+use App\PaketDokumen;
 use DB;
 
 class PaketController extends Controller
@@ -26,7 +27,7 @@ class PaketController extends Controller
     //
     public function index(){
         $paket=DB::table('pakets')->join('permintaans','pakets.permintaan_id','=','permintaans.id')->select('pakets.*','permintaans.judul AS judul')->get();
-  
+    
         //dd($paket);
         return view('Paket.daftar_paket')->with('paket',$paket);
     }
@@ -46,6 +47,9 @@ class PaketController extends Controller
         $paket=Paket::find($id);
         //dd($id);
 
+        $penyedia=Penyedia::where('npwp',$paket->penyedia_id)->first();
+        $dokumen=PaketDokumen::where('paket_id',$paket->id)->get();
+
         //check true
         /*$spek=SpekHpsItem::where('paket_id',$paket->id)->get();
         $spek=count($spek);
@@ -63,7 +67,9 @@ class PaketController extends Controller
         ->with('is_not_hps',$is_not_hps)
         ->with('is_spek',$spek)
         ->with('is_not_penawaran',$is_not_penawaran);*/
-        $jadwal_pengadaan=JadwalKegiatanPengadaan::where('paket_id',$id)->get();
+        $jadwal_pengadaan=JadwalKegiatanPengadaan::where('paket_id',$id)
+        ->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')
+        ->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')->get();
         $spesifikasi=SpekHpsItem::where('paket_id',$id)->get();
         $paket_penanggung_jawab=Paket::where('pakets.id',$id)
         ->join('people AS ppk','pakets.ppk_id','ppk.id')->join('people AS pp','pakets.pp_id','pp.id')
@@ -72,7 +78,9 @@ class PaketController extends Controller
         ->with('paket',$paket)
         ->with('spesifikasi',$spesifikasi)
         ->with('pj',$paket_penanggung_jawab)
-        ->with('jadwal_pengadaan',$jadwal_pengadaan);
+        ->with('jadwal_pengadaan',$jadwal_pengadaan)
+        ->with('dokumen',$dokumen)
+        ->with('penyedia',$penyedia);
     }
 
     public function persiapan($id){
@@ -95,7 +103,12 @@ class PaketController extends Controller
         $id_paket=$id;
         $spek_item=SpekHpsItem::where('paket_id',$id_paket)->get();
         $spek_first=SpekHpsItem::where('paket_id',$id_paket)->first();
-        $spek_teknis=SpekTeknis::where('id',$spek_first->spek_id)->first();
+        if(!empty($spek_first)){
+            $spek_teknis=SpekTeknis::where('id',$spek_first->spek_id)->first();
+        }else{
+            $spek_teknis=[];
+        }
+
         return view('Paket.doc_persiapan.spesifikasi',compact('id_paket','spek_item','spek_teknis'));
     }
 
@@ -311,8 +324,8 @@ class PaketController extends Controller
             };
         }
   
-        //return redirect()->route('paket.jadwal',[$id_paket]);
-        return redirect()->back();
+        return redirect()->route('paket.jadwal',[$id_paket]);
+      
     }
 
     public function jadwalIndex($id){
@@ -412,13 +425,52 @@ class PaketController extends Controller
         return redirect()->route('paket.index');
 
     }
+    //upload
+    public function uploadPenawaranIndex($id){
+        $paket=Paket::find($id);
+        return view('Paket.penawaran.penawaran_upload',compact('paket'));
 
+    }
+    public function uploadPenawaranStore(Request $request,$id){
+        $paket=Paket::find($id);
+        $this->validate($request, [
+
+            'filename' => 'required',
+            'filename.*' => 'mimes:doc,pdf,docx,zip'
+        ]);
+        
+        if($request->hasfile('filename'))
+        {
+
+            $file=$request->file('filename');
+        
+            $name=$file->getClientOriginalName();
+            $path= $file->store('public/files/'.$paket->paket_storage);  
+    
+           $file = PaketDokumen::create([
+            'paket_id'=>$paket->id,
+            'subject' =>  $name,
+            'document_file' => $path,
+            'type'=>'penawaran'
+            ]);
+            
+        }
+/*
+        $file= new PaketDokumen();
+        $file->type="penawaran";
+        $file->document_file=json_encode($data);*/
+        
+    
+     
+
+       return back()->with('success', 'Your files has been successfully added');
+    }
 
     ///penawaran
     public function pembukaan($id){
         $id_paket=$id;
         $paket=Paket::find($id);
-        return view('Paket.Penawaran.pembukaan')->with('paket',$paket);
+        return view('Paket.penawaran.pembukaan')->with('paket',$paket);
         
     }
 
@@ -448,7 +500,7 @@ class PaketController extends Controller
                 'total_penawaran'=>$request->total_penawaran,
                 'total_negosiasi'=>$request->total_nego
             ]); 
-            return redirect()->back(); 
+            return redirect()->back()->with("success","data berhasil disimpan");
         }
         
     }
@@ -497,7 +549,7 @@ class PaketController extends Controller
                 ]);
             }
         }
-        return redirect()->back();
+        return redirect()->back()->with("success","data berhasil disimpan");
     }
 
     public function formEvaluasiPenawaran($id){
@@ -568,7 +620,7 @@ class PaketController extends Controller
                 ]);
             }
         }
-        return redirect()->back();
+        return redirect()->back()->with("success","Data berhasil disimpan");
     }
 
 

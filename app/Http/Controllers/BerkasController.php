@@ -18,6 +18,7 @@ use App\Paket;
 use App\Permintaan;
 use App\SpekTeknis;
 use App\SpekHpsItem;
+use App\JadwalKegiatanPengadaan;
 
 class BerkasController extends Controller
 {
@@ -61,7 +62,77 @@ class BerkasController extends Controller
             }     		
             return $hasil;
         }
+
+        function hariIndo($date){
+            $day=\Carbon\Carbon::parse($date)->format('l');
+            $hari='';
+            if($day=="Monday"){
+                $hari="senin";
+            }elseif ($day=="Tuesday") {
+                $hari="selasa";
+            }elseif ($day=="Wednesday"){
+                $hari="rabu";
+            }elseif($day=="Thursday"){
+                $hari="kamis";
+            }elseif($day=="Friday"){
+                $hari="jumat";
+            }elseif($day=="Saturday"){
+                $hari="sabtu";
+            }elseif($day=="Sunday"){
+                $hari="minggu";
+            };
+            return $hari;
+        }
+
+        function bulanIndo($date){
+           $bulan=\Carbon\Carbon::parse($date)->format('F');
+            $bulan_indo='';
+            if($bulan=="January"){
+                $bulan_indo="Januari";
+            }elseif ($bulan=="February") {
+                $bulan_indo="Februari";
+            }elseif ($bulan=="March") {
+                $bulan_indo="Maret";
+            }elseif ($bulan=="April") {
+                $bulan_indo=="April";
+            }elseif ($bulan=="May") {
+                $bulan_indo=="Mei";
+            }elseif ($bulan=="June") {
+                $bulan_indo=="Juni";
+            }elseif ($bulan=="July") {
+                $bulan_indo="Juli";
+            }elseif ($bulan=="August") {
+                $bulan_indo="Agustus";
+            }elseif ($bulan=="September") {
+                $bulan_indo="September";
+            }elseif ($bulan=="October") {
+                $bulan_indo="Oktober";
+            }elseif ($bulan=="November") {
+                $bulan_indo="November";
+            }elseif ($bulan=="December") {
+                $bulan_indo="Desember";
+            };
+
+            return $bulan_indo;
+        }
+
+        function format_surat_a1($kode_ppk,$kode_kegiatan,$date,$kode_hps){
+            $date_exp=explode('-',$date);
+            $date_num=$date_exp[2].".".$date_exp[1]."01";
+            $nomor=$kode_ppk."/".$kode_kegiatan."/".$date_num."/".$date_exp[1];
+            return $nomor;
+        }
+
+        function tanggal_terbilang($date){
+            $date_exp=explode('-',$date);
+            $date_tanggal=(int)$date_exp[2];
+            return terbilang($date_tanggal);
+        }
+
+
         ///
+
+       
        $id_paket=$id;
         $paket=Paket::find($id_paket);
             
@@ -71,6 +142,18 @@ class BerkasController extends Controller
         $ppk=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->ppk_id)
         ->join('jabatan_ppks','project_enrollments.jabatan_id','jabatan_ppks.id')->join('people','project_enrollments.person_id','people.id')->first();
         //dd($ppk);
+
+        $jadwal_hps=JadwalKegiatanPengadaan::where('paket_id',$paket->id)->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')
+        ->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')
+        ->where('kegiatan_pengadaans.nama_kegiatan_p','Penetapan HPS')->first();
+        $format_hps=$jadwal_hps->kode_format;
+        $tanggal_penetapan=$jadwal_hps->jadwal_kegiatan;
+        
+        $hari_penetapan=hariIndo($tanggal_penetapan);
+        $bulan_penetapan=bulanIndo($tanggal_penetapan);
+        $tanggal_terbilang=tanggal_terbilang($tanggal_penetapan);
+
+
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app\templateBerkas\lainnya\Berita Acara HPS.docx'));
         
         $nilai_hps_currency='Rp '.number_format($paket->total_hps,0,',','.');
@@ -78,6 +161,10 @@ class BerkasController extends Controller
         $templateProcessor->setValue('judul_paket',$judul);
         $templateProcessor->setValue('nilai_hps',$nilai_hps_currency);
         $templateProcessor->setValue('nilai_hps_terbilang',terbilang($paket->total_hps).' Rupiah');
+        $templateProcessor->setValue('hari_hps',$hari_penetapan);
+        $templateProcessor->setValue('tanggal_terbilang_hps',$tanggal_terbilang);
+        $templateProcessor->setValue('bulan_terbilang',$bulan_penetapan);
+
 
 
         //\PhpOffice\PhpWord\Settings::setOutputEscapingEnabled(true);
@@ -93,6 +180,8 @@ class BerkasController extends Controller
     }
 
     public function generatePermohonanPengadaan($id){
+        
+
         $id_paket=$id;
         $paket=Paket::find($id_paket);
             
@@ -172,6 +261,51 @@ class BerkasController extends Controller
     public function generateSpesifikasi($id){
 
         ///
+
+
+        function getDateIndo($date){
+            function bulanIndo($date)
+            {
+                $bulan=\Carbon\Carbon::parse($date)->format('F');
+               $bulan_indo='';
+                 if($bulan=="January"){
+                     $bulan_indo="Januari";
+                 }elseif ($bulan=="February") {
+                     $bulan_indo="Februari";
+                 }elseif ($bulan=="March") {
+                     $bulan_indo="Maret";
+                 }elseif ($bulan=="April") {
+                     $bulan_indo="April";
+                 }elseif ($bulan=="May"){
+                     $bulan_indo="Mei";
+                 }elseif ($bulan=="June"){ 
+                     $bulan_indo="Juni";
+                 }elseif ($bulan=="July"){
+                     $bulan_indo="Juli";
+                 }elseif ($bulan=="August"){
+                     $bulan_indo="Agustus";
+                 }elseif ($bulan=="September") {
+                     $bulan_indo="September";
+                 }elseif ($bulan=="October") {
+                     $bulan_indo="Oktober";
+                 }elseif ($bulan=="November") {
+                     $bulan_indo="November";
+                 }elseif ($bulan=="December") {
+                     $bulan_indo="Desember";
+                 };
+     
+                 return $bulan_indo;
+            };
+            $date_form=\Carbon\Carbon::parse($date)->format('d-F-Y');
+            $date_explode=explode("-",$date_form);
+
+            $bulan=bulanIndo($date);
+       
+            $date_reform=$date_explode[0]." ".$bulan." ".$date_explode[2];
+            return $date_reform;
+            
+        }
+
         $id_paket=$id;
         $paket=Paket::find($id_paket);
             
@@ -215,13 +349,18 @@ class BerkasController extends Controller
 
            /* $parser = new \HTMLtoOpenXML\Parser();
             $ooXml = $parser->fromHTML($spesifikasi->spesifikasi);*/
+            $jadwal_spesifikasi=JadwalKegiatanPengadaan::where('paket_id',$paket->id)->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')->where('kegiatan_pengadaans.nama_kegiatan_p','Penetapan Spek Teknis')->first();
+            $tanggal_penetapan=$jadwal_spesifikasi->jadwal_kegiatan;
             $ooXml=strip_tags($spesifikasi->spesifikasi);
             $template_spesifikasi->setValue('spesifikasi', $ooXml);
+            //$bulan=\Carbon\Carbon::parse($tanggal_penetapan)->format('F');
+            $bulan=getDateIndo($tanggal_penetapan);
+            $template_spesifikasi->setValue('date_spek',$bulan);
             $template_spesifikasi->saveAs('template_with_table.docx');
 
             return response()->download('template_with_table.docx');
     }
-
+//////////////////////////////////////////////////////////
     public function generateHps($id){
         function penyebut($nilai) {
             $nilai = abs($nilai);
@@ -259,6 +398,49 @@ class BerkasController extends Controller
             }     		
             return $hasil;
         }
+
+        function getDateIndo($date){
+            function bulanIndo($date)
+            {
+                $bulan=\Carbon\Carbon::parse($date)->format('F');
+               $bulan_indo='';
+                 if($bulan=="January"){
+                     $bulan_indo="Januari";
+                 }elseif ($bulan=="February") {
+                     $bulan_indo="Februari";
+                 }elseif ($bulan=="March") {
+                     $bulan_indo="Maret";
+                 }elseif ($bulan=="April") {
+                     $bulan_indo="April";
+                 }elseif ($bulan=="May"){
+                     $bulan_indo="Mei";
+                 }elseif ($bulan=="June"){ 
+                     $bulan_indo="Juni";
+                 }elseif ($bulan=="July"){
+                     $bulan_indo="Juli";
+                 }elseif ($bulan=="August"){
+                     $bulan_indo="Agustus";
+                 }elseif ($bulan=="September") {
+                     $bulan_indo="September";
+                 }elseif ($bulan=="October") {
+                     $bulan_indo="Oktober";
+                 }elseif ($bulan=="November") {
+                     $bulan_indo="November";
+                 }elseif ($bulan=="December") {
+                     $bulan_indo="Desember";
+                 };
+     
+                 return $bulan_indo;
+            };
+            $date_form=\Carbon\Carbon::parse($date)->format('d-F-Y');
+            $date_explode=explode("-",$date_form);
+
+            $bulan=bulanIndo($date);
+       
+            $date_reform=$date_explode[0]." ".$bulan." ".$date_explode[2];
+            return $date_reform;
+            
+        }
         /////
         $id_paket=$id;
         $paket=Paket::find($id_paket);
@@ -274,6 +456,12 @@ class BerkasController extends Controller
         $spek_item=SpekHpsItem::where('paket_id',$id)->get();
         $spek_item_first=SpekHpsItem::where('paket_id',$id)->first();
         $spesifikasi=SpekTeknis::where('id', $spek_item_first->spek_id)->first();
+
+        //
+        $jadwal_hps=JadwalKegiatanPengadaan::where('paket_id',$paket->id)->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')->where('kegiatan_pengadaans.nama_kegiatan_p','Penetapan HPS')->first();
+        $format_hps=$jadwal_hps->kode_format;
+        $tanggal_penetapan=$jadwal_hps->jadwal_kegiatan;
+        //
         $n_item=count($spek_item);
         $terbilang_hps=terbilang($paket->total_hps)." Rupiah";
 
@@ -284,6 +472,8 @@ class BerkasController extends Controller
         $templateProcessor->setValue('total_hps', number_format($paket->total_hps,0,',','.'));
       
         $templateProcessor->setValue('total_terbilang', $terbilang_hps);
+        $templateProcessor->setValue('spesifikasi', $spesifikasi->spesifikasi);
+        $templateProcessor->setValue('date_spek', getDateIndo($tanggal_penetapan));
         //item merge
         $templateProcessor->cloneRow('nama_item',$n_item);
         for ($i=0; $i <$n_item ; $i++) {
@@ -317,11 +507,11 @@ class BerkasController extends Controller
         
         }
 
-        $templateProcessor->saveAs('template_with_table.docx');
+        $templateProcessor->saveAs('hps.docx');
 
-        return response()->download('template_with_table.docx');
+        return response()->download('hps.docx');
     }
-
+/////////////////////////////////////////////////////////////////////////////
     public function generateUndanganPengadaan($id){
         $id_paket=$id;
         $paket=Paket::find($id_paket);

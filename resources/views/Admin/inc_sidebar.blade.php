@@ -124,7 +124,7 @@
                   <i class="nav-icon far fa-envelope"></i>
                 <p>
                     
-                  Inbox
+                  Disposisi
                   @if (count(auth()->user()->unreadNotifications->where('type','App\Notifications\disposisiTerkirim'))>0)
                   <span class="badge badge-danger ">New</span>
                   @endif

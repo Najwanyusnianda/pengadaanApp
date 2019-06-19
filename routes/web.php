@@ -117,6 +117,13 @@ Route::group(['middleware' => ['auth']], function () {
     //pejabat
     Route::post('/paket/pejabat/{id}/store','PaketController@pjStore')->name('pejabat.store');
     Route::post('/paket/store_kak','PaketController@storeKak');
+
+    #-------------------------------
+    //file
+    Route::get('paket/{id}/uploadPenawaran','PaketController@uploadPenawaranIndex')->name('upload.penawaran.index');
+    Route::post('paket/{id}/uploadPenawaranStore','PaketController@uploadPenawaranStore')->name('upload.penawaran.store');
+    Route::get('berkas/{id}/hps','BerkasController@generateHps')->name('doc.hps');
+    
      
     #-------------------------------
     //berkas
@@ -125,6 +132,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('berkas/{id}/spek_teknis','BerkasController@generateSpesifikasi')->name('doc.spekTeknis');
     Route::get('berkas/{id}/permohonan','BerkasController@generatePermohonanPengadaan')->name('doc.permohonan');
     Route::get('berkas/{id}/undangan','BerkasController@generateUndanganPengadaan')->name('doc.undangan');
+    //eval
+    Route::get('berkas/{id}/klarifikasi','BerkasController@generateKlarifikasi')->name('doc.klarifikasi');
+    Route::get('berkas/{id}/evaluasi','BerkasController@generateEvaluasi')->name('doc.evaluasi');
+    Route::get('berkas/{id}/hasil_pengadaan','BerkasController@generateBahpl')->name('doc.bahpl');
+
 
     //Route::get('/paket/{id}/detail');
     #-------------------------------

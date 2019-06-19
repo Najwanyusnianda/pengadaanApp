@@ -97,7 +97,7 @@
 
 <div class="modal fade permintaan_modal" id="exampleModal"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-          <div class="modal-content detail-permintaan"  id="detail_body" style="width:800px;">
+          <div class="modal-content detail-permintaan"  id="detail_body">
            
             
 
