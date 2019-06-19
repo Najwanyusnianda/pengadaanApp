@@ -21,7 +21,7 @@
     <img src="{{asset('img/user.png')}}" width="25%" alt="User Avatar" class="img-size-50 img-circle mr-3">
     <div class="media-body">
       <h3 class="dropdown-item-title" style="font-size:12px;">
-         <strong>seseorang</strong> 
+      <strong>{{$notifikasi->data['pengirim']}}</strong> 
         <span class="float-right text-sm text-muted"><i class="fa fa-star"></i></span>
       </h3>
       <p class="text-sm" style="font-size:12px;">mengirim <strong style="color:cornflowerblue">{{$notifikasi->data['disposisi']['type']}}</strong></p>

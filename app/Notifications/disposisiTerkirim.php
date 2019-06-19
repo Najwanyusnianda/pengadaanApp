@@ -61,7 +61,7 @@ class disposisiTerkirim extends Notification
       
         return [
             //
-            
+            'pengirim'=>auth()->user()->person->nama,
             'waktuTerkirim'=>\Carbon\Carbon::now(),
 
             'disposisi'=>$this->disposisi_detail,
