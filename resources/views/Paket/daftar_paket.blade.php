@@ -21,23 +21,25 @@
 
                 </div>
                 <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;color:#566787;">
-                   
-                    <table class="table table-condensed table-hover " id="paketTable">
+                   <div class="table-responsive">
+                        <table class="table table-condensed table-hover " id="paketTable">
 
-                        <thead>
-                            <tr style="font-family:Valera Round, sans-serif;color:#566787" >
-                                <th>#</th>
-                                <th></th>
-                                <th style="width:60%">Nama Paket</th>
-                                <th>Status Paket</th>
-                              
-                            </tr>
-                        </thead>
+                                <thead>
+                                    <tr style="font-family:Valera Round, sans-serif;color:#566787" >
+                                        <th>#</th>
+                                        <th></th>
+                                        <th style="width:60%">Nama Paket</th>
+                                        <th>Status Paket</th>
+                                      
+                                    </tr>
+                                </thead>
+                
+                                <tbody style="font-family:'Varela Round', sans-serif;color:#566787;font-size:13px;">
         
-                        <tbody style="font-family:'Varela Round', sans-serif;color:#566787;font-size:13px;">
-
-                        </tbody>
-                    </table>        
+                                </tbody>
+                            </table>     
+                   </div>
+   
 
       
                 </div>
