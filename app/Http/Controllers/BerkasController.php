@@ -154,7 +154,7 @@ class BerkasController extends Controller
         $tanggal_terbilang=tanggal_terbilang($tanggal_penetapan);
 
 
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app\templateBerkas\lainnya\Berita Acara HPS.docx'));
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/Berita Acara HPS.docx'));
         
         $nilai_hps_currency='Rp '.number_format($paket->total_hps,0,',','.');
         $templateProcessor->setValue(array('nama_ppk', 'nip_ppk','jabatan_ppk'), array($ppk->nama,$ppk->nip,$ppk->nama_jabatan));
@@ -197,7 +197,7 @@ class BerkasController extends Controller
         $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
         ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->join('people','project_enrollments.person_id','people.id')->first();
        
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app\templateBerkas\lainnya\permohonan pengadaan.docx'));
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/permohonan pengadaan.docx'));
         
         //header surat
         $templateProcessor->setValue('nomor_permohonan_pengadaan','test_nomor');
@@ -325,7 +325,7 @@ class BerkasController extends Controller
         $n_item=count($spek_item);
         
         ///
-            $template_spesifikasi = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app\templateBerkas\lainnya\Spesifikasi Teknis.docx'));
+            $template_spesifikasi = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/Spesifikasi Teknis.docx'));
 
             //
             $template_spesifikasi->setValue('judul_paket',$judul);
@@ -465,7 +465,7 @@ class BerkasController extends Controller
         $n_item=count($spek_item);
         $terbilang_hps=terbilang($paket->total_hps)." Rupiah";
 
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app\templateBerkas\lainnya\HPS.docx'));
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/HPS.docx'));
         $templateProcessor->setValue('judul_paket',$judul);
         $templateProcessor->setValue(array('nama_ppk', 'nip_ppk','label_ppk'), array($ppk->nama,$ppk->nip,$ppk->nama_jabatan));
 
@@ -524,7 +524,7 @@ class BerkasController extends Controller
         $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
         ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->join('people','project_enrollments.person_id','people.id')->first();
        
-        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app\templateBerkas\lainnya\Undangan Pengadaan.docx'));
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/Undangan Pengadaan.docx'));
         
         //merge
         $templateProcessor->setValue('nomor_undangan','test undangan');
