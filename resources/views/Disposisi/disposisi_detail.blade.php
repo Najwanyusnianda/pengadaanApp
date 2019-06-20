@@ -27,11 +27,11 @@
                         </div>
                         <br>
                         <div class="d-block">
-                            <button class="btn btn-sm btn-flat btn-outline-secondary">Lihat Form Permintaan</button>
+                            <button class="btn btn-sm btn-flat btn-outline-secondary permintaan-show" data-id="{{$disp_detail->permintaan_id}}">Lihat Form Permintaan </button>
                         </div>
                         <hr>
                         <p>
-                          <a href="#" class="link-black text-sm mr-2"><i class="fa fa-share mr-1"></i> Diteruskan</a>
+                        <a href="{{route('permintaan.list')}}" class="link-black text-sm mr-2"><i class="fa fa-share mr-1"></i> Diteruskan</a>
                           @if (auth()->user()->person->id==$disp_detail->from_id)
                           <a href="#" class="link-black text-sm mr-2"><i class="fas fa-pen"></i> Edit</a>
                           @endif
@@ -45,3 +45,34 @@
         </div>
 </div>
 
+
+
+
+
+
+
+<script>
+
+         $('body').on('click','.permintaan-show',function(e){
+            e.preventDefault();
+
+            
+            var me = $(this);
+            var id= me.attr('data-id');
+            var me = me.parent().parent();
+            //var judul=me.find('.judul').text();
+            console.log(id);
+          
+            //get disposisi form
+            $.ajax({
+                url: '/permintaan/'+id,
+                dataType: 'html',
+                success: function(response) {
+                $('#detail_body').html(response);
+               
+                }
+            });
+            $('.permintaan_modal').modal('show');
+
+        });
+</script>
