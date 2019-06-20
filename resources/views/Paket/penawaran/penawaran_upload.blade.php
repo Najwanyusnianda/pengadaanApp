@@ -33,6 +33,7 @@
 
           <div class="card-footer">
             <button type="submit" class="btn btn-primary" style="margin-top:10px">Upload file</button>
+            <a class="btn btn-link btn-outline-secondary btn-sm ml-3" href="{{route('paket.detail',['id'=>$paket->id])}}">Kembali</a>
           </div>
                   
           

@@ -402,7 +402,7 @@ class PaketController extends Controller
         $paket_id=$id;
         $kegiatan_penawaran=KegiatanPenawaran::all();
 
-        return view('Paket.Penawaran.jadwal_penawaran',compact('kegiatan_penawaran','paket_id'));
+        return view('Paket.penawaran.jadwal_penawaran',compact('kegiatan_penawaran','paket_id'));
     }
 
     public function jadwalPenawaranStore(Request $request,$id){
@@ -523,7 +523,7 @@ class PaketController extends Controller
 
         $pembukaan_dokumen=EvaluasiKriteria::where('id_evaluasi','PD')->get();
      
-        return view('Paket.Penawaran.form_pembukaan_penawaran')
+        return view('Paket.penawaran.form_pembukaan_penawaran')
         ->with('id_paket',$id)
         ->with('doc_kriteria',$pembukaan_dokumen)
         ->with('eval_dokumen',$paketDokumen);

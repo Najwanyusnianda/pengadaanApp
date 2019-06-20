@@ -111,8 +111,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/paket/{id}/klarifikasi_teknis/store','PaketController@klarifikasi_teknis_store')->name('paket.klarifikasi_teknis.store');
     Route::get('/paket/{id}/detail/evaluasi_penawaran','PaketController@formPembukaanPenawaran')->name('paket.detail.pembukaan_evaluasi');
     Route::post('/paket/{id}/PembukaanPenawaran/store','PaketController@storePembukaanPenawaran')->name('paket.pembukaan_penawaran.store');
-    Route::get('/paket/{id}/detail/evaluasi_paket','PaketCOntroller@formEvaluasiPenawaran')->name('paket.detail.penawaran_evaluasi');
-    Route::post('/paket/{id}/evaluasi_paket/store','PaketCOntroller@evaluasiStore')->name('paket.penawaran_evaluasi.store');
+    Route::get('/paket/{id}/detail/evaluasi_paket','PaketController@formEvaluasiPenawaran')->name('paket.detail.penawaran_evaluasi');
+    Route::post('/paket/{id}/evaluasi_paket/store','PaketController@evaluasiStore')->name('paket.penawaran_evaluasi.store');
    
     //pejabat
     Route::post('/paket/pejabat/{id}/store','PaketController@pjStore')->name('pejabat.store');

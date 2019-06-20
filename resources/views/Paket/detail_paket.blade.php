@@ -43,7 +43,7 @@
                                         @if (!empty($penyedia))
                      {{$penyedia->nama}}
                     @else
-                                 <a href="{{route('paket.detail.penyedia',['id'=>$paket->id])}}" class="btn btn-outline-info btn-sm float-right"> Penyedia</a>
+                                 <a href="{{route('paket.detail.penyedia',['id'=>$paket->id])}}" class="btn btn-outline-info btn-sm"> Penyedia</a>
                     @endif
                     </td>
                     </tr>
@@ -111,12 +111,7 @@
                     @endif
 
              
-                    
-                    @if (!empty($penyedia))
-                        Penyedia:{{$penyedia->nama}}
-                    @else
-                                 <a href="{{route('paket.detail.penyedia',['id'=>$paket->id])}}" class="btn btn-outline-info btn-sm float-right"> Penyedia</a>
-                    @endif
+
         </div>
       </div>
 
