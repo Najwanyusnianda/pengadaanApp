@@ -477,6 +477,7 @@ class PaketController extends Controller
     public function klarifikasi_teknis($id){
         $id_paket=$id;
         $item_spek=SpekHpsItem::where('paket_id',$id_paket)->get();
+        
         return view('Paket.penawaran.form_klarifikasi_teknis')->with('item_spek',$item_spek)->with('id_paket',$id_paket);
     }
     public function klarifikasi_teknis_store(Request $request,$id){
@@ -592,7 +593,7 @@ class PaketController extends Controller
 
       
         
-        return view('Paket.Penawaran.form_evaluasi_paket')
+        return view('Paket.penawaran.form_evaluasi_paket')
         ->with('id_paket',$id_paket)
         ->with('administrasi',$evaluasiAdministrasi)
         ->with('kualifikasi',$evaluasiKualifikasi)
