@@ -28,7 +28,7 @@
                         <a class="btn btn-outline-info btn-sm {{empty($pj) ? 'disabled' :  ''}}" href="{{route('paket.jadwal',['id'=>$paket->id])}}" role="button"><i class="fas fa-calendar-plus"></i> <small>Buat Jadwal</small></a>
                         <hr>
                         @if (!empty($jadwal_pengadaan))
-                        <button class="btn btn-primary btn-sm "> lihat jadwal </button>
+                        <!--<button class="btn btn-primary btn-sm "> lihat jadwal </button>-->
                         @else
                             <small style="color:gray">jadwal belum dibuat</small>
                         @endif
