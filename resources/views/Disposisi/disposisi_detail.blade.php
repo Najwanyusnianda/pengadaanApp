@@ -23,7 +23,7 @@
             
                         <div>
                           <i class="fas fa-quote-right fa-circle"></i>
-                          {{$disp_detail->konten}}
+                          {!! $disp_detail->konten !!}
                         </div>
                         <br>
                         <div class="d-block">

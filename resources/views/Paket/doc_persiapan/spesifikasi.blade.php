@@ -46,11 +46,11 @@
 
 @section('konten')
     <div class="container ">
-            <div class="col-md-6">
+           
                         @if(Session::has('success'))
                         <div class="alert alert-success" role="alert">{{session('success')}}</div>
                         @endif
-            </div>
+            
 
         <div class="card shadow col-md-6" style="margin:auto;">
             <div class="card-header" >

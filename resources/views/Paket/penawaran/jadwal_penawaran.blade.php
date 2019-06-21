@@ -15,8 +15,16 @@
 @section('konten')
 <form action="{{route('paket.jadwal_penawaran.store',['id'=>$paket_id])}}" method="post">
     <div class="container card shadow col-md-12" style="width:80%;margin:auto;">
+            @if(Session::has('success'))
+            <div class="alert alert-success" role="alert">{{session('success')}}</div>
+            @endif
         <div class="card-header card-header-pills">
-            Jadwal Penawaran <button type="submit" class="btn btn-success btn-sm float-right"> Simpan Jadwal</button>
+            Jadwal Penawaran 
+            <div class="float-md-right">
+                    <button type="submit" class="btn btn-success btn-sm "> Simpan Jadwal</button>
+                    <a class="btn btn-link btn-outline-secondary btn-sm ml-3 " href="{{route('paket.detail',['id'=>$paket_id])}}">Kembali</a>
+            </div>
+
         </div>
     
         {{ csrf_field() }}

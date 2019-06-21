@@ -40,10 +40,7 @@
                                 </div>
                                 <br>
                                 <hr>
-                                <div class="list-group">
-                                        <button class="list-group-item list-group-item-action" id="Permohonan">Kirim Permohonan Pengadaan </button>
-                                        
-                                </div>
+    
                                 <hr>
                                 <div class="col-3 float-left  pt-1 pb-2 ">
                                         <a href="{{route('paket.detail',[$paket->id])}}" class="btn btn-outline-info"> Kembali</a>    

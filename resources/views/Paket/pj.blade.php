@@ -7,26 +7,28 @@
     <div class="alert alert-success" role="alert">{{session('success')}}</div>
     @endif
 
-        <div class="col-md-8 mt-5" style=";margin:auto;">
+        <div class="col-md-6 mt-5" style=";margin:auto;">
             
             <form action="{{route('pejabat.store',["id"=>$paket->id])}}" method="post">
 
            {{ csrf_field() }}
-            <div class="row-md-8">
-                    <div class="card card-outline card-info shadow p-2" style="font-family:QuickSand;font-size:12px; ">
-                          <div class="card-header text-center" style="font-size:16px;">
-                                Penanggung Jawab
+            <div class="row-md-6">
+                    <div class="card card-outline card-info shadow p-2" style="font-family:QuickSand; ">
+                          <div class="card-header text-center" >
+                              <span style="font-size:16px;">Penanggung Jawab</span>  
+                                <p class="text-sm text-muted" style="font-size:10px"> Pilih Penanggunpjawab pengadaan dengan menekan tombol dibawah</p>
                                 <hr>
                             </div>
         
                           
-                                <div class="list-group ">
-                                        <li  class="list-group-item list-group-item-action" id="pp">Pejabat Pengadaan
-                                            <span id="nama_pp"></span>
+                                <div class="list-group " style="font-size:14px;">
+                                        <li  class="list-group-item list-group-item-action" id="pp">Pejabat Pengadaan:
+    
+                                            <b id="nama_pp"><small>belum dipilih</small> </b>
                                                 <input type="hidden" readonly="readonly" name="pp_id" id="pp_id">
                                         </li>
-                                        <li  class="list-group-item list-group-item-action" id="ppk">PPK
-                                            <span id="nama_ppk"></span>
+                                        <li  class="list-group-item list-group-item-action" id="ppk">Pejabat Pembuat Komitmen:
+                                            <b id="nama_ppk"><small>belum dipilih</small>  </b>
                                             <input type="hidden" readonly="readonly" name="ppk_id" id="ppk_id">
                                         </li>
                                         
@@ -70,11 +72,15 @@
               </button>
             </div>
             <div class="modal-body">
-              <div class="list-group">
+              <div class="">
                   @forelse ($ppk as $data)
-                  <button type="button" class="list-group-item list-group-item-action ppk-person" data-id={{$data->id_pegawai}}>
-                    {{$data->nama}}
-                  </button>
+                  <tr>
+                      <td class="name">{{$data->nama}}</td>                       
+                      <td><span class="badge badge-info">{{$data->kode_jabatan}}</span><span class="text-muted text-sm">{{$data->nama_jabatan}} </span></td>
+                      <td>
+                        <button type="button" class="btn btn-sm btn-succes ppk-person" data-id={{$data->id_pegawai}} data-nama={{$data->nama}}>Pilih</button>
+                      </td>
+                    </tr>
                   @empty
                       
                   @endforelse
@@ -98,13 +104,22 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <div class="list-group">
+                  <div class="">
                       @forelse ($pp as $data)
-                      <button type="button" class="list-group-item list-group-item-action pp-person" data-id={{$data->id_pegawai}}>
-                        {{$data->nama}}
-                      </button>
+                      <table class="table table-borderless">
+                        <tr>
+                          <td class="name">{{$data->nama}}</td>                       
+                          <td><span class="badge badge-info">{{$data->kode_jabatan}}</span><span class="text-muted text-sm">{{$data->nama_jabatan}} </span></td>
+                          <td><button type="button" class="btn btn-sm btn-succes pp-person" data-id={{$data->id_pegawai}} data-nama={{$data->nama}}>Pilih</button></td>
+                        </tr>
+ 
+                            
+                      </table> 
+
+                       
+
                       @empty
-                          
+                          tidak ada pp dalam project
                       @endforelse
                         
                   </div>
@@ -182,7 +197,7 @@
                 var me=$(this);
                 var pp_input=$('#pp_id');
                 var person_id=me.attr('data-id');
-                var nama_ppk=me.text();
+                var nama_ppk=me.attr('data-nama');
                 console.log(nama_ppk);
                 $('#nama_ppk').text(nama_ppk);
                 //console.log(person_id);
@@ -200,6 +215,9 @@
                 var me=$(this);
                 var ppk_input=$('#ppk_id');
                 var person_id=me.attr('data-id');
+                var nama_pp=me.attr('data-nama');;
+                console.log(nama_pp);
+                $('#nama_pp').text(nama_pp);
                 console.log(person_id);
                 var pp_input=$('#pp_id');
                 pp_input.val(person_id);

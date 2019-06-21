@@ -126,7 +126,7 @@
                     
                   Disposisi
                   @if (count(auth()->user()->unreadNotifications->where('type','App\Notifications\disposisiTerkirim'))>0)
-                  <span class="badge badge-danger ">New</span>
+                  <span class="badge badge-danger ">Baru</span>
                   @endif
                   <i class="right fa fa-angle-left"></i>
                  

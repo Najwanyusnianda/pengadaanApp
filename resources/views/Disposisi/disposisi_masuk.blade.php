@@ -43,7 +43,8 @@
                                         </td> 
                                         <td>
                                             <div class="d-block" >
-                                                    <a href="#" class=" detail_disposisi_show" data-id="{{$data->disposisi_detail_id}}">
+                                                    <a href="#" class=" detail_disposisi_show" data-id="{{$data->id}}">
+                                                       
                                                             <strong style="color: #566787;font-family:QuickSand;font-size:13px;">Permintaan {{$data->judul_permintaan}}</strong>
                                                     </a>
                                                
@@ -56,7 +57,7 @@
                                             <p style="color:gray"><small>nomor: <strong>{{$data->nomor_form}}</strong> </small> </p>
                                         </td> 
                                     <td>{{$data->type}}</td>
-                                        <td>{{\Carbon\Carbon::parse($data->created_at)->format('l, d F Y H:i')}}</td>
+                                        <td>{{\Carbon\Carbon::parse($data->created_at)->format('d F Y H:i')}}</td>
                                         
                                        
                                     </tr>

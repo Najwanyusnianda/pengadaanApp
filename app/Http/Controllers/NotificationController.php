@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+
 class NotificationController extends Controller
 {
     //
     public function index(){
-        return view('notifikasi.list_notifikasi');
+        $notif=auth()->user()->notifications()->paginate(5);
+        
+        return view('notifikasi.list_notifikasi')->with('notif',$notif);
     }
 
     public function readNotif(){

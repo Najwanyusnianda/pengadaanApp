@@ -19,11 +19,14 @@ use App\Permintaan;
 use App\SpekTeknis;
 use App\SpekHpsItem;
 use App\JadwalKegiatanPengadaan;
+use App\JadwalPenawaran;
+
 
 class BerkasController extends Controller
 {
     //
 
+/////////////////////////////////////////////
     public function generateBahps($id){
         ///
         function penyebut($nilai) {
@@ -168,10 +171,12 @@ class BerkasController extends Controller
 
 
         //\PhpOffice\PhpWord\Settings::setOutputEscapingEnabled(true);
-        $docxfile='App/'.$paket->paket_storage.'/'.$judul.'-bahps'.'.docx';
-        $templateProcessor->saveAs(storage_path($docxfile));
+        //$docxfile='App/'.$paket->paket_storage.'/'.$judul.'-bahps'.'.docx';
+        $permintaan=Permintaan::find($paket->permintaan_id);
+        $judul=$permintaan->judul."- Berita acara hps";
+        $templateProcessor->saveAs($judul.".docx");
      
-        return response()->download(storage_path($docxfile));
+        return response()->download($judul.".docx");
 
 
 
@@ -180,6 +185,49 @@ class BerkasController extends Controller
     }
 
     public function generatePermohonanPengadaan($id){
+
+        function getDateIndo($date){
+            function bulanIndo($date)
+            {
+                $bulan=\Carbon\Carbon::parse($date)->format('F');
+               $bulan_indo='';
+                 if($bulan=="January"){
+                     $bulan_indo="Januari";
+                 }elseif ($bulan=="February") {
+                     $bulan_indo="Februari";
+                 }elseif ($bulan=="March") {
+                     $bulan_indo="Maret";
+                 }elseif ($bulan=="April") {
+                     $bulan_indo="April";
+                 }elseif ($bulan=="May"){
+                     $bulan_indo="Mei";
+                 }elseif ($bulan=="June"){ 
+                     $bulan_indo="Juni";
+                 }elseif ($bulan=="July"){
+                     $bulan_indo="Juli";
+                 }elseif ($bulan=="August"){
+                     $bulan_indo="Agustus";
+                 }elseif ($bulan=="September") {
+                     $bulan_indo="September";
+                 }elseif ($bulan=="October") {
+                     $bulan_indo="Oktober";
+                 }elseif ($bulan=="November") {
+                     $bulan_indo="November";
+                 }elseif ($bulan=="December") {
+                     $bulan_indo="Desember";
+                 };
+     
+                 return $bulan_indo;
+            };
+            $date_form=\Carbon\Carbon::parse($date)->format('d-F-Y');
+            $date_explode=explode("-",$date_form);
+
+            $bulan=bulanIndo($date);
+       
+            $date_reform=$date_explode[0]." ".$bulan." ".$date_explode[2];
+            return $date_reform;
+            
+        }
         
 
         $id_paket=$id;
@@ -196,12 +244,19 @@ class BerkasController extends Controller
         ->join('jabatan_ppks','project_enrollments.jabatan_id','jabatan_ppks.id')->join('people','project_enrollments.person_id','people.id')->first();
         $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
         ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->join('people','project_enrollments.person_id','people.id')->first();
-       
+        $jadwal_permohonan=JadwalKegiatanPengadaan::where('paket_id',$paket->id)->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')
+        ->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')
+        ->where('kegiatan_pengadaans.nama_kegiatan_p','Surat Permohonan Pengadaan')->first();
+        $tanggal_penetapan=$jadwal_permohonan->jadwal_kegiatan;
+        
+        
+        
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/permohonan pengadaan.docx'));
+        
         
         //header surat
         $templateProcessor->setValue('nomor_permohonan_pengadaan','test_nomor');
-        $templateProcessor->setValue('tanggal_penetapan','test_tanggal');
+        $templateProcessor->setValue('tanggal_penetapan',getDateIndo($tanggal_penetapan));
 
         //isi
         $templateProcessor->setValue('nama_bagian',$bagian->nama_bagian);
@@ -211,13 +266,14 @@ class BerkasController extends Controller
         $templateProcessor->setValue(array('nama_ppk', 'nip_ppk','label_ppk'), array($ppk->nama,$ppk->nip,$ppk->nama_jabatan));
         $templateProcessor->setValue('label_pp',$pp->nama_jabatan);
 
-
+        $permintaan=Permintaan::find($paket->permintaan_id);
+        $judul=$permintaan->judul."- Surat permohonan pengadaan";
 
         
-        $docxfile='App/'.$paket->paket_storage.'/'.$judul.'-permohonan'.'.docx';
-        $templateProcessor->saveAs(storage_path($docxfile));
+        
+        $templateProcessor->saveAs($judul.".docx");
      
-        return response()->download(storage_path($docxfile));
+        return response()->download($judul.".docx");
         //\Carbon\Carbon::parse($now)->formatLocalized('%A, %d %B %Y %H:%I:%S');
 
     }
@@ -308,6 +364,7 @@ class BerkasController extends Controller
 
         $id_paket=$id;
         $paket=Paket::find($id_paket);
+        $permintaan=Permintaan::find($paket->permintaan_id);
             
         $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
         //dd($bagian->nama_bagian);
@@ -356,9 +413,10 @@ class BerkasController extends Controller
             //$bulan=\Carbon\Carbon::parse($tanggal_penetapan)->format('F');
             $bulan=getDateIndo($tanggal_penetapan);
             $template_spesifikasi->setValue('date_spek',$bulan);
-            $template_spesifikasi->saveAs('template_with_table.docx');
+            $judul=$permintaan->judul."- Spesifikasi teknis";
+            $template_spesifikasi->saveAs($judul.'.docx');
 
-            return response()->download('template_with_table.docx');
+            return response()->download($judul.'.docx');
     }
 //////////////////////////////////////////////////////////
     public function generateHps($id){
@@ -458,7 +516,10 @@ class BerkasController extends Controller
         $spesifikasi=SpekTeknis::where('id', $spek_item_first->spek_id)->first();
 
         //
-        $jadwal_hps=JadwalKegiatanPengadaan::where('paket_id',$paket->id)->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')->where('kegiatan_pengadaans.nama_kegiatan_p','Penetapan HPS')->first();
+        $jadwal_hps=JadwalKegiatanPengadaan::where('paket_id',$paket->id)
+        ->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')
+        ->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')
+        ->where('kegiatan_pengadaans.nama_kegiatan_p','Penetapan HPS')->first();
         $format_hps=$jadwal_hps->kode_format;
         $tanggal_penetapan=$jadwal_hps->jadwal_kegiatan;
         //
@@ -506,13 +567,58 @@ class BerkasController extends Controller
 
         
         }
+        $permintaan=Permintaan::find($paket->permintaan_id);
+        $judul=$permintaan->judul."- hps";
+        $templateProcessor->saveAs($judul.'.docx');
 
-        $templateProcessor->saveAs('hps.docx');
-
-        return response()->download('hps.docx');
+        return response()->download($judul.'.docx');
     }
 /////////////////////////////////////////////////////////////////////////////
     public function generateUndanganPengadaan($id){
+        function bulanIndo($date)
+        {
+            $bulan=\Carbon\Carbon::parse($date)->format('F');
+           $bulan_indo='';
+             if($bulan=="January"){
+                 $bulan_indo="Januari";
+             }elseif ($bulan=="February") {
+                 $bulan_indo="Februari";
+             }elseif ($bulan=="March") {
+                 $bulan_indo="Maret";
+             }elseif ($bulan=="April") {
+                 $bulan_indo="April";
+             }elseif ($bulan=="May"){
+                 $bulan_indo="Mei";
+             }elseif ($bulan=="June"){ 
+                 $bulan_indo="Juni";
+             }elseif ($bulan=="July"){
+                 $bulan_indo="Juli";
+             }elseif ($bulan=="August"){
+                 $bulan_indo="Agustus";
+             }elseif ($bulan=="September") {
+                 $bulan_indo="September";
+             }elseif ($bulan=="October") {
+                 $bulan_indo="Oktober";
+             }elseif ($bulan=="November") {
+                 $bulan_indo="November";
+             }elseif ($bulan=="December") {
+                 $bulan_indo="Desember";
+             };
+ 
+             return $bulan_indo;
+        };
+        function getDateIndo($date){
+       
+            $date_form=\Carbon\Carbon::parse($date)->format('d-F-Y');
+            $date_explode=explode("-",$date_form);
+    
+            $bulan=bulanIndo($date);
+       
+            $date_reform=$date_explode[0]." ".$bulan." ".$date_explode[2];
+            return $date_reform;
+            
+        }
+   
         $id_paket=$id;
         $paket=Paket::find($id_paket);
             
@@ -524,24 +630,215 @@ class BerkasController extends Controller
         $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
         ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->join('people','project_enrollments.person_id','people.id')->first();
        
+        $jadwal_undangan=JadwalKegiatanPengadaan::where('paket_id',$paket->id)->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')
+        ->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')
+        ->where('kegiatan_pengadaans.nama_kegiatan_p','Surat Undangan Pengadaan')->first();
+        
+
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/Undangan Pengadaan.docx'));
         
         //merge
         $templateProcessor->setValue('nomor_undangan','test undangan');
         $templateProcessor->setValue('nama_penyedia','test_penyedia');
-        $templateProcessor->setValue('nama_paket','test_paket');
-        $templateProcessor->setValue('tanggal_akhir_pekerjaan','test_akhir');
+        $templateProcessor->setValue('nama_paket',$judul);
+        $templateProcessor->setValue('tanggal_akhir_pekerjaan',getDateIndo($permintaan->date_selesai));
+        $templateProcessor->setValue('tanggal_undangan',getDateIndo($jadwal_undangan->jadwal_kegiatan));
 
+        $jadwal_penawaran=JadwalPenawaran::where('paket_id',$paket->id)->join('kegiatan_penawarans','jadwal_penawarans.kegiatan_penawaran_id','=','kegiatan_penawarans.id')->get();
+        
+        $pembukaan=JadwalPenawaran::where('paket_id',$paket->id)
+        ->join('kegiatan_penawarans','jadwal_penawarans.kegiatan_penawaran_id','=','kegiatan_penawarans.id')
+        ->where('kegiatan_penawarans.nama_kegiatan_penawaran','Pemasukan dan Pembukaan Dokumen Penawaram')
+        ->first();
+    
+        $nego=JadwalPenawaran::where('paket_id',$paket->id)
+        ->join('kegiatan_penawarans','jadwal_penawarans.kegiatan_penawaran_id','=','kegiatan_penawarans.id')
+        ->where('kegiatan_penawarans.nama_kegiatan_penawaran','Evaluasi, Klarifikasi Teknis Dan Negosiasi Harga')
+        ->first();
+
+        $spk=JadwalPenawaran::where('paket_id',$paket->id)
+        ->join('kegiatan_penawarans','jadwal_penawarans.kegiatan_penawaran_id','=','kegiatan_penawarans.id')
+        ->where('kegiatan_penawarans.nama_kegiatan_penawaran','Penandatanganan SPK')
+        ->first();
+
+        function rentangwaktu($waktu_mulai,$waktu_selesai){
+            $waktu_mulai=\Carbon\Carbon::parse($waktu_mulai)->format('h.i');
+            $waktu_selesai=\Carbon\Carbon::parse($waktu_selesai)->format('h.i');
+            $rentang= $waktu_mulai.' s.d. '.$waktu_selesai;
+            return $rentang;
+        };
+        //dd($pembukaan->$waktu_mulai);
+       
+        //rentangwaktu($pembukaan->waktu_mulai,pembukaan->$waktu_selesai)
         //jadwal merge
-        $templateProcessor->setValue(array('tanggal_pembukaan','rentang_pembukaan'),array('a','b','c'));
-        $templateProcessor->setValue(array('tanggal_nego','rentang_nego'),array('a','b','c'));
-        $templateProcessor->setValue(array('tanggal_spk','rentang_spk'),array('a','b','c'));
+        $templateProcessor->setValue(array('nama_pp', 'nip_pp','label_pp'), array($pp->nama,$pp->nip,$pp->nama_jabatan));
+        $templateProcessor->setValue(array('tanggal_pembukaan','rentang_pembukaan'),array(getDateIndo($pembukaan->tanggal_pelaksanaan),rentangwaktu($pembukaan->waktu_mulai,$pembukaan->waktu_selesai)));
+        $templateProcessor->setValue(array('tanggal_nego','rentang_nego'),array(getDateIndo($nego->tanggal_pelaksanaan),rentangwaktu($nego->waktu_mulai,$nego->waktu_selesai)));
+        $templateProcessor->setValue(array('tanggal_spk','rentang_spk'),array(getDateIndo($spk->tanggal_pelaksanaan),rentangwaktu($spk->waktu_mulai,$spk->waktu_selesai)));
 
-        $docxfile='App/'.$paket->paket_storage.'/'.$judul.'-undangan'.'.docx';
-        $templateProcessor->saveAs(storage_path($docxfile));
-        return response()->download(storage_path($docxfile));
+       //$docxfile='App/'.$paket->paket_storage.'/'.$judul.'-undangan'.'.docx';
+       $judul=$permintaan->judul."- surat undangan pengadaan";
+        $templateProcessor->saveAs($judul.'.docx');
+        return response()->download($judul.'.docx');
     }
 
+
+
+    //////////////generate penawaran//////////////////
+
+    public function generateKlarifikasi($id){
+        function getDateIndo($date){
+            function bulanIndo($date)
+            {
+                $bulan=\Carbon\Carbon::parse($date)->format('F');
+               $bulan_indo='';
+                 if($bulan=="January"){
+                     $bulan_indo="Januari";
+                 }elseif ($bulan=="February") {
+                     $bulan_indo="Februari";
+                 }elseif ($bulan=="March") {
+                     $bulan_indo="Maret";
+                 }elseif ($bulan=="April") {
+                     $bulan_indo="April";
+                 }elseif ($bulan=="May"){
+                     $bulan_indo="Mei";
+                 }elseif ($bulan=="June"){ 
+                     $bulan_indo="Juni";
+                 }elseif ($bulan=="July"){
+                     $bulan_indo="Juli";
+                 }elseif ($bulan=="August"){
+                     $bulan_indo="Agustus";
+                 }elseif ($bulan=="September") {
+                     $bulan_indo="September";
+                 }elseif ($bulan=="October") {
+                     $bulan_indo="Oktober";
+                 }elseif ($bulan=="November") {
+                     $bulan_indo="November";
+                 }elseif ($bulan=="December") {
+                     $bulan_indo="Desember";
+                 };
+     
+                 return $bulan_indo;
+            };
+            $date_form=\Carbon\Carbon::parse($date)->format('d-F-Y');
+            $date_explode=explode("-",$date_form);
+
+            $bulan=bulanIndo($date);
+       
+            $date_reform=$date_explode[0]." ".$bulan." ".$date_explode[2];
+            return $date_reform;
+            
+        }
+        $id_paket=$id;
+        $paket=Paket::find($id_paket);
+            
+        $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
+        $judul=$permintaan->judul;
+        $project=Project::where('id',$permintaan->project_id)->first();
+        $spek_item=SpekHpsItem::where('paket_id',$id)->get();
+        $spek_item_first=SpekHpsItem::where('paket_id',$id)->first();
+        $spesifikasi=SpekTeknis::where('id', $spek_item_first->spek_id)->first();
+        $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
+        ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->join('people','project_enrollments.person_id','people.id')->first();
+  
+
+        //
+        $jadwal_klarifikasi=JadwalKegiatanPengadaan::where('paket_id',$paket->id)
+        ->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')
+        ->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')
+        ->where('kegiatan_pengadaans.nama_kegiatan_p','Berita Acara klarifikasi dan Negosiasi Teknis Harga')->first();
+
+        //$format_hps=$jadwal_hps->kode_format;
+        $tanggal_penetapan=$jadwal_klarifikasi->jadwal_kegiatan;
+        //
+        $n_item=count($spek_item);
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/Berita Acara klarifikasi dan negosiasi.docx'));
+
+        $templateProcessor->setValue(array('nama_pp', 'nip_pp','label_ppk'), array($pp->nama,$pp->nip,$pp->nama_jabatan));
+
+        $templateProcessor->setValue('total_item_penawaran', number_format($paket->total_penawaran,0,',','.'));
+        $templateProcessor->setValue('total_item_nego', number_format($paket->total_negosiasi,0,',','.'));
+      
+        $templateProcessor->setValue('spesifikasi', $spesifikasi->spesifikasi);
+        $templateProcessor->setValue('tanggal_klarifikasi', getDateIndo($tanggal_penetapan));
+        //item merge
+        $sub_total_penawaran=0;
+        $sub_total_nego=0;
+        $ppn_penawaran=0;
+        $ppn_nego=0;
+   
+        for ($i=0; $i <$n_item ; $i++) { 
+            $jumlah_harga_penawaran=(int)($spek_item[$i]->jumlah_penawaran);
+            $jumlah_harga_nego=(int)($spek_item[$i]->jumlah_nego);
+            $sub_total_penawaran=$sub_total_penawaran+$jumlah_harga_penawaran;
+            $sub_total_nego=$sub_total_nego+$jumlah_harga_nego;
+        }
+        $ppn_penawaran=0.1*$sub_total_penawaran;
+        $ppn_nego=0.1*$sub_total_nego;
+
+        $templateProcessor->setValue('ppn_item_penawaran',$ppn_penawaran);
+        $templateProcessor->setValue('ppn_item_nego',$ppn_nego);
+        $templateProcessor->setValue('sub_total_penawaran',$sub_total_penawaran);
+        $templateProcessor->setValue('sub_total_nego',$sub_total_nego);
+        $templateProcessor->setValue('tanggal_klarifikasi',getDateIndo($tanggal_penetapan));
+
+
+        $templateProcessor->cloneRow('nama_item',$n_item);
+        for ($i=0; $i <$n_item ; $i++) {
+            $harga_penawaran=$spek_item[$i]->harga_penawaran;
+            $harga_negosiasi=$spek_item[$i]->harga_negosiasi;
+            $volume=$spek_item[$i]->volume;
+            $harga_penawaran=(int)$harga_penawaran;
+            $harga_negosiasi=(int)$harga_negosiasi;
+            $volume=(int)$volume;
+            $harga_full=$harga*$volume;
+            $jumlah_harga_penawaran=(int)($spek_item[$i]->jumlah_penawaran);
+            $jumlah_harga_nego=(int)($spek_item[$i]->jumlah_nego);
+
+            $num=$i+1; 
+            $no_item='no_item#'.$num;
+            $nama_item='nama_item#'.$num;
+            $volume_item='volume_item#'.$num;
+            $satuan_item='satuan_item#'.$num;
+            $harga_item_penawaran='harga_item_penawaran#'.$num;
+            $harga_item_nego='harga_item_nego#'.$num;
+            $jumlah_item_penawaran='jumlah_item_penawaran#'.$num;
+            $jumlah_item_nego='jumlah_item_nego#'.$num;
+
+
+            $templateProcessor->setValue($no_item, htmlspecialchars($num));
+            $templateProcessor->setValue($nama_item, htmlspecialchars($spek_item[$i]->nama_item));
+            $templateProcessor->setValue($volume_item, htmlspecialchars($spek_item[$i]->volume));
+            $templateProcessor->setValue($satuan_item, htmlspecialchars($spek_item[$i]->satuan));
+            $templateProcessor->setValue($harga_item_penawaran, htmlspecialchars(number_format($spek_item[$i]->harga_penawaran,0,',','.')));
+            $templateProcessor->setValue($harga_item_nego, htmlspecialchars(number_format($spek_item[$i]->harga_nego,0,',','.')));
+            $templateProcessor->setValue($jumlah_item_penawaran, htmlspecialchars(number_format($spek_item[$i]->jumlah_penawaran,0,',','.')));
+            $templateProcessor->setValue($jumlah_item_nego, htmlspecialchars(number_format($spek_item[$i]->jumlah_nego,0,',','.')));
+
+        
+        }
+        $judul=$permintaan->judul."- BA klarifikasi dan negosiasi";
+        $templateProcessor->saveAs($judul.'.docx');
+        return response()->download($judul.'.docx');
+    }
+
+    public function generateEvaluasi($id){
+        $id_paket=$id;
+        $paket=Paket::find($id_paket);
+            
+        $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
+        $judul=$permintaan->judul;
+        $project=Project::where('id',$permintaan->project_id)->first();
+    }
+    public function generateBahpl($id){
+        $id_paket=$id;
+        $paket=Paket::find($id_paket);
+            
+        $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
+        $judul=$permintaan->judul;
+        $project=Project::where('id',$permintaan->project_id)->first();
+    }
 
 
     

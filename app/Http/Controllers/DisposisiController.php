@@ -34,18 +34,93 @@ class DisposisiController extends Controller
 
     public function store(Request $request){
        // dd(count($request->penerima));
+      
         $user_id=auth()->user()->id;
         $pengirim=Person::where('user_id','=',$user_id)->first();
         $role_id=auth()->user()->person->role->id;
         
-        $disposisi_detail=DisposisiDetail::create([
-            'konten'=>$request->uraian,
-            'type'=>'disposisi',
-            'permintaan_id'=>$request->permintaan_id,
+        $permintaan=Permintaan::find($request->permintaan_id);
+        $uraian=DisposisiDetail::where('permintaan_id',$permintaan->id)->first();
+     
+        if(empty($uraian)){
+       
+                    $disposisi_detail=DisposisiDetail::create([
+                        'konten'=>$request->uraian,
+                        'type'=>'disposisi',
+                        'source_id'=>$request->pengirim,
+                        'permintaan_id'=>$request->permintaan_id,
+                        
 
-        ]);
+                    ]);
+
+                    for ($index = 0; $index < count($request->penerima) ; $index++) {
+                        $disposisi_header=DisposisiHeader::create([
+                            'from_id'=>$pengirim->id,
+                            'to_id'=>$request->penerima[$index],
+                            'disposisi_detail_id'=>$disposisi_detail->id
+                        ]);
+                
+                    }
+                    foreach($request->penerima as $temps){
+                        $data[]=$temps;
+                    }
+                $penerima=User::whereIn('id',$data)->get();
+                    $Notification=Notification::send($penerima,new disposisiTerkirim($disposisi_detail));
+                    if($role_id==4){
+                        $permintaan=Permintaan::find($disposisi_detail->permintaan_id);
+                        $permintaan->disposisi_status='disposisi'; //baru,disposisi,dikerjakan
+                        $permintaan->save();
+                    }
+
+        }else {
+
+            $uraian=DisposisiDetail::where('permintaan_id',$permintaan->id)->first();
+           
+            $konten=$uraian->konten;
+            $kontenUpdate=$konten.'<hr><p class=" text-muted text-sm"> diupdate oleh: '.$pengirim->nama.'</p><br><i class="fas fa-quote-right fa-circle"></i>'.$request->uraian;
+           //dd($kontenUpdate);
+            $uraian->update([
+                'konten'=>$kontenUpdate
+            ]);
+            for ($index = 0; $index < count($request->penerima) ; $index++) {
+                $disposisi_header=DisposisiHeader::create([
+                    'from_id'=>$pengirim->id,
+                    'to_id'=>$request->penerima[$index],
+                    'disposisi_detail_id'=>$uraian->id
+                ]);
         
-        for ($index = 0; $index < count($request->penerima) ; $index++) {
+            }
+            foreach($request->penerima as $temps){
+                $data[]=$temps;
+            }
+           $penerima=User::whereIn('id',$data)->get();
+            $Notification=Notification::send($penerima,new disposisiTerkirim($uraian));
+            if ($role_id==5) {
+                # code...
+                $paket=Paket::create([
+                    'permintaan_id'=>$request->permintaan_id,
+    
+                ]);
+                $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
+                $judul=$permintaan->judul;
+                $project=Project::where('id',$permintaan->project_id)->first();
+        
+                $paket_date=\Carbon\Carbon::parse($paket->created_at)->format('Y_m_d_his');
+                $store_link=$project->project_storage.'/'.$paket_date.'_'.$judul;
+                $storage=Storage::makeDirectory($store_link);
+        
+                $paket->update([
+                    'paket_storage'=>$store_link
+                ]);
+                $permintaan=Permintaan::find($uraian->permintaan_id);
+                $permintaan->disposisi_status='dikerjakan'; //baru,disposisi,dikerjakan
+                $permintaan->save();
+            }
+
+        }
+
+        
+        /*for ($index = 0; $index < count($request->penerima) ; $index++) {
             $disposisi_header=DisposisiHeader::create([
                 'from_id'=>$pengirim->id,
                 'to_id'=>$request->penerima[$index],
@@ -83,7 +158,7 @@ class DisposisiController extends Controller
             $permintaan=Permintaan::find($disposisi_detail->permintaan_id);
             $permintaan->disposisi_status='dikerjakan'; //baru,disposisi,dikerjakan
             $permintaan->save();
-        }
+        }*/
       
 
     }
@@ -95,7 +170,7 @@ class DisposisiController extends Controller
         ->join('people AS a','disposisi_headers.from_id','=','a.id')
         ->join('people AS b','disposisi_headers.to_id','=','b.id')
         ->join('permintaans','permintaan_id','=','permintaans.id')
-        ->select('disposisi_headers.*','disposisi_details.*','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan','permintaans.nomor_form')->paginate(5);
+        ->select('disposisi_headers.*','disposisi_details.konten','disposisi_details.type','disposisi_details.permintaan_id','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan','permintaans.nomor_form')->latest()->paginate(5);
         //$disposisi_masuk=DB::table('disposisi_details')->join('disposisi_headers','disposisi_details.id','=','disposisi_headers.disposisi_detail_id')->get();
         return view('Disposisi.disposisi_masuk',compact('disposisi_masuk'));
     }
@@ -107,7 +182,7 @@ class DisposisiController extends Controller
         ->join('people AS a','disposisi_headers.from_id','=','a.id')
         ->join('people AS b','disposisi_headers.to_id','=','b.id')
         ->join('permintaans','permintaan_id','=','permintaans.id')
-        ->select('disposisi_headers.*','disposisi_details.*','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->paginate(5);
+        ->select('disposisi_headers.*','disposisi_details.konten','disposisi_details.type','disposisi_details.permintaan_id','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->latest()->paginate(5);
         
         return view('Disposisi.disposisi_diteruskan',compact('disposisi_diteruskan'));
     }
@@ -132,7 +207,11 @@ class DisposisiController extends Controller
 
 
     public function detail($id){
-        $disp_detail=DB::table('disposisi_details')->where('disposisi_details.id',$id)->join('disposisi_headers','disposisi_details.id','=','disposisi_headers.disposisi_detail_id')->join('people AS a','disposisi_headers.from_id','=','a.id')->join('people AS b','disposisi_headers.to_id','=','b.id')->join('permintaans','permintaan_id','=','permintaans.id')->select('disposisi_headers.*','disposisi_details.*','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->first();
+        $disp_detail=DB::table('disposisi_headers')->where('disposisi_headers.id',$id)
+        ->join('disposisi_details','disposisi_details.id','=','disposisi_headers.disposisi_detail_id')
+        ->join('people AS a','disposisi_headers.from_id','=','a.id')->join('people AS b','disposisi_headers.to_id','=','b.id')
+        ->join('permintaans','permintaan_id','=','permintaans.id')
+        ->select('disposisi_headers.*','disposisi_details.*','a.nama AS nama_pengirim','a.nip AS nip_pengirim','b.nama AS nama_penerima','b.nip AS nip_penerima','permintaans.judul AS judul_permintaan')->first();
        
         
         return view('Disposisi.disposisi_detail',compact('disp_detail'));

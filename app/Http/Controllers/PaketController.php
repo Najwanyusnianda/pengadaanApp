@@ -46,10 +46,13 @@ class PaketController extends Controller
     public function detail($id){
         $paket=Paket::find($id);
         //dd($id);
-
+        $permintaan=Permintaan::find($paket->permintaan_id);
         $penyedia=Penyedia::where('npwp',$paket->penyedia_id)->first();
         $dokumen=PaketDokumen::where('paket_id',$paket->id)->get();
-
+        $jadwalpenawaran=jadwalPenawaran::where('paket_id',$paket->id)
+        ->join('kegiatan_penawarans','jadwal_penawarans.kegiatan_penawaran_id','=','kegiatan_penawarans.id')
+        ->get();
+   
         //check true
         /*$spek=SpekHpsItem::where('paket_id',$paket->id)->get();
         $spek=count($spek);
@@ -80,7 +83,9 @@ class PaketController extends Controller
         ->with('pj',$paket_penanggung_jawab)
         ->with('jadwal_pengadaan',$jadwal_pengadaan)
         ->with('dokumen',$dokumen)
-        ->with('penyedia',$penyedia);
+        ->with('penyedia',$penyedia)
+        ->with('permintaan',$permintaan)
+        ->with('jadwalPenawaran',$jadwalpenawaran);
     }
 
     public function persiapan($id){
@@ -417,7 +422,7 @@ class PaketController extends Controller
                     'waktu_selesai'=>$request->waktu_selesai[$i]
                 ]);
             }
-            return redirect()->route('paket.index');
+            return redirect()->back()->with('success', 'Jadwal berhasil ditambahkan');
 
         }
 

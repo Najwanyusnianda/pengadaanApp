@@ -18,7 +18,7 @@ class CreatePaketsTable extends Migration
             $table->unsignedInteger('permintaan_id')->nullable();
             $table->unsignedInteger('ppk_id')->nullable();
             $table->unsignedInteger('pp_id')->nullable();
-            $table->unsignedInteger('penyedia_id')->nullable();
+            $table->string('penyedia_id')->nullable();
             $table->unsignedBigInteger('total_hps')->nullable();
             $table->unsignedBigInteger('total_penawaran')->nullable();
             $table->unsignedBigInteger('total_negosiasi')->nullable();
