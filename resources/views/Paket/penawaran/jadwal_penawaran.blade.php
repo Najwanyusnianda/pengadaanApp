@@ -28,56 +28,59 @@
         </div>
     
         {{ csrf_field() }}
-                <table class="table" style="font-size:13px;font-family:'Varela Round'">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Kegiatan</th>
-                                <th>Tanggal</th>
-                                <th colspan="3" style="text-align:center;">Waktu <span style="font-weight:300"><small>(mulai s/d selesai)</small></span></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse ($kegiatan_penawaran as $key=>$kegiatan)
-                                <tr>
-                                    <td>
-                                        {{$key+1}}
-                                    </td>
-                                    <td>{{$kegiatan->nama_kegiatan_penawaran}}
-                                        <input type="number" hidden name="id_kegiatan_penawaran[]" value="{{$kegiatan->id}}" readonly>
-                                    </td>
-                                    <td>
-                                        <div class="form-group">
-                                                <input type="date" name="tanggal_pelaksanaan[]" class="form-control form-control-sm">
-                                        </div>
-                                        
-                                    </td>
-                                    <td>
-                                      
-                                            <div class="ml-3 pl-3">
-                                                <div class="form-group">
-                                                    <input type="time" name="waktu_mulai[]" class="form-control form-control-sm" placeholder="">
-                                                </div>
-                                            </div>
-                                       
-                                    </td>
-                                    <td style="vertical-align : middle;">
-                                        s/d
-                                    </td>
-                                    <td >
-                                        <div class="mr-3 pr-3">
-                                            <div class="form-group">
-                                            <input type="time" name="waktu_selesai[]" class="form-control form-control-sm" placeholder="">
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
+        <div class="table-responsive">
+            <table class="table" style="font-size:13px;font-family:'Varela Round'">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Kegiatan</th>
+                        <th>Tanggal</th>
+                        <th colspan="3" style="text-align:center;">Waktu <span style="font-weight:300"><small>(mulai s/d selesai)</small></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($kegiatan_penawaran as $key=>$kegiatan)
+                        <tr>
+                            <td>
+                                {{$key+1}}
+                            </td>
+                            <td>{{$kegiatan->nama_kegiatan_penawaran}}
+                                <input type="number" hidden name="id_kegiatan_penawaran[]" value="{{$kegiatan->id}}" readonly>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                        <input type="date" name="tanggal_pelaksanaan[]" class="form-control form-control-sm">
+                                </div>
                                 
-                            @endforelse
-            
-                        </tbody>
-                    </table>
+                            </td>
+                            <td>
+                              
+                                    <div class="ml-3 pl-3">
+                                        <div class="form-group">
+                                            <input type="time" name="waktu_mulai[]" class="form-control form-control-sm" placeholder="">
+                                        </div>
+                                    </div>
+                               
+                            </td>
+                            <td style="vertical-align : middle;">
+                                s/d
+                            </td>
+                            <td >
+                                <div class="mr-3 pr-3">
+                                    <div class="form-group">
+                                    <input type="time" name="waktu_selesai[]" class="form-control form-control-sm" placeholder="">
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        
+                    @endforelse
+    
+                </tbody>
+        </table>
+        </div>
+
 
                     
         
