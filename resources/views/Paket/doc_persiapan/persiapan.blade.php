@@ -11,8 +11,8 @@
 @section('konten')
     <div class="container">
 
-        <div class="col-md-8 mt-5" id="persiapan-component" style="margin:auto;">
-            <div class="row-md-8">
+        <div class="col-md-6 mt-5" id="persiapan-component" style="margin:auto;">
+            <div class="row-md-6">
                     <div class="card card-outline card-info shadow p-2" style="font-family:QuickSand;font-size:12px; ">
                             <div class="card-header text-center" style="font-size:16px;">
                                 Dokumen Persiapan Pengadaan
@@ -78,7 +78,7 @@ ul.list-group:after {
 }
 
 #persiapan-component{
-    width:50%
+    width:100%
 }
 
 @media screen and (min-width: 769px) and (max-width: 1023px) {

@@ -173,7 +173,7 @@
                 {data: 'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},
                 {data:'nama'},
                 {data:'deskripsi'},
-                {data:'created_at'},
+                {data:'created'},
                 {data:'action'},
             ]
             })

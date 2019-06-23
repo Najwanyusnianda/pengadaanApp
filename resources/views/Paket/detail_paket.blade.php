@@ -8,27 +8,26 @@
 @endsection
 @section('konten')
     <div class="container">
-  <div class="row-md-12">
-      <div class="row-md-8">
+  <div class="col-md-8 mx-auto">
+      <div class="row-md-6">
         @include('Paket._detail_paket')  
       </div>
 
 
 
-      <div class="row">
-          <div class="col-8 ">
+      <div class="row-md-6">
               @include('Paket._penanggung_jawab')
-          </div>
-          <div class="col-4">
-              @include('Paket._jadwal_paket_')
-          </div>
+  
+            
+      </div>
+      <div class="row-md-6">
+          @include('Paket._jadwal_paket_')
       </div>
 
 
-      <div class="row">
-        <div class="col-md-8">
+      <div class="row-md-6">
+    
             @include('Paket._penyedia')
-        </div>
        
       </div>
  
@@ -59,7 +58,7 @@
  
 
 
-    </div>
+</div>
 
     <!--modal-->
     <div class="modal" id="modalJadwal">

@@ -4,7 +4,7 @@
         <div class="btn-group float-right">
                     <a class="btn btn-outline-info btn-sm float-right" href="{{route('upload.penawaran.index',[$paket->id])}}" role="button"><i class="fas fa-plus"></i> <small>Upload Dok. Penawaran</small></a>
      
-        <a href="{{route('paket.detail.jadwal_penawaran',['id'=>$paket->id])}}" class="btn btn-outline-info btn-sm float-right">Buat Jadwal Penawaran</a> 
+       
        
         </div>
        </div>
@@ -19,22 +19,21 @@
                         <thead>
                             <tr>
                                 <th>Title</th>
-                                <th>Path</th>
-                                <th>URL</th>
-                                <th>Created</th>
+                                <th>lihat</th>
+                                <th>Waktu Upload</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($dokumen as $file)
                                 <tr>
                                     <td>{{ $file->subject }}</td>
-                                    <td>{{ $file->document_file }}</td>
+                                   <!-- <td>{{ $file->document_file }}</td>-->
                                     <td>
-                                        <a href="{{ Storage::url($file->document_file) }}">
-                                            View
+                                        <a href="{{ Storage::url($file->document_file) }} " class="badge badge-success">
+                                         lihat
                                         </a>
                                     </td>
-                                    <td>{{ $file->created_at->diffForHumans() }}</td>
+                                    <td> <span class="badge badge-info">{{ $file->created_at->diffForHumans() }}</span></td>
                                 </tr>
                             @endforeach
                         </tbody>

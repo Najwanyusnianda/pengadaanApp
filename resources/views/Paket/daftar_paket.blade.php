@@ -27,9 +27,10 @@
                                 <thead>
                                     <tr style="font-family:Valera Round, sans-serif;color:#566787" >
                                         <th>#</th>
-                                        <th></th>
                                         <th style="width:60%">Nama Paket</th>
-                                        <th>Status Paket</th>
+                                        <th>Jenis Pengadaan</th>
+                                        <th>tanggal dikerjakan</th>
+                                        <th>aksi</th>
                                       
                                     </tr>
                                 </thead>
@@ -71,8 +72,9 @@
             ajax:"{{route('table.paket')}}",
             columns:[
                 {data: 'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},
-                {data:'action',orderable: false,searchable: false},
                 {data:'judul'},
-                {data:'status'}]})
+                {data:'jenis_pengadaan'},
+                {data:'created_at'},
+                {data:'action',orderable: false,searchable: false}]})
     </script>
 @endsection

@@ -60,7 +60,7 @@
                         <td>5</td>
                         <td>Kegiatan</td>
                         <td>:</td>
-                        <td>{{$permintaan_detail->kode_kegiatan}}{{$permintaan_detail->nama_kegiatan}}</td>
+                        <td>({{$permintaan_detail->kode_kegiatan}}){{$permintaan_detail->nama_kegiatan}}</td>
                     </tr>
                     <tr>
                         <td>6</td>

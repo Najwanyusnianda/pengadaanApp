@@ -1,7 +1,12 @@
 <div class="card" style="font-family:Roboto">
         <div class="card-header ">
           Dokumen Persiapan Pengadaan 
+          @if ($spesifikasi->isEmpty())
           <a class="btn btn-outline-info btn-sm mb-2 float-right" href="{{route('paket.persiapan',[$paket->id])}}" role="button"><i class="fas fa-plus"></i> <small>Buat Dokumen Persiapan</small></a>
+          @else
+              <small class="text-muted float-right">Dokumen persiapan telah dibuat <a href="{{route('paket.persiapan',[$paket->id])}}">edit dokumen?</a></small>
+          @endif
+          
         </div>
         <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;">
             <div class="div">

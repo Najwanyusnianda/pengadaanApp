@@ -21,7 +21,7 @@
     }
 
     .card.shadow.col-md-6{
-                width:50%
+                width:100%
         }
 
    @media screen and (min-width: 769px) and (max-width: 1023px) {

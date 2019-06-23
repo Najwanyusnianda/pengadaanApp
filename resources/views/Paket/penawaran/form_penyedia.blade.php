@@ -20,7 +20,7 @@
 </style>
 
 <div class="container">
-    <div class="card shadow" style="margin:auto">
+    <div class="card shadow col-md-6" style="margin:auto">
     <form action="{{route('paket.detail.penyedia.store',['id'=>$id_paket])}}" method="POST" class="m-4" style="font-family:QuickSand;font-size:13px;color:#566787;font-weight: 500;">
             {{ csrf_field() }}
             <div class="form-group">

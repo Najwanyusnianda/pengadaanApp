@@ -168,6 +168,49 @@
                 ]
             });
 
+            $('body').on('click','.delete_user',function(e){
+            e.preventDefault();
+            var me = $(this);
+            var id= me.attr('data-id');
+            var url='/user/'+id+'/delete'
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Data Pegawai akan dihapus secara permanen",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                })
+                .then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+                        });
+
+                        $.ajax({
+                        type: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: url,
+                        data: {
+                            _method:'DELETE',
+                            _token: $('meta[name="csrf-token"]').attr('content'),      
+                        },
+                        success: function(response) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Bagian telah dihapus.',
+                                'success'
+                                );
+                                $('#userTable').DataTable().ajax.reload();
+                        }
+                    });
+                }
+                })
+        })
+
         })    
         
     </script>

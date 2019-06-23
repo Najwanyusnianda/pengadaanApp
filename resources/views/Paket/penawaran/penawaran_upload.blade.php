@@ -21,7 +21,7 @@
         @endif
        
  <div class="col">
-     <div class="card">
+     <div class="card col-md-6">
         <form method="post" action="{{route('upload.penawaran.store',[$paket->id])}}" enctype="multipart/form-data">
             {{csrf_field()}}
           <div class="form-group p-5">

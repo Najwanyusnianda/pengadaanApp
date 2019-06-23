@@ -170,6 +170,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/user/postregister','UserController@storeRegister')->name('user.post.register');
     Route::get('/table/user','UserController@tableUser')->name('table.user');
     Route::get('/table/bagian','UserController@tableBagian')->name('table.bagian');
+    Route::delete('/bagian/{id}/delete','UserController@deleteBagian')->name('bagian.delete');
+    Route::delete('/user/{id}/delete','UserController@deleteUser')->name('user.delete');
+    Route::get('/table/bagian','UserController@tableBagian')->name('table.bagian');
     Route::get('/available/user/{project}','UserController@availableUser');
  
     

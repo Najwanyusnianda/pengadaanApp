@@ -96,7 +96,7 @@
             
           <div class="modal-content detail-permintaan"   style=" width:100%">
                 <div class="modal-header">
-                        <h5 class="modal-title"></h5>
+                        <h5 class=""></h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>

@@ -15,7 +15,8 @@
                                                 <tr>
                                                     <th>No.</th>
                                                     <th>kode bagian</th>
-                                                    <th>Nama Bagian</th>                   
+                                                    <th>Nama Bagian</th> 
+                                                    <th>aksi</th>                  
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -45,10 +46,53 @@
                 columns:[
                 {data: 'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},
                 {data:'kode_bagian'},
-                {data:'nama_bagian'}
+                {data:'nama_bagian'},
+                {data: 'action'}
                 ]
             });
 
+        $('body').on('click','.delete_bagian',function(e){
+            e.preventDefault();
+            var me = $(this);
+            var id= me.attr('data-id');
+            var url='/bagian/'+id+'/delete'
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Bagian akan dihapus secara permanen",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                })
+                .then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+                        });
+
+                        $.ajax({
+                        type: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: url,
+                        data: {
+                            _method:'DELETE',
+                            _token: $('meta[name="csrf-token"]').attr('content'),      
+                        },
+                        success: function(response) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Bagian telah dihapus.',
+                                'success'
+                                );
+                                $('#bagianTable').DataTable().ajax.reload();
+                        }
+                    });
+                }
+                })
+        })
         
         })
 

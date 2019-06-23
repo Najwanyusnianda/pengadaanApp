@@ -6,7 +6,7 @@
           {{ session('success') }}
         </div> 
         @endif
-                <div class="card shadow col-md-6 " style="margin:auto;width:50%">
+                <div class="card shadow col-md-6 " style="margin:auto;width:100%">
                     <div class="card-header" >
                                 <div class="row justify-content-center">
                                     <div class="col-sm-8 text-center">

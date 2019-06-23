@@ -1,7 +1,7 @@
 <div class="card" style="font-family:Roboto">
         <div class="card-header ">
           Dokumen Hasil Pengadaan Langsung
-          <a class="btn btn-outline-info btn-sm float-right " href="{{route('paket.pembukaan',['id'=>$paket->id])}}" role="button"><i class="fas fa-plus"></i> <small>Buat Pembukaan, Evaluasi, Klarifikasi dan Negosiasi Teknis dan Harga</small></a>
+          <a class="btn btn-outline-info btn-sm float-right " href="{{route('paket.pembukaan',['id'=>$paket->id])}}" role="button"><i class="fas fa-plus"></i> <small>Buat klarifikasi dan Evaluasi penawaran</small></a>
         </div>
         <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif">
             <div class="div">

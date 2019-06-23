@@ -687,39 +687,40 @@ class BerkasController extends Controller
     //////////////generate penawaran//////////////////
 
     public function generateKlarifikasi($id){
+        function bulanIndo($date)
+        {
+            $bulan=\Carbon\Carbon::parse($date)->format('F');
+           $bulan_indo='';
+             if($bulan=="January"){
+                 $bulan_indo="Januari";
+             }elseif ($bulan=="February") {
+                 $bulan_indo="Februari";
+             }elseif ($bulan=="March") {
+                 $bulan_indo="Maret";
+             }elseif ($bulan=="April") {
+                 $bulan_indo="April";
+             }elseif ($bulan=="May"){
+                 $bulan_indo="Mei";
+             }elseif ($bulan=="June"){ 
+                 $bulan_indo="Juni";
+             }elseif ($bulan=="July"){
+                 $bulan_indo="Juli";
+             }elseif ($bulan=="August"){
+                 $bulan_indo="Agustus";
+             }elseif ($bulan=="September") {
+                 $bulan_indo="September";
+             }elseif ($bulan=="October") {
+                 $bulan_indo="Oktober";
+             }elseif ($bulan=="November") {
+                 $bulan_indo="November";
+             }elseif ($bulan=="December") {
+                 $bulan_indo="Desember";
+             };
+ 
+             return $bulan_indo;
+        };
         function getDateIndo($date){
-            function bulanIndo($date)
-            {
-                $bulan=\Carbon\Carbon::parse($date)->format('F');
-               $bulan_indo='';
-                 if($bulan=="January"){
-                     $bulan_indo="Januari";
-                 }elseif ($bulan=="February") {
-                     $bulan_indo="Februari";
-                 }elseif ($bulan=="March") {
-                     $bulan_indo="Maret";
-                 }elseif ($bulan=="April") {
-                     $bulan_indo="April";
-                 }elseif ($bulan=="May"){
-                     $bulan_indo="Mei";
-                 }elseif ($bulan=="June"){ 
-                     $bulan_indo="Juni";
-                 }elseif ($bulan=="July"){
-                     $bulan_indo="Juli";
-                 }elseif ($bulan=="August"){
-                     $bulan_indo="Agustus";
-                 }elseif ($bulan=="September") {
-                     $bulan_indo="September";
-                 }elseif ($bulan=="October") {
-                     $bulan_indo="Oktober";
-                 }elseif ($bulan=="November") {
-                     $bulan_indo="November";
-                 }elseif ($bulan=="December") {
-                     $bulan_indo="Desember";
-                 };
-     
-                 return $bulan_indo;
-            };
+
             $date_form=\Carbon\Carbon::parse($date)->format('d-F-Y');
             $date_explode=explode("-",$date_form);
 
@@ -755,7 +756,7 @@ class BerkasController extends Controller
 
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/Berita Acara klarifikasi dan negosiasi.docx'));
 
-        $templateProcessor->setValue(array('nama_pp', 'nip_pp','label_ppk'), array($pp->nama,$pp->nip,$pp->nama_jabatan));
+        $templateProcessor->setValue(array('nama_pp', 'nip_pp','label_pp'), array($pp->nama,$pp->nip,$pp->nama_jabatan));
 
         $templateProcessor->setValue('total_item_penawaran', number_format($paket->total_penawaran,0,',','.'));
         $templateProcessor->setValue('total_item_nego', number_format($paket->total_negosiasi,0,',','.'));
@@ -792,7 +793,7 @@ class BerkasController extends Controller
             $harga_penawaran=(int)$harga_penawaran;
             $harga_negosiasi=(int)$harga_negosiasi;
             $volume=(int)$volume;
-            $harga_full=$harga*$volume;
+         
             $jumlah_harga_penawaran=(int)($spek_item[$i]->jumlah_penawaran);
             $jumlah_harga_nego=(int)($spek_item[$i]->jumlah_nego);
 
@@ -824,20 +825,124 @@ class BerkasController extends Controller
     }
 
     public function generateEvaluasi($id){
+        function penyebut($nilai) {
+            $nilai = abs($nilai);
+            $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+            $temp = "";
+            if ($nilai < 12) {
+                $temp = " ". $huruf[$nilai];
+            } else if ($nilai <20) {
+                $temp = penyebut($nilai - 10). " belas";
+            } else if ($nilai < 100) {
+                $temp = penyebut($nilai/10)." puluh". penyebut($nilai % 10);
+            } else if ($nilai < 200) {
+                $temp = " seratus" . penyebut($nilai - 100);
+            } else if ($nilai < 1000) {
+                $temp = penyebut($nilai/100) . " ratus" . penyebut($nilai % 100);
+            } else if ($nilai < 2000) {
+                $temp = " seribu" . penyebut($nilai - 1000);
+            } else if ($nilai < 1000000) {
+                $temp = penyebut($nilai/1000) . " ribu" . penyebut($nilai % 1000);
+            } else if ($nilai < 1000000000) {
+                $temp = penyebut($nilai/1000000) . " juta" . penyebut($nilai % 1000000);
+            } else if ($nilai < 1000000000000) {
+                $temp = penyebut($nilai/1000000000) . " milyar" . penyebut(fmod($nilai,1000000000));
+            } else if ($nilai < 1000000000000000) {
+                $temp = penyebut($nilai/1000000000000) . " trilyun" . penyebut(fmod($nilai,1000000000000));
+            }     
+            return $temp;
+        }
+     
+        function terbilang($nilai) {
+            if($nilai<0) {
+                $hasil = "minus ". trim(penyebut($nilai));
+            } else {
+                $hasil = trim(penyebut($nilai));
+            }     		
+            return $hasil;
+        }
+
         $id_paket=$id;
         $paket=Paket::find($id_paket);
             
         $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
         $judul=$permintaan->judul;
         $project=Project::where('id',$permintaan->project_id)->first();
+        $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
+        ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->join('people','project_enrollments.person_id','people.id')->first();
+        
+
+
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/Berita Acara Pembukaan Evaluasi Klarifikasi Pengadaan.docx'));
+
+        $templateProcessor->setValue(array('nama_pp', 'nip_pp','label_pp'), array($pp->nama,$pp->nip,$pp->nama_jabatan));
+        $templateProcessor->setValue('nama_paket',$judul);
+        $templateProcessor->setValue('total_harga_negosiasi','Rp '.number_format($paket->total_negosiasi,0,',','.'));
+        $templateProcessor->setValue('total_harga_negosiaisi_terbilang',terbilang($paket->total_negosiasi)."Rupiah");
+
+
+
+        $judul=$permintaan->judul."- BA Pembukaan, Evaluasi, dan Klarifikasi Penawaran";
+        $templateProcessor->saveAs($judul.'.docx');
+        return response()->download($judul.'.docx');
     }
     public function generateBahpl($id){
+        function penyebut($nilai) {
+            $nilai = abs($nilai);
+            $huruf = array("", "satu", "dua", "tiga", "empat", "lima", "enam", "tujuh", "delapan", "sembilan", "sepuluh", "sebelas");
+            $temp = "";
+            if ($nilai < 12) {
+                $temp = " ". $huruf[$nilai];
+            } else if ($nilai <20) {
+                $temp = penyebut($nilai - 10). " belas";
+            } else if ($nilai < 100) {
+                $temp = penyebut($nilai/10)." puluh". penyebut($nilai % 10);
+            } else if ($nilai < 200) {
+                $temp = " seratus" . penyebut($nilai - 100);
+            } else if ($nilai < 1000) {
+                $temp = penyebut($nilai/100) . " ratus" . penyebut($nilai % 100);
+            } else if ($nilai < 2000) {
+                $temp = " seribu" . penyebut($nilai - 1000);
+            } else if ($nilai < 1000000) {
+                $temp = penyebut($nilai/1000) . " ribu" . penyebut($nilai % 1000);
+            } else if ($nilai < 1000000000) {
+                $temp = penyebut($nilai/1000000) . " juta" . penyebut($nilai % 1000000);
+            } else if ($nilai < 1000000000000) {
+                $temp = penyebut($nilai/1000000000) . " milyar" . penyebut(fmod($nilai,1000000000));
+            } else if ($nilai < 1000000000000000) {
+                $temp = penyebut($nilai/1000000000000) . " trilyun" . penyebut(fmod($nilai,1000000000000));
+            }     
+            return $temp;
+        }
+     
+        function terbilang($nilai) {
+            if($nilai<0) {
+                $hasil = "minus ". trim(penyebut($nilai));
+            } else {
+                $hasil = trim(penyebut($nilai));
+            }     		
+            return $hasil;
+        }
         $id_paket=$id;
         $paket=Paket::find($id_paket);
             
         $permintaan=Permintaan::where('id',$paket->permintaan_id)->first();
         $judul=$permintaan->judul;
         $project=Project::where('id',$permintaan->project_id)->first();
+        $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
+        ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->join('people','project_enrollments.person_id','people.id')->first();
+        $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/Berita Acara Hasil Pengadaan.docx'));
+
+        $templateProcessor->setValue(array('nama_pp', 'nip_pp','label_pp'), array($pp->nama,$pp->nip,$pp->nama_jabatan));
+        $templateProcessor->setValue('nama_paket',$judul);
+        $templateProcessor->setValue('total_harga_penawaran','Rp '.number_format($paket->total_penawaran,0,',','.'));
+        $templateProcessor->setValue('total_harga_penawaran_terbilang',terbilang($paket->total_penawaran)." rupiah");
+        $templateProcessor->setValue('total_harga_negosiasi','Rp '.number_format($paket->total_negosiasi,0,',','.'));
+        $templateProcessor->setValue('total_harga_negosiaisi_terbilang',terbilang($paket->total_negosiasi)." rupiah");
+
+        $judul=$permintaan->judul."- BA Hasil Pengadaan Langsung";
+        $templateProcessor->saveAs($judul.'.docx');
+        return response()->download($judul.'.docx');
     }
 
 

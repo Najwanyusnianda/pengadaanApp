@@ -41,7 +41,12 @@ class ProjectController extends Controller
                 'name_condition'=>$project->is_active ? '#b2bec3' : '#ff7675'
             ]);
         })
-        ->addIndexColumn()->rawColumns(['action'])
+        ->addColumn('created',function($project){
+            return view('Project.project_table._date_created',[
+                'date'=>\Carbon\Carbon::parse($project->created_at)->format('d-m-Y')
+            ]);
+        })
+        ->addIndexColumn()->rawColumns(['action','created'])
         ->make(true);
 
         return $db;

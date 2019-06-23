@@ -16,7 +16,7 @@
                                    
                                 </nav>
                 </div>
-        <div class="col-md-8 mt-5" style="width:50%;margin:auto;">
+        <div class="col-md-8 mt-5" style="width:100%;margin:auto;">
             <div class="row-md-8">
                     <div class="card card-outline card-info shadow p-2" style="font-family:QuickSand;font-size:12px; ">
                             <div class="card-header text-center" style="font-size:16px;">
@@ -32,12 +32,7 @@
                                        
 
                                 </div>
-                                <br>
-                                <hr>
-                                <div class="list-group">
-                                        <a href="#" class="list-group-item list-group-item-action">Berita Acara Hasil Pengadaan Langsung</a>
-                                </div>
-                             
+                 <hr>
                                 <br>
                                 <div class="col-3 float-left ml-3 pt-2 pb-2 ">
                                 <a href="{{route('paket.detail',[$paket->id])}}" class="btn btn-outline-info"> Kembali</a>    

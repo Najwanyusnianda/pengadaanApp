@@ -19,13 +19,14 @@
                   <tr>
                         <th> Jadwal Kegiatan Pengadaan Langsung</th>
                         <td>   
-                              @if (empty($jadwalPenawaran))
+                              @if ($jadwalPenawaran->isEmpty())
                               <a href="{{route('paket.detail.jadwal_penawaran',['id'=>$paket->id])}}" class="badge badge-info">Buat jadwal</a>
                               @else
                               <a href="#" id="lihat_jadwal_penawaran" class="btn btn-info btn-sm shadow"><i class="fas fa-calendar-alt"></i> Lihat Jadwal</a>
                               @endif                                  
                         </td>       
                    </tr>
+                   
            </table>
 
      </div>

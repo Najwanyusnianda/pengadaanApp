@@ -21,12 +21,16 @@ class UserController extends Controller
         return view('User.user_view',compact('pelaku'));
     }
 
+
+
     public function tableUser(){
         $pelaku=Person::query()->join('roles','people.role_id','roles.id')->select('people.*','roles.deskripsi')->get();
 
         $dt=DataTables::of($pelaku)
-        ->addColumn('action',function(){
-            return view('User.user_table._action');
+        ->addColumn('action',function($pelaku){
+            return view('User.user_table._action',[
+                'data_id'=>$pelaku->id
+            ]);
         })->addColumn('status',function($pelaku){
             return view('User.user_table._status',[
                 'active'=>$pelaku->is_active ? 'aktif' : 'non-aktif'
@@ -42,11 +46,34 @@ class UserController extends Controller
     }
 
     public function tableBagian(){
-        $bagian=SubBagian::query()->where('kode_bagian_up','<>','1000')->where('kode_bagian_up','LIKE','__00')->where('kode_bagian_up','NOT LIKE','_000')->get();
+        $bagian=SubBagian::query()
+        ->where('kode_bagian_up','<>','1000')
+        ->where('kode_bagian_up','LIKE','__00')
+        ->where('kode_bagian_up','NOT LIKE','_000')
+        ->get();
         $dt=DataTables::of($bagian)
-        ->addIndexColumn()
+        ->addColumn('action',function($bagian){
+            return view('User._action_bagian',[
+                'data_id'=>$bagian->kode_bagian
+            ]);
+        })->addIndexColumn()
+        ->rawColumns(['action'])
         ->make(true);
         return $dt;
+    }
+
+    public function deleteBagian($id){
+        $bagian=SubBagian::findOrFail($id);
+        $bagian->delete();
+    }
+
+    public function deleteUser($id){
+        $bagian=Person::findOrFail($id);
+        $bagian->delete();
+    }
+
+    public function editBagian($id){
+
     }
 
     public function indexBagian(){

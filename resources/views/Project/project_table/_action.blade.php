@@ -13,7 +13,7 @@
                 </button>
                 <div class="dropdown-menu" style="font-size:10px;"role="menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(67px, 38px, 0px);">
                         <a  class="dropdown-item" id="user_pro" href="{{$user_setup_link}}"  data-id="{{$id}}">Anggota Project</a>
-                        <a class="dropdown-item" href="#">Detail Project</a>
+                 
                 </div>
         </div>    
 </div>

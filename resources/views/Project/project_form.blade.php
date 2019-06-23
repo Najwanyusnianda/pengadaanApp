@@ -14,8 +14,7 @@
                 </div>  
                 <div class="row-md-6 mt-3">
                         <div class="form-group">
-                                <textarea class="form-control input-lg" id="deskripsi_project">
-                    
+                                <textarea class="form-control input-lg" id="deskripsi_project" placeholder="deskripsi" >Deskripsi...
                                 </textarea>
                             </div>
                 </div>          

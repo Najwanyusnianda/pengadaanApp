@@ -69,7 +69,7 @@
                             </div>
                             <div class="form-group" >
                                 <label for="pwd">Nilai (Rp):</label>
-                                <input type="number" class="form-control col-6" id="nilai_anggaran" name="nilai_anggaran" placeholder="nilai pagu">
+                                <input type="number" class="form-control col-6" id="nilai_anggaran" name="nilai_anggaran" placeholder="nilai anggaran">
                             </div>
                             <div class="form-group">
                                 <hr>

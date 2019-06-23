@@ -73,18 +73,20 @@
             </div>
             <div class="modal-body">
               <div class="">
+                <table class="table">
                   @forelse ($ppk as $data)
                   <tr>
                       <td class="name">{{$data->nama}}</td>                       
                       <td><span class="badge badge-info">{{$data->kode_jabatan}}</span><span class="text-muted text-sm">{{$data->nama_jabatan}} </span></td>
                       <td>
-                        <button type="button" class="btn btn-sm btn-succes ppk-person" data-id={{$data->id_pegawai}} data-nama={{$data->nama}}>Pilih</button>
+                        <button type="button" class="btn btn-sm btn-success ppk-person" data-id={{$data->id_pegawai}} data-nama={{$data->nama}}>Pilih</button>
                       </td>
-                    </tr>
+                  </tr>
+                
                   @empty
                       
                   @endforelse
-                    
+                </table>   
               </div>
             </div>
             <div class="modal-footer">
@@ -110,7 +112,7 @@
                         <tr>
                           <td class="name">{{$data->nama}}</td>                       
                           <td><span class="badge badge-info">{{$data->kode_jabatan}}</span><span class="text-muted text-sm">{{$data->nama_jabatan}} </span></td>
-                          <td><button type="button" class="btn btn-sm btn-succes pp-person" data-id={{$data->id_pegawai}} data-nama={{$data->nama}}>Pilih</button></td>
+                          <td><button type="button" class="btn btn-sm btn-success pp-person" data-id={{$data->id_pegawai}} data-nama={{$data->nama}}>Pilih</button></td>
                         </tr>
  
                             
@@ -148,7 +150,7 @@
 
 }
 .col-md-8.mt-5{
-                width:50%
+                width:100%
         }
 
 @media screen and (min-width: 769px) and (max-width: 1023px) {
