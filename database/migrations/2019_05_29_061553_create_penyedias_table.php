@@ -17,10 +17,10 @@ class CreatePenyediasTable extends Migration
             $table->string('npwp')->primary();
             $table->string('nama');
             $table->string('nama_pimpinan');
-            $table->string('jabatan_pimpinan');
+            $table->string('jabatan_pimpinan')->nullable();
             $table->string('email')->nullable();
             $table->string('telepon')->nullable();
-            $table->text('alamat');
+            $table->text('alamat')->nullable();
             $table->timestamps();
         });
     }
