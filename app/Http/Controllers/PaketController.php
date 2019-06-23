@@ -14,7 +14,7 @@ use App\JadwalKegiatanPengadaan;
 use App\SpekTeknis;
 use App\SpekHpsItem;
 use App\Penyedia;
-use App\jadwalPenawaran;
+use App\JadwalPenawaran;
 use App\KegiatanPenawaran;
 use App\Evaluasi;
 use App\EvaluasiKriteria;
@@ -49,7 +49,7 @@ class PaketController extends Controller
         $permintaan=Permintaan::find($paket->permintaan_id);
         $penyedia=Penyedia::where('npwp',$paket->penyedia_id)->first();
         $dokumen=PaketDokumen::where('paket_id',$paket->id)->get();
-        $jadwalpenawaran=jadwalPenawaran::where('paket_id',$paket->id)
+        $jadwalpenawaran=JadwalPenawaran::where('paket_id',$paket->id)
         ->join('kegiatan_penawarans','jadwal_penawarans.kegiatan_penawaran_id','=','kegiatan_penawarans.id')
         ->get();
         $item_spek=SpekHpsItem::where('paket_id',$paket->id)->get();
@@ -426,7 +426,7 @@ class PaketController extends Controller
         
         if(count($request->id_kegiatan_penawaran)>0){
             for ($i=0; $i <count($request->id_kegiatan_penawaran); $i++) { 
-                $jadwal_penawaran=jadwalPenawaran::create([
+                $jadwal_penawaran=JadwalPenawaran::create([
                     'paket_id'=>$id,
                     'kegiatan_penawaran_id'=>$request->id_kegiatan_penawaran[$i],
                     'tanggal_pelaksanaan'=>$request->tanggal_pelaksanaan[$i],
