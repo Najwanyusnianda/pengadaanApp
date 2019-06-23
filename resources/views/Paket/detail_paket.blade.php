@@ -121,25 +121,27 @@
             <!-- Modal body -->
             <div class="modal-body">
               @if (!empty($jadwalPenawaran))
+              <div class="table-responsive">
+                <table class="table table-bordered" style="font-size:13px;">
+                  <thead>
+                    <th>No.</th>
+                    <th>Kegiatan</th>
+                    <th>Tanggal pelaksanaan</th>
+                    <th>waktu</th>
+                  </thead>
+                  <tbody>
+                      @foreach ($jadwalPenawaran as $key=>$jadwal)
+                      <tr>
+                      <td>{{$key+1}}</td>
+                      <td>{{$jadwal->nama_kegiatan_penawaran}}</td>
+                      <td style="font-family:QuickSand">{{\Carbon\Carbon::parse($jadwal->tanggal_pelaksanaan)->format('d F Y')}} <small class="badge badge-info small float-right" style="font-size: 61%;"> mulai {{\Carbon\Carbon::parse($jadwal->tanggal_pelaksanaan)->diffForHumans()}}</small></td>
+                      <td>{{\Carbon\Carbon::parse($jadwal->waktu_mulai)->format('h:i')}}-{{\Carbon\Carbon::parse($jadwal->waktu_selesai)->format('h:i')}}</td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+                </table>
+              </div>
 
-                      <table class="table table-bordered" style="font-size:13px;">
-                        <thead>
-                          <th>No.</th>
-                          <th>Kegiatan</th>
-                          <th>Tanggal pelaksanaan</th>
-                          <th>waktu</th>
-                        </thead>
-                        <tbody>
-                            @foreach ($jadwalPenawaran as $key=>$jadwal)
-                            <tr>
-                            <td>{{$key+1}}</td>
-                            <td>{{$jadwal->nama_kegiatan_penawaran}}</td>
-                            <td style="font-family:QuickSand">{{\Carbon\Carbon::parse($jadwal->tanggal_pelaksanaan)->format('d F Y')}} <small class="badge badge-info small float-right" style="font-size: 61%;"> mulai {{\Carbon\Carbon::parse($jadwal->tanggal_pelaksanaan)->diffForHumans()}}</small></td>
-                            <td>{{\Carbon\Carbon::parse($jadwal->waktu_mulai)->format('h:i')}}-{{\Carbon\Carbon::parse($jadwal->waktu_selesai)->format('h:i')}}</td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                      </table>
           
               @else
                   tidak ada jadwal
