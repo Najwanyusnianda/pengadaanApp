@@ -2,7 +2,7 @@
         <div class="card-header ">
           Dokumen Persiapan Pengadaan 
           @if ($spesifikasi->isEmpty())
-          <a class="btn btn-outline-info btn-sm mb-2 float-right" href="{{route('paket.persiapan',[$paket->id])}}" role="button"><i class="fas fa-plus"></i> <small>Buat Dokumen Persiapan</small></a>
+          <a class="btn btn-outline-info btn-sm mb-2 float-right" href="{{route('paket.persiapan',[$paket->id])}}" role="button"><i class="fas fa-plus"></i> <small>isi data Dokumen Persiapan</small></a>
           @else
               <small class="text-muted float-right">Dokumen persiapan telah dibuat <a href="{{route('paket.persiapan',[$paket->id])}}">edit dokumen?</a></small>
           @endif
@@ -40,14 +40,14 @@
                            
                             <a class="btn btn-success btn-sm shadow" href={{route('doc.hps',['id'=>$paket->id])}}><i class="fas fa-file-download"></i> Generate doc </a>
                           </td>
-                        </tr>
+                      </tr>
                         <tr>
                             <td>Dokumen Permohonan Pengadaan Langsung</td>
                             <td>
                              
                               <a class="btn btn-success btn-sm shadow" href={{route('doc.permohonan',['id'=>$paket->id])}}><i class="fas fa-file-download"></i> Generate doc </a>
                             </td>
-                          </tr>
+                        </tr>
                   </tbody>
                 </table>
             </div>

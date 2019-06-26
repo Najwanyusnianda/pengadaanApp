@@ -23,7 +23,7 @@ class CreatePaketsTable extends Migration
             $table->unsignedBigInteger('total_penawaran')->nullable();
             $table->unsignedBigInteger('total_negosiasi')->nullable();
             $table->string('paket_storage')->nullable();
-            $table->string('status')->default("pj");
+            $table->string('status')->default("baru");
             $table->timestamps();
         });
     }

@@ -118,43 +118,46 @@
                   </p>
                 </a>
               </li>
-             <li class="nav-item has-treeview {{Request::is('disposisi/*') ? 'menu-open' : ''}}">
-              <a href="#" class="nav-link {{Request::is('disposisi/*') ? 'active' : ''}}">
-                
-                  <i class="nav-icon far fa-envelope"></i>
-                <p>
-                    
-                  Disposisi
-                  @if (count(auth()->user()->unreadNotifications->where('type','App\Notifications\disposisiTerkirim'))>0)
-                  <span class="badge badge-danger ">Baru</span>
-                  @endif
-                  <i class="right fa fa-angle-left"></i>
-                 
-              </p>
-              </a>
-              <ul class="nav nav-treeview">
-           
-                  <li class="nav-item">
-                  <a href="{{route('disposisi.masuk')}}" class="nav-link {{Request::is('disposisi/masuk') ? 'active' : ''}}">
-                        <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                        <p>Masuk</p>
-                        @if (count(auth()->user()->unreadNotifications->where('type','App\Notifications\disposisiTerkirim'))>0)
-                        <span class="badge badge-info right">{{count(auth()->user()->unreadNotifications->where('type','App\Notifications\disposisiTerkirim'))}}</span>
-                        @endif
-                      </a>
-                  </li>  
+
+    
+              <li class="nav-item has-treeview {{Request::is('disposisi/*') ? 'menu-open' : ''}}">
+                <a href="#" class="nav-link {{Request::is('disposisi/*') ? 'active' : ''}}">
+                  
+                    <i class="nav-icon far fa-envelope"></i>
+                  <p>
+                      
+                    Surat masuk
+                    @if (count(auth()->user()->unreadNotifications->where('type','App\Notifications\disposisiTerkirim'))>0)
+                    <span class="badge badge-danger ">Baru</span>
+                    @endif
+                    <i class="right fa fa-angle-left"></i>
+                   
+                </p>
+                </a>
+                <ul class="nav nav-treeview">
              
-              
-                <li class="nav-item">
-                <a href="{{route('disposisi.diteruskan')}}" class="nav-link {{Request::is('disposisi/diteruskan') ? 'active' : ''}}">
-                    <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                    <p>Terkirim</p>
-                  </a>
-                </li>
-
-
-              </ul>        
-            </li>  
+                    <li class="nav-item">
+                    <a href="{{route('disposisi.masuk')}}" class="nav-link {{Request::is('disposisi/masuk') ? 'active' : ''}}">
+                          <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                          <p>Masuk</p>
+                          @if (count(auth()->user()->unreadNotifications->where('type','App\Notifications\disposisiTerkirim'))>0)
+                          <span class="badge badge-info right">{{count(auth()->user()->unreadNotifications->where('type','App\Notifications\disposisiTerkirim'))}}</span>
+                          @endif
+                        </a>
+                    </li>  
+               
+                
+                  <li class="nav-item">
+                  <a href="{{route('disposisi.diteruskan')}}" class="nav-link {{Request::is('disposisi/diteruskan') ? 'active' : ''}}">
+                      <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
+                      <p>Terkirim</p>
+                    </a>
+                  </li>
+  
+  
+                </ul>        
+              </li> 
+      
              
              <li class="nav-item has-treeview {{Request::is('permintaan') ? 'menu-open' : ''}}">
               <a href="#" class="nav-link {{Request::is('permintaan') ? 'active' : ''}}">
@@ -186,7 +189,7 @@
                   
                     <i class="nav-icon fas fa-box" ></i>
                   <p>
-                    Paket Pengadaan
+                    Kelola Pengadaan 
                     <i class="right fa fa-angle-left"></i>
                   </p>
                 </a>

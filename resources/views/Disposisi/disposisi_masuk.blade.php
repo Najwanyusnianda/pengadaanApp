@@ -14,7 +14,7 @@
             <div class="row-md-8 justify-content-center" style="margin:auto;width:100%">
                 @if (count($disposisi_masuk)>0)
                 <div class="card " style="font-family:Roboto,sans-serif">
-                    <div class="card-header" class="justify-content-between" style="background-color:#566787;color:white;">
+                    <div class="card-header" class="justify-content-between">
                        
                             Daftar Surat masuk
                      
@@ -25,10 +25,10 @@
                     </div>
                     <div class="card-body table-responsive">
                   
-                        <table class="table table-condensed table-hover " id="disp_masuk">
+                        <table class="table table-bordered table-hover " id="disp_masuk">
 
                             <thead>
-                                <tr style="font-family:Valera Round, sans-serif;color:#566787;font-size:13px;" >
+                                <tr style="font-family:Valera Round, sans-serif;font-size:13px;" >
                                     <th colspan="2">Surat</th>
                                     <th>Jenis</th>
                                     <th>Tgl.Terima</th>

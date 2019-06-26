@@ -2,7 +2,7 @@
 
 @section('konten')
 <div class="container-fluid">
-    <div class="col-md-8" style="margin:auto;">
+    <div class="col-md-12" style="margin:auto;">
         <!--<div class="row-md-8">
             <div class="card ">
                 <div class="card-header">
@@ -30,7 +30,7 @@
      <!-- END OF PILLS --> 
 
 
-        <div class="row-md-8  " >
+        <div class="row-md-12  " >
             <div class="card shadow" >  
                 <div class="card-header">
                         <div class="" id="register-item" style="font-family:Roboto;">

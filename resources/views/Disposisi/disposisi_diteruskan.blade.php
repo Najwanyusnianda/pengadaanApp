@@ -17,10 +17,10 @@
                     <div class="card-body">
                        
                         <div class="table-responsive">
-                            <table class="table table-condensed table-hover  " id="disp_masuk">
+                            <table class="table table-bordered table-hover  " id="disp_masuk">
     
                                 <thead>
-                                    <tr style="font-family:Valera Round, sans-serif;color:#566787;font-size:15px;" >
+                                    <tr style="font-family:Valera Round, sans-serif;font-size:15px;" >
                                         <th>Kepada</th>
                                         <th>Surat</th>
                                         <th>Jenis</th>

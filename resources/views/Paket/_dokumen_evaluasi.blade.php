@@ -35,7 +35,7 @@
                                  
                                   <a class="btn btn-success btn-sm shadow" href={{route('doc.bahpl',['id'=>$paket->id])}}><i class="fas fa-file-download"></i> Generate doc </a>
                                 </td>
-                              </tr>
+                            </tr>
                         </tbody>
                       </table>
                 </div>

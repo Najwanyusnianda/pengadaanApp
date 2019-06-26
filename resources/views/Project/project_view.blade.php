@@ -2,11 +2,11 @@
 
 @section('konten')
     <div class="container">
-      <div class="col-md-8" style="margin:auto;">
-          <div class="row-md-8">
+      <div class="col-md-12" style="margin:auto;">
+          <div class="row-md-12">
 
           </div>
-          <div class="row-md-9">
+          <div class="row-md-12">
               <div class="card shadow ">
                   <div class="card-header" >
                     <h5 style="font-family:Roboto">Daftar Project</h5>

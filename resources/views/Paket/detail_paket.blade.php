@@ -3,20 +3,43 @@
 <li class="breadcrumb-item "><a href="{{route('paket.index')}}" class="text-light">Paket</a></li>
        
    
-<li class="breadcrumb-item text-light active" aria-current="page">Detail Paket</li>
+<li class="breadcrumb-item text-light active" aria-current="page">Penanggung_jawab</li>
 
 @endsection
 @section('konten')
     <div class="container">
-  <div class="col-md-8 mx-auto">
-      <div class="row-md-6">
-        @include('Paket._detail_paket')  
+
+      <div class="card p-2">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Detail Paket</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Penanggungjawab</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Jadwal Kegiatan Pengadaan</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" id="dokumen-tab" data-toggle="tab" href="#dokumen" role="tab" aria-controls="contact" aria-selected="false">Dokumen Pengadaan</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">@include('Paket._detail_paket')  </div>
+              <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">@include('Paket._penanggung_jawab')</div>
+              <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"> @include('Paket._jadwal_paket_')</div>
+              <div class="tab-pane fade" id="dokumen" role="tabpanel" aria-labelledby="dokumen-tab">  @include('Paket._dokumen_pengadaan')</div>
+            </div>
+
       </div>
 
+  <div class="col-md-12 mx-auto ">
 
 
-      <div class="row-md-6">
-              @include('Paket._penanggung_jawab')
+     
+
+    <!--    <div class="row-md-6">
+              
   
             
       </div>
@@ -29,27 +52,25 @@
     
             @include('Paket._penyedia')
        
-      </div>
+      </div>-->
  
-<!-- Dokumen Persiapan-->
+<!-- Dokumen Persiapan
       <div class="row-md-8">
         @include('Paket._dokumen_persiapan')
-      </div>
+      </div>-->
 <!-- Dokumen Pengadaan-->
-      <div class="row-md-8">
-        @include('Paket._dokumen_pengadaan')
-      </div>
 
 
-  <!-- Dokumen Penawaran-->
+
+  <!-- Dokumen Penawaran
       <div class="row-md-8">
         @include('Paket._dokumen_penawaran')
-      </div>
+      </div>-->
 
-      <!-- Dokumen Pembukaan Evaluasi-->
+      <!-- Dokumen Pembukaan Evaluasi
       <div class="row-md-8">
         @include('Paket._dokumen_evaluasi')
-      </div>
+      </div>-->
 
 
   </div>

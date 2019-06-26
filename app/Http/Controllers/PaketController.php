@@ -20,6 +20,9 @@ use App\Evaluasi;
 use App\EvaluasiKriteria;
 use App\EvaluasiPaket;
 use App\PaketDokumen;
+use App\DisposisiDetail;
+use App\DisposisiHeader;
+
 use DB;
 
 class PaketController extends Controller
@@ -46,41 +49,54 @@ class PaketController extends Controller
     public function detail($id){
         $paket=Paket::find($id);
         //dd($id);
+        
+     
         $permintaan=Permintaan::find($paket->permintaan_id);
+        $project=Project::where('id',$permintaan->project_id)->first();
         $penyedia=Penyedia::where('npwp',$paket->penyedia_id)->first();
         $dokumen=PaketDokumen::where('paket_id',$paket->id)->get();
+
+        $disposisi_konten=DisposisiDetail::where('permintaan_id',$permintaan->id)->first();
+        $disposisi_header=DisposisiHeader::where('disposisi_detail_id',$disposisi_konten->id)->get();
+        foreach($disposisi_header as $temps){
+            $data[]=$temps->to_id;
+        }
+        $staf_pemberkasan=Person::whereIn('id',$data)->get();
+  
+
         $jadwalpenawaran=JadwalPenawaran::where('paket_id',$paket->id)
         ->join('kegiatan_penawarans','jadwal_penawarans.kegiatan_penawaran_id','=','kegiatan_penawarans.id')
         ->get();
         $item_spek=SpekHpsItem::where('paket_id',$paket->id)->get();
-        //check true
-        /*$spek=SpekHpsItem::where('paket_id',$paket->id)->get();
-        $spek=count($spek);
-        $is_not_hps=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga')->get();
-        $is_not_hps=count($is_not_hps);
-        $is_not_penawaran=jadwalPenawaran::where('paket_id',$paket->id)->get();
-        $is_not_penawaran=count($is_not_penawaran);
-
-        $penyedia=Paket::where('pakets.id',$id)->join('penyedias','pakets.penyedia_id','penyedias.npwp')->select('penyedias.nama','penyedias.npwp')->first();
-        $paket_penanggung_jawab=Paket::where('pakets.id',$id)->join('people AS ppk','pakets.ppk_id','ppk.id')->join('people AS pp','pakets.pp_id','pp.id')->select('ppk.nama AS nama_ppk','ppk.nip AS nip_ppk','pp.nama AS nama_pp','pp.nip AS nip_pp')->first();
-        return view('Paket.detail_temp')
-        ->with('paket',$paket)
-        ->with('pj',$paket_penanggung_jawab)
-        ->with('penyedia',$penyedia)
-        ->with('is_not_hps',$is_not_hps)
-        ->with('is_spek',$spek)
-        ->with('is_not_penawaran',$is_not_penawaran);*/
         $jadwal_pengadaan=JadwalKegiatanPengadaan::where('paket_id',$id)
         ->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')
         ->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')->get();
+        //check persiapan
         $spesifikasi=SpekHpsItem::where('paket_id',$id)->get();
+        $is_hps=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga')->get();
+        
+        //check evaluasi
+        $harga_penawaran=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga_penawaran')->get();
+        $harga_nego=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga_nego')->get();
         $paket_penanggung_jawab=Paket::where('pakets.id',$id)
         ->join('people AS ppk','pakets.ppk_id','ppk.id')->join('people AS pp','pakets.pp_id','pp.id')
         ->select('ppk.nama AS nama_ppk','ppk.nip AS nip_ppk','pp.nama AS nama_pp','pp.nip AS nip_pp')->first();
+        $ppk=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->ppk_id)
+        ->join('jabatan_ppks','project_enrollments.jabatan_id','jabatan_ppks.id')->join('people','project_enrollments.person_id','people.id')->first();
+        
+        $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
+        ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->join('people','project_enrollments.person_id','people.id')->first();
+        
         return view('Paket.detail_paket')
         ->with('paket',$paket)
+        ->with('hps',$is_hps)
+        ->with('harga_penawaran',$harga_penawaran)
+        ->with('harga_nego',$harga_nego)
         ->with('spesifikasi',$spesifikasi)
+        ->with('staf',$staf_pemberkasan)
         ->with('pj',$paket_penanggung_jawab)
+        ->with('pp',$pp)
+        ->with('ppk',$ppk)
         ->with('jadwal_pengadaan',$jadwal_pengadaan)
         ->with('dokumen',$dokumen)
         ->with('penyedia',$penyedia)
@@ -242,7 +258,7 @@ class PaketController extends Controller
         $paket->update([
             'ppk_id'=>$request->ppk_id,
             'pp_id'=>$request->pp_id,
-            'status'=>"jadwal_pengadaan"
+            'status'=>"persiapan"
         ]);
 
         
@@ -278,7 +294,9 @@ class PaketController extends Controller
 
 
     public function paketTable(){
-        $paket=Paket::query()->join('permintaans','pakets.permintaan_id','=','permintaans.id')->select('pakets.*','permintaans.judul AS judul','permintaans.jenis_pengadaan')->latest()->get();
+        $paket=Paket::query()
+        ->join('permintaans','pakets.permintaan_id','=','permintaans.id')
+        ->select('pakets.*','permintaans.judul AS judul','permintaans.jenis_pengadaan','permintaans.nilai')->latest()->get();
   
         //dd($paket);
 
@@ -289,7 +307,8 @@ class PaketController extends Controller
         ->addColumn('status',function($paket){
             return view('Paket.tabel_paket._status_paket',[
                 'id_paket'=>$paket->id,
-                'status_paket'=>$paket->status
+                'status'=>$paket->status,
+                'badge_status'=>$paket->status ==  'baru' ? 'badge-danger' : ($paket->status == 'persiapan' ? 'badge-info' : 'badge-warning')
                 ]);
         })
         ->addIndexColumn()
@@ -382,6 +401,59 @@ class PaketController extends Controller
        $pp=ProjectEnrollment::where('project_id',$project->id)->where('person_id',$paket->pp_id)
        ->join('jabatan_pps','project_enrollments.jabatan_id','jabatan_pps.id')->join('people','project_enrollments.person_id','people.id')->first();
 
+       $jadwalAll=JadwalKegiatanPengadaan::query()
+       ->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','kegiatan_pengadaans.id')
+       ->select('jadwal_kegiatan_pengadaans.*','kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_format')
+       ->orderBy('jadwal_kegiatan','DESC')->orderBy('kegiatan_id','ASC')
+       ->get();
+
+       foreach($jadwalAll as $temps){
+        $jadwale[]=$temps->jadwal_kegiatan;
+        }
+       function kode_jadwal($jadwal){
+           $a=1;
+           $nomor=[];
+           $jadwal_format=[];
+        
+        for ($i=0; $i <count($jadwal) ; $i++) { 
+            $jadwal_explode=explode('-',$jadwal[$i]);
+           
+            $tanggal=$jadwal_explode[2];
+            $bulan=$jadwal_explode[1];
+            $jadwal_format[$i]=$tanggal.'.'.$bulan;
+            if($i==0){
+                $nomor[$i]=1;
+                $jadwal_format[$i]=$jadwal_format[$i].".0".$nomor[$i];
+                
+            }else{
+                if($jadwal[$i]!=$jadwal[$i-1]){
+                    $nomor[$i]=1;
+                    $jadwal_format[$i]=$jadwal_format[$i].".0".$nomor[$i];
+                    $a=1;
+                }else{
+                    $a=$a+1;
+                    $nomor[$i]=$a;
+                    $jadwal_format[$i]=$jadwal_format[$i].".0".$nomor[$i];
+    
+                }
+            }
+
+        }
+        return $jadwal_format;
+       }
+
+       $kode_tanggal=kode_jadwal($jadwale);
+
+       for ($i=0; $i <count($jadwalAll) ; $i++) { 
+           $jadwalAll[$i]->update([
+               'nomor_kegiatan'=>$kode_tanggal[$i]
+           ]);
+       }
+
+       function getNomorPPK($kode_ppk,$kode_kegiatan,$kode_tanggal,$kode_jenis){
+            $nomor=$kode_ppk."/".$kode_kegiatan."/".$kode_tanggal."/".$kode_jenis;
+            return $nomor;
+       }
 
        //return redirect()->route('paket.detail',['id'=>$id]);
        $request->session()->flash('success','Jadwal Pengadaan Telah berhasil di buat');
@@ -393,6 +465,26 @@ class PaketController extends Controller
     public function formPenyedia($id){
         
         return view('Paket.penawaran.form_penyedia')->with('id_paket',$id);
+    }
+
+    public function pilihPenyedia($id){
+        $paket=Paket::find($id);
+        $permintaan=Permintaan::find($paket->permintaan_id);
+        return view('Paket.pilih_penyedia',compact('permintaan'));
+    }
+    public function tablePenyedia(){
+        $penyedia=Penyedia::all();
+        $dt=DataTables::of($penyedia)
+        ->addColumn('action',function($penyedia){
+            return view('Paket._action_penyedia',[
+                'data_id'=>$penyedia->npwp
+            ]);
+        })
+        ->addIndexColumn()
+        ->rawColumns(['action'])
+        ->make(true);
+
+        return $dt;
     }
 
     public function storePenyedia(Request $request,$id){
