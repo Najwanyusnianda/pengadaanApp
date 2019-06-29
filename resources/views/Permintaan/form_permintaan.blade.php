@@ -13,7 +13,7 @@
                             <h5 class="m-0  text-center" style="font-family:Roboto">Form Permintaan</h5>
                     </div>
                     <hr>
-            <form action="{{route('permintaan.add')}}" method="POST" class="m-3" style="font-size:12px;">
+            <form action="{{route('permintaan.add')}}" method="POST" class="m-3" style="font-size:12px;" id="form">
                 {{csrf_field()}}
                             <div class="form-group">
                                 <label for="email">Judul:</label>
@@ -144,6 +144,7 @@
     }
 }
 
+
 @media screen and (min-width: 400px)  {
     .form-group{
         margin-left: 0%;
@@ -162,15 +163,21 @@
     .form-control{
         font-size:12px;
     }
-}   
+}
+
+label.required:before {
+    content: "* ";
+}
     </style>
     <link rel="stylesheet" href="{{asset('assets/flatpickr/flatpickr.min.css')}}">
 @endsection
 
 @section('addScript')
 <script src="{{asset('assets/flatpickr/flatpickr.js')}}"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/additional-methods.min.js"></script>
 <script>
+    
 $("input[type='date']").flatpickr({
     altInput: true,
     altFormat: "j - F - Y",
@@ -191,9 +198,6 @@ var  startpicker=$("#date_mulai").flatpickr({
 })
 
 
-
-
-
 var endpicker=$("#date_selesai").flatpickr({
     altInput: true,
     altFormat: "j - F - Y",
@@ -206,5 +210,20 @@ var endpicker=$("#date_selesai").flatpickr({
 })
 
 
+</script>
+
+<script>
+    $('#form').validate({ // initialize the plugin
+
+rules: {
+
+    judul_permintaan: {
+
+        required: true
+
+    }
+}
+
+});
 </script>
 @endsection

@@ -73,6 +73,8 @@ class PaketController extends Controller
         ->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')->get();
         //check persiapan
         $spesifikasi=SpekHpsItem::where('paket_id',$id)->get();
+        $spek_item_first=SpekHpsItem::where('paket_id',$id)->first();
+        $spektek=SpekTeknis::where('id', $spek_item_first->spek_id)->first();
         $is_hps=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga')->get();
         
         //check evaluasi
@@ -90,6 +92,7 @@ class PaketController extends Controller
         return view('Paket.detail_paket')
         ->with('paket',$paket)
         ->with('hps',$is_hps)
+        ->with('spektek',$spektek)
         ->with('harga_penawaran',$harga_penawaran)
         ->with('harga_nego',$harga_nego)
         ->with('spesifikasi',$spesifikasi)
@@ -124,6 +127,9 @@ class PaketController extends Controller
 
     public function spesifikasi($id){
         $id_paket=$id;
+        $paket=Paket::find($id);
+        $permintaan=Permintaan::find($paket->id);
+        $judul=$permintaan->judul;
         $spek_item=SpekHpsItem::where('paket_id',$id_paket)->get();
         $spek_first=SpekHpsItem::where('paket_id',$id_paket)->first();
         if(!empty($spek_first)){
@@ -132,35 +138,66 @@ class PaketController extends Controller
             $spek_teknis=[];
         }
 
-        return view('Paket.doc_persiapan.spesifikasi',compact('id_paket','spek_item','spek_teknis'));
+        return view('Paket.doc_persiapan.spesifikasi',compact('id_paket','spek_item','spek_teknis','judul'));
     }
 
     public function spesifikasiStore(Request $request,$id){
-        
         $id_paket=$id;
-      
-        if(count($request->nama_barang)>0){
-            $spek=SpekTeknis::create([
-                'spesifikasi'=>$request->spek_barang,
-                'keterangan'=>'test_keterangan'
-            ]);
-            for ($i=0; $i <count($request->nama_barang) ; $i++) { 
-                # code...
-
-
-                $spek=SpekHpsItem::create([
-                    'paket_id'=>$id_paket,
-                    'spek_id'=>$spek->id,
-                    'nama_item'=>$request->nama_barang[$i],
-                    'volume'=>$request->volume_barang[$i],
-                    'satuan'=>$request->satuan_barang[$i]
+        $spesifikasi=SpekHpsItem::where('paket_id',$id)->get();
+        if($spesifikasi->isEmpty()){
+            if(count($request->nama_barang)>0){
+                $spek=SpekTeknis::create([
+                    'spesifikasi'=>$request->spek_barang,
+                    'keterangan'=>'test_keterangan'
                 ]);
+                for ($i=0; $i <count($request->nama_barang) ; $i++) { 
+                    # code...
+    
+    
+                    $spek=SpekHpsItem::create([
+                        'paket_id'=>$id_paket,
+                        'spek_id'=>$spek->id,
+                        'nama_item'=>$request->nama_barang[$i],
+                        'volume'=>$request->volume_barang[$i],
+                        'satuan'=>$request->satuan_barang[$i]
+                    ]);
+                }
             }
+            
+            //dd($spek);
+            $request->session()->flash('success','Spesifikasi teknis telah dibuat');
+            return redirect()->route('paket.detail.hps',['id'=>$id_paket]);
+        }else{
+            $spesifikasi=SpekHpsItem::where('paket_id',$id)->delete();
+            $spek_item_first=SpekHpsItem::where('paket_id',$id)->first();
+            $spesifikasi=SpekTeknis::where('id', $spek_item_first->spek_id)->delete();
+            if(count($request->nama_barang)>0){
+                $spek=SpekTeknis::create([
+                    'spesifikasi'=>$request->spek_barang,
+                    'keterangan'=>'test_keterangan'
+                ]);
+                for ($i=0; $i <count($request->nama_barang) ; $i++) { 
+                    # code...
+    
+    
+                    $spek=SpekHpsItem::create([
+                        'paket_id'=>$id_paket,
+                        'spek_id'=>$spek->id,
+                        'nama_item'=>$request->nama_barang[$i],
+                        'volume'=>$request->volume_barang[$i],
+                        'satuan'=>$request->satuan_barang[$i]
+                    ]);
+                }
+            }
+            
+            //dd($spek);
+            $request->session()->flash('success','Spesifikasi teknis telah di update');
+            //return redirect()->back();
+            return redirect()->route('paket.detail.hps',['id'=>$id_paket]);
         }
-        
-        //dd($spek);
-        $request->session()->flash('success','Spesifikasi teknis telah dibuat');
-        return redirect()->back();
+       
+      
+
         //return redirect()->route('paket.detail.hps',['id'=>$id_paket]);
     }
 
@@ -194,27 +231,32 @@ class PaketController extends Controller
         $paket->update([
             'total_hps'=>$request->total_hps
         ]);  
-        return redirect()->route('paket.persiapan',['id'=>$id_paket]);
+        return redirect()->route('paket.detail',['id'=>$id_paket]);
 
     }
-
 
     public function sendPermohonan($id){
-        $pengirim_id=auth()->user()->person->id;
         $paket=Paket::find($id);
-        $penerima_id=$paket->pp_id;
-        $permintaan_id=$paket->permintaan_id;
-        $type="Permohonan Pengadaan";
+        $disposisi_detail=DisposisiDetail::create([
+            'konten'=>$request->konten,
+            'type'=>'permohonan',
+            'source_id'=>auth()->user()->person->id,
+            'permintaan_id'=>$paket->permintaan_id
+            
+        ]);
 
-        if($paket->ppk_id==$pengirim){
-            $data="kesalahan";
-            return response()->json($data);
-        }else{
-
-        }
-
-
+        $disposisi_header=DisposisiHeader::create([
+            'from_id'=>auth()->user()->person->id,
+            'to_id'=>$paket->pp_id,
+            'disposisi_detail_id'=>$disposisi_detail->id
+        ]);
     }
+
+
+
+
+
+    
 
     public function penanggungJawab($id){
         $paket=Paket::find($id);
@@ -304,6 +346,11 @@ class PaketController extends Controller
         ->addColumn('action',function($paket){
             return view('Paket.tabel_paket._action_paket',['id_paket'=>$paket->id]);
         })
+        ->addColumn('nilai_rp',function($paket){
+            return view('Permintaan.permintaan_table._nilai',[
+                'number_current'=> "Rp." .number_format($paket->nilai,0,',','.').",-"
+            ]);
+        })
         ->addColumn('status',function($paket){
             return view('Paket.tabel_paket._status_paket',[
                 'id_paket'=>$paket->id,
@@ -312,7 +359,7 @@ class PaketController extends Controller
                 ]);
         })
         ->addIndexColumn()
-        ->rawColumns(['action','status'])
+        ->rawColumns(['action','status','nilai_rp'])
         ->make(true);
         return $dt;
     }
@@ -461,6 +508,15 @@ class PaketController extends Controller
     }
 
 
+    //verifikasi pekerjaan
+    public function verifikasiPekerjaan($id){
+        $paket=Paket::find($id);
+        
+        $paket->update([
+            'status'=>'diproses'
+        ]);
+        return redirect()->back()->with('success','Pekerjaan telah diverifikasi');
+    }
     //pl
     public function formPenyedia($id){
         
@@ -543,7 +599,6 @@ class PaketController extends Controller
     public function uploadPenawaranStore(Request $request,$id){
         $paket=Paket::find($id);
         $this->validate($request, [
-
             'filename' => 'required',
             'filename.*' => 'mimes:doc,pdf,docx,zip'
         ]);

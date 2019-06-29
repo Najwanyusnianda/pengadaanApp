@@ -37,9 +37,7 @@
 
 
     <div class="card shadow mb-4 permintaan-card" style="font-family:QuickSand;">
-        <div class="card-header" style="font-family:Roboto">
-            Daftar Permintaan
-        </div>
+
 
         <div class="card-body" style="font-size:13px;font-family:'Varela Round', sans-serif;">
             <div class="table-responsive">

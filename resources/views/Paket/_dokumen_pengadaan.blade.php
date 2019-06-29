@@ -14,7 +14,7 @@
   
                         </thead>
                         <tbody>
-                            <tr>
+                              <tr>
                                 <td>Spesifikasi Teknis</td>
                                 <td>
                                   <a class="btn btn-success btn-sm shadow" href="{{route('doc.spekTeknis',['id'=>$paket->id])}}"><i class="fas fa-file-download"></i> Generate doc </a>
@@ -34,13 +34,13 @@
                                       <a class="btn btn-success btn-sm shadow" href={{route('doc.hps',['id'=>$paket->id])}}><i class="fas fa-file-download"></i> Generate doc </a>
                                     </td>
                                 </tr>
-                                  <tr>
+                                <tr>
                                       <td>Dokumen Permohonan Pengadaan Langsung</td>
                                       <td>
                                        
                                         <a class="btn btn-success btn-sm shadow" href={{route('doc.permohonan',['id'=>$paket->id])}}><i class="fas fa-file-download"></i> Generate doc </a>
                                       </td>
-                                  </tr>
+                                </tr>
                           <tr>
                             <td>Dokumen Undangan Pengadaan Langsung</td>
                             <td>

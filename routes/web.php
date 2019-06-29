@@ -97,6 +97,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/paket/{id}/spesifikasi/store','PaketController@spesifikasiStore')->name('paket.detail.spek.store');
     Route::get('/paket/{id}/detail/hps','PaketController@hps')->name('paket.detail.hps');
     Route::post('/paket/{id}/hps/store','PaketController@hpsStore')->name('paket.detail.hps.store');
+    Route::post('/paket/{id}/verifikasi_pekerjaan','PaketController@verifikasiPekerjaan')->name('paket.detail.verify.persiapan');
 
     
     

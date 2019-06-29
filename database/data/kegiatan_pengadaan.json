@@ -10,12 +10,6 @@
         "Kode_format": "a1"
     },
     {
-        "Jenis_Kegiatan": "Rancangan Kontrak",
-        "Kode_kegiatan": "null",
-        "Kode_format": "null"
-
-    },
-    {
         "Jenis_Kegiatan": "Surat Permohonan Pengadaan",
         "Kode_kegiatan": "S",
         "Kode_format": "a1"

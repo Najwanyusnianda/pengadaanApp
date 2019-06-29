@@ -162,7 +162,7 @@ class PermintaanController extends Controller
                 ]);
             })->addColumn('nilai_rp',function($permintaan){
                 return view('Permintaan.permintaan_table._nilai',[
-                    'number_current'=> "Rp" .number_format($permintaan->nilai,0,',','.')
+                    'number_current'=> "Rp." .number_format($permintaan->nilai,0,',','.').",-"
                 ]);
             })
             ->addIndexColumn()->rawColumns(['action','status_disposisi','date_diff','nilai_rp'])->make(true);

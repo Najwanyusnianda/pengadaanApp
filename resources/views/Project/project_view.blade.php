@@ -16,7 +16,7 @@
                   </div>
                   <div class="card-body">
                         <div class="table-responsive">
-                                <table class="table table-condensed" id="project_table" style="font-family:Arial, Helvetica, sans-serif">
+                                <table class="table table-condensed" id="project_table" style="font-family:Roboto">
                                       <thead>
                                           <tr>
                                               <th>#</th>
@@ -167,7 +167,7 @@
             processing:true,
             serverSide:true,
             filter:false,
-            paging:false,
+            paging:true,
             ajax:"{{route('table.project')}}",
             columns:[
                 {data: 'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},

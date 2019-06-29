@@ -76,7 +76,7 @@
                 {data: 'DT_RowIndex', name: 'DT_Row_Index' , orderable: false, searchable: false},
                 {data:'judul'},
                 {data:'jenis_pengadaan'},
-                {data:'nilai'},
+                {data:'nilai_rp'},
                 {data:'created_at'},
                 {data:'status'},
                 {data:'action',orderable: false,searchable: false}]})

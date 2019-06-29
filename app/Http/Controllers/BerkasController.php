@@ -20,6 +20,8 @@ use App\SpekTeknis;
 use App\SpekHpsItem;
 use App\JadwalKegiatanPengadaan;
 use App\JadwalPenawaran;
+use App\PaketDokumen;
+use Illuminate\Support\Facades\Storage;
 
 
 class BerkasController extends Controller
@@ -416,7 +418,19 @@ class BerkasController extends Controller
             $judul=$permintaan->judul."- Spesifikasi teknis";
             $template_spesifikasi->saveAs($judul.'.docx');
 
-            return response()->download($judul.'.docx');
+         /*   $filepath=storage_path('app/'.$paket->paket_storage.$judul.'.docx');
+            $savepath=$paket->paket_storage.$judul.'.docx';
+            $file = PaketDokumen::create([
+                'paket_id'=>$paket->id,
+                'subject' =>  $judul,
+                'document_file' => $savepath,
+                'type'=>'spesifikasi'
+                ]);
+                return Storage::download($savepath);    
+            $template_spesifikasi->saveAs($filepath);*/
+       
+           
+           return response()->download($judul.'.docx')->deleteFileAfterSend(true);;
     }
 //////////////////////////////////////////////////////////
     public function generateHps($id){

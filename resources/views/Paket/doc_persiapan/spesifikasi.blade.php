@@ -56,6 +56,7 @@
             <div class="card-header" >
                         <div class="row">
                                 <div class="col-sm-8"><h3>Spesifikasi Teknis</h3>
+                                <span class="text text-sm text-muted">{{$judul}}</span>
                                 </div>
                                         <div class="col-sm-4">
                                                 <button class="btn btn-info btn-sm  float-right" data-target="item-show" id="item-show"> Tambah item</button>

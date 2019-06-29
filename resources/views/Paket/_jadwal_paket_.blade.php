@@ -2,25 +2,50 @@
 
 <div class="card">
 <div class="card-header">
-    Jadwal Pengadaan 
+    <h6>Jadwal Pengadaan</h6>
 
     @if ($jadwal_pengadaan->isEmpty())
-    <a class="badge badge-info float-right {{empty($pj) ? 'disabled' :  ''}}" href="{{route('paket.jadwal',['id'=>$paket->id])}}"><i class="fas fa-calendar-plus"></i> <small>Buat Jadwal Pengadaan</small></a>
-
+    <span><small class="text text-sm text-muted">Jadwal Kegiatan pengadaan belum dibuat</small></span>
     @else
-    <a class="badge badge-warning float-right {{empty($pj) ? 'disabled' :  ''}}" href="{{route('paket.jadwal',['id'=>$paket->id])}}"><i class="fas fa-pencil-alt"></i> <small>Edit Jadwal Pengadaan</small></a>
     @endif
 </div>
 <div class="card-body">
-    @if ($jadwal_pengadaan->isEmpty())
-        <div class="alert alert-info alert-dismissible m-3">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-      
-            <span style="font-size:13px;font-family:roboto"> <b style="">Jadwal</b>  belum ditentukan</span>
+
+        <div class="table-responsive">
+                @if (!$jadwal_pengadaan->isEmpty())
+    
+                <table class="table table-condensed" style="">
+                  <thead>
+                    <th>No.</th>
+                    <th>Kegiatan </th>
+                    <th>Tanggal pelaksanaan</th>
+                  </thead>
+                  <tbody>
+                      @foreach ($jadwal_pengadaan as $key=>$jadwal)
+                      <tr>
+                      <td>{{$key+1}}</td>
+                      <td>{{$jadwal->nama_kegiatan_p}}  <small class="badge badge-info small ml-3" style="font-size: 61%;"> mulai {{\Carbon\Carbon::parse($jadwal->jadwal_kegiatan)->diffForHumans()}}</small></td>
+                      <td style="font-family:QuickSand">{{\Carbon\Carbon::parse($jadwal->jadwal_kegiatan)->format('d F Y')}}</td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+                </table>
+    
+        @else
+   
+        @endif
         </div>
+</div>
+<div class="card-footer">
+    @if ($jadwal_pengadaan->isEmpty())
+
+    <a class="btn btn-info btn-sm {{empty($pj) ? 'disabled' :  ''}}" href="{{route('paket.jadwal',['id'=>$paket->id])}}"><i class="fas fa-calendar-plus"></i> <small>Buat Jadwal Pengadaan</small></a>
+
     @else
-        <a href="#" id="lihat_jadwal" class="btn btn-info btn-sm shadow"><i class="fas fa-calendar-alt"></i> Lihat Jadwal</a>
+    <a class="btn btn-warning btn-sm  {{empty($pj) ? 'disabled' :  ''}}" href="{{route('paket.jadwal',['id'=>$paket->id])}}"><i class="fas fa-pencil-alt"></i> <small>Edit Jadwal Pengadaan</small></a>
     @endif
 </div>
 </div>      
+
+
 

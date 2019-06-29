@@ -126,3 +126,9 @@
         </div>
     </div>
 </div>
+
+<style>
+#detail_body {
+padding: 0px;
+}
+</style>
