@@ -525,16 +525,19 @@ class PaketController extends Controller
 
     public function pilihPenyedia($id){
         $paket=Paket::find($id);
+        $paket_id=$paket->id;
         $permintaan=Permintaan::find($paket->permintaan_id);
-        return view('Paket.pilih_penyedia',compact('permintaan'));
+        return view('Paket.pilih_penyedia',compact('permintaan','paket_id'));
     }
+
+
     public function tablePenyedia(){
         $penyedia=Penyedia::all();
         $dt=DataTables::of($penyedia)
         ->addColumn('action',function($penyedia){
             return view('Paket._action_penyedia',[
-                'data_id'=>$penyedia->npwp
-            ]);
+                'data_id'=>$penyedia->npwp,
+                ]);
         })
         ->addIndexColumn()
         ->rawColumns(['action'])
@@ -561,6 +564,16 @@ class PaketController extends Controller
         
         return redirect()->route('paket.detail',['id'=>$id]);
 
+    }
+
+    public function pilihPenyediaStore(Request $request){
+        
+        $paket=Paket::find($request->id_paket);
+        $paket->update([
+            'penyedia_id'=>$request->npwp
+        ]);
+        
+        return redirect()->route('paket.detail',['id'=>$request->id_paket]);
     }
 
     public function jadwalPenawaran(Request $request,$id){

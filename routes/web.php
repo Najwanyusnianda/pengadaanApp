@@ -110,6 +110,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/paket/{id}/detail/penyedia','PaketController@formPenyedia')->name('paket.detail.penyedia');
     Route::get('/paket/{id}/penyedia/pilih','PaketController@pilihPenyedia')->name('paket.detail.penyedia.pilih');
     Route::post('/paket/{id}/penyedia/store','PaketController@storePenyedia')->name('paket.detail.penyedia.store');
+    Route::post('/paket/penyedia/pilih/store','PaketController@pilihPenyediaStore')->name('paket.detail.penyedia.pilih.store');
     Route::get('/paket/penyedia/table','PaketController@tablePenyedia')->name('table.penyedia');
    //
     Route::get('/paket/{id}/detail/klarifikasi_teknis','PaketController@klarifikasi_teknis')->name('paket.detail.klarifikasi_teknis');

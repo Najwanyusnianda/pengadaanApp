@@ -231,35 +231,41 @@
                          
                                 <table class="table table-condensed">
                                     <thead>
-            
+                                        <tr>
+                                            <th>Nama</th>
+                                            <th>Pimpinan</th>
+                                            <th>NPWP</th>
+                                            <th>Email</th>
+                                            <th>No.Telp</th>
+                                            <th>Alamat</th>
+                               
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                                <th>Nama</th>
                                             <td>{{$penyedia->nama}}</td>
-                                           
-                                        <td></td>
-                                        </tr>
-                                        <tr>
-                                                <th>npwp</th>
-                                                <td>{{$penyedia->npwp}}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>alamat</th>
+                                            <td>{{$penyedia->nama_pimpinan}}</td>
+                                            <td>{{$penyedia->npwp}}</td>
+                                            <td>{{$penyedia->email}}</td>
+                                            <td>{{$penyedia->telepon}}</td>
                                             <td>{{$penyedia->alamat}}</td>
+                                      
+                                     
                                         </tr>
+
                                     </tbody>
                                 </table>
                                 @else
+                                
                                
-                                <p><a href="{{route('paket.detail.penyedia',['id'=>$paket->id])}}" class="badge badge-info">Pilih Penyedia</a></p>
+                                <p><a href="{{route('paket.detail.penyedia.pilih',['id'=>$paket->id])}}" class="badge badge-info">Pilih Penyedia</a></p>
                                 
                                 @endif
                         </div>
                         <div class="tab-pane fade" id="jadwal_penawaran" role="tabpanel" aria-labelledby="profile-tab">
                             <br>
                                 @if ($jadwalPenawaran->isEmpty())
-                                <a href="{{route('paket.detail.jadwal_penawaran',['id'=>$paket->id])}}" class="badge badge-info">Buat jadwal</a>
+                                <span class="text text-muted"><small>Jadwal pengadaan langsung dengan penyedia belum dibuat</small></span>
                                 @else
                                 <a href="#" id="lihat_jadwal_penawaran" class="btn btn-info btn-sm shadow"><i class="fas fa-calendar-alt"></i> Lihat Jadwal</a>
                                 @endif  
@@ -300,7 +306,18 @@
                       </div>
         </div>     
         <div class="card-footer">
-
+            @if (!empty($penyedia))
+            <a href="{{route('paket.detail.penyedia.pilih',['id'=>$paket->id])}}" class="btn btn-sm btn-warning shadow"><i class="fas fa-pencil-alt"></i>Ganti Penyedia</a>
+            
+            @else
+            <p><a href="{{route('paket.detail.penyedia.pilih',['id'=>$paket->id])}}" class="btn btn-sm btn-info">Pilih Penyedia</a></p>
+            @endif
+              
+            @if ($jadwalPenawaran->isEmpty())
+            <a href="{{route('paket.detail.jadwal_penawaran',['id'=>$paket->id])}}" class="btn btn-info btn-sm shadow"><i class="fas fa-calendar-plus"></i> Buat jadwal</a>
+            @else
+                
+            @endif
         </div>
 </div>
 
@@ -318,7 +335,7 @@ th{
 }
 
 td{
-    font-family: 'QuickSand';
+    font-family: 'Varela Round';
     font-size:15px;
 }
 th{
