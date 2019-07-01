@@ -194,14 +194,9 @@
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
+     
                     <li class="nav-item">
-                        <a href="{{route('paket.index')}}" class="nav-link ">
-                              <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
-                              <p>Tugas Paket</p>
-                            </a>
-                    </li>
-                    <li class="nav-item">
-                    <a href="{{route('paket.index')}}" class="nav-link ">
+                    <a href="{{route('paket.index')}}" class="nav-link {{Request::is('paket') ? 'active' : Request::is('paket/*') ? 'active' : ''}} ">
                           <i class="fas fa-circle-notch nav-icon" style="font-size: 15px;"></i>
                           <p>Daftar Paket</p>
                         </a>

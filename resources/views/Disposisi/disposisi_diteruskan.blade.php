@@ -17,18 +17,19 @@
                     <div class="card-body">
                        
                         <div class="table-responsive">
-                            <table class="table table-bordered table-hover  " id="disp_masuk">
+                            <table class="table table-condensed table-hover  " id="disp_masuk">
     
                                 <thead>
-                                    <tr style="font-family:Valera Round, sans-serif;font-size:15px;" >
+                                    <tr style="font-family:Valera Round, sans-serif;" >
                                         <th>Kepada</th>
                                         <th>Surat</th>
-                                        <th>Jenis</th>
+                                     
                                         <th>Diterima</th>
+                                        <th>Detail</th>
                                        
                                     </tr>
                                 </thead>
-                                <tbody style="font-family:'Varela Round', sans-serif;font-size:13px;">
+                                <tbody style="font-family:'Varela Round', sans-serif;">
                                     @forelse ($disposisi_diteruskan as $data)
                                         <tr> 
                                             <td>
@@ -37,14 +38,14 @@
                                             </td> 
                                             <td>
                                                     <p style="margin-bottom:1px;">{{$data->judul_permintaan}}</p>
-                                                <button style="padding-left:0px;" class="btn  btn-sm detail_disposisi_show btn-link" data-id="{{$data->disposisi_detail_id}}"><span  style="font-family:Roboto, sans-serif;color:#566787;font-size:13px;font-weight:600"><small class="bade badge-secondary">Detail Pesan</small></span> </button>
+                                               
                                                 
                                             </td>
-                                        <td>{{$data->type}}</td>
+                       
                                             <td>{{\Carbon\Carbon::parse($data->created_at)->format('d-m-Y')}}
                                                 <small class="d-block"> {{Carbon\Carbon::parse($data->created_at)->format('H:i')}} WIB</small>  
                                             </td>
-                                            
+                                            <td> <button style="padding-left:0px;" class="btn  btn-sm detail_disposisi_show btn-link" data-id="{{$data->disposisi_detail_id}}"><span  style="font-family:Roboto, sans-serif;font-size:13px;font-weight:600"><small class="btn btn-primary btn-sm">Detail</small></span> </button></td>
                                         </tr>
                                     @empty
                                             

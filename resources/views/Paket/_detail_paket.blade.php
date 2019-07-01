@@ -123,11 +123,16 @@
                         <table class="table table-condensed">
                             <thead>
                                 <tr>
-                                    <th>Nama Barang/Pekerjaan</th>
+                                    <th width="40%">Nama Barang/Pekerjaan</th>
                                     <th>Volume</th>
                                     <th>Satuan</th>
-                                    <th>Harga Satuan</th>
-                                    <th>Jumlah (+PPN 10%)</th>
+                                    <th>Harga Satuan(HPS)</th> 
+                                    <th>Jumlah HPS (+PPN 10%)</th>
+                                    
+                                    
+                                
+                                  
+                                
                                 </tr>
                             </thead>
                             <tbody>
@@ -139,6 +144,8 @@
                                             <td>{{$item->satuan}}</td>
                                             <td> Rp.{{ number_format($item->harga,0,',','.')}} </td>
                                             <td>Rp.{{ number_format($item->jumlah,0,',','.')}} </td>
+                                   
+
                                     </tr>
             
                             
@@ -155,18 +162,28 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
+
                                         </tr>
-                                     <tr>
-                                         <td colspan="4"><b>Total HPS:</b></td>
-                                     <td><b>Rp. {{number_format($paket->total_hps,0,',','.')}}</b></td>
-                                    </tr>   
+                                      
+                                      <tr>
+                                        <td colspan="4"><b>Total HPS:</b></td>
+                                        <td><b>Rp. {{number_format($paket->total_hps,0,',','.')}}</b></td>
+                                    </tr> 
+                               
+  
                                 @else
                                     <p>test</p>
                                 @endif
 
                             </tbody>
                         </table>
-            
+                        <hr>
+                        @if ($nego->isEmpty())
+                        
+                        @else
+
+                        @endif
+                       
                 </div>
                 @endif
         </div>
@@ -179,7 +196,7 @@
             @if (!$hps->isEmpty())
             @if (auth()->user()->person->id==$paket->pp_id || auth()->user()->person->id==$paket->ppk_id)
             @if ($paket->status=="diproses")
-            <a class="btn btn-info btn-sm shadow"  href="#" role="button" ><i class="fas fa-plus"></i> <small> Buat  Klarifikasi dan Negosiasi</small> </a> 
+         
             @else
             <a class="btn btn-success btn-sm shadow {{$paket->status=="diproses" ? 'disabled' : ''}}"  href="#" id="verify_pekerjaan" data-id="{{$paket->id}}" role="button" ><i class="fas fa-check-double"></i><small> Konfirmasi pekerjaan</small> </a> 
             <a class="btn btn-warning btn-sm shadow {{$paket->status=="diproses" ? 'disabled' : ''}}" href="{{route('paket.persiapan',[$paket->id])}}" role="button" ><i class="fas fa-pencil-alt"></i> <small>Edit Spesifikasi</small> </a> 
@@ -198,7 +215,7 @@
         </div>
 </div>
 
-<div class="card" id="data_penyedia">
+<div class="card shadow" id="data_penyedia">
         <div class="card-header">
                 <h6 class="">Detail Penyedia</h6>
                 @if (empty($penyedia))
@@ -271,10 +288,10 @@
                                 @endif  
                         </div>
                         <div class="tab-pane fade" id="dokumen_penawaran" role="tabpanel" aria-labelledby="contact-tab">
-                            <br>
-                                <a class="badge badge-info" href="{{route('upload.penawaran.index',[$paket->id])}}" role="button"><i class="fas fa-plus"></i> <small>Upload Dok. Penawaran</small></a>
+ 
+                               
             
-                                <br>
+                            
                                 @if (!empty($dokumen))
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
@@ -316,11 +333,93 @@
             @if ($jadwalPenawaran->isEmpty())
             <a href="{{route('paket.detail.jadwal_penawaran',['id'=>$paket->id])}}" class="btn btn-info btn-sm shadow"><i class="fas fa-calendar-plus"></i> Buat jadwal</a>
             @else
+            <a href="{{route('paket.detail.jadwal_penawaran',['id'=>$paket->id])}}" class="btn btn-warning btn-sm shadow"><i class="fas fa-pencil-alt"></i> Edit jadwal</a>
+            @endif
+
+            @if ($dokumen->isEmpty())
+            <a class="btn btn-info btn-sm shadow" href="{{route('upload.penawaran.index',[$paket->id])}}" role="button"><i class="fas fa-file-upload"></i> Upload Surat Penawaran</a>
+            @else
                 
             @endif
+
+            <button class="btn btn-primary btn-sm shadow float-right" id="lihat_dok"><i class="fas fa-file-download"></i> Generate Dokumen</button>
         </div>
 </div>
 
+
+<div class="card shadow" id="hasil_Nego">
+    <div class="card-header">
+        <h6>Hasil Pengadaan Langsung </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-condensed">
+                    <thead>
+                            <tr>
+                                <th rowspan="2" style="vertical-align : middle;text-align:center;">Nama Item</th>
+                                <th rowspan="2" style="vertical-align : middle;text-align:center;">Volume</th>
+                                <th colspan="2" style="vertical-align : middle;text-align:center;">Harga Penawaran</th>
+                                <th colspan="2" style="vertical-align : middle;text-align:center;">Harga Negosiasi</th>
+
+
+                            </tr>
+                            <tr>
+                                <th style="width:20%">Harga Satuan</th>
+                                <th>Jumlah</th>
+                                <th style="width:20%">Harga Satuan</th>
+                                <th>Jumlah</th>
+                                
+                            </tr>
+                           
+                    </thead>
+                    <tbody>
+                        @if (!$nego->isEmpty())
+                            @foreach ($spesifikasi  as $item)
+                                <tr>
+                                    <td>{{$item->nama_item}}</td>
+                                    <td>{{$item->volume}}</td>
+                                    <td> Rp.{{ number_format($item->harga_penawaran,0,',','.')}} </td>
+                                    <td>Rp.{{ number_format($item->jumlah_penawaran,0,',','.')}} </td>
+                                    <td>Rp.{{ number_format($item->harga_nego,0,',','.')}} </td>
+                                    <td>Rp.{{ number_format($item->jumlah_nego,0,',','.')}} </td>
+                                </tr>
+                            @endforeach
+                            <tr>
+                                <td colspan="6"></td>
+                            </tr>
+                            <tr>
+                                    <td colspan="3">Subtotal:</td>
+                                    <td><b>Rp. {{number_format(((int)$paket->total_penawaran/(1.1)),0,',','.')}}</b></td>
+                                    <td></td>
+                                    <td><b>Rp. {{number_format(((int)$paket->total_negosiasi/(1.1)),0,',','.')}}</b></td>
+                                   
+                            </tr>
+                            <tr>
+                                    <td colspan="3">PPN(10%):</td>
+                                    <td><b>Rp. {{number_format(((int)$paket->total_penawaran/(1.1))*0.1,0,',','.')}}</b></td>
+                                    <td></td>
+                                    <td><b>Rp. {{number_format(((int)$paket->total_negosiasi/(1.1))*0.1,0,',','.')}}</b></td>
+                                   
+                              </tr>
+                              <tr>
+                                    <td colspan="3">Total</td>
+                                    <td><b>Rp. {{number_format($paket->total_penawaran,0,',','.')}}</b></td>
+                                    <td></td>
+                                    <td><b>Rp. {{number_format($paket->total_negosiasi,0,',','.')}}</b></td>
+
+                                </tr>
+                        @endif
+                    </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+            <a class="btn btn-info btn-sm shadow {{auth()->user()->person->id==$paket->pp_id ? '' : 'disabled'}}"  href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}" role="button" ><i class="fas fa-plus"></i> <small> Buat  Penawaran dan Negosiasi</small> </a>
+            <button class="btn btn-primary btn-sm shadow float-right" id="lihat_dok_hasil"><i class="fas fa-file-download"></i> Generate Dokumen Hasil Pengadaan</button>
+            
+    </div>
+</div>
+<!---end-->
 <style>
 th{
     color: ;
@@ -341,4 +440,5 @@ td{
 th{
     font-size:15px;
 }
+
 </style>

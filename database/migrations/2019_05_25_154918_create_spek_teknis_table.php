@@ -15,8 +15,8 @@ class CreateSpekTeknisTable extends Migration
     {
         Schema::create('spek_teknis', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('spesifikasi')->nullable();
-            $table->string('keterangan')->nullable();
+            $table->text('spesifikasi')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
 
         });

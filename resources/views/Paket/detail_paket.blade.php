@@ -45,6 +45,63 @@
 </div>
 
     <!--modal-->
+    <div class="modal" id="modal_dokumen_hasil_pengadaan">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h6 class="modal-title">List Dokumen</h6>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body">
+            
+
+                      <table class="table table-condensed" style="">
+                        <thead>
+                          <tr>
+                            <th style="max-width=50%;">Dokumen</th>
+                            <th >Unduh</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>BA klarifikasi dan negosiasi harga</td>
+                                <td>
+                                  <a class="btn btn-link" href="{{route('doc.klarifikasi',['id'=>$paket->id])}}"><i class="fas fa-file-word fa-2x "></i> </a>
+                                </td>
+                              </tr>
+                                <tr>
+                                  <td>BA Pembukaan, Evaluasi, Klarifikasi dan negosiasi penawaran</td>
+                                  <td>
+                                  
+                                    <a class="btn btn-link" href={{route('doc.evaluasi',['id'=>$paket->id])}}><i class="fas fa-file-word fa-2x "></i> </a>
+                                  </td>
+                                </tr>
+                                <tr>
+                                    <td>BA hasil pengadaan langsung</td>
+                                    <td>
+                                     
+                                      <a class="btn btn-link" href={{route('doc.bahpl',['id'=>$paket->id])}}><i class="fas fa-file-word fa-2x "></i></a>
+                                    </td>
+                                </tr>
+                        </tbody>
+                      </table>
+  
+            </div>
+      
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+      
+          </div>
+        </div>
+    </div>
+
     <div class="modal" id="modal_dokumen_persiapan">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -108,8 +165,6 @@
           </div>
         </div>
     </div>
-
-
 
     <div class="modal" id="modalJadwalPenawaran">
         <div class="modal-dialog">
@@ -209,13 +264,19 @@
     <script>
     $(document).ready(function(){
       var modal_dok_persiapan=$('#modal_dokumen_persiapan');
+      var modal_dokumen_hasil_pengadaan=$('#modal_dokumen_hasil_pengadaan');
       var jadwal_penawaran=$('#modalJadwalPenawaran')
       var bnt_generate_persiapan=$('#lihat_dok');
+      var btn_generate_hasil=$('#lihat_dok_hasil');
       var lihat_penawaran=$('#lihat_jadwal_penawaran');
 
       bnt_generate_persiapan.click(function(e){
         e.preventDefault();
         modal_dok_persiapan.modal("show");
+      })
+      btn_generate_hasil.click(function(e){
+        e.preventDefault();
+        modal_dokumen_hasil_pengadaan.modal('show');
       })
       lihat_penawaran.click(function(e){
         e.preventDefault();

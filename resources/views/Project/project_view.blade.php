@@ -2,7 +2,7 @@
 
 @section('konten')
     <div class="container">
-      <div class="col-md-12" style="margin:auto;">
+      <div class="col" style="margin:auto;">
           <div class="row-md-12">
 
           </div>
@@ -10,18 +10,18 @@
               <div class="card shadow ">
                   <div class="card-header" >
                     <h5 style="font-family:Roboto">Daftar Project</h5>
-                      <button type="button" id="add_Project" class="btn btn-primary float-right shadow" style="margin-right: 5px;">
+                      <button type="button" id="add_Project" class="btn btn-primary float-right shadow btn-sm" style="margin-right: 5px;">
                             <i class="fas fa-plus"></i> Tambah Project
                           </button>
                   </div>
                   <div class="card-body">
                         <div class="table-responsive">
-                                <table class="table table-condensed" id="project_table" style="font-family:Roboto">
+                                <table class="table table-condensed" id="project_table" style="font-family:Varela Round">
                                       <thead>
                                           <tr>
                                               <th>#</th>
                                               <th>Nama Project</th>
-                                              <th>Deskripsi</th>
+                                              <th width="20%">Deskripsi</th>
                                               <th>dibuat</th>
                                               <th>aksi</th>
                                           </tr>
@@ -188,17 +188,10 @@
     <style>
    
 
-        .card-deck .card{
-            min-width: 233px;
-            min-height: 198px;
-        }
+
 
     
-        .btn-fix {
-            padding: 0;
-            border: none;
-            white-space: normal;
-            }
+
         
             th{
         font-weight: 600;

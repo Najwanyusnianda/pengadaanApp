@@ -76,6 +76,7 @@ class PaketController extends Controller
         $spek_item_first=SpekHpsItem::where('paket_id',$id)->first();
         $spektek=SpekTeknis::where('id', $spek_item_first->spek_id)->first();
         $is_hps=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga')->get();
+        $is_nego=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga_nego')->get();
         
         //check evaluasi
         $harga_penawaran=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga_penawaran')->get();
@@ -92,6 +93,7 @@ class PaketController extends Controller
         return view('Paket.detail_paket')
         ->with('paket',$paket)
         ->with('hps',$is_hps)
+        ->with('nego',$is_nego)
         ->with('spektek',$spektek)
         ->with('harga_penawaran',$harga_penawaran)
         ->with('harga_nego',$harga_nego)
@@ -351,11 +353,14 @@ class PaketController extends Controller
                 'number_current'=> "Rp." .number_format($paket->nilai,0,',','.').",-"
             ]);
         })
+        ->addColumn('date_dikerjakan',function($paket){
+            return \Carbon\Carbon::parse($paket->created_at)->format('d-m-Y');
+        })
         ->addColumn('status',function($paket){
             return view('Paket.tabel_paket._status_paket',[
                 'id_paket'=>$paket->id,
                 'status'=>$paket->status,
-                'badge_status'=>$paket->status ==  'baru' ? 'badge-danger' : ($paket->status == 'persiapan' ? 'badge-info' : 'badge-warning')
+                'badge_status'=>$paket->status ==  'baru' ? 'badge-danger' : ($paket->status == 'persiapan' ? 'badge-warning' : ($paket->status == 'diproses' ? 'badge-primary' : 'badge-secondary')),
                 ]);
         })
         ->addIndexColumn()

@@ -1,7 +1,5 @@
 @extends('Admin.layout')
 @section('link_bread')
-<li class="breadcrumb-item"><a href="/">Home</a></li>
-<li class="breadcrumb-item active">Paket</li>
 
 @endsection
 @section('konten')
@@ -77,7 +75,7 @@
                 {data:'judul'},
                 {data:'jenis_pengadaan'},
                 {data:'nilai_rp'},
-                {data:'created_at'},
+                {data:'date_dikerjakan'},
                 {data:'status'},
                 {data:'action',orderable: false,searchable: false}]})
     </script>
