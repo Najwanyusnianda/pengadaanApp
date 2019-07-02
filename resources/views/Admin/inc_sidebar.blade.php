@@ -126,7 +126,7 @@
                     <i class="nav-icon far fa-envelope"></i>
                   <p>
                       
-                    Surat masuk
+                    disposisi
                     @if (count(auth()->user()->unreadNotifications->where('type','App\Notifications\disposisiTerkirim'))>0)
                     <span class="badge badge-danger ">Baru</span>
                     @endif

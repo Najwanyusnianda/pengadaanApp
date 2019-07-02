@@ -25,12 +25,12 @@
                     </div>
                     <div class="card-body table-responsive">
                   
-                        <table class="table table-bordered table-hover " id="disp_masuk">
+                        <table class="table table-condensed table-hover " id="disp_masuk">
 
                             <thead>
                                 <tr style="font-family:Valera Round, sans-serif;font-size:13px;" >
                                     <th colspan="2">Surat</th>
-                                    <th>Jenis</th>
+                                 
                                     <th>Tgl.Terima</th>
 
                                 </tr>
@@ -56,7 +56,7 @@
                                                 
                                             <p style="color:gray"><small>nomor: <strong>{{$data->nomor_form}}</strong> </small> </p>
                                         </td> 
-                                    <td>{{$data->type}}</td>
+
                                         <td>{{\Carbon\Carbon::parse($data->created_at)->format('d F Y H:i')}}</td>
                                         
                                        
