@@ -73,8 +73,14 @@ class PaketController extends Controller
         ->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')->get();
         //check persiapan
         $spesifikasi=SpekHpsItem::where('paket_id',$id)->get();
-        $spek_item_first=SpekHpsItem::where('paket_id',$id)->first();
-        $spektek=SpekTeknis::where('id', $spek_item_first->spek_id)->first();
+        if($spesifikasi->isEmpty()){
+            $spek_item_first='';
+            $spektek='';
+        }else{
+            $spek_item_first=SpekHpsItem::where('paket_id',$id)->first();
+            $spektek=SpekTeknis::where('id', $spek_item_first->spek_id)->first();
+        }
+
         $is_hps=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga')->get();
         $is_nego=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga_nego')->get();
         
