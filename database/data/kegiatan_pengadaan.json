@@ -25,6 +25,12 @@
             "sumber_nomor": "PP"
         },
         {
+            "Jenis_Kegiatan": "Surat Perintah Menawarkan Harga (SPMH)",
+            "Kode_kegiatan": "SPMH",
+            "Kode_format": "a2",
+            "sumber_nomor": "PP"
+        },
+        {
             "Jenis_Kegiatan": "Berita Acara klarifikasi dan Negosiasi Teknis Harga",
             "Kode_kegiatan": "BAN",
             "Kode_format": "a2",
@@ -43,22 +49,18 @@
             "sumber_nomor": "PP"
         },
         {
-            "Jenis_Kegiatan": "Surat Perintah Menawarkan (SPMH)",
-            "Kode_kegiatan": "SPMH",
-            "Kode_format": "a2",
+            "Jenis_Kegiatan": "Surat Perintah Mulai Kerja(SPMK)",
+            "Kode_kegiatan": "SPMK",
+            "Kode_format": "a1",
             "sumber_nomor": "PPK"
-        },
+        }
+
         {
             "Jenis_Kegiatan": "Surat Perintah Kerja (SPK)",
             "Kode_kegiatan": "SPK",
-            "Kode_format": "a2",
-            "sumber_nomor": "PPK"
-        },
-        {
-            "Jenis_Kegiatan": "Surat Perintah Mulai Kerja(SPMK)",
-            "Kode_kegiatan": "SPMK",
-            "Kode_format": "a2",
+            "Kode_format": "a1",
             "sumber_nomor": "PPK"
         }
+
 
     ]

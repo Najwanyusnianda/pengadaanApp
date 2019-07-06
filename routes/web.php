@@ -130,6 +130,10 @@ Route::group(['middleware' => ['auth']], function () {
     //file
     Route::get('paket/{id}/uploadPenawaran','PaketController@uploadPenawaranIndex')->name('upload.penawaran.index');
     Route::post('paket/{id}/uploadPenawaranStore','PaketController@uploadPenawaranStore')->name('upload.penawaran.store');
+    Route::post('paket/{id}/send_permohonan','PaketController@sendPermohonan')->name('permohonan.send');
+    
+    
+    
     Route::get('berkas/{id}/hps','BerkasController@generateHps')->name('doc.hps');
     
      

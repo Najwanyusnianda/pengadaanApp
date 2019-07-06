@@ -37,62 +37,7 @@
 
 
 
-            <!--<table class="table table-bordered">
-                <tr>
-                    <th>Nama</th>
-                    <th>status</th>
-                </tr>
-                <tr>
-                    <td>
-                        @if (!$hps->isEmpty())
-                        <i class="fas fa-check"></i>
-                        @endif
-                        Data persiapan pengadaan
-                    </td>
-                    <td> 
-                        @if ($hps->isEmpty())
-                        <small class="text-sm text-muted">Data persiapan belum dibuat</small>
-                        <p><a class="badge badge-info" href="{{route('paket.persiapan',[$paket->id])}}" role="button"><i class="fas fa-plus"></i> <small>isi data Dokumen Persiapan</small></a></p>
-                        
-                        @else
-                            <small class="text-muted float-right">Dokumen persiapan telah dibuat <a href="{{route('paket.persiapan',[$paket->id])}}">edit dokumen?</a></small>
-                        @endif
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @if (!empty($penyedia))
-                            <i class="fas fa-check"></i>
-                         @endif
-                        Data Penyedia
-                    </td>
-                    <td>
-                        @if (!empty($penyedia))
-                        : {{$penyedia->nama}}
-                        @else
-                        <small class="text-sm text-muted">Penyedia belum ditentukan</small>
-                        <p><a href="{{route('paket.detail.penyedia.pilih',['id'=>$paket->id])}}" class="badge badge-info">Pilih Penyedia?</a></p>
-                       @endif 
-                    </td>
-                </tr>
-                <tr>
-                    <td> 
-                            @if ( !($harga_penawaran->isEmpty() || $harga_nego->isEmpty()))
-                            <i class="fas fa-check"></i>
-                            @endif
-                        Data Pembukaan, Evaluasi, klarifikasi dan Negosiasi Penawaran
-                    </td>
-                    <td> 
-                        @if ($harga_penawaran->isEmpty() || $harga_nego->isEmpty())
-                        <small class="text-sm text-muted">Data klarifikasi dan negosiasi belum dibuat</small>
-                        <p><a class="badge badge-info" href="{{route('paket.pembukaan',['id'=>$paket->id])}}" role="button"><i class="fas fa-plus"></i> <small>Buat klarifikasi dan Evaluasi penawaran</small></a></p>
-                            @else
-                        <small class="text-sm text-muted">Data telah dibuat</small>
-                        @endif
-                        
-                    </td>
-                </tr>
-            </table>-->
+
 
 
         </div>
@@ -169,6 +114,30 @@
                 </div>
             </div>
             @endif
+            @if ($jadwal->nama_kegiatan_p =="Surat Permohonan Pengadaan")
+            <div class="col-md-3">
+                <div class="card card-primary card-outline">
+
+                        <div class="card-body">
+                                Permohonan Pengadaan
+                                @if (!$hps->isEmpty())
+                                <i class="fas fa-check-circle fa-lg" style="color:#2ecc71"></i>
+                                @endif
+                                <p class="text text-muted"><small>Penetapan:{{\Carbon\Carbon::parse($jadwal->jadwal_kegiatan)->format('d-F-Y')}}</small></p>
+                        </div>
+                        <div class="card-footer">
+                                @if (true)
+                                <a href="#" class="badge badge-primary" id="permohonan">  
+                                        <i class="fas fa-arrow-circle-right "></i>  Sampaikan Permohonan Pengadaan
+
+                                </a>  
+                                @endif
+                        </div>
+
+
+                </div>
+            </div>
+            @endif
             @if ($jadwal->nama_kegiatan_p =="Surat Undangan Pengadaan")
             <div class="col-md-3">
                 <div class="card card-success card-outline">
@@ -192,13 +161,111 @@
                                 <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#2980b9">  
                                         <i class="fas fa-eye" ></i> view           
                                 </a>
+                                <a href="{{route('paket.detail.jadwal_penawaran',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#2980b9">  
+                                        <i class="fas fa-eye" ></i> buat jadwal          
+                                </a>
+                                
                                 @endif
                         </div>
 
 
+                </div>
             </div>
-        </div>
-        @endif
+            @endif
+            @if ($jadwal->nama_kegiatan_p =="Berita Acara Pembukaan, Evaluasi, Klarifikasi dan Negosiasi Penawaran")
+            <div class="col-md-3">
+                <div class="card card-success card-outline">
+
+                        <div class="card-body">
+                                Pembukaan dan Evaluasi Penyedia
+                                @if (true)
+                                <i class="fas fa-check-circle fa-lg" style="color:#2ecc71"></i>
+                                @endif
+                                <p class="text text-muted"><small>Penetapan:{{\Carbon\Carbon::parse($jadwal->jadwal_kegiatan)->format('d-F-Y')}}</small></p>
+                        </div>
+                        <div class="card-footer">
+                                @if (true)
+                                <a href="{{route('paket.detail.pembukaan_evaluasi',['id'=>$paket->id])}}" class="badge badge-primary ">  
+                                        <i class="fas fa-arrow-circle-right "></i>  Buat Pembukaan           
+                                </a>
+                                <a href="{{route('paket.detail.penawaran_evaluasi',['id'=>$paket->id])}}" class="badge badge-primary ">  
+                                        <i class="fas fa-arrow-circle-right "></i>  Buat Evauasi           
+                                </a>    
+                                @else
+                                <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#e67e22">  
+                                        <i class="fas fa-pencil-alt"></i> Edit           
+                                </a>
+                                <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#2980b9">  
+                                        <i class="fas fa-eye" ></i> view           
+                                </a>
+                                @endif
+                        </div>
+
+
+                </div>
+            </div>
+            @endif
+            @if ($jadwal->nama_kegiatan_p =="Berita Acara klarifikasi dan Negosiasi Teknis Harga")
+            <div class="col-md-3">
+                <div class="card card-success card-outline">
+
+                        <div class="card-body">
+                                Penawaran dan Negosiasi Harga
+                                @if (!($harga_penawaran->isEmpty() || $harga_nego->isEmpty()))
+                                <i class="fas fa-check-circle fa-lg" style="color:#2ecc71"></i>
+                                @endif
+                                <p class="text text-muted"><small>Penetapan:{{\Carbon\Carbon::parse($jadwal->jadwal_kegiatan)->format('d-F-Y')}}</small></p>
+                        </div>
+                        <div class="card-footer">
+                                @if (($harga_penawaran->isEmpty() || $harga_nego->isEmpty()))
+                                <a href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}" class="badge badge-primary ">  
+                                        <i class="fas fa-arrow-circle-right "></i>  buat            
+                                </a>  
+                                @else
+                                <a href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#e67e22">  
+                                        <i class="fas fa-pencil-alt"></i> Edit           
+                                </a>
+                                <a href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#2980b9">  
+                                        <i class="fas fa-eye" ></i> view           
+                                </a>
+                                @endif
+                        </div>
+
+
+                </div>
+            </div>
+            @endif
+            @if ($jadwal->nama_kegiatan_p =="Berita Acara Hasil Pengadaan Langsung")
+            <div class="col-md-3">
+                <div class="card card-success card-outline">
+
+                        <div class="card-body">
+                                Berita Acara Hasil Pengadaan Langsung
+                                @if (!($harga_penawaran->isEmpty() || $harga_nego->isEmpty()))
+                                <i class="fas fa-check-circle fa-lg" style="color:#2ecc71"></i>
+                                @endif
+                                <p class="text text-muted"><small>Penetapan:{{\Carbon\Carbon::parse($jadwal->jadwal_kegiatan)->format('d-F-Y')}}</small></p>
+                        </div>
+                        <div class="card-footer">
+                                @if (($harga_penawaran->isEmpty() || $harga_nego->isEmpty()))
+
+                                @else
+
+                                <a href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}" class="badge badge-primary ">  
+                                        <i class="fas fa-arrow-circle-right "></i>  Sampaikan hasil pengadaan         
+                                </a>  
+                                <a href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#2980b9">  
+                                        <i class="fas fa-eye" ></i> view           
+                                </a>
+                                @endif
+                        </div>
+
+
+                </div>
+            </div>
+            @endif
+
+            
             @empty
                 <p>belum ada jadwal</p>
             @endforelse
@@ -547,10 +614,10 @@ th{
 
 td{
     font-family: 'Varela Round';
-    font-size:15px;
+    font-size:13px;
 }
 th{
-    font-size:15px;
+    font-size:13px;
 }
 
 </style>

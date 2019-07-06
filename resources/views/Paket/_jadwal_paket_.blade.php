@@ -9,7 +9,7 @@
     @else
     @endif
 </div>
-<div class="card-body">
+<div class="card-body" style="font-size:13px !important;">
 
         <div class="table-responsive">
                 @if (!$jadwal_pengadaan->isEmpty())
@@ -20,7 +20,6 @@
                     <th width="40%">Kegiatan </th>
                     <th>Tanggal pelaksanaan</th>
                     <th>Status</th>
-                    <th>Aksi</th>
                     <th>Generate</th>
                   </thead>
                   <tbody>
@@ -30,40 +29,7 @@
                       <td>{{$jadwal->nama_kegiatan_p}}</td>
                       <td style="font-family:QuickSand">{{\Carbon\Carbon::parse($jadwal->jadwal_kegiatan)->format('d F Y')}}</td>
                       <td></td>  
-                      <td>
-                          @if ($jadwal->nama_kegiatan_p =="Penetapan Spesifikasi Teknis")
-                          @if ($spesifikasi->isEmpty())
-                            <a href="{{route('paket.detail.spek',['id'=>$paket->id])}}" class="badge badge-secondary btn-sm ">  
-                              Buat                        
-                            </a> 
-                          @else
-                             <small class="text text-muted">sudah dibuat</small> 
-                          @endif
 
-                          @endif
-                          @if ($jadwal->nama_kegiatan_p =="Penetapan HPS")
-
-                          <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}" class="badge badge-secondary btn-sm ">
-                            Buat
-                                  
-                          </a>
-                          @endif
-                          @if ($jadwal->nama_kegiatan_p =="Berita Acara klarifikasi dan Negosiasi Teknis Harga")
-                          <a  class="badge badge-secondary btn-sm" href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}">
-                              Buat
-                          </a>
-                          
-                          @endif
-                          @if ($jadwal->nama_kegiatan_p =="Surat Undangan Pengadaan")
-                          <a  class="badge badge-secondary btn-sm" href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}">
-                              Pilih Penyedia
-                          </a>
-                          <a  class="badge badge-info btn-sm" href="{{route('paket.detail.klarifikasi_teknis',['id'=>$paket->id])}}">
-                              Buat Jadwal Penawaran
-                          </a>
-                          
-                          @endif
-                        </td>
                         <td>
                             @if ($jadwal->nama_kegiatan_p =="Penetapan Spesifikasi Teknis")
                             <a class="btn btn-link" href="{{route('doc.spekTeknis',['id'=>$paket->id])}}"><i class="fas fa-file-word"></i> </a>

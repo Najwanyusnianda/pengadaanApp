@@ -243,7 +243,7 @@ class PaketController extends Controller
 
     }
 
-    public function sendPermohonan($id){
+    public function sendPermohonan($id,Request $request){
         $paket=Paket::find($id);
         $disposisi_detail=DisposisiDetail::create([
             'konten'=>$request->konten,
