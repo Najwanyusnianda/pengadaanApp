@@ -70,15 +70,16 @@ class ProjectController extends Controller
         ->join('roles','enroll.id_role','=','roles.id')
         ->leftJoin('jabatan_pps','enroll.jabatan_id','=','jabatan_pps.id')
         //->leftJoin('jabatan_ppks','enroll.jabatan_id','=','jabatan_ppks.id')
-        ->select('enroll.*','people.*','roles.deskripsi','jabatan_pps.nama_jabatan AS jabatan_pp','jabatan_pps.kode_jabatan AS kode_pp')
+        ->select('enroll.*','enroll.id AS enroll_id','people.*','roles.deskripsi','jabatan_pps.nama_jabatan AS jabatan_pp','jabatan_pps.kode_jabatan AS kode_pp')
         ->get();
+
         $data_ppk=DB::table('project_enrollments AS enroll')
         ->where('project_id',$project->id)->where('id_role','=','3')
         ->join('people','enroll.person_id','people.id')
         ->join('roles','enroll.id_role','=','roles.id')
         //->leftJoin('jabatan_pps','enroll.jabatan_id','=','jabatan_pps.id')
         ->leftJoin('jabatan_ppks','enroll.jabatan_id','=','jabatan_ppks.id')
-        ->select('enroll.*','people.*','roles.deskripsi','jabatan_ppks.nama_jabatan AS jabatan_ppk','jabatan_ppks.kode_jabatan AS kode_ppk')
+        ->select('enroll.*','enroll.id AS enroll_id','people.*','roles.deskripsi','jabatan_ppks.nama_jabatan AS jabatan_ppk','jabatan_ppks.kode_jabatan AS kode_ppk')
         ->get();
         $data_kulp=DB::table('project_enrollments AS enroll')
         ->where('project_id',$project->id)->where('id_role','=','4')
@@ -86,7 +87,7 @@ class ProjectController extends Controller
         ->join('roles','enroll.id_role','=','roles.id')
         //->leftJoin('jabatan_pps','enroll.jabatan_id','=','jabatan_pps.id')
         //->leftJoin('jabatan_ppks','enroll.jabatan_id','=','jabatan_ppks.id')
-        ->select('enroll.*','people.*','roles.deskripsi')
+        ->select('enroll.*','enroll.id AS enroll_id','people.*','roles.deskripsi')
         ->get();
         $data_kasi=DB::table('project_enrollments AS enroll')
         ->where('project_id',$project->id)->where('id_role','=','5')
@@ -94,7 +95,7 @@ class ProjectController extends Controller
         ->join('roles','enroll.id_role','=','roles.id')
         //->leftJoin('jabatan_pps','enroll.jabatan_id','=','jabatan_pps.id')
         //->leftJoin('jabatan_ppks','enroll.jabatan_id','=','jabatan_ppks.id')
-        ->select('enroll.*','people.*','roles.deskripsi')
+        ->select('enroll.*','enroll.id AS enroll_id','people.*','roles.deskripsi')
         ->get();
         $data_staff=DB::table('project_enrollments AS enroll')
         ->where('project_id',$project->id)->where('id_role','=','6')
@@ -102,7 +103,7 @@ class ProjectController extends Controller
         ->join('roles','enroll.id_role','=','roles.id')
         //->leftJoin('jabatan_pps','enroll.jabatan_id','=','jabatan_pps.id')
         //->leftJoin('jabatan_ppks','enroll.jabatan_id','=','jabatan_ppks.id')
-        ->select('enroll.*','people.*','roles.deskripsi')
+        ->select('enroll.*','enroll.id AS enroll_id','people.*','roles.deskripsi')
         ->get();
         
         
@@ -132,6 +133,12 @@ class ProjectController extends Controller
 
     public function store_Enrollment($id,Request $request){
         dd($request);
+    }
+
+    public function delete_enrollment($id){
+       
+            $enroll=ProjectEnrollment::findOrFail($id);
+            $enroll->delete();
     }
 
     public function store_Project(Request $request){

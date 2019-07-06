@@ -21,7 +21,7 @@ class CreatePeopleTable extends Migration
             //$table->string('kontak');
             $table->unsignedInteger('role_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->boolean('is_active')->default(true);
+            //$table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

@@ -98,6 +98,14 @@
                         <td>:</td>
                         <td>{{$permintaan_detail->nilai}}</td>
                     </tr>
+                    <tr>
+                        <td>12</td>
+                        <td>File Pendukung</td>
+                        <td></td>
+                        <td><a href="{{ Storage::url($permintaan_detail->file_pendukung) }} " class="btn btn-link">
+                            Lihat</a>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
                 </div>

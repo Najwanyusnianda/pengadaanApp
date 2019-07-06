@@ -633,7 +633,7 @@ class PaketController extends Controller
             $file=$request->file('filename');
         
             $name=$file->getClientOriginalName();
-            $path= $file->store('public/files/'.$paket->paket_storage);  
+            $path= $file->store('public/'.$paket->paket_storage);  
     
            $file = PaketDokumen::create([
             'paket_id'=>$paket->id,

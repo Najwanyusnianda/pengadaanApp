@@ -66,8 +66,10 @@ Route::group(['middleware' => ['auth']], function () {
     //Disposisi
     Route::get('/disposisi/form','DisposisiController@form_handling')->name('disposisi.form');
     Route::get('/disposisi','DisposisiController@daftar')->name('disposisi.list');
+
     Route::get('/disposisi/detail/{id}','DisposisiController@detail')->name('disposisi.detail');
     Route::post('/disposisi/store','DisposisiController@store')->name('disposisi.store');
+    Route::post('/disposisi/{konten}/update','DisposisiController@disposisiUpdate')->name('disposisi.update');
     Route::get('/disposisi/masuk','DisposisiController@disposisiMasuk')->name('disposisi.masuk');
     Route::get('/disposisi/diteruskan','DisposisiController@disposisiDiteruskan')->name('disposisi.diteruskan');
     Route::get('/disposisi/tableMasuk','DisposisiController@tableMasuk')->name('disposisi.tableMasuk');
@@ -196,14 +198,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/project/store','ProjectController@store_Project');
     Route::post('/project/update_active','ProjectController@update_Project');
     Route::post('/project/enrollment/save','ProjectController@add_user_Project');
+    Route::delete('/project/{enroll}/delete','ProjectController@delete_enrollment');
      
     
 
     //Route::get('/pejabat/setting','UserSettingController@getPejabatSetting');
 
     Route::view('/temp_hps', 'Document.hps_form');
-
-
  
 
 });

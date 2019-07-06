@@ -6,14 +6,21 @@
             @if(Session::has('success'))
             <div class="alert alert-success">{{session('success')}}</div>
             @endif
+            @if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <ul>
+                        <li>{{ $errors->first() }}</li>
+                </ul>
+            </div>
+            @endif
         <div class="card shadow ">
 
             <div class="card-body">
-                    <div class="py-3 "" >
+                    <div class="py-3 " >
                             <h5 class="m-0  text-center" style="font-family:Roboto">Form Permintaan</h5>
                     </div>
                     <hr>
-            <form action="{{route('permintaan.add')}}" method="POST" class="m-3" style="font-size:12px;" id="form">
+            <form action="{{route('permintaan.add')}}" method="POST" class="m-3" style="font-size:12px;" id="form" enctype="multipart/form-data">
                 {{csrf_field()}}
                             <div class="form-group">
                                 <label for="email">Judul:</label>
@@ -96,12 +103,24 @@
                                     </div>
                                     <small id="emailHelp" class="form-text text-muted"> </small>
                             </div>
+                            <hr>
                             <div class="form-group">
-                                <hr>
+                                <label for="">Masukkan File Pendukung <small>(.pdf atau .docx)</small></label>
+                                    <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text">Upload</span>
+                                            </div>
+                                            <div class="custom-file">
+                                              <input type="file" class="custom-file-input" id="inputGroupFile01" name="filename">
+                                              <label class="custom-file-label" for="inputGroupFile01">Pilih File</label>
+                                            </div>
+                                          </div>
                             </div>
+                            <hr>
                             <div class="form-group">
                                     <button type="submit" class="btn btn-primary shadow">Kirim Permintaan</button>
                             </div>
+                            
                             
                         </form>
             </div>
@@ -209,7 +228,10 @@ var endpicker=$("#date_selesai").flatpickr({
   
 })
 
-
+$(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+});
 </script>
 
 <script>

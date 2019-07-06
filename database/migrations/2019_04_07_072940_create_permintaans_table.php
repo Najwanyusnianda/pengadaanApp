@@ -29,6 +29,7 @@ class CreatePermintaansTable extends Migration
             $table->date('date_mulai');
             $table->date('date_selesai');
             $table->date('date_created_form');
+            $table->string('file_pendukung',260)->nullable();
             $table->string('disposisi_status')->default('baru');
             //$table->integer('is_disposisi')->default(0);
             $table->timestamps();

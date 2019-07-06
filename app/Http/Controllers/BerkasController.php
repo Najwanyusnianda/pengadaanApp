@@ -157,7 +157,18 @@ class BerkasController extends Controller
         $hari_penetapan=hariIndo($tanggal_penetapan);
         $bulan_penetapan=bulanIndo($tanggal_penetapan);
         $tanggal_terbilang=tanggal_terbilang($tanggal_penetapan);
+        $tahun=explode("-",$tanggal_penetapan);
+        $tahun=$tahun[0];
+        $tahun=(int)$tahun;
+        $tahun_terbilang=terbilang($tahun);
 
+        //nomor hps
+        function nomor_ppk($kode_ppk,$kode_kegiatan,$kode_jadwal,$kode_surat,$tahun){
+            $nomor=$kode_ppk."/".$kode_kegiatan."/".$kode_jadwal."/".$kode_surat."/".$tahun;
+            return $nomor;
+        }
+
+        $nomor_surat=nomor_ppk($ppk->kode_jabatan,$permintaan->kode_kegiatan,$jadwal_hps->nomor_kegiatan,$jadwal_hps->kode_kegiatan_p,$tahun);
 
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/Berita Acara HPS.docx'));
         
@@ -169,6 +180,9 @@ class BerkasController extends Controller
         $templateProcessor->setValue('hari_hps',$hari_penetapan);
         $templateProcessor->setValue('tanggal_terbilang_hps',$tanggal_terbilang);
         $templateProcessor->setValue('bulan_terbilang',$bulan_penetapan);
+        $templateProcessor->setValue('tahun_terbilang',$tahun_terbilang);
+        $templateProcessor->setValue('nomor_hps',$nomor_surat);
+
 
 
 
@@ -251,13 +265,21 @@ class BerkasController extends Controller
         ->where('kegiatan_pengadaans.nama_kegiatan_p','Surat Permohonan Pengadaan')->first();
         $tanggal_penetapan=$jadwal_permohonan->jadwal_kegiatan;
         
-        
+        $tahun=explode("-",$tanggal_penetapan);
+        $tahun=$tahun[0];
+        $tahun=(int)$tahun;
         
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/permohonan pengadaan.docx'));
         
-        
+        function nomor_ppk($kode_ppk,$kode_kegiatan,$kode_jadwal,$kode_surat,$tahun){
+            $nomor=$kode_ppk."/".$kode_kegiatan."/".$kode_jadwal."/".$kode_surat."/".$tahun;
+            return $nomor;
+        }
+
+        $nomor_surat=nomor_ppk($ppk->kode_jabatan,$permintaan->kode_kegiatan,$jadwal_permohonan->nomor_kegiatan,$jadwal_permohonan->kode_kegiatan_p,$tahun);
+
         //header surat
-        $templateProcessor->setValue('nomor_permohonan_pengadaan','test_nomor');
+        $templateProcessor->setValue('nomor_permohonan_pengadaan',$nomor_surat);
         $templateProcessor->setValue('tanggal_penetapan',getDateIndo($tanggal_penetapan));
 
         //isi
@@ -408,7 +430,9 @@ class BerkasController extends Controller
 
            /* $parser = new \HTMLtoOpenXML\Parser();
             $ooXml = $parser->fromHTML($spesifikasi->spesifikasi);*/
-            $jadwal_spesifikasi=JadwalKegiatanPengadaan::where('paket_id',$paket->id)->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')->where('kegiatan_pengadaans.nama_kegiatan_p','Penetapan Spek Teknis')->first();
+            $jadwal_spesifikasi=JadwalKegiatanPengadaan::where('paket_id',$paket->id)
+            ->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')
+            ->select('kegiatan_pengadaans.nama_kegiatan_p','kegiatan_pengadaans.kode_kegiatan_p','kegiatan_pengadaans.kode_format','jadwal_kegiatan_pengadaans.*')->where('kegiatan_pengadaans.nama_kegiatan_p','Penetapan Spesifikasi Teknis')->first();
             $tanggal_penetapan=$jadwal_spesifikasi->jadwal_kegiatan;
             $ooXml=strip_tags($spesifikasi->spesifikasi);
             $template_spesifikasi->setValue('spesifikasi', $ooXml);
@@ -528,7 +552,7 @@ class BerkasController extends Controller
         $spek_item=SpekHpsItem::where('paket_id',$id)->get();
         $spek_item_first=SpekHpsItem::where('paket_id',$id)->first();
         $spesifikasi=SpekTeknis::where('id', $spek_item_first->spek_id)->first();
-
+        
         //
         $jadwal_hps=JadwalKegiatanPengadaan::where('paket_id',$paket->id)
         ->join('kegiatan_pengadaans','jadwal_kegiatan_pengadaans.kegiatan_id','=','kegiatan_pengadaans.id')
@@ -536,14 +560,23 @@ class BerkasController extends Controller
         ->where('kegiatan_pengadaans.nama_kegiatan_p','Penetapan HPS')->first();
         $format_hps=$jadwal_hps->kode_format;
         $tanggal_penetapan=$jadwal_hps->jadwal_kegiatan;
+        $tahun=explode("-",$tanggal_penetapan);
+        $tahun=$tahun[0];
+        $tahun=(int)$tahun;
         //
         $n_item=count($spek_item);
         $terbilang_hps=terbilang($paket->total_hps)." Rupiah";
+        function nomor_ppk($kode_ppk,$kode_kegiatan,$kode_jadwal,$kode_surat,$tahun){
+            $nomor=$kode_ppk."/".$kode_kegiatan."/".$kode_jadwal."/".$kode_surat."/".$tahun;
+            return $nomor;
+        }
+
+        $nomor_surat=nomor_ppk($ppk->kode_jabatan,$permintaan->kode_kegiatan,$jadwal_hps->nomor_kegiatan,$jadwal_hps->kode_kegiatan_p,$tahun);
 
         $templateProcessor = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('app/templateBerkas/lainnya/HPS.docx'));
         $templateProcessor->setValue('judul_paket',$judul);
         $templateProcessor->setValue(array('nama_ppk', 'nip_ppk','label_ppk'), array($ppk->nama,$ppk->nip,$ppk->nama_jabatan));
-
+        $templateProcessor->setValue('nomor_hps',$nomor_surat);
         $templateProcessor->setValue('total_hps', number_format($paket->total_hps,0,',','.'));
       
         $templateProcessor->setValue('total_terbilang', $terbilang_hps);

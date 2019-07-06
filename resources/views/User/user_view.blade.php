@@ -3,30 +3,7 @@
 @section('konten')
 <div class="container-fluid">
     <div class="col-md-12" style="margin:auto;">
-        <!--<div class="row-md-8">
-            <div class="card ">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="ml-2">
-                            
-                        </div>
-                        <div class="">
-                                <li class="row" id="register-item">
-                                        <a class="btn btn-link"  id="register-show" style="color:white;background-color: #353b48;">
-                                                <i class="fas fa-user-plus"></i>
-                                                Tambah Pengguna
-                                        </a>
-                                </li>
-                        </div>
-                    </div>
-                    
 
-                       
-
-                </div> 
-
-            </div> 
-        </div> -->
      <!-- END OF PILLS --> 
 
 
@@ -36,9 +13,9 @@
                         <div class="" id="register-item" style="font-family:Roboto;">
                             
                                 <h5>Daftar Pegawai</h5>
-                                <button class="btn  btn-primary float-right"  id="register-show"  >
+                                <button class="btn btn-sm btn-primary float-right"  id="register-show"  >
                                         <i class="fas fa-user-plus"></i>
-                                        Tambah Pengguna
+                                        Tambah Pegawai
                                 </button>
                         </div>
                 </div>
@@ -67,7 +44,7 @@
 <!-- modal add user -->
 
 <div class="modal fade register_modal" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-md" role="document">
           <div class="modal-content">
            
             <div class="" id="form_register">
@@ -125,14 +102,17 @@
                         nama: $('#nama').val(),
                         nip: $('#nip').val(),
                         role: $('#role').val(),
+                        email:$('#email').val(),
                         username: $('#username').val(),
                         password: $('#password').val(),
                         
                     },
                     success: function(result) {
-                        //console.log(result);
-                        //alert("Berhasil dikirim");
-                        //permintaanTable.ajax.reload();
+                        Swal.fire(
+                                'Ditambahkan!',
+                                'Anggota telah ditambahkan.',
+                                'success'
+                                );
                         $("#close").trigger("click");
                         $('#userTable').DataTable().ajax.reload();
                     }
@@ -164,17 +144,19 @@
                 {data:'nama'},
                 {data:'nip'},
                 {data:'deskripsi'},
+                {data:'username'},
+                {data:'email'},
                 {data:'action'}
                 ]
             });
 
-            $('body').on('click','.delete_user',function(e){
+        $('body').on('click','.delete_user',function(e){
             e.preventDefault();
             var me = $(this);
             var id= me.attr('data-id');
             var url='/user/'+id+'/delete'
             Swal.fire({
-                title: 'Are you sure?',
+                title: 'Hapus?',
                 text: "Data Pegawai akan dihapus secara permanen",
                 type: 'warning',
                 showCancelButton: true,
@@ -211,6 +193,70 @@
                 })
         })
 
+        $('body').on('click','.edit_user',function(e){
+            e.preventDefault();
+            me=$(this)
+            var row=me.parent().parent().parent();
+            var nama= row.children().eq(1)
+            var nip=row.children().eq(2)
+            var username=row.children().eq(4)
+            var email=row.children().eq(5)
+            person_id=me.attr('data-id');
+            var url="{{route('user.form.register')}}"
+                $.ajax({
+                    url: url,
+                    dataType: 'html',
+                    success: function(response) {
+
+                    $('#form_register').html(response);
+                    }
+                });
+                $('.register_modal').modal('show');
+        })
+
+        $('#updated_x').click(
+                function(e){
+                var url="{{route('user.post.register')}}"
+                var nama= $('#nama').val(),
+                nip= $('#nip').val(),
+                role=$('#role').val(),
+                username= $('#username').val(),
+                password= $('#password').val();
+            
+                //console.log(url+'||'+nama+'||'+nip+'||'+role+'||'+username+'||'+password);
+                $.ajaxSetup({
+                    headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+                });
+               
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: url,
+                    data: {
+                        // change data to this object
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        nama: $('#nama').val(),
+                        nip: $('#nip').val(),
+                        role: $('#role').val(),
+                        email:$('#email').val(),
+                        username: $('#username').val(),
+                        password: $('#password').val(),
+                        
+                    },
+                    success: function(result) {
+                        Swal.fire(
+                                'Updated!',
+                                'Anggota telah diupdate.',
+                                'success'
+                                );
+                        $("#close").trigger("click");
+                        $('#userTable').DataTable().ajax.reload();
+                    }
+                });
+                }
+            )
         })    
         
     </script>

@@ -102,6 +102,112 @@
 
 </div>
 
+<div class="card">
+    <div class="card-header">
+            <h6> <i class="fas fa-tasks"></i> List Tugas</h6>
+    </div>
+    <div class="card-body">
+        <div class="row" style="font-family:'Varela Round';font-size:13px;">
+            @forelse ($jadwal_pengadaan as $key=>$jadwal)
+            @if ($jadwal->nama_kegiatan_p =="Penetapan Spesifikasi Teknis")
+            <div class="col-md-3">
+                    <div class="card card-primary card-outline">
+
+                            <div class="card-body">
+                                    Spesifikasi Teknis
+                                    @if (!$spesifikasi->isEmpty())
+                                    <i class="fas fa-check-circle fa-lg" style="color:#2ecc71"></i>
+                                    @endif
+                                    <p class="text text-muted"><small>Penetapan:{{\Carbon\Carbon::parse($jadwal->jadwal_kegiatan)->format('d-F-Y')}}</small></p>
+                            </div>
+                            <div class="card-footer">
+                                    @if ($spesifikasi->isEmpty())
+                                    <a href="{{route('paket.detail.spek',['id'=>$paket->id])}}" class="badge badge-primary ">  
+                                            <i class="fas fa-arrow-circle-right "></i>  Buat            
+                                    </a>  
+                                    @else
+                                    <a href="{{route('paket.detail.spek',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#e67e22">  
+                                            <i class="fas fa-pencil-alt"></i> Edit           
+                                    </a>
+                                    <a href="{{route('paket.detail.spek',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#2980b9">  
+                                            <i class="fas fa-eye" ></i> view           
+                                    </a>
+                                    @endif
+                            </div>
+
+
+                    </div>
+            </div>
+            @endif
+            @if ($jadwal->nama_kegiatan_p =="Penetapan HPS")
+                <div class="col-md-3">
+                    <div class="card card-primary card-outline">
+
+                            <div class="card-body">
+                                    Harga Perkiraan Sementara
+                                    @if (!$hps->isEmpty())
+                                    <i class="fas fa-check-circle fa-lg" style="color:#2ecc71"></i>
+                                    @endif
+                                    <p class="text text-muted"><small>Penetapan:{{\Carbon\Carbon::parse($jadwal->jadwal_kegiatan)->format('d-F-Y')}}</small></p>
+                            </div>
+                            <div class="card-footer">
+                                    @if ($hps->isEmpty())
+                                    <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}" class="badge badge-primary ">  
+                                            <i class="fas fa-arrow-circle-right "></i>  Buat            
+                                    </a>  
+                                    @else
+                                    <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#e67e22">  
+                                            <i class="fas fa-pencil-alt"></i> Edit           
+                                    </a>
+                                    <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#2980b9">  
+                                            <i class="fas fa-eye" ></i> view           
+                                    </a>
+                                    @endif
+                            </div>
+
+
+                </div>
+            </div>
+            @endif
+            @if ($jadwal->nama_kegiatan_p =="Surat Undangan Pengadaan")
+            <div class="col-md-3">
+                <div class="card card-success card-outline">
+
+                        <div class="card-body">
+                                Penyedia
+                                @if ($penyedia)
+                                <i class="fas fa-check-circle fa-lg" style="color:#2ecc71"></i>
+                                @endif
+                                <p class="text text-muted"><small>Undangan:{{\Carbon\Carbon::parse($jadwal->jadwal_kegiatan)->format('d-F-Y')}}</small></p>
+                        </div>
+                        <div class="card-footer">
+                                @if (!$penyedia)
+                                <a href="{{route('paket.detail.penyedia.pilih',['id'=>$paket->id])}}" class="badge badge-primary ">  
+                                        <i class="fas fa-arrow-circle-right "></i>  Tambahkan Penyedia            
+                                </a>  
+                                @else
+                                <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#e67e22">  
+                                        <i class="fas fa-pencil-alt"></i> Edit           
+                                </a>
+                                <a href="{{route('paket.detail.hps',['id'=>$paket->id])}}" class="badge " style="color:white;background-color:#2980b9">  
+                                        <i class="fas fa-eye" ></i> view           
+                                </a>
+                                @endif
+                        </div>
+
+
+            </div>
+        </div>
+        @endif
+            @empty
+                <p>belum ada jadwal</p>
+            @endforelse
+
+        </div>
+
+    </div>
+</div>
+
 <div class="card shadow" id="detail Pekerjaan" style="font-family:Roboto">
     <div class="card-header">
             <h6>Detail Pekerjaan</h6>
@@ -198,13 +304,13 @@
             @if ($paket->status=="diproses")
          
             @else
-            <a class="btn btn-success btn-sm shadow {{$paket->status=="diproses" ? 'disabled' : ''}}"  href="#" id="verify_pekerjaan" data-id="{{$paket->id}}" role="button" ><i class="fas fa-check-double"></i><small> Konfirmasi pekerjaan</small> </a> 
+            <a class="btn btn-success btn-sm shadow {{ auth()->user()->person->id==$paket->pp_id ? '' : 'disabled'}}"  href="#" id="verify_pekerjaan" data-id="{{$paket->id}}" role="button" ><i class="fas fa-check-double"></i><small> Konfirmasi pekerjaan</small> </a> 
             <a class="btn btn-warning btn-sm shadow {{$paket->status=="diproses" ? 'disabled' : ''}}" href="{{route('paket.persiapan',[$paket->id])}}" role="button" ><i class="fas fa-pencil-alt"></i> <small>Edit Spesifikasi</small> </a> 
             
             @endif
             @endif
             
-            <button class="btn btn-primary btn-sm shadow float-right" id="lihat_dok"><i class="fas fa-file-download"></i> Generate Dokumen</button>
+            <button class="btn btn-primary btn-sm shadow float-right" id="lihat_dok"><i class="fas fa-file-download"></i> Generate Dokumen Persiapan</button>
             
             @else
             @if (auth()->user()->person->id==$paket->ppk_id)
@@ -255,7 +361,7 @@
                                             <th>Email</th>
                                             <th>No.Telp</th>
                                             <th>Alamat</th>
-                               
+                                            <th>aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -266,6 +372,7 @@
                                             <td>{{$penyedia->email}}</td>
                                             <td>{{$penyedia->telepon}}</td>
                                             <td>{{$penyedia->alamat}}</td>
+                                            <td><a href="{{route('paket.detail.penyedia.pilih',['id'=>$paket->id])}}" class="btn btn-sm btn-warning shadow"><i class="fas fa-pencil-alt"></i>Ganti </a></td>
                                       
                                      
                                         </tr>
@@ -273,9 +380,6 @@
                                     </tbody>
                                 </table>
                                 @else
-                                
-                               
-                                <p><a href="{{route('paket.detail.penyedia.pilih',['id'=>$paket->id])}}" class="badge badge-info">Pilih Penyedia</a></p>
                                 
                                 @endif
                         </div>
@@ -285,6 +389,7 @@
                                 <span class="text text-muted"><small>Jadwal pengadaan langsung dengan penyedia belum dibuat</small></span>
                                 @else
                                 <a href="#" id="lihat_jadwal_penawaran" class="btn btn-info btn-sm shadow"><i class="fas fa-calendar-alt"></i> Lihat Jadwal</a>
+                                <a href="{{route('paket.detail.jadwal_penawaran',['id'=>$paket->id])}}" class="btn btn-warning btn-sm shadow"><i class="fas fa-pencil-alt"></i> Edit jadwal</a>
                                 @endif  
                         </div>
                         <div class="tab-pane fade" id="dokumen_penawaran" role="tabpanel" aria-labelledby="contact-tab">
@@ -303,7 +408,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                                @if ($dokumen->isEmpty())
+                                                <a class="btn btn-info btn-sm shadow m-2" href="{{route('upload.penawaran.index',[$paket->id])}}" role="button"><i class="fas fa-file-upload"></i> Upload Surat Penawaran</a>
+                                                @else
+                                                    
+                                                @endif
                                             @foreach($dokumen as $file)
+
                                                 <tr>
                                                     <td>{{ $file->subject }}</td>
                                                    <!-- <td>{{ $file->document_file }}</td>-->
@@ -323,26 +434,27 @@
                       </div>
         </div>     
         <div class="card-footer">
+            @if (auth()->user()->person->id==$paket->pp_id)
+                
+         
             @if (!empty($penyedia))
-            <a href="{{route('paket.detail.penyedia.pilih',['id'=>$paket->id])}}" class="btn btn-sm btn-warning shadow"><i class="fas fa-pencil-alt"></i>Ganti Penyedia</a>
             
             @else
-            <p><a href="{{route('paket.detail.penyedia.pilih',['id'=>$paket->id])}}" class="btn btn-sm btn-info">Pilih Penyedia</a></p>
+            <a href="{{route('paket.detail.penyedia.pilih',['id'=>$paket->id])}}" class="btn btn-sm btn-info">Pilih Penyedia</a>
             @endif
               
             @if ($jadwalPenawaran->isEmpty())
             <a href="{{route('paket.detail.jadwal_penawaran',['id'=>$paket->id])}}" class="btn btn-info btn-sm shadow"><i class="fas fa-calendar-plus"></i> Buat jadwal</a>
             @else
-            <a href="{{route('paket.detail.jadwal_penawaran',['id'=>$paket->id])}}" class="btn btn-warning btn-sm shadow"><i class="fas fa-pencil-alt"></i> Edit jadwal</a>
+            
             @endif
 
-            @if ($dokumen->isEmpty())
-            <a class="btn btn-info btn-sm shadow" href="{{route('upload.penawaran.index',[$paket->id])}}" role="button"><i class="fas fa-file-upload"></i> Upload Surat Penawaran</a>
-            @else
-                
             @endif
 
-            <button class="btn btn-primary btn-sm shadow float-right" id="lihat_dok"><i class="fas fa-file-download"></i> Generate Dokumen</button>
+            @if (!empty($penyedia))
+            <a class="btn btn-primary btn-sm shadow float-right" href="{{route('doc.undangan',['id'=>$paket->id])}}" id="lihat_dok"><i class="fas fa-file-download"></i> Generate undangan pengadaan</a>
+           
+            @endif
         </div>
 </div>
 

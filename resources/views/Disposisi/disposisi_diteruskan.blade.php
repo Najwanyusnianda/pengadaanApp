@@ -10,7 +10,7 @@
         <div class="row">
 
         </div>
-        <div class="row-md-8 justify-content-center" style="margin:auto;width:100%">
+        <div class="row-md-8 justify-content-center" style="margin:auto;width:100%;font-size:13px;">
             @if (count($disposisi_diteruskan)>0)
             <div class="card " style="font-family:Roboto,sans-serif">
 

@@ -17,15 +17,21 @@ class UserController extends Controller
 {
     //
     public function index(){
-        $pelaku=DB::table('people')->join('roles','people.role_id','roles.id')->select('people.*','roles.deskripsi')->get();
+        $pelaku=DB::table('people')
+        ->join('roles','people.role_id','roles.id')
+        ->join('users','people.user_id','users.id')
+        ->select('people.*','users.username','users.email','roles.deskripsi')->get();
         return view('User.user_view',compact('pelaku'));
     }
 
 
 
     public function tableUser(){
-        $pelaku=Person::query()->join('roles','people.role_id','roles.id')->select('people.*','roles.deskripsi')->get();
-
+        $pelaku=Person::query()
+        ->join('roles','people.role_id','roles.id')
+        ->join('users','people.user_id','users.id')
+        ->select('people.*','users.username','users.email','roles.deskripsi')->get();
+        
         $dt=DataTables::of($pelaku)
         ->addColumn('action',function($pelaku){
             return view('User.user_table._action',[
@@ -90,6 +96,7 @@ class UserController extends Controller
             $user=User::create([
                 'username'=>$request->username,
                 'password'=>bcrypt($request->password),
+                'email'=>$request->email,
                 'is_user'=>true,
                
             ]);

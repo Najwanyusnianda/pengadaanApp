@@ -104,6 +104,36 @@ class PermintaanController extends Controller
     public function save(Request $request){
 
         $project=Project::where('is_active',true)->first();
+        $messages = [
+            'required' => ':attribute harus diisi',
+            'min' => ':attribute harus diisi minimal :min karakter ',
+            'max' => ':attribute harus diisi maksimal :max karakter',
+        ];
+        $validators=$this->validate($request,[
+            'judul_permintaan' => 'required|min:5',
+            'jenis_pengadaan' => 'required',
+            'nomor_form_permintaan' => 'required',
+            'kode_kegiatan'=>'required|min:4',
+            'output'=>'required|min:5',
+            'komponen'=>'required',
+            'sub_komponen'=>'required',
+            'grup_akun'=>'required',
+            'nilai_anggaran'=>'required',
+            'date_mulai'=>'required',
+            'date_selesai'=>'required',
+            'date_buat_form'=>'required',
+            'filename' => 'required',
+            'filename.*' => 'mimes:doc,pdf,docx,zip'
+            
+        ],$messages);
+         /*if ($validators->fails()) {
+            return redirect()->back();
+         }*/
+ 
+        $file=$request->file('filename');
+        
+        $name=$file->getClientOriginalName();
+        $path= $file->store('public/permintaan');  
 
         $permintaan=Permintaan::create([
             'kode_bagian'=>auth()->user()->sub_bagian->kode_bagian,
@@ -119,6 +149,7 @@ class PermintaanController extends Controller
             'date_mulai'=> date('Y-m-d', strtotime($request->date_mulai)),
             'date_selesai'=>date('Y-m-d', strtotime($request->date_selesai)),
             'date_created_form'=>date('Y-m-d', strtotime($request->date_buat_form)),
+            'file_pendukung'=>$path,
             'project_id'=>$project->id
         ]);
         

@@ -35,7 +35,7 @@
 
                                 </tr>
                             </thead>
-                            <tbody style="font-family:'Varela Round', sans-serif;color:#566787;font-size:13px;">
+                            <tbody style="font-family:'Varela Round', sans-serif;font-size:13px;">
                                 @forelse ($disposisi_masuk as $data)
                                     <tr>
                                         <td width=40px;>
@@ -45,7 +45,7 @@
                                             <div class="d-block" >
                                                     <a href="#" class=" detail_disposisi_show" data-id="{{$data->id}}">
                                                        
-                                                            <strong style="color: #566787;font-family:QuickSand;font-size:13px;">Permintaan {{$data->judul_permintaan}}</strong>
+                                                            <strong style="color: #566787;;font-family:'Varela Round';font-size:13px;">Permintaan {{$data->judul_permintaan}}</strong>
                                                     </a>
                                                
                                                     

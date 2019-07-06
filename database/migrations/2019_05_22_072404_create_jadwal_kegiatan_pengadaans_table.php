@@ -19,6 +19,7 @@ class CreateJadwalKegiatanPengadaansTable extends Migration
             $table->unsignedInteger('kegiatan_id');
             $table->date('jadwal_kegiatan')->nullable();
             $table->string('nomor_kegiatan')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

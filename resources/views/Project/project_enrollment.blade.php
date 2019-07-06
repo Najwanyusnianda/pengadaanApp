@@ -6,204 +6,208 @@
 @endsection
 @section('konten')
 <div class="container">
-    <div class="row-md-8">
-        <nav aria-label="breadcrumb ">
-           
-            <ol class="breadcrumb arr-right  " style="background-color:#2c3e50">
-           
-              <li class="breadcrumb-item "><a href="/project" class="text-light">Project</a></li>
-           
-              <li class="breadcrumb-item text-light active" aria-current="page">User Project :{{$project->nama}}</li>
-           
-            </ol>
-           
-        </nav>
-    </div>
+
     <div class="row-md-8">
         
-            <button type="button" id="add_user_project" class="btn btn-info  ">
-                Tambahkan Pengguna 
-            </button>
+
    
         <div id="project_" project-id={{$project->id}}>
             
         </div>
     </div>
     <br>
-  <div class="row">
-    <div class="col-md-4">
-      <div class="card  card-outline card-info shadow" id="addULP">
-        <div class="card-header">
-          
-          <b class="align-center" style="font-family:Roboto">Unit Pelayanan Pengadaan</b>
-          <button class="btn float-right">
-            <i class="fas fa-user-plus " style="color:#95a5a6"></i>
-          </button>
-        </div>
-        <div class="card-body" style="padding-left: 10px;padding-right: 10px;">
-          <table class="table table-condensed" style="font-family:'Roboto', sans-serif;color:#566787;font-size:13px;">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Nama</th>
-                    <th>Role</th>
-                  </tr>
-            </thead>
-            <tbody>
-                @if (count($data_kulp)>0)
-                  @forelse ($data_kulp as $data)
-                  <tr>
-                      <td width=20px;>
-                          <img src="{{asset('img/user.png')}}" class="img-circle img-bordered-sm" alt="User Image" width="40px" height="40px">
-                      </td> 
-                      <td style="vertical-align:middle">
-                        {{$data->nama}}
-                      <small class="d-block">NIP.{{$data->nip}}</small>
-                      </td>
-                      <td style="vertical-align:middle"> 
-                        <span class="badge badge-info">{{$data->deskripsi}}</span>
-                        
-                      </td>
-                      
-                  </tr>    
-                  @empty
-                    <tr>Tidak ada kepala ULP</tr>  
-                  @endforelse
-                @endif
-              @if (count($data_kasi)>0)
-                @forelse ($data_kasi as $data)
-                <tr>
-                    <td width=20px;>
-                        <img src="{{asset('img/user.png')}}" class="img-circle img-bordered-sm" alt="User Image" width="40px" height="40px">
-                    </td> 
-                    <td style="vertical-align:middle">
-                      {{$data->nama}}
-                    <small class="d-block">NIP.{{$data->nip}}</small>
-                    </td>
-                    <td style="vertical-align:middle"> 
-                      <span class="badge badge-info">{{$data->deskripsi}}</span>
-                      
-                    </td>
-                    
-                </tr>    
-                @empty
-                  <tr>Tidak ada kepala ULP</tr>  
-                @endforelse
-              @endif
-              @if (count($data_staff)>0)
-              @forelse ($data_staff as $data)
-              <tr>
-                  <td width=20px;>
-                      <img src="{{asset('img/user.png')}}" class="img-circle img-bordered-sm" alt="User Image" width="40px" height="40px">
-                  </td> 
-                  <td style="vertical-align:middle">
-                    {{$data->nama}}
-                  <small class="d-block">NIP.{{$data->nip}}</small>
-                  </td>
-                  <td style="vertical-align:middle"> 
-                    <span class="badge badge-info">{{$data->deskripsi}}</span>
-                    
-                  </td>
-                  
-              </tr>    
-              @empty
-                <tr>Tidak ada kepala ULP</tr>  
-              @endforelse
-            @endif
-            </tbody>
-          </table>
-        </div>
-      </div>
+
+  <div class="row-md-8">
+    <div class="card">
+    <div class="card-header">
+      Satuan Kerja
+      <button type="button" id="add_user_project" class="btn btn-primary btn-sm float-right">
+          Tambahkan Pengguna 
+      </button>
     </div>
-    <div class="col-md-4">
-        <div class="card  card-outline card-info shadow" id="addULP">
-          <div class="card-header">
-            
-            <b class="align-center" style="font-family:Roboto">Pejabat Pengadaan</b>
-            <button class="btn float-right">
-              <i class="fas fa-user-plus " style="color:#95a5a6"></i>
-            </button>
-          </div>
-          <div class="card-body" style="padding-left: 10px;padding-right: 10px;">
-            <table class="table table-condensed" style="font-family:'Roboto', sans-serif;color:#566787;font-size:13px;">
-              <thead>
-                  <tr>
-                      <th></th>
+    <div class="card-body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Unit Layanan Pengadaan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Pejabat Pengadaan</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Pejabat Pembuat Komitmen</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <div class="table-responsive">
+                <table class="table table-condensed">
+                  <thead>
+                    <tr>
+                      <th>#</th>
                       <th>Nama</th>
-                      <th>Role</th>
+                      <th>NIP</th>
+                      <th>jabatan</th>
+                      <th>Aksi</th>
                     </tr>
-              </thead>
-              <tbody>
-                @if (count($data_pp)>0)
-                  @forelse ($data_pp as $data)
-                  <tr>
-                      <td width=20px;>
-                          <img src="{{asset('img/user.png')}}" class="img-circle img-bordered-sm" alt="User Image" width="40px" height="40px">
-                      </td> 
-                      <td style="vertical-align:middle">
-                        {{$data->nama}}
-                      <small class="d-block">NIP.{{$data->nip}}</small>
-                      </td>
-                      <td style="vertical-align:middle"> 
-                        <span class="badge badge-info">{{$data->kode_pp}}</span>
-                        
-                      </td>
-                      
-                  </tr>    
-                  @empty
-                    <tr>Tidak ada kepala ULP</tr>  
-                  @endforelse
-                @endif
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    <div class="col-md-4">
-        <div class="card  card-outline card-info shadow" id="addULP">
-            <div class="card-header">
-              
-              <b class="align-center" style="font-family:Roboto">Pejabat Pembuat Komitmen</b>
-              <button class="btn float-right">
-                <i class="fas fa-user-plus " style="color:#95a5a6"></i>
-              </button>
-            </div>
-            <div class="card-body" style="padding-left: 10px;padding-right: 10px;">
-              <table class="table table-condensed" style="font-family:'Roboto', sans-serif;color:#566787;font-size:13px;">
-                <thead>
+
+                  </thead>
+                  <tbody>
+                      @if (count($data_kulp)>0)
+                      @forelse ($data_kulp as $key=>$data)
+                      <tr>
+                      <td>#</td>
+                          <td style="vertical-align:middle">
+                            {{$data->nama}}
+                         
+                          </td>
+                          <td style="vertical-align:middle"> 
+                            
+                            <span class="d-block">NIP.{{$data->nip}}</span>
+                          </td>
+                          <td><span class="badge badge-info">{{$data->deskripsi}}</span></td>  
+                          <td>
+                            <button class="btn btn-sm  change_member" data-id="{{$data->enroll_id}}"><i style="color:#c0392b;" class="fas fa-user-minus"></i></button>
+                          </td>
+                        </tr>    
+                      @empty
+                        <tr>Tidak ada kepala ULP</tr>  
+                      @endforelse
+                    @endif
+                    @if (count($data_kasi)>0)
+                    @forelse ($data_kasi as $data)
                     <tr>
-                        <th></th>
-                        <th>Nama</th>
-                        <th>Role</th>
-                      </tr>
-                </thead>
-                <tbody>
-                  @if (count($data_ppk)>0)
-                    @forelse ($data_ppk as $data)
-                    <tr>
-                        <td width=20px;>
-                            <img src="{{asset('img/user.png')}}" class="img-circle img-bordered-sm" alt="User Image" width="40px" height="40px">
-                        </td> 
+                      <td>#</td>
                         <td style="vertical-align:middle">
                           {{$data->nama}}
-                        <small class="d-block">NIP.{{$data->nip}}</small>
+                       
                         </td>
                         <td style="vertical-align:middle"> 
-                          <span class="badge badge-info">{{$data->kode_ppk}}</span>
-                          
+                       
+                          <span class="d-block">NIP.{{$data->nip}}</span>
                         </td>
-                        
+                        <td>
+                            <span class="badge badge-info">{{$data->deskripsi}}</span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm  change_member" data-id="{{$data->enroll_id}}"><i style="color:#c0392b;" class="fas fa-user-minus"></i></button>
+                        </td>
                     </tr>    
                     @empty
                       <tr>Tidak ada kepala ULP</tr>  
                     @endforelse
                   @endif
-                </tbody>
-              </table>
+                  @if (count($data_staff)>0)
+                  @forelse ($data_staff as $key=>$data)
+                  <tr>
+                      <td># </td>
+                      <td style="vertical-align:middle">
+                        {{$data->nama}}
+                     
+                      </td>
+                      <td> <span class="d-block">NIP.{{$data->nip}}</span></td>
+                      <td style="vertical-align:middle"> 
+                        <span class="badge badge-info">{{$data->deskripsi}}</span>
+                      </td>
+                      <td>
+                          <button class="btn btn-sm  change_member" data-id="{{$data->enroll_id}}"><i style="color:#c0392b;" class="fas fa-user-minus"></i></button>
+                        </td>
+                      
+                  </tr>    
+                  @empty
+                    <tr></tr>  
+                  @endforelse
+                @endif
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+              <div class="table-responsive">
+                <table class="table table-responsive">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Nama</th>
+                      <th>NIP</th>
+                      <th style="max-width:40%;" width=40%; >Jabatan</th>
+                      <th>Label</th>
+                      <th>aksi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      @if (count($data_pp)>0)
+                      @forelse ($data_pp as $data)
+                      <tr>
+                          <td style="vertical-align:middle">#</td>
+                          <td style="vertical-align:middle">
+                            {{$data->nama}}
+                        
+                          </td>
+                          <td style="vertical-align:middle"> 
+                              <span class="d-block">{{$data->nip}}</span>                         
+                          </td>
+                          <td>
+                              {{$data->jabatan_pp}}
+                          </td>
+                          <td><span class="badge badge-info">{{$data->kode_pp}}</span></td>
+                          <td>
+                              <button class="btn btn-sm  change_member" data-id="{{$data->enroll_id}}"><i style="color:#c0392b;" class="fas fa-user-minus"></i></button>
+                            </td>
+                      </tr>    
+                      @empty
+                   
+                      @endforelse
+                    @endif
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                <div class="table-responsive">
+                    <table class="table table-responsive">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Nama</th>
+                          <th>NIP</th>
+                          <th style="max-width:40%;" width=40%; >Jabatan</th>
+                          <th>Label</th>
+                          <th>aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          @if (count($data_ppk)>0)
+                          @forelse ($data_ppk as $data)
+                          <tr>
+                              <td style="vertical-align:middle">#</td>
+                              <td style="vertical-align:middle">
+                                {{$data->nama}}
+                            
+                              </td>
+                              <td style="vertical-align:middle"> 
+                                  <span class="d-block">{{$data->nip}}</span>                         
+                              </td>
+                              <td>
+                                  {{$data->jabatan_ppk}}
+                              </td>
+                              <td><span class="badge badge-info">{{$data->kode_ppk}}</span></td>
+                              <td>
+                                  <button class="btn btn-sm  change_member" data-id="{{$data->enroll_id}}"><i style="color:#c0392b;" class="fas fa-user-minus"></i></button>
+                                </td>
+                          </tr>    
+                          @empty
+                           
+                          @endforelse
+                        @endif
+                      </tbody>
+                    </table>
+                  </div>
             </div>
           </div>
     </div>
-  </div>
+    </div>  
+  </div>  
+
 </div>
 
 
@@ -306,105 +310,54 @@ $('#user_save').click(function(){
     });
 })
 
-
-
-/*
-$('body').on('click','.simpan',function(e){
-  //e.preventDefault();
-
+$('body').on('click','.change_member',function(e){
+  e.preventDefault();
   var me=$(this);
-  var role_id='2'
-  var jabatan_id=me.attr('data-id');
-  var url= '/project/enrollment/save'
-  var person_id=me.parent().parent().find('.pp').val();
-  console.log(role_id,'|',jabatan_id,'|',person_id);
-  $.ajaxSetup({
-      headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
-  });
+  var id=me.attr('data-id');
+  var url='/project/'+id+'/delete'
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Hapus dari anggota project",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!'
+                })
+                .then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+                        });
 
-                  $.ajax({
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: url,
-                    data: {
-                        // change data to this object
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        project_id: $('#project_').attr('project-id'),
-                        person_id: person_id,
-                        role_id:role_id,
-                        jabatan_id:jabatan_id
+                        $.ajax({
+                        type: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: url,
+                        data: {
+                            _method:'DELETE',
+                            _token: $('meta[name="csrf-token"]').attr('content'),      
+                        },
+                        success: function(response) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Anggota telah dihilangkan.',
+                                'success'
+                                );
 
-                        
-                    },
-                    success: function(result) {
-                        //console.log(result);
-                        Swal.fire(
-                            'User ditambahkan!',
-                            'berhasil Telah Terkirim!',
-                            'success'
-                            )
-                        //permintaanTable.ajax.reload();
-                      
-                        $("#close").trigger("click");
-                    },error:function(){
-                        alert('error');
-                    }
-
-                });
-  
+                             setTimeout(
+                            function() 
+                            {
+                              Swal.showLoading();
+                                location.reload();
+                            }, 2000);
+                        }
+                    });
+                }
+                })
 })
-
-
-//ppk save
-$('body').on('click','.simpan_ppk',function(e){
-  //e.preventDefault();
-
-  var me=$(this);
-  var role_id='3'
-  var jabatan_id=me.attr('data-id');
-  var url= '/project/enrollment/save'
-  var person_id=me.parent().parent().find('.pp').val();
-  console.log(role_id,'|',jabatan_id,'|',person_id);
-  $.ajaxSetup({
-      headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
-  });
-
-                  $.ajax({
-                    type: "POST",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: url,
-                    data: {
-                        // change data to this object
-                        _token: $('meta[name="csrf-token"]').attr('content'),
-                        project_id: $('#project_').attr('project-id'),
-                        person_id: person_id,
-                        role_id:role_id,
-                        jabatan_id:jabatan_id
-
-                        
-                    },
-                    success: function(result) {
-                        //console.log(result);
-                        Swal.fire(
-                            'User ditambahkan!',
-                            'berhasil Telah Terkirim!',
-                            'success'
-                            )
-                        //permintaanTable.ajax.reload();
-                      
-                        $("#close").trigger("click");
-                    },error:function(){
-                        alert('error');
-                    }
-
-                });
-  
-})
-*/
 })
 
 </script>

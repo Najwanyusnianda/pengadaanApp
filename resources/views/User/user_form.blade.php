@@ -1,6 +1,6 @@
-<div class="card card-primary" style="font-family:Roboto">
-        <div class="card-header text-center" style="background-color:#353b48;">
-            <h6 style="color:white">Tambah Pengguna</h6>
+<div class="card card-primary card-outline" style="font-family:Roboto">
+        <div class="card-header text-center" style="">
+            <h6 >Form Pengguna</h6>
         </div>
         <div class="card-body login-card-body">
     
@@ -38,6 +38,11 @@
             <div class="form-group">
                     <label for="">Username:</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="">
+            </div>
+
+            <div class="form-group">
+                <label for="">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="">
             </div>
             
             <div class="form-group">
