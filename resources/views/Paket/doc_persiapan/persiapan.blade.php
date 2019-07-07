@@ -37,6 +37,10 @@
 
                                             
                                     </a>
+                                    <a href="#" class="list-group-item list-group-item-action" id="permohonan">  
+                                            Permohonan Pengadaan
+    
+                                    </a>  
                                 </div>
                                 <br>
                                 <hr>
@@ -54,6 +58,41 @@
         </div>
 
     </div>
+
+    <div class="modal" id="modalPermohonan">
+            <div class="modal-dialog">
+              <div class="modal-content">
+          
+                <!-- Modal Header -->
+                <div class="modal-header">
+                  <h6 class="modal-title">Permohonan pengadaan</h6>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="modal-body">
+                  @if (!$hps->isEmpty())
+                  <div class="form-group">
+                
+                      <div class="form-group">
+                          <label for="uraian_disposisi" id="uraian_label" class="form-check-label">Catatan</label>
+                          <textarea class="form-control" id="konten_permohonan" rows="3"></textarea>
+                      </div>
+    
+                  </div>
+                  @endif
+    
+                </div>
+          
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success btn-sm" id="kirimPermohonan">Kirim</button>
+                  <button type="button" id="close_modal_permohonan" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                </div>
+          
+              </div>
+            </div>
+        </div>
 @endsection
 
 @section('addStyle')
@@ -124,6 +163,40 @@ ul.list-group:after {
             }
         })
         });
+
+        $('#permohonan').click(function(e){
+      e.preventDefault();
+      var modal=$('#modalPermohonan');
+      modal.modal('show')
+    })
+
+    $('#kirimPermohonan').click(function(e){
+      e.preventDefault();
+      var me=$(this);
+      var url="{{route('permohonan.send',['id'=>$paket->id])}}"
+      $.ajaxSetup({
+                        headers: {'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')}
+                        });
+
+                        $.ajax({
+                        type: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: url,
+                        data: {
+                            _token: $('meta[name="csrf-token"]').attr('content'),
+                            konten:$('#konten_permohonan').val()      
+                        },
+                        success: function(response) {
+                          $("#close_modal_permohonan").trigger("click");
+                            Swal.fire(
+                                'Permohonan terkirim.',
+                                'success'
+                                );
+                        }
+                    });
+    })
     });
     </script>
 @endsection

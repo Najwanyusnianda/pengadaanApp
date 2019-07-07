@@ -61,9 +61,19 @@ class PaketController extends Controller
         foreach($disposisi_header as $temps){
             $data[]=$temps->to_id;
         }
-        $staf_pemberkasan=Person::whereIn('id',$data)->get();
-  
+        //$staf_pemberkasan=Person::whereIn('id',$data)->get();
+        $staf_pemberkasan=ProjectEnrollment::where('project_id',$project->id)
+        ->whereIn('person_id',$data)
+        ->join('people','project_enrollments.person_id','=','people.id')
+        ->where('project_enrollments.id_role',6)
+        ->select('people.*')
+        ->get();
 
+        foreach($staf_pemberkasan as $temps){
+            $data_staf[]=$temps->id;
+        }
+      
+       
         $jadwalpenawaran=JadwalPenawaran::where('paket_id',$paket->id)
         ->join('kegiatan_penawarans','jadwal_penawarans.kegiatan_penawaran_id','=','kegiatan_penawarans.id')
         ->get();
@@ -113,23 +123,29 @@ class PaketController extends Controller
         ->with('penyedia',$penyedia)
         ->with('permintaan',$permintaan)
         ->with('spesifikasi',$item_spek)
-        ->with('jadwalPenawaran',$jadwalpenawaran);
+        ->with('jadwalPenawaran',$jadwalpenawaran)
+        ->with('is_staf',$data_staf);
         
     }
 
     public function persiapan($id){
         $id_paket=$id;
         $paket=Paket::find($id);
-        $spek=SpekHpsItem::where('paket_id',$id_paket)->get();
-        $spek=count($spek);
-        $is_not_hps=SpekHpsItem::where('paket_id',$id_paket)->whereNull('harga')->get();
-        //dd($is_not_hps);
-        $is_not_hps=count($is_not_hps);
+        $spesifikasi=SpekHpsItem::where('paket_id',$id)->get();
+        if($spesifikasi->isEmpty()){
+            $spek_item_first='';
+            $spektek='';
+        }else{
+            $spek_item_first=SpekHpsItem::where('paket_id',$id)->first();
+            $spektek=SpekTeknis::where('id', $spek_item_first->spek_id)->first();
+        }
+
+        $is_hps=SpekHpsItem::where('paket_id',$paket->id)->whereNotNull('harga')->get();
         
         return view('Paket.doc_persiapan.persiapan')
         ->with('paket',$paket)
-        ->with('is_not_hps',$is_not_hps)
-        ->with('is_spek',$spek);
+        ->with('spesifikasi',$spesifikasi)
+        ->with('hps',$is_hps);
 
     }
 
@@ -258,6 +274,7 @@ class PaketController extends Controller
             'to_id'=>$paket->pp_id,
             'disposisi_detail_id'=>$disposisi_detail->id
         ]);
+
     }
 
 
@@ -352,7 +369,11 @@ class PaketController extends Controller
 
         $dt=DataTables::of($paket)
         ->addColumn('action',function($paket){
-            return view('Paket.tabel_paket._action_paket',['id_paket'=>$paket->id]);
+            return view('Paket.tabel_paket._action_paket',[
+                'id_paket'=>$paket->id,
+                'pj'=>$paket->ppk_id
+                
+                ]);
         })
         ->addColumn('nilai_rp',function($paket){
             return view('Permintaan.permintaan_table._nilai',[

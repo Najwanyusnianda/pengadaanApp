@@ -12,26 +12,30 @@
         @if(Session::has('success'))
         <div class="alert alert-success" role="alert">{{session('success')}}</div>
         @endif
+ 
+
 
       <div class="card p-2">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Detail Paket</a>
+                <a class="nav-link " id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Detail Paket</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Penanggungjawab</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Jadwal Kegiatan Pengadaan</a>
+                <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Jadwal Kegiatan Pengadaan</a>
               </li>
               <li class="nav-item">
                   <a class="nav-link" id="dokumen-tab" data-toggle="tab" href="#dokumen" role="tab" aria-controls="contact" aria-selected="false">Dokumen Pengadaan</a>
                 </li>
+
             </ul>
             <div class="tab-content" id="myTabContent">
-              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">@include('Paket._detail_paket')  </div>
+              <div class="tab-pane fade " id="home" role="tabpanel" aria-labelledby="home-tab">@include('Paket._detail_paket')  </div>
               <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">@include('Paket._penanggung_jawab')</div>
-              <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"> @include('Paket._jadwal_paket_')</div>
+              
+              <div class="tab-pane fade show active" id="contact" role="tabpanel" aria-labelledby="contact-tab"> @include('Paket._jadwal_paket_')</div>
               <div class="tab-pane fade" id="dokumen" role="tabpanel" aria-labelledby="dokumen-tab">  @include('Paket._dokumen_pengadaan')</div>
             </div>
 
@@ -227,15 +231,18 @@
       
             <!-- Modal body -->
             <div class="modal-body">
+              @if (!empty($pj))
               <div class="form-group">
                 
-                            <input data-id="{{$paket->pp_id}}" value="{{$pp->nama}}" readonly class="form-control">
-                            <div class="form-group">
-                                <label for="uraian_disposisi" id="uraian_label" class="form-check-label">Catatan</label>
-                                <textarea class="form-control" id="konten_permohonan" rows="3"></textarea>
-                            </div>
+                  <input data-id="{{$paket->pp_id}}" value="{{$pp->nama}}" readonly class="form-control">
+                  <div class="form-group">
+                      <label for="uraian_disposisi" id="uraian_label" class="form-check-label">Catatan</label>
+                      <textarea class="form-control" id="konten_permohonan" rows="3"></textarea>
+                  </div>
 
               </div>
+              @endif
+
             </div>
       
             <!-- Modal footer -->
@@ -253,7 +260,69 @@
 
 
 @section('addStyle')
-	
+ <!--progress Style--> 
+<style>
+.step {
+  list-style: none;
+  margin: .2rem 0;
+  width: 100%;
+}
+
+.step .step-item {
+  -ms-flex: 1 1 0;
+  flex: 1 1 0;
+  margin-top: 0;
+  min-height: 1rem;
+  position: relative; 
+  text-align: center;
+}
+
+.step .step-item:not(:first-child)::before {
+  background: #0069d9;
+  content: "";
+  height: 2px;
+  left: -50%;
+  position: absolute;
+  top: 9px;
+  width: 100%;
+}
+
+.step .step-item a {
+  color: #acb3c2;
+  display: inline-block;
+  padding: 20px 10px 0;
+  text-decoration: none;
+}
+
+.step .step-item a::before {
+  background: #0069d9;
+  border: .1rem solid #fff;
+  border-radius: 50%;
+  content: "";
+  display: block;
+  height: .9rem;
+  left: 50%;
+  position: absolute;
+  top: .2rem;
+  transform: translateX(-50%);
+  width: .9rem;
+  z-index: 1;
+}
+
+.step .step-item.active a::before {
+  background: #fff;
+  border: .1rem solid #0069d9;
+}
+
+.step .step-item.active ~ .step-item::before {
+  background: #e7e9ed;
+}
+
+.step .step-item.active ~ .step-item a::before {
+  background: #e7e9ed;
+}
+</style>
+
 <style>
   
   .arr-right .breadcrumb-item+.breadcrumb-item::before {
